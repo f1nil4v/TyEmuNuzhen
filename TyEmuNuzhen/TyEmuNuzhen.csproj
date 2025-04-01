@@ -101,6 +101,7 @@
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -127,9 +128,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MyClasses\AuthorizationClass.cs" />
+    <Compile Include="MyClasses\ChildrensClass.cs" />
     <Compile Include="MyClasses\DBConnection.cs" />
-    <Compile Include="Views\Pages\VolonteerPage.xaml.cs">
-      <DependentUpon>VolonteerPage.xaml</DependentUpon>
+    <Compile Include="Views\Pages\MonitoringPage.xaml.cs">
+      <DependentUpon>MonitoringPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ChildrensUserControl.xaml.cs">
+      <DependentUpon>ChildrensUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\AuthorizationWindow.xaml.cs">
       <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
@@ -167,7 +172,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\Pages\VolonteerPage.xaml">
+    <Page Include="Views\Pages\MonitoringPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ChildrensUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,7 +192,18 @@
   <ItemGroup>
     <Resource Include="Images\background.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Controls\monitoring.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Controls\exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Controls\profile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Controls\test.jpeg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

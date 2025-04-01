@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows"
         mc:Ignorable="d"
-        Title="Ты ему нужен" Height="650" Width="1000">
+        Title="Ты ему нужен" MinHeight="650" MinWidth="1000" WindowState="Maximized">
 
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
@@ -27,24 +27,38 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid x:Name="menuPanel" HorizontalAlignment="Left" Background="#FFCF5FD3" Grid.ColumnSpan="2" Width="60">
+        <Grid x:Name="menuPanel" HorizontalAlignment="Left" Background="#FFCF5FD3" Grid.ColumnSpan="2" Width="60" Panel.ZIndex="1" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0">
-                <Button x:Name="btnMenu" Height="60" Background="Transparent" BorderBrush="Transparent"
-                    Click="BtnMenu_Click" HorizontalContentAlignment="Left">
-                    <materialDesign:PackIcon Kind="Menu" Width="25" Height="25" Foreground="White"/>
-                </Button>
+                <StackPanel Grid.Row="1">
+                    <Button x:Name="btnMenu" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="BtnMenu_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Menu" Width="25" Height="25" Foreground="White"/>
+                            <TextBlock Text="Меню" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
             </StackPanel>
             <!--Меню волонтёра-->
-            <StackPanel Grid.Row="1">
+            <StackPanel x:Name="volonteerMenu"  Grid.Row="1">
                 <Button Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Home" Width="25" Height="25" Foreground="White" VerticalAlignment="Center"/>
-                        <TextBlock Text="Главная" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                        <Image Source="/Images/Controls/monitoring.png" Height="25"></Image>
+                        <TextBlock Text="Мониторинг" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>
@@ -57,13 +71,48 @@
                         </TextBlock>
                     </StackPanel>
                 </Button>
-                
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
+                <Button Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/Controls/profile.png" Height="25"></Image>
+                        <TextBlock Text="Профиль" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="exitBtn" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="exitBtn_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/Controls/exit.png" Height="25"></Image>
+                        <TextBlock Text="Выход" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+
             </StackPanel>
             <!--Меню волонтёра-->
         </Grid>
 
         <!-- Основная область контента -->
-        <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2" Margin="60,0,0,0"/>
     </Grid>
 
 </Window>
