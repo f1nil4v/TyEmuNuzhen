@@ -18,8 +18,8 @@ namespace TyEmuNuzhen.MyClasses
             try
             {
                 string whereClause = string.IsNullOrEmpty(idRegion)
-                    ? ""
-                    : $"WHERE childrens.idRegion = '{idRegion}'";
+                    ? "childrens.idStatus = '1'"
+                    : $"childrens.idRegion = '{idRegion}' AND childrens.idStatus = '1'";
 
                 DBConnection.myCommand.CommandText = $@"SELECT childrens.ID, childrens.numOfQuestionnaire, childrens.urlOfQuestionnaire, 
                         CONCAT (childrens.surname, ' ', childrens.name) AS 'fullName', childrens.middleName, childrens.birthday,
@@ -38,10 +38,15 @@ namespace TyEmuNuzhen.MyClasses
                          FROM childphoto 
                          WHERE childphoto.idChild = childrens.ID 
                          ORDER BY childphoto.ID DESC 
-                         LIMIT 1) AS latestPhotoPath
+                         LIMIT 1) AS latestPhotoPath,
+                        childrens.isAlert
                     FROM 
                         childrens
-                    {whereClause}";
+                    WHERE
+                        {whereClause}
+                    ORDER BY 
+                        childrens.isAlert DESC,
+                        childrens.ID DESC";
                 dtChildrensList.Clear();
                 DBConnection.myDataAdapter.Fill(dtChildrensList);
                 return true;

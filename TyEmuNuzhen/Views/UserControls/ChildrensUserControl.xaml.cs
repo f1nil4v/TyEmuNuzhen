@@ -23,7 +23,8 @@ namespace TyEmuNuzhen.Views.UserControls
     {
         private string _questUrl;
 
-        public ChildrensUserControl(string id, string questNumber, string questURL, string fullName, DateTime birthDate, DateTime dateDescriptionAdded, string description, int age, string photoPath, DateTime dateChildAdded)
+        public ChildrensUserControl(string id, string questNumber, string questURL, string fullName, DateTime birthDate, 
+            DateTime dateDescriptionAdded, string description, int age, string photoPath, DateTime dateChildAdded, string isAlert)
         {
             InitializeComponent();
             this.Tag = id;
@@ -33,6 +34,8 @@ namespace TyEmuNuzhen.Views.UserControls
             ageTextBlock.Text += age;
             dateAddedTextBlock.Text += dateChildAdded.ToString("dd.MM.yyyy");
             _questUrl = questURL;
+            if (isAlert == "1")
+                alertTextBlock.Visibility = Visibility.Visible;
             descriptionTextBlock.Text += $"от {dateDescriptionAdded.ToString("dd.MM.yyyy")}: \r\n{description}";
             if (!string.IsNullOrEmpty(photoPath))
             {

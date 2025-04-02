@@ -21,7 +21,7 @@
                     </Rectangle.Fill>
                 </Rectangle>
 
-                <Rectangle Width="200" Height="200" RadiusX="10" RadiusY="10" Stroke="#A101A6" StrokeThickness="2" Fill="Transparent"/>
+                <Rectangle Width="200" Height="200" RadiusX="10" RadiusY="10" Stroke="#A3B92E" StrokeThickness="2" Fill="Transparent"/>
             </Grid>
         </Border>
 
@@ -33,6 +33,9 @@
             <TextBlock x:Name="descriptionTextBlock" Margin="0,10,0,0" FontSize="14" Text="Последнее примечание " HorizontalAlignment="Stretch" TextWrapping="Wrap"/>
         </StackPanel>
         <Button x:Name="questURLBtn" Grid.Column="2" BorderThickness="0" Height="20" Content="Отктыть анкету" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#A3B92E" Foreground="#DDFFFFFF" Margin="0,10,10,0" Padding="16,0,16,0" Click="questURLBtn_Click" />
-        <TextBlock x:Name="dateAddedTextBlock" Grid.Column="2" FontSize="12" Text="Дата добавления в базу: " HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10"/>
+        <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10">
+            <TextBlock x:Name="alertTextBlock" Grid.Column="2" FontSize="12" Text="! Тревога" Margin="0,0,0,10" Foreground="#DD880707" HorizontalAlignment="Right" Visibility="Hidden"/>
+            <TextBlock x:Name="dateAddedTextBlock" Grid.Column="2" FontSize="12" Text="Дата добавления в базу: " HorizontalAlignment="Right"/>
+        </StackPanel>
     </Grid>
 </UserControl>
