@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TyEmuNuzhen.MyClasses;
 using TyEmuNuzhen.Views.UserControls;
 
@@ -67,6 +58,11 @@ namespace TyEmuNuzhen.Views.Pages
             int age = today.Year - birthDate.Year;
             if (birthDate.Date > today.AddYears(-age)) age--;
             return age;
+        }
+
+        private void addChildBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Volonteer.UpdateInsertChildrenPage());
         }
     }
 }

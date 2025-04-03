@@ -59,5 +59,10 @@ namespace TyEmuNuzhen.Views.UserControls
                 UseShellExecute = true
             });
         }
+
+        private void detailedBtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

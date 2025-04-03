@@ -57,5 +57,57 @@ namespace TyEmuNuzhen.MyClasses
                 return false;
             }
         }
+
+        public static bool AddMonitoringInfoChildren(string numQuest, string urlQuest, string surname, string name, string birthday, string idRegion, string isAlert)
+        {
+            try
+            {
+                string dateNow = DateTime.Now.ToString("yyyy-MM-dd");
+                
+                DBConnection.myCommand.Parameters.Clear();
+                DBConnection.myCommand.CommandText = @"INSERT INTO childrens 
+                    VALUES (null, @numQuest, @urlQuest, @surname, @name, null, @birthday, 1, @idRegion, null, @dateNow, @isAlert)";
+                
+                DBConnection.myCommand.Parameters.AddWithValue("@numQuest", numQuest);
+                DBConnection.myCommand.Parameters.AddWithValue("@urlQuest", urlQuest);
+                DBConnection.myCommand.Parameters.AddWithValue("@surname", surname);
+                DBConnection.myCommand.Parameters.AddWithValue("@name", name);
+                DBConnection.myCommand.Parameters.AddWithValue("@birthday", birthday);
+                DBConnection.myCommand.Parameters.AddWithValue("@idRegion", idRegion);
+                DBConnection.myCommand.Parameters.AddWithValue("@dateNow", dateNow);
+                DBConnection.myCommand.Parameters.AddWithValue("@isAlert", isAlert);
+                if (DBConnection.myCommand.ExecuteNonQuery() > 0)
+                    return true;
+                else 
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при добавлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        public static string GetLastChildrensID()
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = "SELECT MAX(ID) FROM childrens";
+                Object resultID = DBConnection.myCommand.ExecuteScalar();
+                if (resultID != null)
+                {
+                    return resultID.ToString();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
     }
 }

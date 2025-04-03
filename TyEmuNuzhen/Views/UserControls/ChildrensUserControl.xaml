@@ -26,15 +26,57 @@
         </Border>
 
         <StackPanel Grid.Column="1" Margin="10,10,0,0">
-            <TextBlock x:Name="questNumberTextBlock" FontSize="14" Text="Номер анкеты: " />
-            <TextBlock x:Name="fullNameTextBlock" Margin="0,10,0,0" FontSize="14" Text="Фамилия Имя" />
-            <TextBlock x:Name="birthdayTextBlock" Margin="0,10,0,0" FontSize="14" Text="Дата раждения: " />
-            <TextBlock x:Name="ageTextBlock" Margin="0,10,0,0" FontSize="14" Text="Возраст: " />
-            <TextBlock x:Name="descriptionTextBlock" Margin="0,10,0,0" FontSize="14" Text="Последнее примечание " HorizontalAlignment="Stretch" TextWrapping="Wrap"/>
+            <TextBlock x:Name="questNumberTextBlock" 
+                       FontSize="14" 
+                       Text="Номер анкеты: " />
+            <TextBlock x:Name="fullNameTextBlock" 
+                       Margin="0,10,0,0" 
+                       FontSize="14" 
+                       Text="Фамилия Имя" />
+            <TextBlock x:Name="birthdayTextBlock" 
+                       Margin="0,10,0,0" 
+                       FontSize="14" 
+                       Text="Дата раждения: " />
+            <TextBlock x:Name="ageTextBlock" 
+                       Margin="0,10,0,0" FontSize="14" 
+                       Text="Возраст: " />
+            <TextBlock x:Name="descriptionTextBlock" 
+                       Margin="0,10,0,0" 
+                       FontSize="14" 
+                       Text="Последнее примечание " 
+                       HorizontalAlignment="Stretch" 
+                       TextWrapping="Wrap" 
+                       TextTrimming="WordEllipsis" 
+                       MaxHeight="60"/>
         </StackPanel>
-        <Button x:Name="questURLBtn" Grid.Column="2" BorderThickness="0" Height="20" Content="Отктыть анкету" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#A3B92E" Foreground="#DDFFFFFF" Margin="0,10,10,0" Padding="16,0,16,0" Click="questURLBtn_Click" />
+        <Button x:Name="detailedBtn" 
+                Grid.Column="2" 
+                BorderThickness="0" 
+                Height="20" 
+                Content="Подробная информация" 
+                FontSize="12" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top" 
+                Background="#A3B92E" 
+                Foreground="#DDFFFFFF" 
+                Margin="0,10,10,0" 
+                Padding="16,0,16,0" 
+                Click="detailedBtn_Click" />
+        <Button x:Name="questURLBtn" 
+                Grid.Column="2" 
+                BorderThickness="0" 
+                Height="20" 
+                Content="Отктыть анкету URL" 
+                FontSize="12" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top" 
+                Background="#A3B92E" 
+                Foreground="#DDFFFFFF" 
+                Margin="0,35,10,0" 
+                Padding="16,0,16,0" 
+                Click="questURLBtn_Click" Width="173" />
         <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10">
-            <TextBlock x:Name="alertTextBlock" Grid.Column="2" FontSize="12" Text="! Тревога" Margin="0,0,0,10" Foreground="#DD880707" HorizontalAlignment="Right" Visibility="Hidden"/>
+            <TextBlock x:Name="alertTextBlock" Grid.Column="2" FontSize="14" Text="! Тревога" Margin="0,0,0,10" Foreground="#DD880707" HorizontalAlignment="Right" Visibility="Hidden"/>
             <TextBlock x:Name="dateAddedTextBlock" Grid.Column="2" FontSize="12" Text="Дата добавления в базу: " HorizontalAlignment="Right"/>
         </StackPanel>
     </Grid>

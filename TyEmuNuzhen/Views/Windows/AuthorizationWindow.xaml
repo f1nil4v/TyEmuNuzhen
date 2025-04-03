@@ -42,7 +42,7 @@
                         <Button Content="Показать пароль" FontSize="14" Foreground="Black" Background="Transparent" Click="Button_Click" Cursor="Hand" BorderThickness="0" HorizontalAlignment="Right" Margin="0,0,10,0"/>
                     </Grid>
                 </Border>
-                <Label x:Name="errorPassLogLabel" Content=" " FontSize="14" Foreground="#DD880707"/>
+                <TextBlock x:Name="errorPassLogLabel" Text=" " FontSize="14" Foreground="#DD880707" HorizontalAlignment="Stretch" TextWrapping="Wrap"/>
                 <Grid Margin="0,100,0,0">
                     <Border CornerRadius="10" BorderThickness="1" Background="#FFE5FB71" BorderBrush="#A101A6" Padding="15,5,15,5" Margin="0,0,546,0">
                         <Button x:Name="closeApplicationDtn" Content="Закрыть приложение" FontSize="14" Foreground="Black" Background="Transparent" Click="closeApplicationBtn_OnClick" Cursor="Hand" BorderThickness="0"/>

@@ -40,22 +40,48 @@ namespace TyEmuNuzhen
             if (passwordBox.Password != "" && passwordTextBox.Text != null && loginTextBox.Text != null)
             {
                 string authorizationData = AuthorizationClass.Authorization(loginTextBox.Text, passwordBox.Password);
+                string idUser = null;
                 switch (authorizationData)
                 {
                     case "1":
-                        this.Hide();
-                        mainWindow = new MainWindow();
-                        mainWindow.Show();
+                        idUser = AuthorizationClass.GetUserId(loginTextBox.Text, passwordBox.Password);
+                        string idVolonteer = VolonteerClass.GetVolonteerID(idUser);
+                        string idRegion = VolonteerClass.GetVolonteerRegion(idUser);
+                        if (idVolonteer != null && idRegion != null)
+                        {
+                            this.Hide();
+                            mainWindow = new MainWindow(idVolonteer, idRegion);
+                            mainWindow.Show();
+                        }
+                        else
+                        {
+                            errorPassLogLabel.Text = "*Произошла ошибка при авторизации. Информации о данном сотруднике нет.";
+                            AnimationsClass.ShakeElement(errorPassLogLabel);
+                        }
                         break;
                     case "2":
-                        this.Hide();
-                        mainWindow = new MainWindow();
-                        mainWindow.Show();
+                        idUser = AuthorizationClass.GetUserId(loginTextBox.Text, passwordBox.Password);
+                        if (1==2)
+                        {
+                           
+                        }
+                        else
+                        {
+                            errorPassLogLabel.Text = "*Произошла ошибка при авторизации. Информации о данном сотруднике нет. За помощью обратитесь к администратору системы";
+                            AnimationsClass.ShakeElement(errorPassLogLabel);
+                        }
                         break;
                     case "3":
-                        this.Hide();
-                        mainWindow = new MainWindow();
-                        mainWindow.Show();
+                        idUser = AuthorizationClass.GetUserId(loginTextBox.Text, passwordBox.Password);
+                        if (1 == 2)
+                        {
+
+                        }
+                        else
+                        {
+                            errorPassLogLabel.Text = "*Произошла ошибка при авторизации. Информации о данном сотруднике нет. За помощью обратитесь к администратору системы";
+                            AnimationsClass.ShakeElement(errorPassLogLabel);
+                        }
                         break;
                     default:
                         passwordBox.Password = "";
@@ -65,15 +91,15 @@ namespace TyEmuNuzhen
                         passwordBorder.BorderThickness = new Thickness(2);
                         loginBorder.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#DD880707");
                         passwordBorder.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#DD880707");
-                        errorPassLogLabel.Content = "*Неверный логин или пароль";
-                        ShakeElement(errorPassLogLabel);
+                        errorPassLogLabel.Text = "*Неверный логин или пароль";
+                        AnimationsClass.ShakeElement(errorPassLogLabel);
                         break;
                 }
             }
             else
             {
-                errorPassLogLabel.Content = "*Заполните все поля";
-                ShakeElement(errorPassLogLabel);
+                errorPassLogLabel.Text = "*Заполните все поля";
+                AnimationsClass.ShakeElement(errorPassLogLabel);
             }
         }
 
@@ -98,7 +124,7 @@ namespace TyEmuNuzhen
 
         private void loginTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            errorPassLogLabel.Content = " ";
+            errorPassLogLabel.Text = " ";
             loginBorder.BorderThickness = new Thickness(1);
             passwordBorder.BorderThickness = new Thickness(1);
             loginBorder.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#A101A6");
@@ -107,30 +133,11 @@ namespace TyEmuNuzhen
 
         private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            errorPassLogLabel.Content = " ";
+            errorPassLogLabel.Text = " ";
             loginBorder.BorderThickness = new Thickness(1);
             passwordBorder.BorderThickness = new Thickness(1);
             loginBorder.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#A101A6");
             passwordBorder.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#A101A6");
-        }
-
-        private void ShakeElement(UIElement element)
-        {
-            TranslateTransform trans = new TranslateTransform();
-            element.RenderTransform = trans;
-
-            DoubleAnimationUsingKeyFrames anim = new DoubleAnimationUsingKeyFrames();
-            anim.Duration = TimeSpan.FromMilliseconds(200);
-
-            anim.KeyFrames.Add(new LinearDoubleKeyFrame(0, KeyTime.FromPercent(0)));
-            anim.KeyFrames.Add(new LinearDoubleKeyFrame(-10, KeyTime.FromPercent(0.1)));
-            anim.KeyFrames.Add(new LinearDoubleKeyFrame(10, KeyTime.FromPercent(0.3)));
-            anim.KeyFrames.Add(new LinearDoubleKeyFrame(-10, KeyTime.FromPercent(0.5)));
-            anim.KeyFrames.Add(new LinearDoubleKeyFrame(10, KeyTime.FromPercent(0.7)));
-            anim.KeyFrames.Add(new LinearDoubleKeyFrame(-5, KeyTime.FromPercent(0.9)));
-            anim.KeyFrames.Add(new LinearDoubleKeyFrame(0, KeyTime.FromPercent(1)));
-
-            trans.BeginAnimation(TranslateTransform.XProperty, anim);
         }
     }
 }

@@ -127,11 +127,22 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MyClasses\AnimationsClass.cs" />
     <Compile Include="MyClasses\AuthorizationClass.cs" />
+    <Compile Include="MyClasses\ChildrenDescriptionClass.cs" />
+    <Compile Include="MyClasses\ChildrenPhotoClass.cs" />
     <Compile Include="MyClasses\ChildrensClass.cs" />
+    <Compile Include="MyClasses\CopyFilesClass.cs" />
     <Compile Include="MyClasses\DBConnection.cs" />
-    <Compile Include="Views\Pages\MonitoringPage.xaml.cs">
+    <Compile Include="MyClasses\VolonteerClass.cs" />
+    <Compile Include="Views\Pages\Volonteer\DetailChildInfoMonitoringPage.xaml.cs">
+      <DependentUpon>DetailChildInfoMonitoringPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Volonteer\MonitoringPage.xaml.cs">
       <DependentUpon>MonitoringPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Volonteer\AddChildrenInfoMonitoringPage.xaml.cs">
+      <DependentUpon>AddChildrenInfoMonitoringPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\ChildrensUserControl.xaml.cs">
       <DependentUpon>ChildrensUserControl.xaml</DependentUpon>
@@ -172,7 +183,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\Pages\MonitoringPage.xaml">
+    <Page Include="Views\Pages\Volonteer\DetailChildInfoMonitoringPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Volonteer\MonitoringPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Volonteer\AddChildrenInfoMonitoringPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,7 +221,10 @@
     <Resource Include="Images\Controls\profile.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Controls\test.jpeg" />
+    <Resource Include="Images\Controls\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Controls\back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets')" />

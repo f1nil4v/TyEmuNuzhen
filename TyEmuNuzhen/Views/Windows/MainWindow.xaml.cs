@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Globalization;
 using System.Windows;
-using System.Windows.Data;
-using System.Windows.Forms;
 using System.Windows.Media.Animation;
-using static System.Net.WebRequestMethods;
 
 
 namespace TyEmuNuzhen.Views.Windows
@@ -17,7 +12,7 @@ namespace TyEmuNuzhen.Views.Windows
     {
         bool isMenuOpen = false;
 
-        public MainWindow()
+        public MainWindow(string idVolonteer, string idRegion)
         {
             InitializeComponent();
             MainFrame.Navigate(new Pages.MonitoringPage());
@@ -41,14 +36,16 @@ namespace TyEmuNuzhen.Views.Windows
 
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
-
-            DialogResult result = System.Windows.Forms.MessageBox.Show("Вы уверены, что хотите выйти?", "Выход", (MessageBoxButtons)MessageBoxButton.YesNo, (MessageBoxIcon)MessageBoxImage.Question);
-            if (result == System.Windows.Forms.DialogResult.Yes)
+            if (MessageBox.Show("Закрыть приложение?", "Выход", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
                 this.Close();
-                Window window = System.Windows.Application.Current.MainWindow;
-                window.Close();
             }
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
     }
 }
