@@ -14,6 +14,7 @@ namespace TyEmuNuzhen.Views.Pages
     /// </summary>
     public partial class MonitoringPage : Page
     {
+
         public MonitoringPage()
         {
             InitializeComponent();
@@ -64,5 +65,6 @@ namespace TyEmuNuzhen.Views.Pages
         {
             NavigationService.Navigate(new Volonteer.UpdateInsertChildrenPage());
         }
+
     }
 }

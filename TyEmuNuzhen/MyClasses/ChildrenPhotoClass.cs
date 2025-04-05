@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,24 @@ namespace TyEmuNuzhen.MyClasses
 {
     internal class ChildrenPhotoClass
     {
+        public static DataTable dtMonitoringPhoto = new DataTable();
+
+        public static void GetMonitoringPhotoChildren(string idChild)
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $@"SELECT * FROM childphoto 
+                    WHERE childphoto.idChild = '{idChild}'
+                    ORDER BY childphoto.ID DESC";
+                dtMonitoringPhoto.Clear();
+                DBConnection.myDataAdapter.Fill(dtMonitoringPhoto);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         public static bool AddMonitoringPhotoChildren(string idChild, string urlPhoto)
         {
             try

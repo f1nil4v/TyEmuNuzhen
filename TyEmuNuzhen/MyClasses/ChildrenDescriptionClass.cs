@@ -1,14 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
 using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
     internal class ChildrenDescriptionClass
     {
+        public static DataTable dtMonitoringDescription = new DataTable();
+
+        public static void GetMonitoringDescriptionChildren(string idChild)
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $@"SELECT * FROM childrens_description 
+                    WHERE childrens_description.idChild = '{idChild}' ORDER BY ID DESC";
+                dtMonitoringDescription.Clear();
+                DBConnection.myDataAdapter.Fill(dtMonitoringDescription);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         public static bool AddMonitoringDescriptionChildren(string idChild, string description)
         {
             try

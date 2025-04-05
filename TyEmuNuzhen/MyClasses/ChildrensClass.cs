@@ -12,8 +12,9 @@ namespace TyEmuNuzhen.MyClasses
     internal class ChildrensClass
     {
         public static DataTable dtChildrensList = new DataTable();
+        public static DataTable dtChildrensDetailedList = new DataTable();
 
-        public static bool GetChildrenList(string idRegion)
+        public static void GetChildrenList(string idRegion)
         {
             try
             {
@@ -49,12 +50,44 @@ namespace TyEmuNuzhen.MyClasses
                         childrens.ID DESC";
                 dtChildrensList.Clear();
                 DBConnection.myDataAdapter.Fill(dtChildrensList);
-                return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
+            }
+        }
+
+        public static void GetChildrenListByID(string idChild)
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $@"SELECT childrens.ID, childrens.numOfQuestionnaire, childrens.urlOfQuestionnaire, 
+                        childrens.surname, childrens.name, childrens.middleName, childrens.birthday,
+                        (SELECT dateAdded
+                         FROM childrens_description
+                         WHERE childrens_description.idChild = childrens.ID 
+                         ORDER BY childrens_description.ID DESC 
+                         LIMIT 1) AS dateDescriptionAdded,
+                        childrens.dateAdded,
+                        (SELECT childphoto.filePath 
+                         FROM childphoto 
+                         WHERE childphoto.idChild = childrens.ID 
+                         ORDER BY childphoto.ID DESC 
+                         LIMIT 1) AS latestPhotoPath,
+                        (SELECT regions.regionName
+                             FROM regions 
+                             WHERE regions.ID = childrens.idRegion) AS regionName,
+                        childrens.isAlert
+                    FROM 
+                        childrens
+                    WHERE
+                        childrens.ID = '{idChild}'";
+                dtChildrensDetailedList.Clear();
+                DBConnection.myDataAdapter.Fill(dtChildrensDetailedList);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -86,6 +119,33 @@ namespace TyEmuNuzhen.MyClasses
                 MessageBox.Show($"Произошла ошибка при добавлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
+        }
+
+        public static bool UpdateMonitoringInfoChildren(string idChild, string numQuest, string urlQuest, string surname, string name, string birthday, string isAlert)
+        {
+            try
+            {
+                DBConnection.myCommand.Parameters.Clear();
+                DBConnection.myCommand.CommandText = $@"UPDATE childrens 
+                    SET numOfQuestionnaire = @numQuest, urlOfQuestionnaire = @urlQuest, 
+                        surname = @surname, name = @name, birthday = @birthday, isAlert = @isAlert WHERE ID = '{idChild}'";
+                DBConnection.myCommand.Parameters.AddWithValue("@numQuest", numQuest);
+                DBConnection.myCommand.Parameters.AddWithValue("@urlQuest", urlQuest);
+                DBConnection.myCommand.Parameters.AddWithValue("@surname", surname);
+                DBConnection.myCommand.Parameters.AddWithValue("@name", name);
+                DBConnection.myCommand.Parameters.AddWithValue("@birthday", birthday);
+                DBConnection.myCommand.Parameters.AddWithValue("@isAlert", isAlert);
+                if (DBConnection.myCommand.ExecuteNonQuery() > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при обновлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }   
         }
 
         public static string GetLastChildrensID()

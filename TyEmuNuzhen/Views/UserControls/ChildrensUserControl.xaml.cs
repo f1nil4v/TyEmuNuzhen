@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TyEmuNuzhen.Views.Pages.Volonteer;
 
 namespace TyEmuNuzhen.Views.UserControls
 {
@@ -53,16 +54,23 @@ namespace TyEmuNuzhen.Views.UserControls
 
         private void questURLBtn_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo
+            try
             {
-                FileName = _questUrl,
-                UseShellExecute = true
-            });
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = _questUrl,
+                    UseShellExecute = true
+                });
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка открытия ссылки", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void detailedBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+            NavigationService.GetNavigationService(this).Navigate(new DetailChildInfoPage(this.Tag.ToString()));
         }
     }
 }
