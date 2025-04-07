@@ -13,19 +13,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TyEmuNuzhen.Views.Pages.Curator;
 using TyEmuNuzhen.Views.Pages.Volonteer;
+using TyEmuNuzhen.Views.Windows;
 
 namespace TyEmuNuzhen.Views.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для ChildrensUserControl.xaml
+    /// Логика взаимодействия для ChildrenCuratorUserControl.xaml
     /// </summary>
     public partial class ChildrensUserControl : UserControl
     {
         private string _questUrl;
+        private int _role;
 
-        public ChildrensUserControl(string id, string questNumber, string questURL, string fullName, DateTime birthDate, 
-            DateTime dateDescriptionAdded, string description, string age, string photoPath, DateTime dateChildAdded, string isAlert)
+        public ChildrensUserControl(string id, string questNumber, string questURL, string fullName, DateTime birthDate,
+            DateTime dateDescriptionAdded, string description, string age, string regionName, string photoPath, DateTime dateChildAdded, string isAlert, int role)
         {
             InitializeComponent();
             this.Tag = id;
@@ -33,8 +36,12 @@ namespace TyEmuNuzhen.Views.UserControls
             fullNameTextBlock.Text = fullName;
             birthdayTextBlock.Text += birthDate.ToString("dd.MM.yyyy");
             ageTextBlock.Text += age;
+            if (regionName == null)
+                regionTextBlock.Visibility = Visibility.Collapsed;
+            regionTextBlock.Text += regionName;
             dateAddedTextBlock.Text += dateChildAdded.ToString("dd.MM.yyyy");
             _questUrl = questURL;
+            _role = role;
             if (isAlert == "1")
                 alertTextBlock.Visibility = Visibility.Visible;
             descriptionTextBlock.Text += $"от {dateDescriptionAdded.ToString("dd.MM.yyyy")}: \r\n{description}";
@@ -70,7 +77,15 @@ namespace TyEmuNuzhen.Views.UserControls
 
         private void detailedBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GetNavigationService(this).Navigate(new DetailChildInfoPage(this.Tag.ToString()));
+            if (_role == 1)
+                NavigationService.GetNavigationService(this).Navigate(new DetailChildInfoPage(this.Tag.ToString()));
+            if (_role == 2)
+            {
+                DependencyObject parent = this;
+                while (parent != null && !(parent is Pages.Curator.ChildrensPage))
+                    parent = VisualTreeHelper.GetParent(parent);
+                NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator.ChildrensWork.DetailChildrenInfoCuratorPage(this.Tag.ToString()));
+            }
         }
     }
 }

@@ -44,9 +44,12 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                 lbl.Visibility = Visibility.Hidden;
                 foreach (DataRow row in ChildrensClass.dtChildrensList.Rows)
                 {
-                    ChildrensUserControl childControl = new ChildrensUserControl(row["ID"].ToString(), row["numOfQuestionnaire"].ToString(), row["urlOfQuestionnaire"].ToString(),
-                        row["fullName"].ToString(), Convert.ToDateTime(row["birthday"]), Convert.ToDateTime(row["dateDescriptionAdded"]), row["description"].ToString(), CustomFunctionsClass.CalculateAge(Convert.ToDateTime(row["birthday"])), row["latestPhotoPath"].ToString(),
-                        Convert.ToDateTime(row["dateAdded"]), row["isAlert"].ToString());
+                    ChildrensUserControl childControl = new ChildrensUserControl(
+                        row["ID"].ToString(), row["numOfQuestionnaire"].ToString(), row["urlOfQuestionnaire"].ToString(),
+                        row["fullName"].ToString(), Convert.ToDateTime(row["birthday"]), Convert.ToDateTime(row["dateDescriptionAdded"]), row["description"].ToString(),
+                        CustomFunctionsClass.CalculateAge(Convert.ToDateTime(row["birthday"])), row["regionName"].ToString(), row["latestPhotoPath"].ToString(),
+                        Convert.ToDateTime(row["dateAdded"]), row["isAlert"].ToString(), 2
+                    );
 
                     SolidColorBrush solidColorBrush = (row["isAlert"].ToString() == "0"
                         ? (SolidColorBrush)new BrushConverter().ConvertFrom("#FFCF5FD3")
@@ -74,7 +77,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             regionsCmbBox.ItemsSource = RegionsClass.dtRegions.DefaultView;
             regionsCmbBox.DisplayMemberPath = "regionName";
             regionsCmbBox.SelectedValuePath = "ID";
-            sortCmbBox.SelectedIndex = 0;
+            sortCmbBox.SelectedIndex = 1;
             LoadChildrenData();
         }
 

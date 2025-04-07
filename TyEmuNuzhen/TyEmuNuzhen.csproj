@@ -141,6 +141,12 @@
     <Compile Include="Views\Pages\Curator\ChildrensPage.xaml.cs">
       <DependentUpon>ChildrensPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\Curator\ChildrensWork\AddChildrenInfoCuratorPage.xaml.cs">
+      <DependentUpon>AddChildrenInfoCuratorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator\ChildrensWork\DetailChildrenInfoCuratorPage.xaml.cs">
+      <DependentUpon>DetailChildrenInfoCuratorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\Curator\ChildrensWork\MonitoringPage.xaml.cs">
       <DependentUpon>MonitoringPage.xaml</DependentUpon>
     </Compile>
@@ -193,6 +199,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\Pages\Curator\ChildrensPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator\ChildrensWork\AddChildrenInfoCuratorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator\ChildrensWork\DetailChildrenInfoCuratorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

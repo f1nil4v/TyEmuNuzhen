@@ -36,8 +36,8 @@ namespace TyEmuNuzhen.Views.Pages
                 foreach (DataRow row in ChildrensClass.dtChildrensList.Rows)
                 {
                     ChildrensUserControl childControl = new ChildrensUserControl(row["ID"].ToString(), row["numOfQuestionnaire"].ToString(), row["urlOfQuestionnaire"].ToString(),
-                        row["fullName"].ToString(), Convert.ToDateTime(row["birthday"]), Convert.ToDateTime(row["dateDescriptionAdded"]), row["description"].ToString(), CustomFunctionsClass.CalculateAge(Convert.ToDateTime(row["birthday"])), row["latestPhotoPath"].ToString(),
-                        Convert.ToDateTime(row["dateAdded"]), row["isAlert"].ToString());
+                        row["fullName"].ToString(), Convert.ToDateTime(row["birthday"]), Convert.ToDateTime(row["dateDescriptionAdded"]), row["description"].ToString(), CustomFunctionsClass.CalculateAge(Convert.ToDateTime(row["birthday"])), null, row["latestPhotoPath"].ToString(),
+                        Convert.ToDateTime(row["dateAdded"]), row["isAlert"].ToString(), 1);
 
                     SolidColorBrush solidColorBrush = (row["isAlert"].ToString() == "0"
                         ? (SolidColorBrush)new BrushConverter().ConvertFrom("#FFCF5FD3")
@@ -66,7 +66,7 @@ namespace TyEmuNuzhen.Views.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            sortCmbBox.SelectedIndex = 0;
+            sortCmbBox.SelectedIndex = 1;
             LoadChildrenData();
         }
 

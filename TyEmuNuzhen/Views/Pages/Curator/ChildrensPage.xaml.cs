@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TyEmuNuzhen.Views.Pages.Curator.ChildrensWork;
 
 namespace TyEmuNuzhen.Views.Pages.Curator
 {
@@ -24,6 +25,11 @@ namespace TyEmuNuzhen.Views.Pages.Curator
         {
             InitializeComponent();
             childrenFrame.Navigate(new ChildrensWork.MonitoringPage());
+        }
+
+        private void addChildBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddChildrenInfoCuratorPage());
         }
     }
 }

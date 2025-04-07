@@ -37,22 +37,31 @@ namespace TyEmuNuzhen.MyClasses
                 DBConnection.myCommand.Parameters.Clear();
                 DBConnection.myCommand.CommandText = $@"SELECT childrens.ID, childrens.numOfQuestionnaire, childrens.urlOfQuestionnaire, 
                         CONCAT_WS(' ', childrens.surname, childrens.name, IFNULL(childrens.middleName, '')) AS 'fullName', childrens.birthday,
+                        (SELECT statusName
+                             FROM children_status 
+                             WHERE children_status.ID = childrens.idStatus) AS statusName,
+                        (SELECT regions.regionName
+                             FROM regions 
+                             WHERE regions.ID = childrens.idRegion) AS regionName,
+                        (SELECT orphanages.nameOrphanage
+                             FROM orphanages 
+                             WHERE orphanages.ID = childrens.idOrphanage) AS orphanageName,
                         (SELECT dateAdded
-                         FROM childrens_description
-                         WHERE childrens_description.idChild = childrens.ID 
-                         ORDER BY childrens_description.ID DESC 
-                         LIMIT 1) AS dateDescriptionAdded,
+                             FROM childrens_description
+                             WHERE childrens_description.idChild = childrens.ID 
+                             ORDER BY childrens_description.ID DESC 
+                             LIMIT 1) AS dateDescriptionAdded,
                         (SELECT description
-                         FROM childrens_description
-                         WHERE childrens_description.idChild = childrens.ID 
-                         ORDER BY childrens_description.ID DESC 
-                         LIMIT 1) AS description,
+                             FROM childrens_description
+                             WHERE childrens_description.idChild = childrens.ID 
+                             ORDER BY childrens_description.ID DESC 
+                             LIMIT 1) AS description,
                         childrens.dateAdded,
                         (SELECT childphoto.filePath 
-                         FROM childphoto 
-                         WHERE childphoto.idChild = childrens.ID 
-                         ORDER BY childphoto.ID DESC 
-                         LIMIT 1) AS latestPhotoPath,
+                             FROM childphoto 
+                             WHERE childphoto.idChild = childrens.ID 
+                             ORDER BY childphoto.ID DESC 
+                             LIMIT 1) AS latestPhotoPath,
                         childrens.isAlert
                     FROM 
                         childrens
