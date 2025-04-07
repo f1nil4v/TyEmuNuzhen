@@ -22,6 +22,8 @@ namespace TyEmuNuzhen.Views.Pages
 
         private void LoadChildrenData()
         {
+            int countRecords = 0;
+            string countAllRecords = ChildrensClass.GetCountChildrensMonitoring(VolonteerClass.idRegion);
             string _dateAddedBeginPeriod = dateAddedBeginPeriodPicker.SelectedDate == null ? null : dateAddedBeginPeriodPicker.SelectedDate.Value.ToString("yyyy-MM-dd");
             string _dateAddedEndPeriod = dateAddedEndPeriodPicker.SelectedDate == null ? null : dateAddedEndPeriodPicker.SelectedDate.Value.ToString("yyyy-MM-dd");
             string _searchQuery = searchTxt == null ? null : searchTxt.Text;
@@ -53,10 +55,12 @@ namespace TyEmuNuzhen.Views.Pages
                     };
                     border.Child = childControl;
                     childrenContainer.Children.Add(border);
+                    countRecords++;
                 }
             }
             else
                 lbl.Visibility = Visibility.Visible;
+            countRecordsTxt.Text = $"{countRecords} из {countAllRecords} записей";
         }
 
         private void addChildBtn_Click(object sender, RoutedEventArgs e)

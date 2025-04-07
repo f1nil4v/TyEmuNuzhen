@@ -81,10 +81,7 @@ namespace TyEmuNuzhen.Views.UserControls
                 NavigationService.GetNavigationService(this).Navigate(new DetailChildInfoPage(this.Tag.ToString()));
             if (_role == 2)
             {
-                DependencyObject parent = this;
-                while (parent != null && !(parent is Pages.Curator.ChildrensPage))
-                    parent = VisualTreeHelper.GetParent(parent);
-                NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator.ChildrensWork.DetailChildrenInfoCuratorPage(this.Tag.ToString()));
+                NavigationService.GetNavigationService(this).Navigate(new Pages.Curator.ChildrensWork.DetailChildrenInfoCuratorPage(this.Tag.ToString()));
             }
         }
     }

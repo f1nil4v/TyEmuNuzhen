@@ -120,6 +120,53 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        public static string GetLastChildrensID()
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = "SELECT MAX(ID) FROM childrens";
+                Object resultID = DBConnection.myCommand.ExecuteScalar();
+                if (resultID != null)
+                {
+                    return resultID.ToString();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
+        public static string GetCountChildrensMonitoring(string idRegion)
+        {
+            try
+            {
+                string whereClause = $"idStatus = 1";
+                if (!String.IsNullOrEmpty(idRegion))
+                    whereClause += $" AND idRegion = '{idRegion}'";
+                DBConnection.myCommand.CommandText = $"SELECT COUNT(ID) FROM childrens WHERE {whereClause}";
+                Object resultID = DBConnection.myCommand.ExecuteScalar();
+                if (resultID != null)
+                {
+                    return resultID.ToString();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
         public static bool AddMonitoringInfoChildren(string numQuest, string urlQuest, string surname, string name, string birthday, string idRegion, string isAlert)
         {
             try
@@ -177,26 +224,25 @@ namespace TyEmuNuzhen.MyClasses
             }   
         }
 
-        public static string GetLastChildrensID()
+        public static bool UpdateStatusChildren(string idChild, string idStatus)
         {
             try
             {
-                DBConnection.myCommand.CommandText = "SELECT MAX(ID) FROM childrens";
-                Object resultID = DBConnection.myCommand.ExecuteScalar();
-                if (resultID != null)
-                {
-                    return resultID.ToString();
-                }
+                DBConnection.myCommand.Parameters.Clear();
+                DBConnection.myCommand.CommandText = $@"UPDATE childrens 
+                    SET idStatus = @idStatus WHERE ID = '{idChild}'";
+                DBConnection.myCommand.Parameters.AddWithValue("@idStatus", idStatus);
+                if (DBConnection.myCommand.ExecuteNonQuery() > 0)
+                    return true;
                 else
-                {
-                    return null;
-                }
+                    return false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return null;
+                MessageBox.Show($"Произошла ошибка при обновлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
         }
+
     }
 }

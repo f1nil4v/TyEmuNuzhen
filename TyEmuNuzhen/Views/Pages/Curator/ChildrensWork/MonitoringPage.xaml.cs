@@ -30,6 +30,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
 
         private void LoadChildrenData()
         {
+            int countRecords = 0;
             string _idRegion = regionsCmbBox.SelectedValue == null ? null : regionsCmbBox.SelectedValue.ToString();
             string _dateAddedBeginPeriod = dateAddedBeginPeriodPicker.SelectedDate == null ? null : dateAddedBeginPeriodPicker.SelectedDate.Value.ToString("yyyy-MM-dd");
             string _dateAddedEndPeriod = dateAddedEndPeriodPicker.SelectedDate == null ? null : dateAddedEndPeriodPicker.SelectedDate.Value.ToString("yyyy-MM-dd");
@@ -37,6 +38,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             bool _isDESC = true;
             if (sortCmbBox.SelectedIndex == 0)
                 _isDESC = false;
+            string countAllRecords = ChildrensClass.GetCountChildrensMonitoring(_idRegion);
             ChildrensClass.GetChildrenList("1", _idRegion, _dateAddedBeginPeriod, _dateAddedEndPeriod, _searchQuery, _isDESC);
             childrenContainer.Children.Clear();
             if (ChildrensClass.dtChildrensList.Rows.Count > 0)
@@ -65,10 +67,12 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                     };
                     border.Child = childControl;
                     childrenContainer.Children.Add(border);
+                    countRecords++;
                 }
             }
             else
                 lbl.Visibility = Visibility.Visible;
+            countRecordsTxt.Text = $"{countRecords} из {countAllRecords} записей";
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -79,6 +83,11 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             regionsCmbBox.SelectedValuePath = "ID";
             sortCmbBox.SelectedIndex = 1;
             LoadChildrenData();
+        }
+
+        private void addChildBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddChildrenInfoCuratorPage());
         }
 
         private void regionsCmbBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -6,7 +6,6 @@
       xmlns:local="clr-namespace:TyEmuNuzhen.Views.Pages.Curator.ChildrensWork"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="1080" d:DesignWidth="1000"
       Title="DetailChildrenInfoCuratorPage">
     <Page.Resources>
         <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
@@ -109,6 +108,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!-- Фотография -->
@@ -128,7 +128,7 @@
 
                 <!-- Личные данные -->
                 <GroupBox Grid.Row="0" Grid.Column="1" Header="Личные данные" Margin="0,0,0,15" 
-                BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
+                    BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
                     <StackPanel>
                         <!-- Режим просмотра -->
                         <Grid x:Name="viewGrid" Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="4" Visibility="Visible">
@@ -295,7 +295,7 @@
                 </GroupBox>
 
                 <!-- Добавление нового примечания -->
-                <GroupBox x:Name="addDescriptionGrid" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Header="Добавить примечание" Margin="0,15,0,0" 
+                <GroupBox x:Name="addDescriptionGrid" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Header="Добавить примечание" Margin="0,15,0,15" 
                       BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
                     <Grid Margin="0,10,0,10">
                         <Grid.RowDefinitions>
@@ -312,6 +312,27 @@
                             Background="#A3B92E" 
                             BorderBrush="#A3B92E"  
                             Padding="15,5" Click="btnAddDescription_Click" />
+                    </Grid>
+                </GroupBox>
+
+                <!-- Блок действий -->
+                <GroupBox x:Name="actionsGrid" Grid.Row="4" Grid.Column="1" Header="Действия" Margin="0,15,0,0" 
+                    BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14" Width="400" HorizontalAlignment="Right">
+                    <Grid Margin="0,10,0,10">
+                        <Button Grid.Row="1" 
+                            x:Name="btnAddNotProblem" 
+                            Content="Проблем не выявлено" 
+                            HorizontalAlignment="Left" 
+                            Background="#A3B92E" 
+                            BorderBrush="#A3B92E"  
+                            Padding="15,5" Click="btnAddNotProblem_Click" />
+                        <Button Grid.Row="1" 
+                            x:Name="btnAddHaveProblems" 
+                            Content="Проблемы выявлены" 
+                            HorizontalAlignment="Right" 
+                            Background="#A3B92E" 
+                            BorderBrush="#A3B92E"  
+                            Padding="15,5" Click="btnAddHaveProblems_Click" />
                     </Grid>
                 </GroupBox>
             </Grid>

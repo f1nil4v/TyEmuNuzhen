@@ -84,7 +84,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                 return;
             if (!ChildrenDescriptionClass.AddMonitoringDescriptionChildren(idChild, descriptionTextBox.Text))
                 return;
-            NavigationService.Navigate(new ChildrensPage());
+            NavigationService.Navigate(new MonitoringPage());
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)

@@ -12,7 +12,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="200">
+        <Border Grid.Column="0" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="200">
             <Grid>
                 <Rectangle Width="200" Height="200" RadiusX="10" RadiusY="10">
                     <Rectangle.Fill>

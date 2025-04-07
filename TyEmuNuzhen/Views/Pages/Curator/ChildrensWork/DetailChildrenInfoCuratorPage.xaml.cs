@@ -381,5 +381,27 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                 MessageBox.Show("Ошибка открытия ссылки", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void btnAddNotProblem_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Вы уверены, что у данного ребёнка проблем не выявлено?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                if (!ChildrensClass.UpdateStatusChildren(_id, "9"))
+                    return;
+                MessageBox.Show("Наблюдение за данным ребёнком завершено. Информация о нём перемещена в Архив/Без выявленных проблем", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                NavigationService.Navigate(new MonitoringPage());
+            }
+        }
+
+        private void btnAddHaveProblems_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Вы уверены, что у данного ребёнка выявленны проблемы?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                if (!ChildrensClass.UpdateStatusChildren(_id, "2"))
+                    return;
+                MessageBox.Show("Данный ребёнок предварительно запущен в процесс работы. Для того что-бы провести консультацию, заполните остальную информацию на странице Предварительно в работе", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                NavigationService.Navigate(new MonitoringPage());
+            }
+        }
     }
 }

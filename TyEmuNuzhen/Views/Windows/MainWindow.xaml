@@ -12,12 +12,12 @@
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimation Storyboard.TargetProperty="Width" 
                              Storyboard.TargetName="menuPanel"
-                             From="60" To="200" Duration="0:0:0.2"/>
+                             From="60" To="250" Duration="0:0:0.2"/>
         </Storyboard>
         <Storyboard x:Key="CloseMenu">
             <DoubleAnimation Storyboard.TargetProperty="Width" 
                              Storyboard.TargetName="menuPanel"
-                             From="200" To="60" Duration="0:0:0.2"/>
+                             From="250" To="60" Duration="0:0:0.2"/>
         </Storyboard>
     </Window.Resources>
 
@@ -33,9 +33,9 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0">
+            <StackPanel Grid.Row="0" Cursor="Hand">
                 <StackPanel Grid.Row="1">
-                    <Button x:Name="btnMenu" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="BtnMenu_Click">
+                    <Button x:Name="btnMenu" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Click="BtnMenu_Click">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Menu" Width="25" Height="25" Foreground="White"/>
                             <TextBlock Text="Меню" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
@@ -57,7 +57,7 @@
             <!--Меню волонтёра-->
             
             <StackPanel x:Name="volonteerMenu" Grid.Row="1" Visibility="Hidden">
-                <Button Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left">
+                <Button x:Name="btnVolonteerMonitoring" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnVolonteerMonitoring_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/Controls/monitoring.png" Height="25"></Image>
                         <TextBlock Text="Мониторинг" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
@@ -80,10 +80,90 @@
             <!--Меню куратора-->
 
             <StackPanel x:Name="curatorMenu" Grid.Row="1" Visibility="Hidden">
-                <Button Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left">
+                <Button x:Name="btnProgram" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnProgram_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/Controls/program.png" Height="25"></Image>
+                        <TextBlock Text="Чтобы успеть вовремя" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnConsultation" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnConsultation_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/Controls/consultation.png" Height="25"></Image>
+                        <TextBlock Text="Консультации" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnCuratorMonitoring" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnCuratorMonitoring_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/Controls/monitoring.png" Height="25"></Image>
+                        <TextBlock Text="Мониторинг" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnPreliminary" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnPreliminary_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/Controls/preliminaryInWork.png" Height="25"></Image>
+                        <TextBlock Text="Пердварительно в работе" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnChildrens" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnChildrens_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/Controls/children.png" Height="25"></Image>
                         <TextBlock Text="Дети" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnArchive" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnArchive_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/Controls/archive.png" Height="25"></Image>
+                        <TextBlock Text="Архив" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>
@@ -101,7 +181,7 @@
             <!---->
             
             <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
-                <Button Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left">
+                <Button x:Name="btnProfile" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnProfile_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/Controls/profile.png" Height="25"></Image>
                         <TextBlock Text="Профиль" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
