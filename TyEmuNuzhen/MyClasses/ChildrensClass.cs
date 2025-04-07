@@ -14,16 +14,29 @@ namespace TyEmuNuzhen.MyClasses
         public static DataTable dtChildrensList = new DataTable();
         public static DataTable dtChildrensDetailedList = new DataTable();
 
-        public static void GetChildrenList(string idRegion)
+        public static void GetChildrenList(string idStatus, string idRegion, string dateAddedBeginPeriod, string dateAddedEndPeriod, string searchQuery, bool isDESC)
         {
             try
             {
-                string whereClause = string.IsNullOrEmpty(idRegion)
-                    ? "childrens.idStatus = '1'"
-                    : $"childrens.idRegion = '{idRegion}' AND childrens.idStatus = '1'";
+                string whereClause = $"childrens.idStatus = '{idStatus}'";
+                string orderByClause = isDESC ? "DESC" : "ASC";
+                if (!String.IsNullOrEmpty(idRegion))
+                    whereClause += $" AND childrens.idRegion = '{idRegion}'";
+                if (!String.IsNullOrEmpty(dateAddedBeginPeriod) && !String.IsNullOrEmpty(dateAddedEndPeriod))
+                    whereClause += $" AND childrens.dateAdded BETWEEN '{dateAddedBeginPeriod}' AND '{dateAddedEndPeriod}'";
+                if (!String.IsNullOrEmpty(searchQuery))
+                    whereClause += $@" AND (childrens.surname LIKE @searchQuery OR childrens.name LIKE @searchQuery 
+                                       OR childrens.middleName LIKE @searchQuery 
+                                       OR CONCAT_WS(' ', childrens.surname, childrens.name, IFNULL(childrens.middleName, '')) LIKE @searchQuery
+                                       OR (SELECT description
+                                        FROM childrens_description
+                                        WHERE childrens_description.idChild = childrens.ID 
+                                        ORDER BY childrens_description.ID DESC 
+                                        LIMIT 1) LIKE @searchQueryDescription)";
 
+                DBConnection.myCommand.Parameters.Clear();
                 DBConnection.myCommand.CommandText = $@"SELECT childrens.ID, childrens.numOfQuestionnaire, childrens.urlOfQuestionnaire, 
-                        CONCAT (childrens.surname, ' ', childrens.name) AS 'fullName', childrens.middleName, childrens.birthday,
+                        CONCAT_WS(' ', childrens.surname, childrens.name, IFNULL(childrens.middleName, '')) AS 'fullName', childrens.birthday,
                         (SELECT dateAdded
                          FROM childrens_description
                          WHERE childrens_description.idChild = childrens.ID 
@@ -47,7 +60,14 @@ namespace TyEmuNuzhen.MyClasses
                         {whereClause}
                     ORDER BY 
                         childrens.isAlert DESC,
-                        childrens.ID DESC";
+                        childrens.ID {orderByClause}";
+                if (searchQuery != null)
+                {
+                    string wildcardSearch = searchQuery + "%";
+                    string wildcardSearchDescription = "%" + searchQuery + "%";
+                    DBConnection.myCommand.Parameters.AddWithValue("@searchQueryDescription", wildcardSearchDescription);
+                    DBConnection.myCommand.Parameters.AddWithValue("@searchQuery", wildcardSearch);
+                }
                 dtChildrensList.Clear();
                 DBConnection.myDataAdapter.Fill(dtChildrensList);
             }

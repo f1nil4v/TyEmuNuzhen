@@ -1,20 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.Windows.Shapes;
 using TyEmuNuzhen.MyClasses;
 using TyEmuNuzhen.Views.UserControls;
 
-namespace TyEmuNuzhen.Views.Pages
+namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
 {
     /// <summary>
     /// Логика взаимодействия для MonitoringPage.xaml
     /// </summary>
     public partial class MonitoringPage : Page
     {
-
         public MonitoringPage()
         {
             InitializeComponent();
@@ -22,13 +30,14 @@ namespace TyEmuNuzhen.Views.Pages
 
         private void LoadChildrenData()
         {
+            string _idRegion = regionsCmbBox.SelectedValue == null ? null : regionsCmbBox.SelectedValue.ToString();
             string _dateAddedBeginPeriod = dateAddedBeginPeriodPicker.SelectedDate == null ? null : dateAddedBeginPeriodPicker.SelectedDate.Value.ToString("yyyy-MM-dd");
             string _dateAddedEndPeriod = dateAddedEndPeriodPicker.SelectedDate == null ? null : dateAddedEndPeriodPicker.SelectedDate.Value.ToString("yyyy-MM-dd");
             string _searchQuery = searchTxt == null ? null : searchTxt.Text;
             bool _isDESC = true;
             if (sortCmbBox.SelectedIndex == 0)
                 _isDESC = false;
-            ChildrensClass.GetChildrenList("1", VolonteerClass.idRegion, _dateAddedBeginPeriod, _dateAddedEndPeriod, _searchQuery, _isDESC);
+            ChildrensClass.GetChildrenList("1", _idRegion, _dateAddedBeginPeriod, _dateAddedEndPeriod, _searchQuery, _isDESC);
             childrenContainer.Children.Clear();
             if (ChildrensClass.dtChildrensList.Rows.Count > 0)
             {
@@ -59,19 +68,25 @@ namespace TyEmuNuzhen.Views.Pages
                 lbl.Visibility = Visibility.Visible;
         }
 
-        private void addChildBtn_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Volonteer.UpdateInsertChildrenPage());
-        }
-
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            RegionsClass.GetRegionsList();
+            regionsCmbBox.ItemsSource = RegionsClass.dtRegions.DefaultView;
+            regionsCmbBox.DisplayMemberPath = "regionName";
+            regionsCmbBox.SelectedValuePath = "ID";
             sortCmbBox.SelectedIndex = 0;
             LoadChildrenData();
         }
 
+        private void regionsCmbBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (regionsCmbBox.SelectedIndex != -1)
+                LoadChildrenData();
+        }
+
         private void btnRefreshFiltration_Click(object sender, RoutedEventArgs e)
         {
+            regionsCmbBox.SelectedIndex = -1;
             searchTxt.Text = "";
             LoadChildrenData();
         }
@@ -104,6 +119,5 @@ namespace TyEmuNuzhen.Views.Pages
             dateAddedEndPeriodPicker.SelectedDate = null;
             LoadChildrenData();
         }
-
     }
 }

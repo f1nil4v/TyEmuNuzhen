@@ -53,8 +53,10 @@
                     </Button>
                 </StackPanel>
             </StackPanel>
+            
             <!--Меню волонтёра-->
-            <StackPanel x:Name="volonteerMenu"  Grid.Row="1">
+            
+            <StackPanel x:Name="volonteerMenu" Grid.Row="1" Visibility="Hidden">
                 <Button Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/Controls/monitoring.png" Height="25"></Image>
@@ -73,6 +75,31 @@
                 </Button>
             </StackPanel>
 
+            <!---->
+            
+            <!--Меню куратора-->
+
+            <StackPanel x:Name="curatorMenu" Grid.Row="1" Visibility="Hidden">
+                <Button Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/Controls/children.png" Height="25"></Image>
+                        <TextBlock Text="Дети" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            
+            <!---->
+            
             <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
                 <Button Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left">
                     <StackPanel Orientation="Horizontal">
@@ -108,11 +135,10 @@
                 </Button>
 
             </StackPanel>
-            <!--Меню волонтёра-->
         </Grid>
 
         <!-- Основная область контента -->
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2" Margin="60,0,0,0"/>
+        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2" Margin="60,0,0,0"/>
     </Grid>
 
 </Window>

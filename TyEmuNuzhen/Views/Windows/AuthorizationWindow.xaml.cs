@@ -41,16 +41,17 @@ namespace TyEmuNuzhen
             {
                 string authorizationData = AuthorizationClass.Authorization(loginTextBox.Text, passwordBox.Password);
                 string idUser = null;
+                string idEmployee = null;
                 switch (authorizationData)
                 {
                     case "1":
                         idUser = AuthorizationClass.GetUserId(loginTextBox.Text, passwordBox.Password);
-                        string idVolonteer = VolonteerClass.GetVolonteerID(idUser);
+                        idEmployee = VolonteerClass.GetVolonteerID(idUser);
                         string idRegion = VolonteerClass.GetVolonteerRegion(idUser);
-                        if (idVolonteer != null && idRegion != null)
+                        if (idEmployee != null && idRegion != null)
                         {
                             this.Hide();
-                            mainWindow = new MainWindow(idVolonteer, idRegion);
+                            mainWindow = new MainWindow(authorizationData, idEmployee, "1");
                             mainWindow.Show();
                         }
                         else
@@ -61,9 +62,12 @@ namespace TyEmuNuzhen
                         break;
                     case "2":
                         idUser = AuthorizationClass.GetUserId(loginTextBox.Text, passwordBox.Password);
-                        if (1==2)
+                        idEmployee = CuratorClass.GetCuratorID(idUser);
+                        if (idEmployee != null)
                         {
-                           
+                            this.Hide();
+                            mainWindow = new MainWindow(authorizationData, idEmployee, "2");
+                            mainWindow.Show();
                         }
                         else
                         {

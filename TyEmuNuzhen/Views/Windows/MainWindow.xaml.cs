@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media.Animation;
+using TyEmuNuzhen.MyClasses;
 
 
 namespace TyEmuNuzhen.Views.Windows
@@ -10,12 +11,28 @@ namespace TyEmuNuzhen.Views.Windows
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool isMenuOpen = false;
-
-        public MainWindow(string idVolonteer, string idRegion)
+        private bool isMenuOpen = false;
+        private bool _closeAplication = true;
+        public MainWindow(string idRole, string idEmployee, string post)
         {
             InitializeComponent();
-            MainFrame.Navigate(new Pages.MonitoringPage());
+            switch (idRole)
+            {
+                case "1":
+                    volonteerMenu.Visibility = Visibility.Visible;
+                    mainFrame.Navigate(new Pages.MonitoringPage());
+                    this.Title += $" - Волонтёр: {VolonteerClass.GetVolonteerFullName(idEmployee)} ({RegionsClass.GetRegionName(VolonteerClass.idRegion)})";
+                    break;
+                case "2":
+                    curatorMenu.Visibility = Visibility.Visible;
+                    mainFrame.Navigate(new Pages.Curator.ChildrensPage());
+                    this.Title += $" - Куратор: {CuratorClass.GetCuratorFullName(idEmployee)}";
+                    break;
+                default:
+                    MessageBox.Show("Ошибка авторизации. Обратитесь к администратору.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
+            }
+
         }
 
         private void BtnMenu_Click(object sender, RoutedEventArgs e)
@@ -36,14 +53,19 @@ namespace TyEmuNuzhen.Views.Windows
 
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Закрыть приложение?", "Выход", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (MessageBox.Show("Вы уверены, что хотите выйти из учётной записи?", "Выход", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
+                Window window = Application.Current.Windows[0];
+                _closeAplication = false;
                 this.Close();
+                window.Show();
             }
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            if (!_closeAplication)
+                return;
             Application.Current.Shutdown();
         }
 

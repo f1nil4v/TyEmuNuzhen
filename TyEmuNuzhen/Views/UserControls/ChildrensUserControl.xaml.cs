@@ -25,7 +25,7 @@ namespace TyEmuNuzhen.Views.UserControls
         private string _questUrl;
 
         public ChildrensUserControl(string id, string questNumber, string questURL, string fullName, DateTime birthDate, 
-            DateTime dateDescriptionAdded, string description, int age, string photoPath, DateTime dateChildAdded, string isAlert)
+            DateTime dateDescriptionAdded, string description, string age, string photoPath, DateTime dateChildAdded, string isAlert)
         {
             InitializeComponent();
             this.Tag = id;
