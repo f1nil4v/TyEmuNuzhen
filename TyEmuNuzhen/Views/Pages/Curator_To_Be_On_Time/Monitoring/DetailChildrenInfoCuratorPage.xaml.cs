@@ -42,6 +42,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                 NavigationService.GoBack();
             else
                 NavigationService.Navigate(new MonitoringPage());
+            NavigationService.RemoveBackEntry();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)

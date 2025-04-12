@@ -10,15 +10,15 @@ namespace TyEmuNuzhen.MyClasses
 {
     internal class RegionsClass
     {
-        public static DataTable dtRegions = new DataTable();
-        public static DataTable dtRegionsForEditInfoChildren = new DataTable();
+        public static DataTable dtRegions;
+        public static DataTable dtRegionsForEditInfoChildren;
 
         public static void GetRegionsList()
         {
             try
             {
-                DBConnection.myCommand.CommandText = "SELECT * FROM regions ORDER BY regionName";
-                dtRegions.Clear();
+                DBConnection.myCommand.CommandText = "SELECT ID, regionName FROM regions ORDER BY regionName";
+                dtRegions = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtRegions);
             }
             catch (Exception ex)
@@ -31,8 +31,8 @@ namespace TyEmuNuzhen.MyClasses
         {
             try
             {
-                DBConnection.myCommand.CommandText = "SELECT * FROM regions WHERE ID IN (SELECT idRegion FROM orphanages) ORDER BY regionName";
-                dtRegionsForEditInfoChildren.Clear();
+                DBConnection.myCommand.CommandText = "SELECT ID, regionName FROM regions WHERE ID IN (SELECT DISTINCT idRegion FROM orphanages) ORDER BY regionName";
+                dtRegionsForEditInfoChildren = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtRegionsForEditInfoChildren);
             }
             catch (Exception ex)

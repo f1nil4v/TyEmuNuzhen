@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens"
       mc:Ignorable="d" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      Title="InWorkPage" Loaded="Page_Loaded">
+      Title="InWorkPage">
     <Page.Resources>
         <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
             <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>

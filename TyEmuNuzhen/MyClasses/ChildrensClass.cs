@@ -12,9 +12,9 @@ namespace TyEmuNuzhen.MyClasses
 {
     internal class ChildrensClass
     {
-        public static DataTable dtChildrensList = new DataTable();
-        public static DataTable dtChildrensDetailedList = new DataTable();
-        public static DataTable dtChildrensCuratorList = new DataTable();
+        public static DataTable dtChildrensList;
+        public static DataTable dtChildrensDetailedList;
+        public static DataTable dtChildrensCuratorList;
 
         public static void GetChildrenList(string idStatus, string idRegion, string dateAddedBeginPeriod, string dateAddedEndPeriod, string searchQuery, bool isDESC)
         {
@@ -79,7 +79,7 @@ namespace TyEmuNuzhen.MyClasses
                     DBConnection.myCommand.Parameters.AddWithValue("@searchQueryDescription", wildcardSearchDescription);
                     DBConnection.myCommand.Parameters.AddWithValue("@searchQuery", wildcardSearch);
                 }
-                dtChildrensList.Clear();
+                dtChildrensList = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtChildrensList);
             }
             catch (Exception ex)
@@ -88,7 +88,7 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static void GetChildrenCurartorList(string idStatus, string idRegion, string dateAddedBeginPeriod, string dateAddedEndPeriod, string searchQuery, bool isDESC, string statusProgram)
+        public static void GetChildrenCurartorList(string idStatus, string idRegion, string idOrphange, string dateAddedBeginPeriod, string dateAddedEndPeriod, string searchQuery, bool isDESC, string statusProgram)
         {
             try
             {
@@ -96,6 +96,8 @@ namespace TyEmuNuzhen.MyClasses
                 string orderByClause = isDESC ? "DESC" : "ASC";
                 if (!String.IsNullOrEmpty(idRegion))
                     whereClause += $" AND childrens.idRegion = '{idRegion}'";
+                if (!String.IsNullOrEmpty(idOrphange))
+                    whereClause += $" AND childrens.idOrphanage = '{idOrphange}'";
                 if (!String.IsNullOrEmpty(dateAddedBeginPeriod) && !String.IsNullOrEmpty(dateAddedEndPeriod))
                     whereClause += $" AND childrens.dateAdded BETWEEN '{dateAddedBeginPeriod}' AND '{dateAddedEndPeriod}'";
                 if (!String.IsNullOrEmpty(searchQuery))
@@ -139,7 +141,7 @@ namespace TyEmuNuzhen.MyClasses
                     DBConnection.myCommand.Parameters.AddWithValue("@searchQueryDescription", wildcardSearchDescription);
                     DBConnection.myCommand.Parameters.AddWithValue("@searchQuery", wildcardSearch);
                 }
-                dtChildrensCuratorList.Clear();
+                dtChildrensCuratorList = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtChildrensCuratorList);
             }
             catch (Exception ex)
@@ -177,7 +179,7 @@ namespace TyEmuNuzhen.MyClasses
                         childrens
                     WHERE
                         childrens.ID = '{idChild}'";
-                dtChildrensDetailedList.Clear();
+                dtChildrensDetailedList = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtChildrensDetailedList);
             }
             catch (Exception ex)
@@ -320,7 +322,7 @@ namespace TyEmuNuzhen.MyClasses
             {
                 DBConnection.myCommand.Parameters.Clear();
                 DBConnection.myCommand.CommandText = $@"UPDATE childrens 
-                    SET middleName = @middleName, idOrphanage = @idOrphanage, idStatus = 3 WHERE ID = '{id}'";
+                    SET middleName = @middleName, idOrphanage = @idOrphanage, idStatus = 3, idStatusProgram = 1 WHERE ID = '{id}'";
                 DBConnection.myCommand.Parameters.AddWithValue("@middleName", middleName);
                 DBConnection.myCommand.Parameters.AddWithValue("@idOrphanage", idOrphanage);
                 if (DBConnection.myCommand.ExecuteNonQuery() > 0)

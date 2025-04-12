@@ -55,7 +55,7 @@ namespace TyEmuNuzhen.Views.UserControls
             DependencyObject parent = this;
             while (parent != null && !(parent is Pages.Curator_To_Be_On_Time.Childrens.ChildrensPage))
             {
-                parent = VisualTreeHelper.GetParent(parent);
+                parent = VisualTreeHelper.GetParent(parent);                                                                                                                                                                                                                                                                        
             }
             NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator_To_Be_On_Time.Childrens.InWork.DetailInfoPage(Tag.ToString()));
         }

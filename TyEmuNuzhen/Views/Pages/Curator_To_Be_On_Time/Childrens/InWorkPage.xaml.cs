@@ -26,6 +26,8 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens
         public InWorkPage()
         {
             InitializeComponent();
+            LoadFiltartions();
+            LoadChildrenData();
         }
 
         private void LoadChildrenData()
@@ -41,7 +43,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens
             if (sortCmbBox.SelectedIndex == 0)
                 _isDESC = false;
             string countAllRecords = ChildrensClass.GetCountChildrensMonitoring(_idRegion, "3");
-            ChildrensClass.GetChildrenCurartorList("3", _idRegion, _dateAddedBeginPeriod, _dateAddedEndPeriod, _searchQuery, _isDESC, _statusProgram);
+            ChildrensClass.GetChildrenCurartorList("3", _idRegion, _idOrphanage, _dateAddedBeginPeriod, _dateAddedEndPeriod, _searchQuery, _isDESC, _statusProgram);
             childrenContainer.Children.Clear();
             if (ChildrensClass.dtChildrensCuratorList.Rows.Count > 0)
             {
@@ -75,23 +77,25 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens
             countRecordsTxt.Text = $"{countRecords} из {countAllRecords} записей";
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void LoadFiltartions()
         {
             RegionsClass.GetRegionsList();
-            regionsCmbBox.ItemsSource = RegionsClass.dtRegions.DefaultView;
+            regionsCmbBox.ItemsSource = RegionsClass.dtRegions?.DefaultView;
             regionsCmbBox.DisplayMemberPath = "regionName";
             regionsCmbBox.SelectedValuePath = "ID";
+
             string _idRegion = regionsCmbBox.SelectedValue == null ? null : regionsCmbBox.SelectedValue.ToString();
-            ChildrenStatusProgramClass.GetChildrenStatusProgramList();
-            statusProgramCmbBox.ItemsSource = ChildrenStatusProgramClass.dtChildrenStatusProgramList.DefaultView;
-            statusProgramCmbBox.DisplayMemberPath = "statusName";
-            statusProgramCmbBox.SelectedValuePath = "ID";
+
             OrphanageClass.GetOrphanagesForComboBoxList(_idRegion);
-            orphanagesCmbBox.ItemsSource = OrphanageClass.dtOrphanagesForComboBoxList.DefaultView;
+            orphanagesCmbBox.ItemsSource = OrphanageClass.dtOrphanagesForComboBoxList?.DefaultView;
             orphanagesCmbBox.DisplayMemberPath = "nameOrphanage";
             orphanagesCmbBox.SelectedValuePath = "ID";
             sortCmbBox.SelectedIndex = 1;
-            LoadChildrenData();
+
+            ChildrenStatusProgramClass.GetChildrenStatusProgramList();
+            statusProgramCmbBox.ItemsSource = ChildrenStatusProgramClass.dtChildrenStatusProgramList?.DefaultView;
+            statusProgramCmbBox.DisplayMemberPath = "statusName";
+            statusProgramCmbBox.SelectedValuePath = "ID";
         }
 
         private void searchTxt_TextChanged(object sender, TextChangedEventArgs e)
@@ -101,13 +105,12 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens
 
         private void regionsCmbBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string _idRegion = regionsCmbBox.SelectedValue == null ? null : regionsCmbBox.SelectedValue.ToString();
+            orphanagesCmbBox.SelectedIndex = -1;
+            string _idRegion = regionsCmbBox.SelectedValue == null ? null : regionsCmbBox.SelectedValue?.ToString();
             OrphanageClass.GetOrphanagesForComboBoxList(_idRegion);
-            orphanagesCmbBox.ItemsSource = null;
-            orphanagesCmbBox.ItemsSource = OrphanageClass.dtOrphanagesForComboBoxList.DefaultView;
+            orphanagesCmbBox.ItemsSource = OrphanageClass.dtOrphanagesForComboBoxList?.DefaultView;
             orphanagesCmbBox.DisplayMemberPath = "nameOrphanage";
             orphanagesCmbBox.SelectedValuePath = "ID";
-            orphanagesCmbBox.SelectedIndex = -1;
             LoadChildrenData();
         }
 

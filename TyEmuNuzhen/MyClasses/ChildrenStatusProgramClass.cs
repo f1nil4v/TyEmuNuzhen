@@ -10,14 +10,14 @@ namespace TyEmuNuzhen.MyClasses
 {
     internal class ChildrenStatusProgramClass
     {
-        public static DataTable dtChildrenStatusProgramList = new DataTable();
+        public static DataTable dtChildrenStatusProgramList;
 
         public static void GetChildrenStatusProgramList()
         {
             try
             {
                 DBConnection.myCommand.CommandText = "SELECT ID, statusName FROM children_status_program ORDER BY statusName";
-                dtChildrenStatusProgramList.Clear();
+                dtChildrenStatusProgramList = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtChildrenStatusProgramList);
             }
             catch (Exception ex)

@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Navigation;
 using TyEmuNuzhen.MyClasses;
 
 
@@ -26,12 +27,14 @@ namespace TyEmuNuzhen.Views.Windows
                 case "1":
                     volonteerMenu.Visibility = Visibility.Visible;
                     mainFrame.Navigate(new Pages.MonitoringPage());
+                    mainFrame.NavigationService.RemoveBackEntry();
                     this.Title += $" - Волонтёр: {VolonteerClass.GetVolonteerFullName(idEmployee)} ({RegionsClass.GetRegionName(VolonteerClass.idRegion)})";
                     SetActiveMenuItem(btnVolonteerMonitoring);
                     break;
                 case "2":
                     curatorMenu.Visibility = Visibility.Visible;
                     mainFrame.Navigate(new Pages.Curator.ChildrensWork.MonitoringPage());
+                    mainFrame.NavigationService.RemoveBackEntry();
                     this.Title += $" - Куратор: {CuratorClass.GetCuratorFullName(idEmployee)}";
                     SetActiveMenuItem(btnCuratorMonitoring);
                     break;
@@ -93,18 +96,21 @@ namespace TyEmuNuzhen.Views.Windows
         {
             SetActiveMenuItem(btnCuratorMonitoring);
             mainFrame.Navigate(new Pages.Curator.ChildrensWork.MonitoringPage());
+            mainFrame.NavigationService.RemoveBackEntry();
         }
 
         private void btnPreliminary_Click(object sender, RoutedEventArgs e)
         {
             SetActiveMenuItem(btnPreliminary);
             mainFrame.Navigate(new Pages.Curator_To_Be_On_Time.PreliminaryInWork.PreliminaryInWorkPage());
+            mainFrame.NavigationService.RemoveBackEntry();
         }
 
         private void btnChildrens_Click(object sender, RoutedEventArgs e)
         {
             SetActiveMenuItem(btnChildrens);
             mainFrame.Navigate(new Pages.Curator_To_Be_On_Time.Childrens.ChildrensPage());
+            mainFrame.NavigationService.RemoveBackEntry();
         }
 
         private void btnArchive_Click(object sender, RoutedEventArgs e)
@@ -120,6 +126,8 @@ namespace TyEmuNuzhen.Views.Windows
         private void btnVolonteerMonitoring_Click(object sender, RoutedEventArgs e)
         {
             SetActiveMenuItem(btnVolonteerMonitoring);
+            mainFrame.Navigate(new Pages.MonitoringPage());
+            mainFrame.NavigationService.RemoveBackEntry();
         }
     }
 }

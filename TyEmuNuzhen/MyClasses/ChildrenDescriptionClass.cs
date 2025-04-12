@@ -6,7 +6,7 @@ namespace TyEmuNuzhen.MyClasses
 {
     internal class ChildrenDescriptionClass
     {
-        public static DataTable dtMonitoringDescription = new DataTable();
+        public static DataTable dtMonitoringDescription;
 
         public static void GetMonitoringDescriptionChildren(string idChild)
         {
@@ -14,7 +14,7 @@ namespace TyEmuNuzhen.MyClasses
             {
                 DBConnection.myCommand.CommandText = $@"SELECT * FROM childrens_description 
                     WHERE childrens_description.idChild = '{idChild}' ORDER BY ID DESC";
-                dtMonitoringDescription.Clear();
+                dtMonitoringDescription = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtMonitoringDescription);
             }
             catch (Exception ex)

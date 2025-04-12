@@ -31,13 +31,18 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
         public DetailInfoPage(string id)
         {
             InitializeComponent();
+            LoadComboBoxes();
             LoadChildData(id);
             _id = id;
         }
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.GoBack();
+            if (_updated == false)
+                NavigationService.GoBack();
+            else
+                NavigationService.Navigate(new ChildrensPage());
+            NavigationService.RemoveBackEntry();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -353,8 +358,10 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
             }
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void LoadComboBoxes()
         {
+            edtRegion.SelectedIndex = -1;
+            edtOrphanage.SelectedIndex = -1;
             RegionsClass.GetRegionsListForEditInfoChildren();
             edtRegion.ItemsSource = RegionsClass.dtRegionsForEditInfoChildren.DefaultView;
             edtRegion.DisplayMemberPath = "regionName";
@@ -368,11 +375,12 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
 
         private void edtRegion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            edtOrphanage.SelectedIndex = -1;
             string _idRegion = edtRegion.SelectedValue == null ? null : edtRegion.SelectedValue.ToString();
             OrphanageClass.GetOrphanagesForComboBoxList(_idRegion);
-            edtRegion.ItemsSource = RegionsClass.dtRegionsForEditInfoChildren.DefaultView;
-            edtRegion.DisplayMemberPath = "regionName";
-            edtRegion.SelectedValuePath = "ID";
+            edtOrphanage.ItemsSource = OrphanageClass.dtOrphanagesForComboBoxList.DefaultView;
+            edtOrphanage.DisplayMemberPath = "nameOrphanage";
+            edtOrphanage.SelectedValuePath = "ID";
             edtOrphanage.SelectedIndex = 0;
         }
     }

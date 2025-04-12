@@ -10,7 +10,8 @@ namespace TyEmuNuzhen.MyClasses
 {
     internal class OrphanageClass
     {
-        public static DataTable dtOrphanagesForComboBoxList = new DataTable();
+        public static DataTable dtOrphanagesForComboBoxList;
+        public static DataTable dtOrphanagesForEditComboBoxList;
 
         public static void GetOrphanagesForComboBoxList(string idRegion)
         {
@@ -20,7 +21,7 @@ namespace TyEmuNuzhen.MyClasses
                 DBConnection.myCommand.CommandText = $@"SELECT ID, nameOrphanage FROM orphanages 
                                                         {whereClause}
                                                         ORDER BY nameOrphanage";
-                dtOrphanagesForComboBoxList.Clear();
+                dtOrphanagesForComboBoxList = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtOrphanagesForComboBoxList);
             }
             catch (Exception ex)
@@ -28,5 +29,6 @@ namespace TyEmuNuzhen.MyClasses
                 MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
     }
 }

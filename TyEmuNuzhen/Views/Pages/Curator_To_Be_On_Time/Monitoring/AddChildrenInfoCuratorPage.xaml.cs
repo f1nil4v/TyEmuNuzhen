@@ -85,6 +85,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             if (!ChildrenDescriptionClass.AddMonitoringDescriptionChildren(idChild, descriptionTextBox.Text))
                 return;
             NavigationService.Navigate(new MonitoringPage());
+            NavigationService.RemoveBackEntry();
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
@@ -103,6 +104,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                 }
             }
             NavigationService.GoBack();
+            NavigationService.RemoveBackEntry();
         }
 
         private void Image_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -121,6 +123,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                 }
             }
             NavigationService.GoBack();
+            NavigationService.RemoveBackEntry();
         }
 
         private void surnameTextBox_TextChanged(object sender, TextChangedEventArgs e)

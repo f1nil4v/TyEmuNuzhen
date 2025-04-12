@@ -10,7 +10,7 @@ namespace TyEmuNuzhen.MyClasses
 {
     internal class ChildrenPhotoClass
     {
-        public static DataTable dtMonitoringPhoto = new DataTable();
+        public static DataTable dtMonitoringPhoto;
 
         public static void GetMonitoringPhotoChildren(string idChild)
         {
@@ -19,7 +19,7 @@ namespace TyEmuNuzhen.MyClasses
                 DBConnection.myCommand.CommandText = $@"SELECT * FROM childphoto 
                     WHERE childphoto.idChild = '{idChild}'
                     ORDER BY childphoto.ID DESC";
-                dtMonitoringPhoto.Clear();
+                dtMonitoringPhoto = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtMonitoringPhoto);
             }
             catch (Exception ex)
