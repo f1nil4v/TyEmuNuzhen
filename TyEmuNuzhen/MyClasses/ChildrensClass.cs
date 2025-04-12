@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Markup;
 
 namespace TyEmuNuzhen.MyClasses
 {
@@ -13,6 +14,7 @@ namespace TyEmuNuzhen.MyClasses
     {
         public static DataTable dtChildrensList = new DataTable();
         public static DataTable dtChildrensDetailedList = new DataTable();
+        public static DataTable dtChildrensCuratorList = new DataTable();
 
         public static void GetChildrenList(string idStatus, string idRegion, string dateAddedBeginPeriod, string dateAddedEndPeriod, string searchQuery, bool isDESC)
         {
@@ -25,7 +27,7 @@ namespace TyEmuNuzhen.MyClasses
                 if (!String.IsNullOrEmpty(dateAddedBeginPeriod) && !String.IsNullOrEmpty(dateAddedEndPeriod))
                     whereClause += $" AND childrens.dateAdded BETWEEN '{dateAddedBeginPeriod}' AND '{dateAddedEndPeriod}'";
                 if (!String.IsNullOrEmpty(searchQuery))
-                    whereClause += $@" AND (childrens.surname LIKE @searchQuery OR childrens.name LIKE @searchQuery 
+                    whereClause += $@" AND (childrens.numOfQuestionnaire LIKE @searchQuery OR childrens.surname LIKE @searchQuery OR childrens.name LIKE @searchQuery 
                                        OR childrens.middleName LIKE @searchQuery 
                                        OR CONCAT_WS(' ', childrens.surname, childrens.name, IFNULL(childrens.middleName, '')) LIKE @searchQuery
                                        OR (SELECT description
@@ -86,6 +88,66 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        public static void GetChildrenCurartorList(string idStatus, string idRegion, string dateAddedBeginPeriod, string dateAddedEndPeriod, string searchQuery, bool isDESC, string statusProgram)
+        {
+            try
+            {
+                string whereClause = $"childrens.idStatus = '{idStatus}'";
+                string orderByClause = isDESC ? "DESC" : "ASC";
+                if (!String.IsNullOrEmpty(idRegion))
+                    whereClause += $" AND childrens.idRegion = '{idRegion}'";
+                if (!String.IsNullOrEmpty(dateAddedBeginPeriod) && !String.IsNullOrEmpty(dateAddedEndPeriod))
+                    whereClause += $" AND childrens.dateAdded BETWEEN '{dateAddedBeginPeriod}' AND '{dateAddedEndPeriod}'";
+                if (!String.IsNullOrEmpty(searchQuery))
+                    whereClause += $@" AND (childrens.surname LIKE @searchQuery OR childrens.name LIKE @searchQuery 
+                                       OR childrens.middleName LIKE @searchQuery 
+                                       OR CONCAT_WS(' ', childrens.surname, childrens.name, IFNULL(childrens.middleName, '')) LIKE @searchQuery)";
+                if (!String.IsNullOrEmpty(statusProgram))
+                    whereClause += $" AND childrens.idStatusProgram = '{statusProgram}'";
+
+                DBConnection.myCommand.Parameters.Clear();
+                DBConnection.myCommand.CommandText = $@"SELECT childrens.ID, childrens.numOfQuestionnaire, childrens.urlOfQuestionnaire, 
+                        CONCAT_WS(' ', childrens.surname, childrens.name, IFNULL(childrens.middleName, '')) AS 'fullName', childrens.birthday,
+                        (SELECT statusName
+                             FROM children_status 
+                             WHERE children_status.ID = childrens.idStatus) AS statusName,
+                        (SELECT regions.regionName
+                             FROM regions 
+                             WHERE regions.ID = childrens.idRegion) AS regionName,
+                        (SELECT orphanages.nameOrphanage
+                             FROM orphanages 
+                             WHERE orphanages.ID = childrens.idOrphanage) AS orphanageName,
+                        childrens.dateAdded,
+                        (SELECT childphoto.filePath 
+                             FROM childphoto 
+                             WHERE childphoto.idChild = childrens.ID 
+                             ORDER BY childphoto.ID DESC 
+                             LIMIT 1) AS latestPhotoPath,
+                        (SELECT statusName FROM children_status_program 
+                             WHERE children_status_program.ID = childrens.idStatusProgram) AS statusProgramName,
+                        childrens.isAlert
+                    FROM 
+                        childrens
+                    WHERE
+                        {whereClause}
+                    ORDER BY 
+                        childrens.ID {orderByClause}";
+                if (searchQuery != null)
+                {
+                    string wildcardSearch = searchQuery + "%";
+                    string wildcardSearchDescription = "%" + searchQuery + "%";
+                    DBConnection.myCommand.Parameters.AddWithValue("@searchQueryDescription", wildcardSearchDescription);
+                    DBConnection.myCommand.Parameters.AddWithValue("@searchQuery", wildcardSearch);
+                }
+                dtChildrensCuratorList.Clear();
+                DBConnection.myDataAdapter.Fill(dtChildrensCuratorList);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         public static void GetChildrenListByID(string idChild)
         {
             try
@@ -106,6 +168,10 @@ namespace TyEmuNuzhen.MyClasses
                         (SELECT regions.regionName
                              FROM regions 
                              WHERE regions.ID = childrens.idRegion) AS regionName,
+                        (SELECT orphanages.nameOrphanage
+                                FROM orphanages 
+                                WHERE orphanages.ID = childrens.idOrphanage) AS orphanageName,
+                        childrens.idRegion,
                         childrens.isAlert
                     FROM 
                         childrens
@@ -142,11 +208,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static string GetCountChildrensMonitoring(string idRegion)
+        public static string GetCountChildrensMonitoring(string idRegion, string idStatus)
         {
             try
             {
-                string whereClause = $"idStatus = 1";
+                string whereClause = $"idStatus = '{idStatus}'";
                 if (!String.IsNullOrEmpty(idRegion))
                     whereClause += $" AND idRegion = '{idRegion}'";
                 DBConnection.myCommand.CommandText = $"SELECT COUNT(ID) FROM childrens WHERE {whereClause}";
@@ -222,6 +288,51 @@ namespace TyEmuNuzhen.MyClasses
                 MessageBox.Show($"Произошла ошибка при обновлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }   
+        }
+
+        public static bool UpdateCuratorInfoChildren(string idChild, string surname, string name, string middleName, string birthday, string idRegion, string idOrphanage)
+        {
+            try
+            {
+                DBConnection.myCommand.Parameters.Clear();
+                DBConnection.myCommand.CommandText = $@"UPDATE childrens 
+                    SET surname = @surname, name = @name, middleName = @middleName, birthday = @birthday, idRegion = '{idRegion}', idOrphanage = '{idOrphanage}' WHERE ID = '{idChild}'";
+                DBConnection.myCommand.Parameters.AddWithValue("@surname", surname);
+                DBConnection.myCommand.Parameters.AddWithValue("@name", name);
+                DBConnection.myCommand.Parameters.AddWithValue("@middleName", middleName);
+                DBConnection.myCommand.Parameters.AddWithValue("@birthday", birthday);
+                if (DBConnection.myCommand.ExecuteNonQuery() > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при обновлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        public static bool AddCommonInfoChildren(string id, string middleName, string idOrphanage)
+        {
+            try
+            {
+                DBConnection.myCommand.Parameters.Clear();
+                DBConnection.myCommand.CommandText = $@"UPDATE childrens 
+                    SET middleName = @middleName, idOrphanage = @idOrphanage, idStatus = 3 WHERE ID = '{id}'";
+                DBConnection.myCommand.Parameters.AddWithValue("@middleName", middleName);
+                DBConnection.myCommand.Parameters.AddWithValue("@idOrphanage", idOrphanage);
+                if (DBConnection.myCommand.ExecuteNonQuery() > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при обновлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
         }
 
         public static bool UpdateStatusChildren(string idChild, string idStatus)

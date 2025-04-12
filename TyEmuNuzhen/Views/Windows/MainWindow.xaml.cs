@@ -20,7 +20,7 @@ namespace TyEmuNuzhen.Views.Windows
         public MainWindow(string idRole, string idEmployee, string post)
         {
             InitializeComponent();
-            menuButtons = new List<Button> { btnVolonteerMonitoring, btnProgram, btnConsultation, btnCuratorMonitoring, btnPreliminary, btnChildrens, btnArchive, btnProfile };
+            menuButtons = new List<Button> { btnVolonteerMonitoring, btnConsultation, btnCuratorMonitoring, btnPreliminary, btnChildrens, btnArchive, btnProfile };
             switch (idRole)
             {
                 case "1":
@@ -33,7 +33,7 @@ namespace TyEmuNuzhen.Views.Windows
                     curatorMenu.Visibility = Visibility.Visible;
                     mainFrame.Navigate(new Pages.Curator.ChildrensWork.MonitoringPage());
                     this.Title += $" - Куратор: {CuratorClass.GetCuratorFullName(idEmployee)}";
-                    SetActiveMenuItem(btnProgram);
+                    SetActiveMenuItem(btnCuratorMonitoring);
                     break;
                 default:
                     MessageBox.Show("Ошибка авторизации. Обратитесь к администратору.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -84,11 +84,6 @@ namespace TyEmuNuzhen.Views.Windows
             Application.Current.Shutdown();
         }
 
-        private void btnProgram_Click(object sender, RoutedEventArgs e)
-        {
-            SetActiveMenuItem(btnProgram);
-        }
-
         private void btnConsultation_Click(object sender, RoutedEventArgs e)
         {
             SetActiveMenuItem(btnConsultation);
@@ -97,16 +92,19 @@ namespace TyEmuNuzhen.Views.Windows
         private void btnCuratorMonitoring_Click(object sender, RoutedEventArgs e)
         {
             SetActiveMenuItem(btnCuratorMonitoring);
+            mainFrame.Navigate(new Pages.Curator.ChildrensWork.MonitoringPage());
         }
 
         private void btnPreliminary_Click(object sender, RoutedEventArgs e)
         {
             SetActiveMenuItem(btnPreliminary);
+            mainFrame.Navigate(new Pages.Curator_To_Be_On_Time.PreliminaryInWork.PreliminaryInWorkPage());
         }
 
         private void btnChildrens_Click(object sender, RoutedEventArgs e)
         {
             SetActiveMenuItem(btnChildrens);
+            mainFrame.Navigate(new Pages.Curator_To_Be_On_Time.Childrens.ChildrensPage());
         }
 
         private void btnArchive_Click(object sender, RoutedEventArgs e)

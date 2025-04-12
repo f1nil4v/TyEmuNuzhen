@@ -38,7 +38,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             bool _isDESC = true;
             if (sortCmbBox.SelectedIndex == 0)
                 _isDESC = false;
-            string countAllRecords = ChildrensClass.GetCountChildrensMonitoring(_idRegion);
+            string countAllRecords = ChildrensClass.GetCountChildrensMonitoring(_idRegion, "1");
             ChildrensClass.GetChildrenList("1", _idRegion, _dateAddedBeginPeriod, _dateAddedEndPeriod, _searchQuery, _isDESC);
             childrenContainer.Children.Clear();
             if (ChildrensClass.dtChildrensList.Rows.Count > 0)
@@ -50,7 +50,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                         row["ID"].ToString(), row["numOfQuestionnaire"].ToString(), row["urlOfQuestionnaire"].ToString(),
                         row["fullName"].ToString(), Convert.ToDateTime(row["birthday"]), Convert.ToDateTime(row["dateDescriptionAdded"]), row["description"].ToString(),
                         CustomFunctionsClass.CalculateAge(Convert.ToDateTime(row["birthday"])), row["regionName"].ToString(), row["latestPhotoPath"].ToString(),
-                        Convert.ToDateTime(row["dateAdded"]), row["isAlert"].ToString(), 2
+                        Convert.ToDateTime(row["dateAdded"]), row["isAlert"].ToString(), 2, 1
                     );
 
                     SolidColorBrush solidColorBrush = (row["isAlert"].ToString() == "0"

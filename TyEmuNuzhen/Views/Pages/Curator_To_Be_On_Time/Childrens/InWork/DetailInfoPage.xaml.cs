@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,18 +17,18 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TyEmuNuzhen.MyClasses;
 
-namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
+namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
 {
     /// <summary>
-    /// Логика взаимодействия для DetailChildrenInfoCuratorPage.xaml
+    /// Логика взаимодействия для DetailInfoPage.xaml
     /// </summary>
-    public partial class DetailChildrenInfoCuratorPage : Page
+    public partial class DetailInfoPage : Page
     {
         private string _id;
         private string _errImagePath = "../../Images/Childrens/errImage.png";
         private bool _updated = false;
 
-        public DetailChildrenInfoCuratorPage(string id)
+        public DetailInfoPage(string id)
         {
             InitializeComponent();
             LoadChildData(id);
@@ -38,32 +37,31 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (_updated == false)
-                NavigationService.GoBack();
-            else
-                NavigationService.Navigate(new MonitoringPage());
+            NavigationService.GoBack();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            edtQuestNumber.Text = txtQuestNumber.Text;
             edtSurname.Text = txtSurname.Text;
             edtName.Text = txtName.Text;
-            edtUrl.Text = btnOpenUrl.Tag?.ToString() ?? "";
+            edtMiddleName.Text = txtMiddleName.Text;
+            edtRegion.Text = txtRegion.Text;
+            edtOrphanage.Text = txtOrphanage.Text;
 
             if (DateTime.TryParse(txtBirthday.Text, out DateTime birthDate))
             {
                 edtBirthday.SelectedDate = birthDate;
             }
-
-            edtIsAlert.IsChecked = txtIsAlert.Text == "Да";
             viewGrid.Visibility = Visibility.Collapsed;
             editGrid.Visibility = Visibility.Visible;
             photoBorder.IsEnabled = false;
             photoHistoryGrid.IsEnabled = false;
             descriptionHistoryGrid.IsEnabled = false;
             addDescriptionGrid.IsEnabled = false;
-
+            diagnosesGrid.IsEnabled = false;
+            agreementGrid.IsEnabled = false;
+            consentsGrid.IsEnabled = false;
+            documentsGrid.IsEnabled = false;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -74,11 +72,14 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             photoHistoryGrid.IsEnabled = true;
             descriptionHistoryGrid.IsEnabled = true;
             addDescriptionGrid.IsEnabled = true;
+            diagnosesGrid.IsEnabled = true;
+            agreementGrid.IsEnabled = true;
+            consentsGrid.IsEnabled = true;
+            documentsGrid.IsEnabled = true;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            string isAlert = "0";
 
             if (string.IsNullOrWhiteSpace(edtSurname.Text) ||
                 string.IsNullOrWhiteSpace(edtName.Text) ||
@@ -91,12 +92,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
 
             string birthDay = edtBirthday.SelectedDate.Value.ToString("yyyy-MM-dd");
 
-            if (edtIsAlert.IsChecked == true)
-            {
-                isAlert = "1";
-            }
-
-            if (!ChildrensClass.UpdateMonitoringInfoChildren(_id, edtQuestNumber.Text, edtUrl.Text, edtSurname.Text, edtName.Text, birthDay, isAlert))
+            if (!ChildrensClass.UpdateCuratorInfoChildren(_id, edtSurname.Text, edtName.Text, edtMiddleName.Text, birthDay, edtRegion.SelectedValue.ToString(), edtOrphanage.SelectedValue.ToString()))
                 return;
 
             LoadChildData(_id);
@@ -106,6 +102,10 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             photoHistoryGrid.IsEnabled = true;
             descriptionHistoryGrid.IsEnabled = true;
             addDescriptionGrid.IsEnabled = true;
+            diagnosesGrid.IsEnabled = true;
+            agreementGrid.IsEnabled = true;
+            consentsGrid.IsEnabled = true;
+            documentsGrid.IsEnabled = true;
             _updated = true;
         }
 
@@ -124,27 +124,14 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             ChildrensClass.GetChildrenListByID(id);
             ChildrenDescriptionClass.GetMonitoringDescriptionChildren(id);
             ChildrenPhotoClass.GetMonitoringPhotoChildren(id);
-            txtQuestNumber.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["numOfQuestionnaire"].ToString();
-            if (ChildrensClass.dtChildrensDetailedList.Rows[0]["isAlert"].ToString() == "1")
-            {
-                alertIcon.Visibility = Visibility.Visible;
-                txtIsAlert.Foreground = new SolidColorBrush(Colors.Red);
-                txtIsAlert.Text = "Да";
-            }
-            else
-            {
-                alertIcon.Visibility = Visibility.Collapsed;
-                txtIsAlert.Foreground = new SolidColorBrush(Colors.Black);
-                txtIsAlert.Text = "Нет";
-            }
             txtSurname.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["surname"].ToString();
-            txtBirthday.Text = Convert.ToDateTime(ChildrensClass.dtChildrensList.Rows[0]["birthday"]).ToString("dd.MM.yyyy");
             txtName.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["name"].ToString();
+            txtMiddleName.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["middleName"].ToString();
+            txtBirthday.Text = Convert.ToDateTime(ChildrensClass.dtChildrensList.Rows[0]["birthday"]).ToString("dd.MM.yyyy");
             txtAge.Text = CustomFunctionsClass.CalculateAge(Convert.ToDateTime(ChildrensClass.dtChildrensDetailedList.Rows[0]["birthday"])).ToString();
             txtDateAdded.Text = Convert.ToDateTime(ChildrensClass.dtChildrensDetailedList.Rows[0]["dateAdded"]).ToString("dd.MM.yyyy");
-            btnOpenUrl.Tag = ChildrensClass.dtChildrensDetailedList.Rows[0]["urlOfQuestionnaire"].ToString();
             txtRegion.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["regionName"].ToString();
-            txtRegion1.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["regionName"].ToString();
+            txtOrphanage.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["orphanageName"].ToString();
             string photoPath = ChildrensClass.dtChildrensDetailedList.Rows[0]["latestPhotoPath"].ToString();
 
             if (!string.IsNullOrEmpty(photoPath))
@@ -366,42 +353,27 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             }
         }
 
-        private void btnOpenUrl_Click(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = btnOpenUrl.Tag.ToString(),
-                    UseShellExecute = true
-                });
-            }
-            catch
-            {
-                MessageBox.Show("Ошибка открытия ссылки", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            RegionsClass.GetRegionsListForEditInfoChildren();
+            edtRegion.ItemsSource = RegionsClass.dtRegionsForEditInfoChildren.DefaultView;
+            edtRegion.DisplayMemberPath = "regionName";
+            edtRegion.SelectedValuePath = "ID";
+            string _idRegion = edtRegion.SelectedValue == null ? null : edtRegion.SelectedValue.ToString();
+            OrphanageClass.GetOrphanagesForComboBoxList(_idRegion);
+            edtOrphanage.ItemsSource = OrphanageClass.dtOrphanagesForComboBoxList.DefaultView;
+            edtOrphanage.DisplayMemberPath = "nameOrphanage";
+            edtOrphanage.SelectedValuePath = "ID";
         }
 
-        private void btnAddNotProblem_Click(object sender, RoutedEventArgs e)
+        private void edtRegion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (MessageBox.Show("Вы уверены, что у данного ребёнка проблем не выявлено?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
-            {
-                if (!ChildrensClass.UpdateStatusChildren(_id, "9"))
-                    return;
-                MessageBox.Show("Наблюдение за данным ребёнком завершено. Информация о нём перемещена в Архив/Без выявленных проблем", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                NavigationService.Navigate(new MonitoringPage());
-            }
-        }
-
-        private void btnAddHaveProblems_Click(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Вы уверены, что у данного ребёнка выявленны проблемы?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
-            {
-                if (!ChildrensClass.UpdateStatusChildren(_id, "2"))
-                    return;
-                MessageBox.Show("Данный ребёнок предварительно запущен в процесс работы. Для того что-бы провести консультацию, заполните остальную информацию на странице Предварительно в работе", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                NavigationService.Navigate(new MonitoringPage());
-            }
+            string _idRegion = edtRegion.SelectedValue == null ? null : edtRegion.SelectedValue.ToString();
+            OrphanageClass.GetOrphanagesForComboBoxList(_idRegion);
+            edtRegion.ItemsSource = RegionsClass.dtRegionsForEditInfoChildren.DefaultView;
+            edtRegion.DisplayMemberPath = "regionName";
+            edtRegion.SelectedValuePath = "ID";
+            edtOrphanage.SelectedIndex = 0;
         }
     }
 }

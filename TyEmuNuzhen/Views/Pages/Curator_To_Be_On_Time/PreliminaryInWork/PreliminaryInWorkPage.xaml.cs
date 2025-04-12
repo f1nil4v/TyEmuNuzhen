@@ -1,21 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.Windows.Shapes;
 using TyEmuNuzhen.MyClasses;
+using TyEmuNuzhen.Views.Pages.Curator.ChildrensWork;
 using TyEmuNuzhen.Views.UserControls;
 
-namespace TyEmuNuzhen.Views.Pages
+namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.PreliminaryInWork
 {
     /// <summary>
-    /// Логика взаимодействия для MonitoringPage.xaml
+    /// Логика взаимодействия для PreliminaryInWorkPage.xaml
     /// </summary>
-    public partial class MonitoringPage : Page
+    public partial class PreliminaryInWorkPage : Page
     {
-
-        public MonitoringPage()
+        public PreliminaryInWorkPage()
         {
             InitializeComponent();
         }
@@ -23,27 +32,29 @@ namespace TyEmuNuzhen.Views.Pages
         private void LoadChildrenData()
         {
             int countRecords = 0;
-            string countAllRecords = ChildrensClass.GetCountChildrensMonitoring(VolonteerClass.idRegion, "1");
+            string _idRegion = regionsCmbBox.SelectedValue == null ? null : regionsCmbBox.SelectedValue.ToString();
             string _dateAddedBeginPeriod = dateAddedBeginPeriodPicker.SelectedDate == null ? null : dateAddedBeginPeriodPicker.SelectedDate.Value.ToString("yyyy-MM-dd");
             string _dateAddedEndPeriod = dateAddedEndPeriodPicker.SelectedDate == null ? null : dateAddedEndPeriodPicker.SelectedDate.Value.ToString("yyyy-MM-dd");
             string _searchQuery = searchTxt == null ? null : searchTxt.Text;
             bool _isDESC = true;
             if (sortCmbBox.SelectedIndex == 0)
                 _isDESC = false;
-            ChildrensClass.GetChildrenList("1", VolonteerClass.idRegion, _dateAddedBeginPeriod, _dateAddedEndPeriod, _searchQuery, _isDESC);
+            string countAllRecords = ChildrensClass.GetCountChildrensMonitoring(_idRegion, "2");
+            ChildrensClass.GetChildrenList("2", _idRegion, _dateAddedBeginPeriod, _dateAddedEndPeriod, _searchQuery, _isDESC);
             childrenContainer.Children.Clear();
             if (ChildrensClass.dtChildrensList.Rows.Count > 0)
             {
                 lbl.Visibility = Visibility.Hidden;
                 foreach (DataRow row in ChildrensClass.dtChildrensList.Rows)
                 {
-                    ChildrensUserControl childControl = new ChildrensUserControl(row["ID"].ToString(), row["numOfQuestionnaire"].ToString(), row["urlOfQuestionnaire"].ToString(),
-                        row["fullName"].ToString(), Convert.ToDateTime(row["birthday"]), Convert.ToDateTime(row["dateDescriptionAdded"]), row["description"].ToString(), CustomFunctionsClass.CalculateAge(Convert.ToDateTime(row["birthday"])), null, row["latestPhotoPath"].ToString(),
-                        Convert.ToDateTime(row["dateAdded"]), row["isAlert"].ToString(), 1, 1);
+                    ChildrensUserControl childControl = new ChildrensUserControl(
+                        row["ID"].ToString(), row["numOfQuestionnaire"].ToString(), row["urlOfQuestionnaire"].ToString(),
+                        row["fullName"].ToString(), Convert.ToDateTime(row["birthday"]), Convert.ToDateTime(row["dateDescriptionAdded"]), row["description"].ToString(),
+                        CustomFunctionsClass.CalculateAge(Convert.ToDateTime(row["birthday"])), row["regionName"].ToString(), row["latestPhotoPath"].ToString(),
+                        Convert.ToDateTime(row["dateAdded"]), "0", 2, 2
+                    );
 
-                    SolidColorBrush solidColorBrush = (row["isAlert"].ToString() == "0"
-                        ? (SolidColorBrush)new BrushConverter().ConvertFrom("#FFCF5FD3")
-                        : (SolidColorBrush)new BrushConverter().ConvertFrom("#DD880707"));
+                    SolidColorBrush solidColorBrush =  (SolidColorBrush)new BrushConverter().ConvertFrom("#FFCF5FD3");
 
                     Border border = new Border
                     {
@@ -63,19 +74,30 @@ namespace TyEmuNuzhen.Views.Pages
             countRecordsTxt.Text = $"{countRecords} из {countAllRecords} записей";
         }
 
-        private void addChildBtn_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Volonteer.UpdateInsertChildrenPage());
-        }
-
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            RegionsClass.GetRegionsList();
+            regionsCmbBox.ItemsSource = RegionsClass.dtRegions.DefaultView;
+            regionsCmbBox.DisplayMemberPath = "regionName";
+            regionsCmbBox.SelectedValuePath = "ID";
             sortCmbBox.SelectedIndex = 1;
             LoadChildrenData();
         }
 
+        private void addChildBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddChildrenInfoCuratorPage());
+        }
+
+        private void regionsCmbBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (regionsCmbBox.SelectedIndex != -1)
+                LoadChildrenData();
+        }
+
         private void btnRefreshFiltration_Click(object sender, RoutedEventArgs e)
         {
+            regionsCmbBox.SelectedIndex = -1;
             searchTxt.Text = "";
             LoadChildrenData();
         }
@@ -108,6 +130,5 @@ namespace TyEmuNuzhen.Views.Pages
             dateAddedEndPeriodPicker.SelectedDate = null;
             LoadChildrenData();
         }
-
     }
 }

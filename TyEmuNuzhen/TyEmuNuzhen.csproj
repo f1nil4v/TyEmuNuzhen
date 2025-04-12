@@ -132,20 +132,49 @@
     <Compile Include="MyClasses\ChildrenDescriptionClass.cs" />
     <Compile Include="MyClasses\ChildrenPhotoClass.cs" />
     <Compile Include="MyClasses\ChildrensClass.cs" />
+    <Compile Include="MyClasses\ChildrenStatusProgramClass.cs" />
     <Compile Include="MyClasses\CopyFilesClass.cs" />
     <Compile Include="MyClasses\CuratorClass.cs" />
     <Compile Include="MyClasses\CustomFunctionsClass.cs" />
     <Compile Include="MyClasses\DBConnection.cs" />
+    <Compile Include="MyClasses\OrphanageClass.cs" />
     <Compile Include="MyClasses\RegionsClass.cs" />
     <Compile Include="MyClasses\VolonteerClass.cs" />
-    <Compile Include="Views\Pages\Curator\ChildrensWork\AddChildrenInfoCuratorPage.xaml.cs">
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ChildrensPage.xaml.cs">
+      <DependentUpon>ChildrensPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\CompletedWorksPage.xaml.cs">
+      <DependentUpon>CompletedWorksPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\InWorkPage.xaml.cs">
+      <DependentUpon>InWorkPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\InWork\DetailInfoPage.xaml.cs">
+      <DependentUpon>DetailInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\NoProblemPage.xaml.cs">
+      <DependentUpon>NoProblemPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Counsultations\ConsultationPage.xaml.cs">
+      <DependentUpon>ConsultationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Monitoring\AddChildrenInfoCuratorPage.xaml.cs">
       <DependentUpon>AddChildrenInfoCuratorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\Curator\ChildrensWork\DetailChildrenInfoCuratorPage.xaml.cs">
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Monitoring\DetailChildrenInfoCuratorPage.xaml.cs">
       <DependentUpon>DetailChildrenInfoCuratorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\Curator\ChildrensWork\MonitoringPage.xaml.cs">
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Monitoring\MonitoringPage.xaml.cs">
       <DependentUpon>MonitoringPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\PreliminaryInWork\AddCommonInfoChildrenPage.xaml.cs">
+      <DependentUpon>AddCommonInfoChildrenPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\PreliminaryInWork\PreliminaryInWorkPage.xaml.cs">
+      <DependentUpon>PreliminaryInWorkPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\ToBeOnTime\ToBeOnTimePage.xaml.cs">
+      <DependentUpon>ToBeOnTimePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\Volonteer\DetailChildrenInfoPage.xaml.cs">
       <DependentUpon>DetailChildrenInfoPage.xaml</DependentUpon>
@@ -155,6 +184,9 @@
     </Compile>
     <Compile Include="Views\Pages\Volonteer\AddChildrenInfoPage.xaml.cs">
       <DependentUpon>AddChildrenInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ChildrensCuratorUserControl.xaml.cs">
+      <DependentUpon>ChildrensCuratorUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\ChildrensUserControl.xaml.cs">
       <DependentUpon>ChildrensUserControl.xaml</DependentUpon>
@@ -195,15 +227,51 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\Pages\Curator\ChildrensWork\AddChildrenInfoCuratorPage.xaml">
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ChildrensPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\Curator\ChildrensWork\DetailChildrenInfoCuratorPage.xaml">
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\CompletedWorksPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\Curator\ChildrensWork\MonitoringPage.xaml">
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\InWorkPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\InWork\DetailInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\NoProblemPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Counsultations\ConsultationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Monitoring\AddChildrenInfoCuratorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Monitoring\DetailChildrenInfoCuratorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Monitoring\MonitoringPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\PreliminaryInWork\AddCommonInfoChildrenPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\PreliminaryInWork\PreliminaryInWorkPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\ToBeOnTime\ToBeOnTimePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -216,6 +284,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\Volonteer\AddChildrenInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ChildrensCuratorUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -262,6 +334,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Pages\Administrator\" />
+    <Folder Include="Views\Pages\Curator_Health_Houte\" />
+    <Folder Include="Views\Pages\Curator_To_Be_On_Time\Archive\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Controls\children.png" />

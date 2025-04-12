@@ -80,38 +80,6 @@
             <!--Меню куратора-->
 
             <StackPanel x:Name="curatorMenu" Grid.Row="1" Visibility="Hidden">
-                <Button x:Name="btnProgram" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnProgram_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/Controls/program.png" Height="25"></Image>
-                        <TextBlock Text="Чтобы успеть вовремя" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </StackPanel>
-                </Button>
-                <Button x:Name="btnConsultation" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnConsultation_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/Controls/consultation.png" Height="25"></Image>
-                        <TextBlock Text="Консультации" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </StackPanel>
-                </Button>
                 <Button x:Name="btnCuratorMonitoring" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnCuratorMonitoring_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/Controls/monitoring.png" Height="25"></Image>
@@ -148,6 +116,22 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/Controls/children.png" Height="25"></Image>
                         <TextBlock Text="Дети" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnConsultation" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnConsultation_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/Controls/consultation.png" Height="25"></Image>
+                        <TextBlock Text="Консультации" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>

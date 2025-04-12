@@ -280,7 +280,7 @@
 
                 <!-- История фото -->
                 <GroupBox x:Name="photoHistoryGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="История фото" Margin="0,15,0,15" 
-                BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
+                    BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
                     <ScrollViewer Height="200" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                         <WrapPanel x:Name="photosPanel" Orientation="Horizontal"/>
                     </ScrollViewer>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,9 +27,10 @@ namespace TyEmuNuzhen.Views.UserControls
     {
         private string _questUrl;
         private int _role;
+        private int _status;
 
         public ChildrensUserControl(string id, string questNumber, string questURL, string fullName, DateTime birthDate,
-            DateTime dateDescriptionAdded, string description, string age, string regionName, string photoPath, DateTime dateChildAdded, string isAlert, int role)
+            DateTime dateDescriptionAdded, string description, string age, string regionName, string photoPath, DateTime dateChildAdded, string isAlert, int role, int status)
         {
             InitializeComponent();
             this.Tag = id;
@@ -42,6 +44,9 @@ namespace TyEmuNuzhen.Views.UserControls
             dateAddedTextBlock.Text += dateChildAdded.ToString("dd.MM.yyyy");
             _questUrl = questURL;
             _role = role;
+            _status = status;
+            if (status == 2)
+                detailedBtn.Content = "Добавить информацию";
             if (isAlert == "1")
                 alertTextBlock.Visibility = Visibility.Visible;
             descriptionTextBlock.Text += $"от {dateDescriptionAdded.ToString("dd.MM.yyyy")}: \r\n{description}";
@@ -81,7 +86,10 @@ namespace TyEmuNuzhen.Views.UserControls
                 NavigationService.GetNavigationService(this).Navigate(new DetailChildInfoPage(this.Tag.ToString()));
             if (_role == 2)
             {
-                NavigationService.GetNavigationService(this).Navigate(new Pages.Curator.ChildrensWork.DetailChildrenInfoCuratorPage(this.Tag.ToString()));
+                if (_status == 1)
+                    NavigationService.GetNavigationService(this).Navigate(new Pages.Curator.ChildrensWork.DetailChildrenInfoCuratorPage(this.Tag.ToString()));
+                else if (_status == 2)
+                    NavigationService.GetNavigationService(this).Navigate(new Pages.Curator_To_Be_On_Time.PreliminaryInWork.AddCommonInfoChildrenPage(this.Tag.ToString()));
             }
         }
     }
