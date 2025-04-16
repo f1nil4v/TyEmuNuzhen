@@ -20,16 +20,20 @@ namespace TyEmuNuzhen.Views.Windows
     /// </summary>
     public partial class DiagnosisWindow : Window
     {
-        public DiagnosisWindow()
+        private string _id;
+
+        public DiagnosisWindow(string idChild)
         {
             InitializeComponent();
             LoadDiagnoses();
+            _id = idChild;
         }
 
         private void LoadDiagnoses()
         {
-            DocumentTypeClass.GetDocumentTypes();
-            cbDocumentType.ItemsSource = DocumentTypeClass.dtDocumentTypes.DefaultView;
+            DiagnosesClass.GetDiagnosesForChildrenComboBoxList(_id);
+            cbDiagnoses.ItemsSource = DiagnosesClass.dtDiagnosesForChildrenComboBoxList.DefaultView;
+            cbDiagnoses.DisplayMemberPath = ""
             if (DocumentTypeClass.dtDocumentTypes.Rows.Count > 0)
                 cbDocumentType.SelectedIndex = 0;
         }

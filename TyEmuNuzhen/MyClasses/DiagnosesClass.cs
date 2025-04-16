@@ -11,8 +11,9 @@ namespace TyEmuNuzhen.MyClasses
     {
         public static DataTable dtDiagnosesForChildrenComboBoxList;
         public static List<string> selectedIDDiagnoses = new List<string>();
+        public static List<string> selectedDiagnoses = new List<string>();
 
-        public static void DiagnosesForChildrenComboBoxList(string idChild)
+        public static void GetDiagnosesForChildrenComboBoxList(string idChild)
         {
             try
             {

@@ -201,13 +201,11 @@
                                 BorderBrush="#A3B92E"
                                 Height="30"
                                 Padding="15,0"
-                                Margin="0,0,0,10"/>
+                                Margin="0,0,0,10" Click="btnAddDiagnosis_Click"/>
 
                         <ScrollViewer Grid.Row="1" MinHeight="150" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                             <WrapPanel x:Name="diagnosesPanel" Orientation="Horizontal"/>
                         </ScrollViewer>
-
-                        <TextBlock x:Name="hasDiagnosesTextBlock" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="LightGray" Padding="5" Text="Диагнозов нет" Visibility="Collapsed"/>
                     </Grid>
                 </GroupBox>
 

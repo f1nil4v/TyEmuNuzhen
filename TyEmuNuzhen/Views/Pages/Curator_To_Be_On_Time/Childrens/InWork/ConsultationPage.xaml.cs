@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TyEmuNuzhen.MyClasses;
 using TyEmuNuzhen.Views.UserControls;
+using TyEmuNuzhen.Views.Windows;
 
 namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
 {
@@ -90,6 +91,13 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
             }
         }
 
+        private void btnAddDiagnosis_Click(object sender, RoutedEventArgs e)
+        {
+            DiagnosisWindow diagnosisWindow = new DiagnosisWindow();
+            if (diagnosisWindow.ShowDialog() == true)
+                LoadDiagnoses();
+        }
+
         private void LoadMedicalResults()
         {
             medicalResultsPanel.Children.Clear();
@@ -111,6 +119,18 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
             conclusionsPanel.Children.Add(consultationDocumentsUserControl);
         }
 
+        private void LoadDiagnoses()
+        {
+            diagnosesPanel.Children.Clear();
+            foreach (string diagnosis in DiagnosesClass.selectedDiagnoses)
+            {
+                int index = DiagnosesClass.selectedDiagnoses.IndexOf(diagnosis);
+                ConsultationDiagnosisUserControl consultationDiagnosisUserControl = new ConsultationDiagnosisUserControl(diagnosis, index);
+                consultationDiagnosisUserControl.DeleteRequested += OnMedicalResultsDeleteRequested;
+                diagnosesPanel.Children.Add(consultationDiagnosisUserControl);
+            }
+        }
+
         private void OnMedicalResultsDeleteRequested()
         {
             LoadMedicalResults();
@@ -121,5 +141,9 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
             LoadMedicalConclusion("");
         }
 
+        private void OnDiagnosesDeleteReques()
+        {
+            LoadDiagnoses();
+        }
     }
 }
