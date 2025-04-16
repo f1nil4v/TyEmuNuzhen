@@ -406,7 +406,10 @@
     <Resource Include="Images\Childrens\errImage.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Documents\Children\" />
+    <Folder Include="Documents\Children\AppealsConsents\" />
+    <Folder Include="Documents\Children\Documents\" />
+    <Folder Include="Documents\Children\MedicalConclusion\" />
+    <Folder Include="Documents\Children\MedicalResults\" />
     <Folder Include="Views\Pages\Administrator\" />
     <Folder Include="Views\Pages\Curator_Health_Houte\" />
     <Folder Include="Views\Pages\Curator_To_Be_On_Time\Archive\" />

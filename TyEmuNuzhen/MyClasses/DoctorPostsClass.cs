@@ -16,7 +16,7 @@ namespace TyEmuNuzhen.MyClasses
         {
             try
             {
-                DBConnection.myCommand.CommandText = $@"SELECT ID, postName FROM doctor_posts";
+                DBConnection.myCommand.CommandText = $@"SELECT ID, postName FROM doctor_posts ORDER BY postName";
                 dtDoctorPostsList = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtDoctorPostsList);
             }

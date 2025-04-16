@@ -20,6 +20,8 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
         {
             DocumentTypeClass.GetDocumentTypes();
             cbDocumentType.ItemsSource = DocumentTypeClass.dtDocumentTypes.DefaultView;
+            cbDocumentType.DisplayMemberPath = "documentType";
+            cbDocumentType.SelectedValuePath = "ID";
             if (DocumentTypeClass.dtDocumentTypes.Rows.Count > 0)
                 cbDocumentType.SelectedIndex = 0;
         }

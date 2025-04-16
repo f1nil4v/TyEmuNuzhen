@@ -33,9 +33,29 @@ namespace TyEmuNuzhen.Views.Windows
         {
             DiagnosesClass.GetDiagnosesForChildrenComboBoxList(_id);
             cbDiagnoses.ItemsSource = DiagnosesClass.dtDiagnosesForChildrenComboBoxList.DefaultView;
-            cbDiagnoses.DisplayMemberPath = ""
-            if (DocumentTypeClass.dtDocumentTypes.Rows.Count > 0)
-                cbDocumentType.SelectedIndex = 0;
+            cbDiagnoses.DisplayMemberPath = "diagnosisName";
+            cbDiagnoses.SelectedValuePath = "ID";
+            if (DiagnosesClass.dtDiagnosesForChildrenComboBoxList.Rows.Count > 0)
+                cbDiagnoses.SelectedIndex = 0;
+        }
+
+        private void btnSelect_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbDiagnoses.SelectedValue != null)
+            {
+                DiagnosesClass.selectedIDDiagnoses.Add(cbDiagnoses.SelectedValue.ToString());
+                DiagnosesClass.selectedDiagnoses.Add(cbDiagnoses.Text);
+                DialogResult = true;
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите диагноз", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
         }
     }
 }

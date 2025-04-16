@@ -8,7 +8,7 @@ namespace TyEmuNuzhen.MyClasses
     internal class CreateDocumentsClass
     {
         private static string _documentSamplesFolderPath = @"../../Documents/Samples/";
-        private static string _documentSaveFolderPath = @"../../Documents/Children/";
+        private static string _documentSaveFolderPath = @"../../Documents/Children/AppealsConsents/";
 
         public static void CreateAppealConsent(string idChildren, string idOrhanage, string fioChild, string birthdayChild, string orphanageName)
         {
@@ -32,7 +32,7 @@ namespace TyEmuNuzhen.MyClasses
             var doc = app.Documents.Open(documentSampleFolderPath);
             doc.Activate();
 
-            doc.Bookmarks["appealNum"].Range.Text = AgreementOrphanagesClass.dtAgreementOrphanageData.Rows[0]["ID"].ToString(); //done
+            doc.Bookmarks["appealNum"].Range.Text = AgreementOrphanagesClass.dtAgreementOrphanageData.Rows[0]["ID"].ToString();
             doc.Bookmarks["dateNow"].Range.Text = shortDateFormat;
             doc.Bookmarks["orphanageName"].Range.Text = orphanageName;
             doc.Bookmarks["surnameNMDirectror"].Range.Text = surnameNMDirectror;

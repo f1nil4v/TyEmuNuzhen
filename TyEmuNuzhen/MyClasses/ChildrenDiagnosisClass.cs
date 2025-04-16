@@ -9,7 +9,6 @@ namespace TyEmuNuzhen.MyClasses
     internal class ChildrenDiagnosisClass
     {
         public static DataTable dtChildrenDiagnoses;
-        public static List<string> listChildrenIDDiagnoses = new List<string>();
 
         public static void GetChildrenDiagnoses(string idChild)
         {
@@ -34,10 +33,11 @@ namespace TyEmuNuzhen.MyClasses
         {
             try
             {
-                foreach (string id in listChildrenIDDiagnoses)
+                string idConsultation = ConsultationClass.GetLastIdConsultation();
+                foreach (string idDiagnosis in DiagnosesClass.selectedIDDiagnoses)
                 {
                     DBConnection.myCommand.CommandText = $@"INSERT INTO children_diagnosis 
-                    VALUES (null, '{id}', '{date}')";
+                    VALUES (null, '{idConsultation}','{idDiagnosis}', '{date}')";
                     if (DBConnection.myCommand.ExecuteNonQuery() < 0)
                         return false;
                 }

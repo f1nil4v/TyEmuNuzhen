@@ -6,19 +6,19 @@ namespace TyEmuNuzhen.MyClasses
 {
     internal class ResultConsultationClass
     {
-        public static List<string> filePaths = new List<string>();
         public static List<string> oldFilePaths = new List<string>();
 
-        public static bool AddResaultConsultations()
+        public static bool AddResaultConsultations(string idChild)
         {
             try
             {
-                string idConsultation = "";
-                foreach (string filePath in filePaths) 
+                string idConsultation = ConsultationClass.GetLastIdConsultation();
+                foreach (string filePath in oldFilePaths) 
                 {
+                    string newFilePath = CopyFilesClass.CopyChildMedicalResults(filePath, idChild);
                     DBConnection.myCommand.Parameters.Clear();
-                    DBConnection.myCommand.CommandText = $"INSERT INTO results_consultation VALUES (null, '{idConsultation}', @path)";
-                    DBConnection.myCommand.Parameters.AddWithValue("@filePaths", filePath);
+                    DBConnection.myCommand.CommandText = $"INSERT INTO results_consultation VALUES (null, '{idConsultation}', @filePaths)";
+                    DBConnection.myCommand.Parameters.AddWithValue("@filePaths", newFilePath);
                     if (DBConnection.myCommand.ExecuteNonQuery() <= 0)
                         return false;
                 }
@@ -29,6 +29,6 @@ namespace TyEmuNuzhen.MyClasses
                 MessageBox.Show($"Произошла ошибка при добавлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
-        }
+}
     }
 }

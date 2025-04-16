@@ -28,6 +28,10 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
     public partial class ConsultationPage : Page
     {
         private string _id; 
+        private bool _haveChanges = false;
+        private bool _haveMedicalConclusion = false;
+        private string _oldPathMedicalConclusion = "";
+
         public ConsultationPage(string id, string FIOchild)
         {
             InitializeComponent();
@@ -38,8 +42,22 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
 
         private void imgBack_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.GoBack();
-            NavigationService.RemoveBackEntry();
+            if (_haveChanges)
+            {
+                if (MessageBox.Show("Вы уверены, что хотите выйти? После выхода с данной страницы изменения будут отменены", "Выход", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                {
+                    DiagnosesClass.selectedDiagnoses.Clear();
+                    DiagnosesClass.selectedIDDiagnoses.Clear();
+                    ResultConsultationClass.oldFilePaths.Clear();
+                    NavigationService.GoBack();
+                    NavigationService.RemoveBackEntry();
+                }
+            }
+            else
+            {
+                NavigationService.GoBack();
+                NavigationService.RemoveBackEntry();
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -48,10 +66,12 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
             cbPost.ItemsSource = DoctorPostsClass.dtDoctorPostsList?.DefaultView;
             cbPost.DisplayMemberPath = "postName";
             cbPost.SelectedValuePath = "ID";
-            DoctorsOnAgreementClass.GetDoctrosForComboBoxList("");
+            cbPost.Text = "Нейрохирург";
+            DoctorsOnAgreementClass.GetDoctrosForComboBoxList(cbPost.SelectedValue.ToString());
             cbSpecialist.ItemsSource = DoctorsOnAgreementClass.dtDoctorsForComboBoxList?.DefaultView;
             cbSpecialist.DisplayMemberPath = "fullName";
             cbSpecialist.SelectedValuePath = "ID";
+            cbSpecialist.SelectedIndex = 1;
         }
 
         private void cbPost_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -61,7 +81,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
             cbSpecialist.ItemsSource = DoctorsOnAgreementClass.dtDoctorsForComboBoxList?.DefaultView;
             cbSpecialist.DisplayMemberPath = "fullName";
             cbSpecialist.SelectedValuePath = "ID";
-            cbSpecialist.SelectedIndex = -1;
+            cbSpecialist.SelectedIndex = 1;
         }
 
         private void btnAddResult_Click(object sender, RoutedEventArgs e)
@@ -87,15 +107,57 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
             if (openFileDialog.ShowDialog() == true)
             {
                 string filePath = openFileDialog.FileName;
+                _oldPathMedicalConclusion = filePath;
                 LoadMedicalConclusion(filePath);
             }
         }
 
         private void btnAddDiagnosis_Click(object sender, RoutedEventArgs e)
         {
-            DiagnosisWindow diagnosisWindow = new DiagnosisWindow();
+            DiagnosisWindow diagnosisWindow = new DiagnosisWindow(_id);
             if (diagnosisWindow.ShowDialog() == true)
                 LoadDiagnoses();
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            if (_haveChanges)
+            {
+                if (MessageBox.Show("Вы уверены, что хотите выйти? После выхода с данной страницы изменения будут отменены", "Выход", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                {
+                    DiagnosesClass.selectedDiagnoses.Clear();
+                    DiagnosesClass.selectedIDDiagnoses.Clear();
+                    ResultConsultationClass.oldFilePaths.Clear();
+                    NavigationService.GoBack();
+                    NavigationService.RemoveBackEntry();
+                }
+            }
+            else
+            {
+                NavigationService.GoBack();
+                NavigationService.RemoveBackEntry();
+            }
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (DiagnosesClass.selectedDiagnoses.Count == 0 || ResultConsultationClass.oldFilePaths.Count == 0 || _haveMedicalConclusion == false || dpConsultationDate.SelectedDate == null)
+            {
+                MessageBox.Show("Пожалуйста, заполните все поля", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            string idDoctor = cbSpecialist.SelectedValue.ToString();
+            string selectedDate = dpConsultationDate.SelectedDate.Value.ToString("yyyy-MM-dd");
+            string newPathMedicalConclusion = CopyFilesClass.CopyChildMedicalConclusion(_oldPathMedicalConclusion, _id);
+            if (!ConsultationClass.AddChildrenConsultation(idDoctor, _id, newPathMedicalConclusion) || !ResultConsultationClass.AddResaultConsultations(_id) || !ChildrenDiagnosisClass.AddChildrenDiagnosis(selectedDate))
+                return;
+            DiagnosesClass.selectedDiagnoses.Clear();
+            DiagnosesClass.selectedIDDiagnoses.Clear();
+            ResultConsultationClass.oldFilePaths.Clear();
+            NavigationService.GoBack();
+            NavigationService.RemoveBackEntry();
+
         }
 
         private void LoadMedicalResults()
@@ -107,16 +169,33 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
                 consultationDocumentsUserControl.DeleteRequested += OnMedicalResultsDeleteRequested;
                 medicalResultsPanel.Children.Add(consultationDocumentsUserControl);
             }
+            if (DiagnosesClass.selectedDiagnoses.Count > 0 || ResultConsultationClass.oldFilePaths.Count > 0 || _haveMedicalConclusion)
+                _haveChanges = true;
+            else
+                _haveChanges = false;
         }
 
         private void LoadMedicalConclusion(string filePath)
         {
             conclusionsPanel.Children.Clear();
             if (string.IsNullOrEmpty(filePath))
+            {
+                _haveMedicalConclusion = false;
+                if (DiagnosesClass.selectedDiagnoses.Count > 0 || ResultConsultationClass.oldFilePaths.Count > 0 || _haveMedicalConclusion)
+                    _haveChanges = true;
+                else
+                    _haveChanges = false;
+                _oldPathMedicalConclusion = "";
                 return;
+            }
+            _haveMedicalConclusion = true;
             ConsultationDocumentsUserControl consultationDocumentsUserControl = new ConsultationDocumentsUserControl(false, 0, filePath);
             consultationDocumentsUserControl.DeleteRequested += OnMedicalConclusionDeleteRequested;
             conclusionsPanel.Children.Add(consultationDocumentsUserControl);
+            if (DiagnosesClass.selectedDiagnoses.Count > 0 || ResultConsultationClass.oldFilePaths.Count > 0 || _haveMedicalConclusion)
+                _haveChanges = true;
+            else
+                _haveChanges = false;
         }
 
         private void LoadDiagnoses()
@@ -126,9 +205,13 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
             {
                 int index = DiagnosesClass.selectedDiagnoses.IndexOf(diagnosis);
                 ConsultationDiagnosisUserControl consultationDiagnosisUserControl = new ConsultationDiagnosisUserControl(diagnosis, index);
-                consultationDiagnosisUserControl.DeleteRequested += OnMedicalResultsDeleteRequested;
+                consultationDiagnosisUserControl.DeleteRequested += OnDiagnosesDeleteRequest;
                 diagnosesPanel.Children.Add(consultationDiagnosisUserControl);
             }
+            if (DiagnosesClass.selectedDiagnoses.Count > 0 || ResultConsultationClass.oldFilePaths.Count > 0 || _haveMedicalConclusion)
+                _haveChanges = true;
+            else 
+                _haveChanges = false;
         }
 
         private void OnMedicalResultsDeleteRequested()
@@ -141,7 +224,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
             LoadMedicalConclusion("");
         }
 
-        private void OnDiagnosesDeleteReques()
+        private void OnDiagnosesDeleteRequest()
         {
             LoadDiagnoses();
         }
