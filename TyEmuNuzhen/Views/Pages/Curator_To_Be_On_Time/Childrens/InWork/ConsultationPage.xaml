@@ -6,7 +6,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork"
       mc:Ignorable="d" 
-      Title="Консультация">
+      Title="Консультация" Loaded="Page_Loaded">
 
     <Page.Resources>
         <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
@@ -36,6 +36,26 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+        <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}">
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+            <Setter Property="materialDesign:HintAssist.Foreground" Value="#A3B92E"/>
+            <Setter Property="BorderBrush" Value="#A3B92E"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+                    <Setter Property="materialDesign:HintAssist.Foreground" Value="#A3B92E"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+                    <Setter Property="materialDesign:HintAssist.Foreground" Value="#A3B92E"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Page.Resources>
 
@@ -67,11 +87,12 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Блок 1: Основная информация -->
+                <!-- Основная информация -->
                 <GroupBox Grid.Row="0" Header="Основная информация" Margin="0,0,0,15"
                         BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
                     <Grid Margin="0,10,0,10">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
@@ -79,34 +100,41 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-
-                        <!-- Дата консультации -->
                         <TextBlock Text="Дата консультации:"
                                Grid.Row="0"
                                Grid.Column="0"
                                VerticalAlignment="Center"
                                Margin="0,0,10,15"/>
                         <DatePicker x:Name="dpConsultationDate"
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                Margin="0,0,0,15"/>
-
-                        <!-- Специалист -->
-                        <TextBlock Text="Специалист:"
+                               Grid.Row="0"
+                               Grid.Column="1"
+                               Margin="0,0,0,15"/>
+                        
+                        <TextBlock Text="Специалиьность:"
                                Grid.Row="1"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="0,0,10,15"/>
+                        <ComboBox x:Name="cbPost"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               Margin="0,0,0,15"
+                               materialDesign:HintAssist.Hint="Выберите специальность" SelectionChanged="cbPost_SelectionChanged"/>
+                        <TextBlock Text="Специалист:"
+                               Grid.Row="2"
                                Grid.Column="0"
                                VerticalAlignment="Center"
                                Margin="0,0,10,0"/>
                         <ComboBox x:Name="cbSpecialist"
-                              Grid.Row="1"
-                              Grid.Column="1"
-                              Margin="0,0,0,0"
-                              materialDesign:HintAssist.Hint="Выберите специалиста"/>
+                               Grid.Row="2"
+                               Grid.Column="1"
+                               Margin="0,0,0,0"
+                               materialDesign:HintAssist.Hint="Выберите специалиста"/>
                     </Grid>
                 </GroupBox>
 
-                <!-- Блок 2: Материалы для консультации -->
-                <GroupBox Grid.Row="1" Header="Материалы для консультации" Margin="0,15,0,15"
+                <!-- Результаты обследований -->
+                <GroupBox Grid.Row="1" Header="Результаты обследований" Margin="0,15,0,15"
                         BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
                     <Grid Margin="0,10,0,10">
                         <Grid.RowDefinitions>
@@ -114,25 +142,25 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Button x:Name="btnAddMaterial" 
-                                Content="Добавить материал" 
+                        <Button x:Name="btnAddResult" 
+                                Content="Добавить" 
                                 HorizontalAlignment="Right" 
                                 Background="#A3B92E" 
                                 BorderBrush="#A3B92E"
                                 Height="30"
                                 Padding="15,0"
-                                Margin="0,0,0,10"/>
+                                Margin="0,0,0,10" Click="btnAddResult_Click"/>
 
                         <ScrollViewer Grid.Row="1" MinHeight="150" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                            <WrapPanel x:Name="materialsPanel" Orientation="Horizontal"/>
+                            <WrapPanel x:Name="medicalResultsPanel" Orientation="Horizontal"/>
                         </ScrollViewer>
 
                         <TextBlock x:Name="hasMaterialsTextBlock" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="LightGray" Padding="5" Text="Материалов нет" Visibility="Collapsed"/>
                     </Grid>
                 </GroupBox>
 
-                <!-- Блок 3: Заключение специалиста -->
-                <GroupBox Grid.Row="2" Header="Заключение специалиста" Margin="0,15,0,15"
+                <!-- Заключение -->
+                <GroupBox Grid.Row="2" Header="Заключение" Margin="0,15,0,15"
                         BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
                     <Grid Margin="0,10,0,10">
                         <Grid.RowDefinitions>
@@ -147,7 +175,7 @@
                                 BorderBrush="#A3B92E"
                                 Height="30"
                                 Padding="15,0"
-                                Margin="0,0,0,10"/>
+                                Margin="0,0,0,10" Click="btnAddConclusion_Click"/>
 
                         <ScrollViewer Grid.Row="1" MinHeight="150" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                             <WrapPanel x:Name="conclusionsPanel" Orientation="Horizontal"/>
@@ -194,7 +222,8 @@
                         Margin="0,0,10,0"/>
                     <Button x:Name="btnCancel"
                         Content="Отмена"
-                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Background="#A3B92E" 
+                        BorderBrush="#A3B92E"
                         Height="30"
                         Padding="15,0"/>
                 </StackPanel>

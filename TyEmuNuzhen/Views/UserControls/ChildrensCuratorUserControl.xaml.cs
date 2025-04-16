@@ -79,7 +79,7 @@ namespace TyEmuNuzhen.Views.UserControls
             {
                 parent = VisualTreeHelper.GetParent(parent);
             }
-            NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator_To_Be_On_Time.Childrens.InWork.ConsultationPage());
+            NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator_To_Be_On_Time.Childrens.InWork.ConsultationPage(Tag.ToString(), _fullNameChild));
         }
     }
 }

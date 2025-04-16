@@ -147,9 +147,13 @@
     <Compile Include="MyClasses\CuratorClass.cs" />
     <Compile Include="MyClasses\CustomFunctionsClass.cs" />
     <Compile Include="MyClasses\DBConnection.cs" />
+    <Compile Include="MyClasses\DiagnosesClass.cs" />
+    <Compile Include="MyClasses\DoctorPostsClass.cs" />
+    <Compile Include="MyClasses\DoctorsOnAgreementClass.cs" />
     <Compile Include="MyClasses\DocumentTypeClass.cs" />
     <Compile Include="MyClasses\OrphanageClass.cs" />
     <Compile Include="MyClasses\RegionsClass.cs" />
+    <Compile Include="MyClasses\ResultConsultationClass.cs" />
     <Compile Include="MyClasses\RolesClass.cs" />
     <Compile Include="MyClasses\VolonteerClass.cs" />
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ChildrensPage.xaml.cs">
@@ -170,11 +174,17 @@
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\InWork\DocumentsChildPage.xaml.cs">
       <DependentUpon>DocumentsChildPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\ConsultationDocumentsUserControl.xaml.cs">
+      <DependentUpon>ConsultationDocumentsUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\DescriptionUserControl.xaml.cs">
       <DependentUpon>DescriptionUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\ImageUserControl.xaml.cs">
       <DependentUpon>ImageUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\DiagnosisWindow.xaml.cs">
+      <DependentUpon>DiagnosisWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\DocumentTypeWindow.xaml.cs">
       <DependentUpon>DocumentTypeWindow.xaml</DependentUpon>
@@ -279,11 +289,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserControls\ConsultationDocumentsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControls\DescriptionUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\ImageUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\DiagnosisWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -411,6 +429,9 @@
     <Resource Include="Images\Icons\excel.png" />
     <Resource Include="Images\Icons\pdf.png" />
     <Resource Include="Images\Icons\word.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Controls\trash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets')" />

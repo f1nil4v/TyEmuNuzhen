@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace TyEmuNuzhen.MyClasses
 {
     internal class ChildrenDiagnosisClass
     {
         public static DataTable dtChildrenDiagnoses;
+        public static List<string> listChildrenIDDiagnoses = new List<string>();
 
         public static void GetChildrenDiagnoses(string idChild)
         {
@@ -27,30 +30,24 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        //public static bool AddChildrenDiagnosis(string idChild, string idDiagnosis)
-        //{
-        //    try
-        //    {
-        //        string dateNow = DateTime.Now.ToString("yyyy-MM-dd");
-                
-        //        DBConnection.myCommand.Parameters.Clear();
-        //        DBConnection.myCommand.CommandText = @"INSERT INTO children_diagnoses 
-        //            VALUES (null, @idDiagnosis, @idChild, @dateNow)";
-                
-        //        DBConnection.myCommand.Parameters.AddWithValue("@idDiagnosis", idDiagnosis);
-        //        DBConnection.myCommand.Parameters.AddWithValue("@idChild", idChild);
-        //        DBConnection.myCommand.Parameters.AddWithValue("@dateNow", dateNow);
-                
-        //        if (DBConnection.myCommand.ExecuteNonQuery() > 0)
-        //            return true;
-        //        else 
-        //            return false;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Произошла ошибка при добавлении диагноза. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        return false;
-        //    }
-        //}
+        public static bool AddChildrenDiagnosis(string date)
+        {
+            try
+            {
+                foreach (string id in listChildrenIDDiagnoses)
+                {
+                    DBConnection.myCommand.CommandText = $@"INSERT INTO children_diagnosis 
+                    VALUES (null, '{id}', '{date}')";
+                    if (DBConnection.myCommand.ExecuteNonQuery() < 0)
+                        return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при добавлении диагноза. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
     }
 } 

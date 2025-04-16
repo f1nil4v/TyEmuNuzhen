@@ -5,8 +5,6 @@ using System.Windows.Input;
 using System.IO;
 using System.Diagnostics;
 using System.Windows;
-using MaterialDesignThemes.Wpf;
-using TyEmuNuzhen.MyClasses;
 
 namespace TyEmuNuzhen.Views.UserControls
 {

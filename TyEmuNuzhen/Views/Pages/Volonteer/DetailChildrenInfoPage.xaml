@@ -60,30 +60,6 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
-        <!-- Шаблон для фотографии -->
-        <DataTemplate x:Key="PhotoItemTemplate">
-            <Border x:Name="photoBorder" Margin="5" BorderBrush="#FFCF5FD3" BorderThickness="1" CornerRadius="10" Padding="5">
-                <StackPanel Width="150">
-                    <Border Width="140" Height="140" CornerRadius="8" Margin="0,0,0,5">
-                        <Border.Background>
-                            <ImageBrush x:Name="photoImage" Stretch="UniformToFill"/>
-                        </Border.Background>
-                    </Border>
-                    <TextBlock x:Name="dateText" HorizontalAlignment="Center" Foreground="#A101A6" FontSize="12"/>
-                </StackPanel>
-            </Border>
-        </DataTemplate>
-
-        <!-- Шаблон для примечания -->
-        <DataTemplate x:Key="NoteItemTemplate">
-            <Border Margin="0,5" BorderBrush="#FFCF5FD3" BorderThickness="0,0,0,1" Padding="0,0,0,5">
-                <StackPanel>
-                    <TextBlock x:Name="noteDateText" FontSize="12" Foreground="#A101A6" Margin="0,0,0,5"/>
-                    <TextBlock x:Name="noteDescriptionText" TextWrapping="Wrap"/>
-                </StackPanel>
-            </Border>
-        </DataTemplate>
     </Page.Resources>
 
     <Grid>
