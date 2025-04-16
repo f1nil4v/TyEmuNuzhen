@@ -127,7 +127,7 @@ namespace TyEmuNuzhen.MyClasses
                              LIMIT 1) AS latestPhotoPath,
                         (SELECT statusName FROM children_status_program 
                              WHERE children_status_program.ID = childrens.idStatusProgram) AS statusProgramName,
-                        childrens.isAlert
+                        childrens.isAlert, childrens.idOrphanage
                     FROM 
                         childrens
                     WHERE
@@ -174,6 +174,7 @@ namespace TyEmuNuzhen.MyClasses
                                 FROM orphanages 
                                 WHERE orphanages.ID = childrens.idOrphanage) AS orphanageName,
                         childrens.idRegion,
+                        childrens.idOrphanage,
                         childrens.isAlert
                     FROM 
                         childrens

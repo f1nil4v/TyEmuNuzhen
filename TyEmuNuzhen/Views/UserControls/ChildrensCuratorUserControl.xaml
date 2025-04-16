@@ -56,7 +56,7 @@
                 Background="#A3B92E" 
                 Foreground="#DDFFFFFF" 
                 Padding="16,0,16,0" Click="detailedBtn_Click" />
-            <Button x:Name="actionBtn"
+            <Button x:Name="consultationBtn"
                 BorderThickness="0" 
                 Height="20" 
                 Width="175"
@@ -65,7 +65,17 @@
                 Background="#A3B92E" 
                 Foreground="#DDFFFFFF" 
                 Padding="16,0,16,0" 
-                Margin="0,10,0,0" Cursor="Hand"/>
+                Margin="0,10,0,0" Cursor="Hand" Click="consultationBtn_Click"/>
+            <Button x:Name="documentsBtn"
+                BorderThickness="0" 
+                Height="20" 
+                Width="175"
+                Content="Документы" 
+                FontSize="12" 
+                Background="#A3B92E" 
+                Foreground="#DDFFFFFF" 
+                Padding="16,0,16,0" 
+                Margin="0,10,0,0" Cursor="Hand" Click="documentsBtn_Click"/>
             <Button x:Name="transferBtn" IsEnabled="False"
                 BorderThickness="0" 
                 Height="20" 

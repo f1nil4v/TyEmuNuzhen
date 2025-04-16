@@ -19,15 +19,15 @@
                             </Grid.RowDefinitions>
 
                             <Border Grid.Row="0" Background="#FFCF5FD3" 
-                        BorderThickness="1,1,1,0" BorderBrush="#FFCF5FD3" 
-                        Padding="8,5,8,5">
+                                BorderThickness="1,1,1,0" BorderBrush="#FFCF5FD3" 
+                                Padding="8,5,8,5">
                                 <TextBlock Text="{TemplateBinding Header}" 
-                               Foreground="White" 
-                               FontSize="{TemplateBinding FontSize}"/>
+                                   Foreground="White" 
+                                   FontSize="{TemplateBinding FontSize}"/>
                             </Border>
 
                             <Border Grid.Row="1" Background="White" 
-                        BorderThickness="1,0,1,1" BorderBrush="#FFCF5FD3">
+                                BorderThickness="1,0,1,1" BorderBrush="#FFCF5FD3">
                                 <ContentPresenter Margin="10" 
                                       ContentSource="Content"/>
                             </Border>
@@ -68,20 +68,6 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
-        <!-- Шаблон для фотографии -->
-        <DataTemplate x:Key="PhotoItemTemplate">
-            <Border x:Name="photoBorder" Margin="5" BorderBrush="#FFCF5FD3" BorderThickness="1" CornerRadius="10" Padding="5">
-                <StackPanel Width="150">
-                    <Border Width="140" Height="140" CornerRadius="8" Margin="0,0,0,5">
-                        <Border.Background>
-                            <ImageBrush x:Name="photoImage" Stretch="UniformToFill"/>
-                        </Border.Background>
-                    </Border>
-                    <TextBlock x:Name="dateText" HorizontalAlignment="Center" Foreground="#A101A6" FontSize="12"/>
-                </StackPanel>
-            </Border>
-        </DataTemplate>
 
         <!-- Шаблон для примечания -->
         <DataTemplate x:Key="NoteItemTemplate">
@@ -317,85 +303,6 @@
                                     </StackPanel>
                                 </Border>
                             </StackPanel>
-                        </ScrollViewer>
-                    </Grid>
-                </GroupBox>
-
-                <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,15,0,15">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <!-- Согласия-->
-                    <GroupBox x:Name="agreementGrid" Grid.Column="0" Header="Согласия" Margin="0,0,7.5,0"
-                        BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
-                        <Grid Margin="0,10,0,10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <Button x:Name="btnAddConsent" 
-                                Content="Добавить" 
-                                HorizontalAlignment="Right" 
-                                Background="#A3B92E" 
-                                BorderBrush="#A3B92E"
-                                Height="30"
-                                Padding="15,0"
-                                Margin="0,0,0,10"/>
-
-                            <ScrollViewer Grid.Row="1" Height="150" VerticalScrollBarVisibility="Auto">
-                                <StackPanel x:Name="consentsPanel"/>
-                            </ScrollViewer>
-                        </Grid>
-                    </GroupBox>
-
-                    <!-- Обращения ДДИ -->
-                    <GroupBox x:Name="consentsGrid" Grid.Column="1" Header="Обращения ДДИ" Margin="7.5,0,0,0"
-                        BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
-                        <Grid Margin="0,10,0,10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <Button x:Name="btnAddAppeal" 
-                                Content="Добавить" 
-                                HorizontalAlignment="Right" 
-                                Background="#A3B92E" 
-                                BorderBrush="#A3B92E"
-                                Height="30"
-                                Padding="15,0"
-                                Margin="0,0,0,10"/>
-
-                            <ScrollViewer Grid.Row="1" Height="150" VerticalScrollBarVisibility="Auto">
-                                <StackPanel x:Name="appealsPanel"/>
-                            </ScrollViewer>
-                        </Grid>
-                    </GroupBox>
-                </Grid>
-
-                <!-- Документы -->
-                <GroupBox x:Name="documentsGrid" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Header="Документы" Margin="0,15,0,15" 
-                    BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
-                    <Grid Margin="0,10,0,10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <Button x:Name="btnAddDocument" 
-                            Content="Добавить" 
-                            HorizontalAlignment="Right" 
-                            Background="#A3B92E" 
-                            BorderBrush="#A3B92E"
-                            Height="30"
-                            Padding="15,0"
-                            Margin="0,0,0,10"/>
-
-                        <ScrollViewer Grid.Row="1" Height="200" VerticalScrollBarVisibility="Auto">
-                            <StackPanel x:Name="documentsPanel"/>
                         </ScrollViewer>
                     </Grid>
                 </GroupBox>

@@ -11,7 +11,7 @@ namespace TyEmuNuzhen.MyClasses
     internal class OrphanageClass
     {
         public static DataTable dtOrphanagesForComboBoxList;
-        public static DataTable dtOrphanagesForEditComboBoxList;
+        public static DataTable dtOrphanageDataForPrintDocuments;
 
         public static void GetOrphanagesForComboBoxList(string idRegion)
         {
@@ -30,5 +30,19 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        public static void GetOrphanageDataForPrintDocuments(string idOrphanage)
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $@"SELECT * FROM orphanages 
+                                                        WHERE ID = '{idOrphanage}'";
+                dtOrphanageDataForPrintDocuments = new DataTable();
+                DBConnection.myDataAdapter.Fill(dtOrphanageDataForPrintDocuments);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        } 
     }
 }

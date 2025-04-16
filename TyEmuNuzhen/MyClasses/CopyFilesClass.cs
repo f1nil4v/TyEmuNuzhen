@@ -1,47 +1,63 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.IO;
 
 namespace TyEmuNuzhen.MyClasses
 {
     internal class CopyFilesClass
     {
-        public static string CopyChildImage(string photoChild)
+        private static string _imageSaveFolderPath = @"../../Images/Childrens/";
+        private static string _documentSaveFolderPath = @"../../Documents/Children/";
+        
+        public static string CopyChildImage(string imageSourcePath)
         {
-            if (!string.IsNullOrEmpty(photoChild))
+            try
             {
-                try
+                if (!Directory.Exists(_imageSaveFolderPath))
                 {
-                    string sourceFilePath = photoChild;
-                    string fileName = System.IO.Path.GetFileName(sourceFilePath);
-
-                    string relativeDirectoryPath = "../../Images/Childrens";
-                    string relativePath = $"{relativeDirectoryPath}/{fileName}";
-
-                    string physicalDirectoryPath = System.IO.Path.GetFullPath(System.IO.Path.Combine(
-                        AppDomain.CurrentDomain.BaseDirectory, relativeDirectoryPath));
-
-                    if (!System.IO.Directory.Exists(physicalDirectoryPath))
-                    {
-                        System.IO.Directory.CreateDirectory(physicalDirectoryPath);
-                    }
-
-                    string destinationPath = System.IO.Path.Combine(physicalDirectoryPath, fileName);
-                    System.IO.File.Copy(sourceFilePath, destinationPath, true);
-
-                    return relativePath;
+                    Directory.CreateDirectory(_imageSaveFolderPath);
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка при копировании файла: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return null;
-                }
+
+                string fileName = DateTime.Now.ToString("yyyyMMddHHmm") + "_" + Path.GetFileName(imageSourcePath);
+                string newPath = Path.Combine(_imageSaveFolderPath, fileName);
+
+                File.Copy(imageSourcePath, newPath, true);
+
+                return newPath;
             }
-            else
-                return "Выберете изображение!";
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при копировании файла: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
+        public static string CopyChildDocument(string documentSourcePath)
+        {
+            try
+            {
+                if (!Directory.Exists(_documentSaveFolderPath))
+                {
+                    Directory.CreateDirectory(_documentSaveFolderPath);
+                }
+
+                string fileName = DateTime.Now.ToString("yyyyMMddHHmm") + "_" + Path.GetFileName(documentSourcePath);
+                string newPath = Path.Combine(_documentSaveFolderPath, fileName);
+
+                File.Copy(documentSourcePath, newPath, true);
+
+                return newPath;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при копировании файла: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
         }
     }
 }

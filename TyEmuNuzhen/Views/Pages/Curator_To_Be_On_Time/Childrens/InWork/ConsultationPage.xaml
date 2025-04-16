@@ -1,0 +1,204 @@
+﻿<Page x:Class="TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork.ConsultationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork"
+      mc:Ignorable="d" 
+      Title="Консультация">
+
+    <Page.Resources>
+        <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Background="#FFCF5FD3" 
+                                BorderThickness="1,1,1,0" BorderBrush="#FFCF5FD3" 
+                                Padding="8,5,8,5">
+                                <TextBlock Text="{TemplateBinding Header}" 
+                                   Foreground="White" 
+                                   FontSize="{TemplateBinding FontSize}"/>
+                            </Border>
+
+                            <Border Grid.Row="1" Background="White" 
+                                BorderThickness="1,0,1,1" BorderBrush="#FFCF5FD3">
+                                <ContentPresenter Margin="10" 
+                                  ContentSource="Content"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок и кнопка возврата -->
+        <StackPanel Orientation="Horizontal" Margin="20,20,0,20">
+            <Image Source="/Images/Controls/back.png" Height="35" VerticalAlignment="Center" Cursor="Hand" x:Name="imgBack" MouseLeftButtonDown="imgBack_MouseLeftButtonDown" />
+            <TextBlock Margin="10,0,0,2" VerticalAlignment="Center" Text="Консультация" FontSize="24"/>
+        </StackPanel>
+
+        <TextBlock x:Name="fullNameChild" Margin="10,0,20,2" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Ребёнок: " FontSize="24"/>
+
+        <!-- Основное содержимое -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Grid Margin="20,0,20,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Блок 1: Основная информация -->
+                <GroupBox Grid.Row="0" Header="Основная информация" Margin="0,0,0,15"
+                        BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
+                    <Grid Margin="0,10,0,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Дата консультации -->
+                        <TextBlock Text="Дата консультации:"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="0,0,10,15"/>
+                        <DatePicker x:Name="dpConsultationDate"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="0,0,0,15"/>
+
+                        <!-- Специалист -->
+                        <TextBlock Text="Специалист:"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="0,0,10,0"/>
+                        <ComboBox x:Name="cbSpecialist"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              Margin="0,0,0,0"
+                              materialDesign:HintAssist.Hint="Выберите специалиста"/>
+                    </Grid>
+                </GroupBox>
+
+                <!-- Блок 2: Материалы для консультации -->
+                <GroupBox Grid.Row="1" Header="Материалы для консультации" Margin="0,15,0,15"
+                        BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
+                    <Grid Margin="0,10,0,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="btnAddMaterial" 
+                                Content="Добавить материал" 
+                                HorizontalAlignment="Right" 
+                                Background="#A3B92E" 
+                                BorderBrush="#A3B92E"
+                                Height="30"
+                                Padding="15,0"
+                                Margin="0,0,0,10"/>
+
+                        <ScrollViewer Grid.Row="1" MinHeight="150" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                            <WrapPanel x:Name="materialsPanel" Orientation="Horizontal"/>
+                        </ScrollViewer>
+
+                        <TextBlock x:Name="hasMaterialsTextBlock" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="LightGray" Padding="5" Text="Материалов нет" Visibility="Collapsed"/>
+                    </Grid>
+                </GroupBox>
+
+                <!-- Блок 3: Заключение специалиста -->
+                <GroupBox Grid.Row="2" Header="Заключение специалиста" Margin="0,15,0,15"
+                        BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
+                    <Grid Margin="0,10,0,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="btnAddConclusion" 
+                                Content="Добавить заключение" 
+                                HorizontalAlignment="Right" 
+                                Background="#A3B92E" 
+                                BorderBrush="#A3B92E"
+                                Height="30"
+                                Padding="15,0"
+                                Margin="0,0,0,10"/>
+
+                        <ScrollViewer Grid.Row="1" MinHeight="150" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                            <WrapPanel x:Name="conclusionsPanel" Orientation="Horizontal"/>
+                        </ScrollViewer>
+
+                        <TextBlock x:Name="hasConclusionsTextBlock" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="LightGray" Padding="5" Text="Заключений нет" Visibility="Collapsed"/>
+                    </Grid>
+                </GroupBox>
+
+                <!-- Блок 4: Диагнозы -->
+                <GroupBox Grid.Row="3" Header="Диагнозы" Margin="0,15,0,15"
+                        BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
+                    <Grid Margin="0,10,0,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="btnAddDiagnosis" 
+                                Content="Добавить диагноз" 
+                                HorizontalAlignment="Right" 
+                                Background="#A3B92E" 
+                                BorderBrush="#A3B92E"
+                                Height="30"
+                                Padding="15,0"
+                                Margin="0,0,0,10"/>
+
+                        <ScrollViewer Grid.Row="1" MinHeight="150" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                            <WrapPanel x:Name="diagnosesPanel" Orientation="Horizontal"/>
+                        </ScrollViewer>
+
+                        <TextBlock x:Name="hasDiagnosesTextBlock" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="LightGray" Padding="5" Text="Диагнозов нет" Visibility="Collapsed"/>
+                    </Grid>
+                </GroupBox>
+
+                <!-- Кнопки -->
+                <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                    <Button x:Name="btnSave"
+                        Content="Сохранить"
+                        Background="#A3B92E" 
+                        BorderBrush="#A3B92E"
+                        Height="30"
+                        Padding="15,0"
+                        Margin="0,0,10,0"/>
+                    <Button x:Name="btnCancel"
+                        Content="Отмена"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Height="30"
+                        Padding="15,0"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

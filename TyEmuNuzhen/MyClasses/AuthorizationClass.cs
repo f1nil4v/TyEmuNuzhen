@@ -10,6 +10,8 @@ namespace TyEmuNuzhen.MyClasses
 {
     internal class AuthorizationClass
     {
+        public static string idRole;
+
         public static string GetUserId(string login, string password)
         {
             try
@@ -45,14 +47,19 @@ namespace TyEmuNuzhen.MyClasses
                 DBConnection.myCommand.Parameters.AddWithValue("@password", password);
                 Object result = DBConnection.myCommand.ExecuteScalar();
                 if (result != null)
+                {
+                    idRole = result.ToString();
                     return result.ToString();
+                }
                 else
                 {
+                    idRole = null;
                     return null;
                 }
             }
             catch (Exception ex)
             {
+                idRole = null;
                 MessageBox.Show($"Произошла ошибка при авторизации. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }

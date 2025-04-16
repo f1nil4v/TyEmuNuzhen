@@ -21,6 +21,7 @@ namespace TyEmuNuzhen.Views.UserControls
     /// </summary>
     public partial class ChildrensCuratorUserControl : UserControl
     {
+        private string _fullNameChild;
 
         public ChildrensCuratorUserControl(string id, string fullName, DateTime birthDate,
             string age, string regionName, string orphanage, string photoPath, DateTime dateChildAdded, string status)
@@ -36,6 +37,7 @@ namespace TyEmuNuzhen.Views.UserControls
             orphanageTextBlock.Text += orphanage;
             dateAddedTextBlock.Text += dateChildAdded.ToString("dd.MM.yyyy");
             statusTextBlock.Text += status;
+            _fullNameChild = fullName;
             if (!string.IsNullOrEmpty(photoPath))
             {
                 BitmapImage bitmap = new BitmapImage();
@@ -58,6 +60,26 @@ namespace TyEmuNuzhen.Views.UserControls
                 parent = VisualTreeHelper.GetParent(parent);                                                                                                                                                                                                                                                                        
             }
             NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator_To_Be_On_Time.Childrens.InWork.DetailInfoPage(Tag.ToString()));
+        }
+
+        private void documentsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DependencyObject parent = this;
+            while (parent != null && !(parent is Pages.Curator_To_Be_On_Time.Childrens.ChildrensPage))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator_To_Be_On_Time.Childrens.InWork.DocumentsChildPage(Tag.ToString(), _fullNameChild));
+        }
+
+        private void consultationBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DependencyObject parent = this;
+            while (parent != null && !(parent is Pages.Curator_To_Be_On_Time.Childrens.ChildrensPage))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator_To_Be_On_Time.Childrens.InWork.ConsultationPage());
         }
     }
 }

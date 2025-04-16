@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TyEmuNuzhen.MyClasses;
+using TyEmuNuzhen.Views.UserControls;
 
 namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.PreliminaryInWork
 {
@@ -85,51 +86,18 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.PreliminaryInWork
 
         private void LoadDescriptions(string childId)
         {
-
             notesPanel.Children.Clear();
-
             ChildrenDescriptionClass.GetMonitoringDescriptionChildren(childId);
             if (ChildrenDescriptionClass.dtMonitoringDescription.Rows.Count > 0)
             {
-                DataView view = ChildrenDescriptionClass.dtMonitoringDescription.DefaultView;
-
-                int index = 0;
-                foreach (DataRowView row in view)
+                bool isFirst = true;
+                foreach (DataRow row in ChildrenDescriptionClass.dtMonitoringDescription.Rows)
                 {
-                    Grid noteGrid = new Grid();
-                    noteGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                    noteGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                    TextBlock dateText = new TextBlock
-                    {
-                        FontSize = 12,
-                        Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#A101A6")),
-                        Margin = new Thickness(0, 0, 0, 5)
-                    };
-                    string dateString = Convert.ToDateTime(row["dateAdded"]).ToString("dd.MM.yyyy");
-                    if (index == 0)
-                    {
-                        dateString += " (последнее)";
-                    }
-                    dateText.Text = dateString;
-                    TextBlock descriptionText = new TextBlock
-                    {
-                        Text = row["description"].ToString(),
-                        TextWrapping = TextWrapping.Wrap
-                    };
-                    Grid.SetRow(dateText, 0);
-                    Grid.SetRow(descriptionText, 1);
-                    noteGrid.Children.Add(dateText);
-                    noteGrid.Children.Add(descriptionText);
-                    Border noteBorder = new Border
-                    {
-                        Margin = new Thickness(0, 5, 0, 5),
-                        BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFCF5FD3")),
-                        BorderThickness = new Thickness(0, 0, 0, 1),
-                        Padding = new Thickness(0, 0, 0, 5),
-                        Child = noteGrid
-                    };
-                    notesPanel.Children.Add(noteBorder);
-                    index++;
+                    string description = row["description"].ToString();
+                    string dateAdded = Convert.ToDateTime(row["dateAdded"]).ToString("dd.MM.yyyy");
+                    DescriptionUserControl descriptionUserControl = new DescriptionUserControl(isFirst, dateAdded, description);
+                    notesPanel.Children.Add(descriptionUserControl);
+                    isFirst = false;
                 }
 
                 descriptionHistoryGrid.Visibility = Visibility.Visible;
@@ -147,7 +115,6 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.PreliminaryInWork
             ChildrenPhotoClass.GetMonitoringPhotoChildren(id);
             if (ChildrenPhotoClass.dtMonitoringPhoto.Rows.Count > 0)
             {
-                int index = 0;
                 photosPanel.Children.Clear();
 
                 ChildrenPhotoClass.GetMonitoringPhotoChildren(id);
@@ -156,82 +123,17 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.PreliminaryInWork
                     DataView view = ChildrenPhotoClass.dtMonitoringPhoto.DefaultView;
 
                     bool hasValidPhotos = false;
-
+                    bool isFirst = true;
                     foreach (DataRowView row in view)
                     {
                         string photoPath = row["filePath"].ToString();
-
+                        string dateAdded = Convert.ToDateTime(row["dateAdded"]).ToString("dd.MM.yyyy");
                         if (!string.IsNullOrEmpty(photoPath))
                         {
-                            StackPanel photoPanel = new StackPanel();
-                            photoPanel.Width = 150;
-                            Border imageBorder = new Border
-                            {
-                                Width = 140,
-                                Height = 140,
-                                CornerRadius = new CornerRadius(8),
-                                Margin = new Thickness(0, 0, 0, 5)
-                            };
-                            ImageBrush photoBrush = new ImageBrush
-                            {
-                                Stretch = Stretch.UniformToFill
-                            };
-                            try
-                            {
-                                BitmapImage bitmap = new BitmapImage();
-                                bitmap.BeginInit();
-                                bitmap.UriSource = new Uri(photoPath, UriKind.RelativeOrAbsolute);
-                                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                                bitmap.EndInit();
-
-                                photoBrush.ImageSource = bitmap;
-                            }
-                            catch
-                            {
-                                BitmapImage errorBitmap = new BitmapImage();
-                                errorBitmap.BeginInit();
-                                errorBitmap.UriSource = new Uri(_errImagePath, UriKind.RelativeOrAbsolute);
-                                errorBitmap.CacheOption = BitmapCacheOption.OnLoad;
-                                errorBitmap.EndInit();
-                                photoBrush.ImageSource = errorBitmap;
-                            }
-
-                            imageBorder.Background = photoBrush;
-                            TextBlock dateText;
-                            if (index == 0)
-                            {
-                                dateText = new TextBlock
-                                {
-                                    Text = Convert.ToDateTime(row["dateAdded"]).ToString("dd.MM.yyyy") + " (последнее)",
-                                    HorizontalAlignment = HorizontalAlignment.Center,
-                                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#A101A6")),
-                                    FontSize = 12
-                                };
-                                index++;
-                            }
-                            else
-                            {
-                                dateText = new TextBlock
-                                {
-                                    Text = Convert.ToDateTime(row["dateAdded"]).ToString("dd.MM.yyyy"),
-                                    HorizontalAlignment = HorizontalAlignment.Center,
-                                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#A101A6")),
-                                    FontSize = 12
-                                };
-                            }
-                            photoPanel.Children.Add(imageBorder);
-                            photoPanel.Children.Add(dateText);
-                            Border photoBorder = new Border
-                            {
-                                Margin = new Thickness(5),
-                                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFCF5FD3")),
-                                BorderThickness = new Thickness(1),
-                                CornerRadius = new CornerRadius(10),
-                                Padding = new Thickness(5),
-                                Child = photoPanel
-                            };
-                            photosPanel.Children.Add(photoBorder);
+                            ImageUserControl photoControl = new ImageUserControl(0, isFirst, photoPath, dateAdded, "");
+                            photosPanel.Children.Add(photoControl);
                             hasValidPhotos = true;
+                            isFirst = false;
                         }
                     }
 
