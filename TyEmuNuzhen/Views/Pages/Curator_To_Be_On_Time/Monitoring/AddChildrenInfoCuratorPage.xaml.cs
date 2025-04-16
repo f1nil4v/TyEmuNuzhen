@@ -45,7 +45,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
             errorImage.Text = null;
-            string image = CopyFilesClass.CopyChildImage(_photoPath);
+            string image = CopyFilesClass.CopyChildImage(_photoPath, "photo");
             string isAlert = "0";
             if (string.IsNullOrWhiteSpace(surnameTextBox.Text) ||
                 string.IsNullOrWhiteSpace(nameTextBox.Text) ||

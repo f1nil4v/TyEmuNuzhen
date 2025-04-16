@@ -1,9 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
 using System.IO;
 
@@ -14,7 +9,7 @@ namespace TyEmuNuzhen.MyClasses
         private static string _imageSaveFolderPath = @"../../Images/Childrens/";
         private static string _documentSaveFolderPath = @"../../Documents/Children/";
         
-        public static string CopyChildImage(string imageSourcePath)
+        public static string CopyChildImage(string imageSourcePath, string idChild)
         {
             try
             {
@@ -23,11 +18,11 @@ namespace TyEmuNuzhen.MyClasses
                     Directory.CreateDirectory(_imageSaveFolderPath);
                 }
 
-                string fileName = DateTime.Now.ToString("yyyyMMddHHmm") + "_" + Path.GetFileName(imageSourcePath);
+                string fileName = DateTime.Now.ToString("dd_MM_yyyy_HHmm") + "_" + Path.GetFileName(imageSourcePath) + "_" + idChild;
                 string newPath = Path.Combine(_imageSaveFolderPath, fileName);
-
+                if (File.Exists(newPath) && idChild == null)
+                    newPath += "_";
                 File.Copy(imageSourcePath, newPath, true);
-
                 return newPath;
             }
             catch (Exception ex)
@@ -37,7 +32,7 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static string CopyChildDocument(string documentSourcePath)
+        public static string CopyChildDocument(string documentSourcePath, string idChild)
         {
             try
             {
@@ -46,8 +41,11 @@ namespace TyEmuNuzhen.MyClasses
                     Directory.CreateDirectory(_documentSaveFolderPath);
                 }
 
-                string fileName = DateTime.Now.ToString("yyyyMMddHHmm") + "_" + Path.GetFileName(documentSourcePath);
+                string fileName = Path.GetFileName(documentSourcePath) + "_" + idChild;
                 string newPath = Path.Combine(_documentSaveFolderPath, fileName);
+
+                if (File.Exists(newPath) && idChild == null)
+                    newPath += "_";
 
                 File.Copy(documentSourcePath, newPath, true);
 

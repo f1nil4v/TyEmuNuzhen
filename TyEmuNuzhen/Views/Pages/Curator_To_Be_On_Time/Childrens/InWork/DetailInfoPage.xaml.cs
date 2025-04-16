@@ -122,7 +122,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork
                 bitmap.CacheOption = BitmapCacheOption.OnLoad;
                 bitmap.EndInit();
                 childPhoto.ImageSource = bitmap;
-                string image = CopyFilesClass.CopyChildImage(photoPath);
+                string image = CopyFilesClass.CopyChildImage(photoPath, _id);
                 if (!ChildrenPhotoClass.AddMonitoringPhotoChildren(_id, image))
                     return;
                 LoadChildData(_id);
