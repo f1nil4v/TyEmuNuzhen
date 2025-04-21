@@ -2,45 +2,31 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
-    internal class DoctorPostsClass
+    internal class TransportTypesClass
     {
-        public static DataTable dtDoctorPostsList;
-        public static DataTable dtDoctorPostsSList;
+        public static DataTable dtTranposrtTypeS;
 
-        public static void GetDoctorPostsList()
+        public static void GetTranposrtTypesList(string querySearch)
         {
             try
             {
-                DBConnection.myCommand.CommandText = $@"SELECT ID, postName FROM doctor_posts ORDER BY postName";
-                dtDoctorPostsList = new DataTable();
-                DBConnection.myDataAdapter.Fill(dtDoctorPostsList);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        public static void GetDoctorPostsList(string querySearch)
-        {
-            try
-            {
-                string whereClause = querySearch != "" ? $"WHERE postName LIKE @querySearch" : "";
+                string whereClause = querySearch != "" ? $"WHERE transportType LIKE @querySearch" : "";
                 DBConnection.myCommand.Parameters.Clear();
-                DBConnection.myCommand.CommandText = $@"SELECT ID, postName FROM doctor_posts {whereClause}";
+                DBConnection.myCommand.CommandText = $@"SELECT ID, transportType FROM transport_type {whereClause}";
                 if (whereClause != "")
                 {
                     string wildcardSearch = querySearch + "%";
                     DBConnection.myCommand.Parameters.AddWithValue("@querySearch", wildcardSearch);
                 }
-                dtDoctorPostsSList = new DataTable();
-                DBConnection.myDataAdapter.Fill(dtDoctorPostsSList);
+                dtTranposrtTypeS = new DataTable();
+                DBConnection.myDataAdapter.Fill(dtTranposrtTypeS);
             }
             catch (Exception ex)
             {
@@ -48,11 +34,31 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static string GetDoctorPostName(string idPost)
+        public static string GetTranposrtTypeName(string idTransportType)
         {
             try
             {
-                DBConnection.myCommand.CommandText = $@"SELECT postName FROM doctor_posts WHERE ID = '{idPost}'";
+                DBConnection.myCommand.CommandText = $"SELECT transportType FROM transport_type WHERE ID = '{idTransportType}'";
+                Object result = DBConnection.myCommand.ExecuteScalar();
+                if (result != null)
+                    return result.ToString();
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
+        public static string GetCountAllTranposrtTypes()
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $@"SELECT COUNT(ID) FROM transport_type";
                 Object result = DBConnection.myCommand.ExecuteScalar();
                 if (result != null)
                     return result.ToString();
@@ -66,32 +72,14 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static string GetCountAllDoctorPosts()
+        public static bool GetSameTranposrtType(string idTransportType, string transportType)
         {
             try
             {
-                DBConnection.myCommand.CommandText = $@"SELECT COUNT(ID) FROM doctor_posts";
-                Object result = DBConnection.myCommand.ExecuteScalar();
-                if (result != null)
-                    return result.ToString();
-                else
-                    return null;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return null;
-            }
-        }
-
-        public static bool GetSameDoctorPostName(string idPost, string postName)
-        {
-            try
-            {
-                string whereClause = idPost == null ? "" : $"AND ID <> '{idPost}'";
+                string whereClause = idTransportType == null ? "" : $"AND ID <> '{idTransportType}'";
                 DBConnection.myCommand.Parameters.Clear();
-                DBConnection.myCommand.CommandText = $@"SELECT COUNT(ID) FROM doctor_posts WHERE postName = @postName {whereClause}";
-                DBConnection.myCommand.Parameters.AddWithValue("@postName", postName);
+                DBConnection.myCommand.CommandText = $@"SELECT COUNT(ID) FROM transport_type WHERE transportType = @transportType {whereClause}";
+                DBConnection.myCommand.Parameters.AddWithValue("@transportType", transportType);
                 Object result = DBConnection.myCommand.ExecuteScalar();
                 if (Convert.ToInt32(result) == 0)
                     return true;
@@ -105,13 +93,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static bool AddDoctorPost(string postName)
+        public static bool AddTranposrtType(string transportType)
         {
             try
             {
                 DBConnection.myCommand.Parameters.Clear();
-                DBConnection.myCommand.CommandText = $@"INSERT INTO doctor_posts VALUES (null, @postName)";
-                DBConnection.myCommand.Parameters.AddWithValue("@postName", postName);
+                DBConnection.myCommand.CommandText = $@"INSERT INTO transport_type VALUES (null, @transportType)";
+                DBConnection.myCommand.Parameters.AddWithValue("@transportType", transportType);
                 if (DBConnection.myCommand.ExecuteNonQuery() > 0)
                     return true;
                 else
@@ -124,13 +112,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static bool UpdateDoctorPost(string idPost, string postName)
+        public static bool UpdateTranposrtType(string idTransportType, string transportType)
         {
             try
             {
                 DBConnection.myCommand.Parameters.Clear();
-                DBConnection.myCommand.CommandText = $@"UPDATE doctor_posts SET postName = @postName WHERE ID = '{idPost}'";
-                DBConnection.myCommand.Parameters.AddWithValue("@postName", postName);
+                DBConnection.myCommand.CommandText = $@"UPDATE transport_type SET transportType = @transportType WHERE ID = '{idTransportType}'";
+                DBConnection.myCommand.Parameters.AddWithValue("@transportType", transportType);
                 if (DBConnection.myCommand.ExecuteNonQuery() > 0)
                     return true;
                 else
@@ -143,11 +131,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static bool DeleteDoctorPost(string idPost)
+        public static bool DeleteTranposrtType(string idTransportType)
         {
             try
             {
-                DBConnection.myCommand.CommandText = $@"DELETE FROM doctor_posts WHERE ID = '{idPost}'";
+                DBConnection.myCommand.CommandText = $@"DELETE FROM transport_type WHERE ID = '{idTransportType}'";
                 if (DBConnection.myCommand.ExecuteNonQuery() > 0)
                     return true;
                 else

@@ -77,9 +77,12 @@ namespace TyEmuNuzhen
                         break;
                     case "3":
                         idUser = AuthorizationClass.GetUserId(loginTextBox.Text, passwordBox.Password);
-                        if (1 == 2)
+                        idEmployee = DirectorClass.GetDirectorID(idUser);
+                        if (idEmployee != null)
                         {
-
+                            this.Hide();
+                            mainWindow = new MainWindow(authorizationData, idEmployee, "3");
+                            mainWindow.Show();
                         }
                         else
                         {

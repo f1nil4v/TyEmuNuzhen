@@ -118,6 +118,21 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.7.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.7.25104.5739\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.7.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.7.25104.5739\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.7.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.7.25104.5739\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.7.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.7.25104.5739\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.7.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.7.25104.5739\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="ZstdSharp, Version=0.8.0.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
       <HintPath>..\packages\ZstdSharp.Port.0.8.0\lib\net462\ZstdSharp.dll</HintPath>
     </Reference>
@@ -148,13 +163,18 @@
     <Compile Include="MyClasses\CustomFunctionsClass.cs" />
     <Compile Include="MyClasses\DBConnection.cs" />
     <Compile Include="MyClasses\DiagnosesClass.cs" />
+    <Compile Include="MyClasses\DirectorClass.cs" />
     <Compile Include="MyClasses\DoctorPostsClass.cs" />
     <Compile Include="MyClasses\DoctorsOnAgreementClass.cs" />
     <Compile Include="MyClasses\DocumentTypeClass.cs" />
+    <Compile Include="MyClasses\MedicalFacilityClass.cs" />
+    <Compile Include="MyClasses\MedicalHelpTypeClass.cs" />
     <Compile Include="MyClasses\OrphanageClass.cs" />
     <Compile Include="MyClasses\RegionsClass.cs" />
     <Compile Include="MyClasses\ResultConsultationClass.cs" />
     <Compile Include="MyClasses\RolesClass.cs" />
+    <Compile Include="MyClasses\TransportTypesClass.cs" />
+    <Compile Include="MyClasses\UserClass.cs" />
     <Compile Include="MyClasses\VolonteerClass.cs" />
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ChildrensPage.xaml.cs">
       <DependentUpon>ChildrensPage.xaml</DependentUpon>
@@ -174,6 +194,42 @@
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\InWork\DocumentsChildPage.xaml.cs">
       <DependentUpon>DocumentsChildPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\Director\DoctorsOnAgreement\DoctorsOnAgreementPage.xaml.cs">
+      <DependentUpon>DoctorsOnAgreementPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\Employees\CuratorsPage.xaml.cs">
+      <DependentUpon>CuratorsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\Employees\DirectorsPage.xaml.cs">
+      <DependentUpon>DirectorsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\Employees\EmployeesPage.xaml.cs">
+      <DependentUpon>EmployeesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\Employees\VolonteersPage.xaml.cs">
+      <DependentUpon>VolonteersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\Reference_Books\DiagnosesPage.xaml.cs">
+      <DependentUpon>DiagnosesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\Reference_Books\DoctorPostsPage.xaml.cs">
+      <DependentUpon>DoctorPostsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\Reference_Books\DocumentsTypePage.xaml.cs">
+      <DependentUpon>DocumentsTypePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\Reference_Books\MedicalHelpTypePage.xaml.cs">
+      <DependentUpon>MedicalHelpTypePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\Reference_Books\ReferenceBooksPage.xaml.cs">
+      <DependentUpon>ReferenceBooksPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\Reference_Books\RegionsPage.xaml.cs">
+      <DependentUpon>RegionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\Reference_Books\TransportTypePage.xaml.cs">
+      <DependentUpon>TransportTypePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\ConsultationDiagnosisUserControl.xaml.cs">
       <DependentUpon>ConsultationDiagnosisUserControl.xaml</DependentUpon>
     </Compile>
@@ -185,6 +241,12 @@
     </Compile>
     <Compile Include="Views\UserControls\ImageUserControl.xaml.cs">
       <DependentUpon>ImageUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\AddDoctorWindow.xaml.cs">
+      <DependentUpon>AddDoctorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\AddUserWindow.xaml.cs">
+      <DependentUpon>AddUserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\DiagnosisWindow.xaml.cs">
       <DependentUpon>DiagnosisWindow.xaml</DependentUpon>
@@ -237,6 +299,9 @@
     </Compile>
     <Compile Include="Views\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\ReferenceBookValuesWindow.xaml.cs">
+      <DependentUpon>ReferenceBookValuesWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +357,54 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\Director\DoctorsOnAgreement\DoctorsOnAgreementPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Director\Employees\CuratorsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Director\Employees\DirectorsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Director\Employees\EmployeesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Director\Employees\VolonteersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Director\Reference_Books\DiagnosesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Director\Reference_Books\DoctorPostsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Director\Reference_Books\DocumentsTypePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Director\Reference_Books\MedicalHelpTypePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Director\Reference_Books\ReferenceBooksPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Director\Reference_Books\RegionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Director\Reference_Books\TransportTypePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControls\ConsultationDiagnosisUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -305,6 +418,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\ImageUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\AddDoctorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\AddUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -376,6 +497,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Windows\ReferenceBookValuesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\background.png" />
@@ -410,7 +535,6 @@
     <Folder Include="Documents\Children\Documents\" />
     <Folder Include="Documents\Children\MedicalConclusion\" />
     <Folder Include="Documents\Children\MedicalResults\" />
-    <Folder Include="Views\Pages\Administrator\" />
     <Folder Include="Views\Pages\Curator_Health_Houte\" />
     <Folder Include="Views\Pages\Curator_To_Be_On_Time\Archive\" />
   </ItemGroup>
@@ -442,6 +566,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Controls\trash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Controls\dictionaries.png" />
+    <Resource Include="Images\Controls\doctor.png" />
+    <Resource Include="Images\Controls\employees.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets')" />

@@ -1,0 +1,104 @@
+﻿<Page x:Class="TyEmuNuzhen.Views.Pages.Director.Reference_Books.DoctorPostsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TyEmuNuzhen.Views.Pages.Director.Reference_Books"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DoctorPostsPage" Loaded="Page_Loaded">
+
+    <Grid Margin="20,20,20,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="searchTextBox"
+                 Grid.Column="0" 
+                 Width="300"
+                 HorizontalAlignment="Left" 
+                 materialDesign:HintAssist.Hint="Поиск по должностям" 
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="searchTextBox_TextChanged"/>
+        </Grid>
+
+        <DataGrid x:Name="doctorPostsGrid" 
+              Grid.Row="1"
+              AutoGenerateColumns="False"
+              IsReadOnly="True"
+              BorderBrush="#FFCF5FD3"
+              BorderThickness="1"
+              Background="White"
+              RowBackground="White"
+              
+              HeadersVisibility="Column"
+              GridLinesVisibility="All"
+              HorizontalGridLinesBrush="#FFDDDDDD"
+              VerticalGridLinesBrush="#FFDDDDDD"
+              CanUserAddRows="False"
+              CanUserDeleteRows="False"
+              CanUserReorderColumns="False"
+              CanUserResizeRows="False"
+              AlternationCount="2"
+              RowHeaderWidth="0"
+              SelectionMode="Single">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#FFCF5FD3"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="50"/>
+                <DataGridTextColumn Header="Наименование должности" Width="*" Binding="{Binding postName}"/>
+                <DataGridTemplateColumn Header="Действия" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                                <Button Style="{StaticResource MaterialDesignIconButton}" 
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Width="24" Height="24" Margin="5,0"
+                                ToolTip="Редактировать" 
+                                Tag="{Binding ID}" Click="Button_Click">
+                                    <materialDesign:PackIcon Kind="Pencil" Width="20" Height="20" Foreground="Black"/>
+                                </Button>
+
+                                <Button x:Name="deleteBtn"
+                                Style="{StaticResource MaterialDesignIconButton}" 
+                                Width="24" Height="24" Margin="5,0" 
+                                ToolTip="Удалить" 
+                                Tag="{Binding ID}" Click="deleteBtn_Click">
+                                    <materialDesign:PackIcon Kind="Delete" Width="20" Height="20" Foreground="Black"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10,10,0,0" Background="#A3B92E" Padding="5">
+            <TextBlock x:Name="countRecords" FontSize="14" Foreground="White"/>
+        </Border>
+        <Border Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" CornerRadius="1000" Background="#A3B92E" Margin="0,10,0,20">
+            <Button x:Name="addBtn" Padding="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" Height="50" Width="50" Click="addBtn_Click">
+                <StackPanel>
+                    <Image Source="/Images/Controls/add.png" Height="30" Width="30"></Image>
+                </StackPanel>
+            </Button>
+        </Border>
+    </Grid>
+</Page>

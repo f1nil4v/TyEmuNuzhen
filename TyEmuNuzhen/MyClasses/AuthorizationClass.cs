@@ -16,7 +16,7 @@ namespace TyEmuNuzhen.MyClasses
         {
             try
             {
-                string query = "SELECT ID FROM users WHERE login = @login AND password = @password";
+                string query = "SELECT ID FROM users WHERE login = @login AND password = MD5(@password)";
                 DBConnection.myCommand.CommandText = query;
                 DBConnection.myCommand.Parameters.Clear();
                 DBConnection.myCommand.Parameters.AddWithValue("@login", login);
@@ -40,7 +40,7 @@ namespace TyEmuNuzhen.MyClasses
         {
             try
             {
-                string query = "SELECT idRole FROM users WHERE login = @login AND password = @password";
+                string query = "SELECT idRole FROM users WHERE login = @login AND password = MD5(@password)";
                 DBConnection.myCommand.CommandText = query;
                 DBConnection.myCommand.Parameters.Clear();
                 DBConnection.myCommand.Parameters.AddWithValue("@login", login);

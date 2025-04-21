@@ -1,0 +1,34 @@
+﻿<Page x:Class="TyEmuNuzhen.Views.Pages.Director.Reference_Books.ReferenceBooksPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TyEmuNuzhen.Views.Pages.Director.Reference_Books"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ReferenceBooksPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" BorderBrush="#FFCF5FD3" BorderThickness="0,0,0,1" Margin="20,10,20,0">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="diagnoses_sLbl" Content="Диагнозы" FontSize="16" Foreground="#FFCF5FD3" Margin="0,0,10,10" Cursor="Hand" MouseLeftButtonDown="diagnoses_sLbl_MouseLeftButtonDown"/>
+                    <Label x:Name="doctorPosts_sLbl" Content="Должности врачей" Foreground="#6D6B6E" FontSize="16" Margin="10,0,10,10" Cursor="Hand" MouseLeftButtonDown="doctorPosts_sLbl_MouseLeftButtonDown"/>
+                    <Label x:Name="regions_sLbl" Content="Регионы" Foreground="#6D6B6E" FontSize="16" Margin="10,0,10,10" Cursor="Hand" MouseLeftButtonDown="regions_sLbl_MouseLeftButtonDown"/>
+                    <Label x:Name="documentTypes_sLbl" Content="Типы документов" Foreground="#6D6B6E" FontSize="16" Margin="10,0,10,10" Cursor="Hand" MouseLeftButtonDown="documentTypes_sLbl_MouseLeftButtonDown"/>
+                    <Label x:Name="medicalHelpTypes_sLbl" Content="Типы медицинской помощи" Foreground="#6D6B6E" FontSize="16" Margin="10,0,10,10" Cursor="Hand" MouseLeftButtonDown="medicalHelpTypes_sLbl_MouseLeftButtonDown"/>
+                    <Label x:Name="transportTypes_sLbl" Content="Типы транспорта" Foreground="#6D6B6E" FontSize="16" Margin="10,0,10,10" Cursor="Hand" MouseLeftButtonDown="transportTypes_sLbl_MouseLeftButtonDown" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <Frame Grid.Row="1" x:Name="referenceBookFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2" Margin="0,0,0,0"/>
+    </Grid>
+    
+    
+</Page>

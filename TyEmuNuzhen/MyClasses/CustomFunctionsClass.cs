@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
@@ -97,6 +98,78 @@ namespace TyEmuNuzhen.MyClasses
             {
                 return "дней";
             }
+        }
+
+        public static bool IsValidEmail(string email)
+        {
+            char[] parseEmail = email.ToCharArray();
+            int lastInd = parseEmail.Length - 1;
+            int k = 0;
+            int d = 0;
+            int k1 = 0;
+            int d1 = 0;
+            if (parseEmail[0] == '@' || parseEmail[0] == '.' || parseEmail[lastInd] == '@' || parseEmail[lastInd] == '.')
+                return false;
+            foreach (char symbol in parseEmail)
+            {
+                if (symbol == '@')
+                    k++; // 1
+                if (symbol == '.')
+                    d++; //1
+                if (d > k)
+                    return false;
+                if (d > 0 && k > 0)
+                    if (k == d)
+                        break;
+            }
+
+            foreach (char symbol in parseEmail)
+            {
+                if (symbol == '.')
+                    d1++;
+                if (symbol == '@')
+                    k1++;
+                if (d1 > 1)
+                    return false;
+                if (k1 > 1)
+                    return false;
+            }
+
+            if (k == 1 && d == 1)
+                return true;
+            else
+                return false;
+        }
+
+        public static bool IsValidPassword(string password)
+        {
+            char[] parsePassword = password.ToCharArray();
+            if (password.Length < 8)
+            {
+                MessageBox.Show("Длина пароля должна быть больше 8-ти символов", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            foreach (char symbol in parsePassword)
+            {
+                if (symbol == '.' || symbol == ',' || symbol == '!' || symbol == '?' || symbol == '-' || symbol == ':' || symbol == ';')
+                {
+                    MessageBox.Show("Недопустимые знаки в пароле!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+
+                if (symbol == 32)
+                {
+                    MessageBox.Show("Пробел в пароле!");
+                    return false;
+                }
+
+                if ((symbol < 'A' || symbol > 'z') && (symbol < '0' || symbol > '9'))
+                {
+                    MessageBox.Show("Кириллица недопустима в пароле!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

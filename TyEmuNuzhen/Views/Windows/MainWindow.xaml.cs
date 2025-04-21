@@ -21,7 +21,7 @@ namespace TyEmuNuzhen.Views.Windows
         public MainWindow(string idRole, string idEmployee, string post)
         {
             InitializeComponent();
-            menuButtons = new List<Button> { btnVolonteerMonitoring, btnConsultation, btnCuratorMonitoring, btnPreliminary, btnChildrens, btnArchive, btnProfile };
+            menuButtons = new List<Button> { btnVolonteerMonitoring, btnConsultation, btnCuratorMonitoring, btnPreliminary, btnChildrens, btnArchive, btnEmploees, btnRefernceBooks, btnDoctorsOnAgreement, btnProfile };
             switch (idRole)
             {
                 case "1":
@@ -37,6 +37,13 @@ namespace TyEmuNuzhen.Views.Windows
                     mainFrame.NavigationService.RemoveBackEntry();
                     this.Title += $" - Куратор: {CuratorClass.GetCuratorFullName(idEmployee)}";
                     SetActiveMenuItem(btnCuratorMonitoring);
+                    break;
+                case "3":
+                    directorMenu.Visibility = Visibility.Visible;
+                    mainFrame.Navigate(new Pages.Director.Employees.EmployeesPage());
+                    mainFrame.NavigationService.RemoveBackEntry();
+                    this.Title += $" - Директор: {DirectorClass.GetDirectorFullName(idEmployee)}";
+                    SetActiveMenuItem(btnEmploees);
                     break;
                 default:
                     MessageBox.Show("Ошибка авторизации. Обратитесь к администратору.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -127,6 +134,27 @@ namespace TyEmuNuzhen.Views.Windows
         {
             SetActiveMenuItem(btnVolonteerMonitoring);
             mainFrame.Navigate(new Pages.MonitoringPage());
+            mainFrame.NavigationService.RemoveBackEntry();
+        }
+
+        private void btnEmploees_Click(object sender, RoutedEventArgs e)
+        {
+            SetActiveMenuItem(btnEmploees);
+            mainFrame.Navigate(new Pages.Director.Employees.EmployeesPage());
+            mainFrame.NavigationService.RemoveBackEntry();
+        }
+
+        private void btnRefernceBooks_Click(object sender, RoutedEventArgs e)
+        {
+            SetActiveMenuItem(btnRefernceBooks);
+            mainFrame.Navigate(new Pages.Director.Reference_Books.ReferenceBooksPage());
+            mainFrame.NavigationService.RemoveBackEntry();
+        }
+
+        private void btnDoctorsOnAgreement_Click(object sender, RoutedEventArgs e)
+        {
+            SetActiveMenuItem(btnDoctorsOnAgreement);
+            mainFrame.Navigate(new Pages.Director.DoctorsOnAgreement.DoctorsOnAgreementPage());
             mainFrame.NavigationService.RemoveBackEntry();
         }
     }

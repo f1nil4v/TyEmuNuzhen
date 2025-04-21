@@ -164,6 +164,61 @@
             
             <!---->
             
+            <!-- Меню директора-->
+
+            <StackPanel x:Name="directorMenu" Grid.Row="1" Visibility="Hidden">
+                <Button x:Name="btnEmploees" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnEmploees_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/Controls/employees.png" Height="25"></Image>
+                        <TextBlock Text="Сотрудники" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnRefernceBooks" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnRefernceBooks_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/Controls/dictionaries.png" Height="25"></Image>
+                        <TextBlock Text="Справочники" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnDoctorsOnAgreement" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnDoctorsOnAgreement_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/Controls/doctor.png" Height="25"></Image>
+                        <TextBlock Text="Врачи и медучреждения" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            
+            <!---->
+
             <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
                 <Button x:Name="btnProfile" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnProfile_Click">
                     <StackPanel Orientation="Horizontal">

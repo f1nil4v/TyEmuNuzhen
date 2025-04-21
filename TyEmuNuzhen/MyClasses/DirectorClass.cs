@@ -1,58 +1,78 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
-    internal class DoctorsOnAgreementClass
+    internal class DirectorClass
     {
-        public static DataTable dtDoctorsForComboBoxList;
-        public static DataTable dtDoctorsList;
-        public static DataTable dtDoctorDataList;
+        public static DataTable dtDirectorsList;
+        public static DataTable dtDirectorDataList;
 
-        public static void GetDoctrosForComboBoxList(string idPost)
+        public static string GetDirectorID(string idUser)
         {
             try
             {
-                string whereClause = string.IsNullOrEmpty(idPost) ? "" : $"WHERE idPost = '{idPost}'";
-                DBConnection.myCommand.CommandText = $@"SELECT ID, CONCAT_WS(' ', surname, name, IFNULL(middleName, '')) AS fullName FROM doctors_on_agreement 
-                                                        {whereClause}";
-                dtDoctorsForComboBoxList = new DataTable();
-                DBConnection.myDataAdapter.Fill(dtDoctorsForComboBoxList);
+                DBConnection.myCommand.CommandText = $"SELECT ID FROM directors WHERE idUser = '{idUser}'";
+                Object resultID = DBConnection.myCommand.ExecuteScalar();
+                if (resultID != null)
+                {
+                    return resultID.ToString();
+                }
+                else
+                {
+                    return null;
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
             }
         }
 
-        public static void GetDoctorsList(string querySearch, string orderByValue)
+        public static string GetDirectorFullName(string ID)
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $"SELECT CONCAT_WS(' ', surname, name, IFNULL(middleName, '')) FROM directors WHERE ID = '{ID}'";
+                Object result = DBConnection.myCommand.ExecuteScalar();
+                if (result != null)
+                    return result.ToString();
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
+        public static void GetDirectorsList(string querySearch, string orderByValue)
         {
             try
             {
                 DBConnection.myCommand.Parameters.Clear();
                 string whereClause = string.IsNullOrEmpty(querySearch) ? null :
-                    $@"AND (doctors_on_agreement.surname LIKE @searchQuery OR doctors_on_agreement.name LIKE @searchQuery OR doctors_on_agreement.middleName LIKE @searchQuery 
-                        OR doctors_on_agreement.phoneNumber LIKE @searchQuery OR doctors_on_agreement.email LIKE @searchQuery
-                        OR CONCAT_WS(' ', doctors_on_agreement.surname, doctors_on_agreement.name, IFNULL(doctors_on_agreement.middleName, '')) LIKE @searchQuery)";
+                    $@"AND (directors.surname LIKE @searchQuery OR directors.name LIKE @searchQuery OR directors.middleName LIKE @searchQuery 
+                        OR directors.phoneNumber LIKE @searchQuery OR directors.email LIKE @searchQuery OR users.login LIKE @searchQuery
+                        OR CONCAT_WS(' ', directors.surname, directors.name, IFNULL(directors.middleName, '')) LIKE @searchQuery)";
                 string orderBy = string.IsNullOrEmpty(orderByValue) ? null : $"ORDER BY {orderByValue}";
-                DBConnection.myCommand.CommandText = $@"SELECT doctors_on_agreement.ID, doctors_on_agreement.surname, doctors_on_agreement.name, IFNULL(doctors_on_agreement.middleName, '-') as 'middleName',
-                                            doctors_on_agreement.phoneNumber, doctors_on_agreement.email, doctor_posts.postName, medical_facility.medicalFacilityName 
-                                        FROM doctors_on_agreement, medical_facility, doctor_posts
-                                        WHERE medical_facility.ID = doctors_on_agreement.idMedicalFacility AND doctor_posts.ID = doctors_on_agreement.idPost {whereClause}
+                DBConnection.myCommand.CommandText = $@"SELECT directors.ID, users.login, directors.surname, directors.name, IFNULL(directors.middleName, '-') as 'middleName',
+                                            directors.phoneNumber, directors.email, directors.idUser
+                                        FROM directors, users
+                                        WHERE users.ID = directors.idUser {whereClause}
                                         {orderBy}";
                 if (whereClause != null)
                 {
                     string wildcardSearch = querySearch + "%";
                     DBConnection.myCommand.Parameters.AddWithValue("@searchQuery", wildcardSearch);
                 }
-                dtDoctorsList = new DataTable();
-                DBConnection.myDataAdapter.Fill(dtDoctorsList);
+                dtDirectorsList = new DataTable();
+                DBConnection.myDataAdapter.Fill(dtDirectorsList);
             }
             catch (Exception ex)
             {
@@ -60,16 +80,16 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static void GetDoctorData(string idDoctor)
+        public static void GetDirectorData(string idDirector)
         {
             try
             {
-                DBConnection.myCommand.CommandText = $@"SELECT doctors_on_agreement.ID, doctors_on_agreement.surname, doctors_on_agreement.name, IFNULL(doctors_on_agreement.middleName, '-') as 'middleName',
-                                            doctors_on_agreement.phoneNumber, doctors_on_agreement.email, doctors_on_agreement.idPost, doctors_on_agreement.idMedicalFacility
-                                        FROM doctors_on_agreement
-                                        WHERE doctors_on_agreement.ID = '{idDoctor}'";
-                dtDoctorDataList = new DataTable();
-                DBConnection.myDataAdapter.Fill(dtDoctorDataList);
+                DBConnection.myCommand.CommandText = $@"SELECT directors.ID, users.login, directors.surname, directors.name, IFNULL(directors.middleName, '-') as 'middleName',
+                                            directors.phoneNumber, directors.email, directors.idUser
+                                        FROM directors, users
+                                        WHERE users.ID = directors.idUser AND directors.ID = '{idDirector}'";
+                dtDirectorDataList = new DataTable();
+                DBConnection.myDataAdapter.Fill(dtDirectorDataList);
             }
             catch (Exception ex)
             {
@@ -77,11 +97,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static string GetCountAllDoctors()
+        public static string GetCountAllDirecrors()
         {
             try
             {
-                DBConnection.myCommand.CommandText = $@"SELECT COUNT(ID) FROM doctors_on_agreement";
+                DBConnection.myCommand.CommandText = $@"SELECT COUNT(ID) FROM directors";
                 Object result = DBConnection.myCommand.ExecuteScalar();
                 if (result != null)
                     return result.ToString();
@@ -95,12 +115,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static bool AddDoctor(string surname, string name, string middleName, string phoneNumber, string email, string idPost, string idMedicalFacility)
+        public static bool AddDirector(string surname, string name, string middleName, string phoneNumber, string email)
         {
             try
             {
+                string idUser = UserClass.GetLastUserID();
                 DBConnection.myCommand.Parameters.Clear();
-                DBConnection.myCommand.CommandText = $"INSERT INTO doctors_on_agreement VALUES (null, @surname, @name, @middleName, @phoneNumber, @email, '{idPost}', '{idMedicalFacility}')";
+                DBConnection.myCommand.CommandText = $"INSERT INTO directors VALUES (null, @surname, @name, @middleName, @phoneNumber, @email, '{idUser}')";
                 DBConnection.myCommand.Parameters.AddWithValue("@surname", surname);
                 DBConnection.myCommand.Parameters.AddWithValue("@name", name);
                 DBConnection.myCommand.Parameters.AddWithValue("@middleName", middleName);
@@ -118,14 +139,14 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static bool UpdateDoctor(string idDoctor, string surname, string name, string middleName, string phoneNumber, string email, string idPost, string idMedicalFacility)
+        public static bool UpdateDirector(string idDirector, string surname, string name, string middleName, string phoneNumber, string email)
         {
             try
             {
                 DBConnection.myCommand.Parameters.Clear();
-                DBConnection.myCommand.CommandText = $@"UPDATE doctors_on_agreement SET surname = @surname, name = @name, middleName = @middleName, 
-                                                            phoneNumber = @phoneNumber, email = @email, idPost = '{idPost}', idMedicalFacility = '{idMedicalFacility}'
-                                                        WHERE ID = '{idDoctor}'";
+                DBConnection.myCommand.CommandText = $@"UPDATE directors SET surname = @surname, name = @name, middleName = @middleName, 
+                                                            phoneNumber = @phoneNumber, email = @email
+                                                        WHERE ID = '{idDirector}'";
                 DBConnection.myCommand.Parameters.AddWithValue("@surname", surname);
                 DBConnection.myCommand.Parameters.AddWithValue("@name", name);
                 DBConnection.myCommand.Parameters.AddWithValue("@middleName", middleName);
@@ -143,11 +164,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static bool DeleteDoctor(string idDoctor)
+        public static bool DeleteDirector(string idDirector)
         {
             try
             {
-                DBConnection.myCommand.CommandText = $"DELETE FROM doctors_on_agreement WHERE ID = '{idDoctor}'";
+                DBConnection.myCommand.CommandText = $"DELETE FROM directors WHERE ID = '{idDirector}'";
                 if (DBConnection.myCommand.ExecuteNonQuery() > 0)
                     return true;
                 else
