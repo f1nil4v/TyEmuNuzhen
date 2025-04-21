@@ -78,36 +78,6 @@ LOCK TABLES `actual_program` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `administrators`
---
-
-DROP TABLE IF EXISTS `administrators`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `administrators` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `surname` varchar(70) DEFAULT NULL,
-  `name` varchar(70) DEFAULT NULL,
-  `middleName` varchar(70) DEFAULT NULL,
-  `phoneNumber` varchar(12) DEFAULT NULL,
-  `email` varchar(150) DEFAULT NULL,
-  `idUser` int NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `fk_volunteers_users1_idx` (`idUser`),
-  CONSTRAINT `fk_volunteers_users100` FOREIGN KEY (`idUser`) REFERENCES `users` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `administrators`
---
-
-LOCK TABLES `administrators` WRITE;
-/*!40000 ALTER TABLE `administrators` DISABLE KEYS */;
-/*!40000 ALTER TABLE `administrators` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `agreement_doctors`
 --
 
@@ -506,7 +476,7 @@ CREATE TABLE `curators` (
   PRIMARY KEY (`ID`),
   KEY `fk_volunteers_users1_idx` (`idUser`),
   CONSTRAINT `fk_volunteers_users10` FOREIGN KEY (`idUser`) REFERENCES `users` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -515,7 +485,7 @@ CREATE TABLE `curators` (
 
 LOCK TABLES `curators` WRITE;
 /*!40000 ALTER TABLE `curators` DISABLE KEYS */;
-INSERT INTO `curators` VALUES (2,'Иванова','Мария','Ивановна',NULL,NULL,3);
+INSERT INTO `curators` VALUES (2,'Иванова','Мария','Ивановна','71232313211','w@w.w',3);
 /*!40000 ALTER TABLE `curators` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -530,7 +500,7 @@ CREATE TABLE `diagnoses` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `diagnosisName` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -539,8 +509,41 @@ CREATE TABLE `diagnoses` (
 
 LOCK TABLES `diagnoses` WRITE;
 /*!40000 ALTER TABLE `diagnoses` DISABLE KEYS */;
-INSERT INTO `diagnoses` VALUES (7,'Гидроцефалия'),(8,'Cиндром Арнольда-Киари');
+INSERT INTO `diagnoses` VALUES (7,'Гидроцефалия'),(8,'Синдром Арнольда-Киари'),(17,'ДЦП');
 /*!40000 ALTER TABLE `diagnoses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `directors`
+--
+
+DROP TABLE IF EXISTS `directors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `directors` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `surname` varchar(70) DEFAULT NULL,
+  `name` varchar(70) DEFAULT NULL,
+  `middleName` varchar(70) DEFAULT NULL,
+  `phoneNumber` varchar(12) DEFAULT NULL,
+  `email` varchar(150) DEFAULT NULL,
+  `idUser` int NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `phoneNumber_UNIQUE` (`phoneNumber`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  KEY `fk_volunteers_users1_idx` (`idUser`),
+  CONSTRAINT `fk_volunteers_users100` FOREIGN KEY (`idUser`) REFERENCES `users` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `directors`
+--
+
+LOCK TABLES `directors` WRITE;
+/*!40000 ALTER TABLE `directors` DISABLE KEYS */;
+INSERT INTO `directors` VALUES (1,'Петрова','Татьяна','Васильевна','71231212311','email@ya.com',4);
+/*!40000 ALTER TABLE `directors` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -554,7 +557,7 @@ CREATE TABLE `doctor_posts` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `postName` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -563,7 +566,7 @@ CREATE TABLE `doctor_posts` (
 
 LOCK TABLES `doctor_posts` WRITE;
 /*!40000 ALTER TABLE `doctor_posts` DISABLE KEYS */;
-INSERT INTO `doctor_posts` VALUES (1,'Нейрохирург'),(2,'Невролог'),(3,'Травматолог-ортопед');
+INSERT INTO `doctor_posts` VALUES (1,'Нейрохирург'),(2,'Невролог'),(4,'Педиатр-терапевт');
 /*!40000 ALTER TABLE `doctor_posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -584,11 +587,13 @@ CREATE TABLE `doctors_on_agreement` (
   `idPost` int DEFAULT NULL,
   `idMedicalFacility` int DEFAULT NULL,
   PRIMARY KEY (`ID`),
+  UNIQUE KEY `phoneNumber_UNIQUE` (`phoneNumber`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_doctorPost_idx` (`idPost`),
   KEY `fk_medicalFacilityDoctor_idx` (`idMedicalFacility`),
   CONSTRAINT `fk_doctorPost` FOREIGN KEY (`idPost`) REFERENCES `doctor_posts` (`ID`),
   CONSTRAINT `fk_medicalFacilityDoctor` FOREIGN KEY (`idMedicalFacility`) REFERENCES `medical_facility` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -597,7 +602,7 @@ CREATE TABLE `doctors_on_agreement` (
 
 LOCK TABLES `doctors_on_agreement` WRITE;
 /*!40000 ALTER TABLE `doctors_on_agreement` DISABLE KEYS */;
-INSERT INTO `doctors_on_agreement` VALUES (7,'Зенцов','Михаил','Юрьевич',NULL,NULL,1,NULL),(8,'Иванова','Анжела','Викторовна',NULL,NULL,1,NULL),(9,'Осипенко','Оксана','Викторовна',NULL,NULL,2,NULL);
+INSERT INTO `doctors_on_agreement` VALUES (8,'Иванова','Анжела','Викторовна','71231231231','asd@asd.ad',1,1),(11,'тест','тест','тест','71212312231','email@asd.v',2,2);
 /*!40000 ALTER TABLE `doctors_on_agreement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -612,7 +617,7 @@ CREATE TABLE `documents_type` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `documentType` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -697,7 +702,7 @@ CREATE TABLE `medical_care_type` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `medicalCareType` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -706,6 +711,7 @@ CREATE TABLE `medical_care_type` (
 
 LOCK TABLES `medical_care_type` WRITE;
 /*!40000 ALTER TABLE `medical_care_type` DISABLE KEYS */;
+INSERT INTO `medical_care_type` VALUES (1,'Реабилитация');
 /*!40000 ALTER TABLE `medical_care_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -721,7 +727,7 @@ CREATE TABLE `medical_facility` (
   `medicalFacilityName` varchar(200) DEFAULT NULL,
   `address` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -730,6 +736,7 @@ CREATE TABLE `medical_facility` (
 
 LOCK TABLES `medical_facility` WRITE;
 /*!40000 ALTER TABLE `medical_facility` DISABLE KEYS */;
+INSERT INTO `medical_facility` VALUES (1,'Тест1',NULL),(2,'Тест2',NULL);
 /*!40000 ALTER TABLE `medical_facility` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -889,7 +896,7 @@ CREATE TABLE `regions` (
 
 LOCK TABLES `regions` WRITE;
 /*!40000 ALTER TABLE `regions` DISABLE KEYS */;
-INSERT INTO `regions` VALUES (1,'Мурманская область'),(2,'Московская область'),(3,'Пермская область'),(4,'Новосибирская область'),(5,'Костромская область'),(6,'Вологодская область');
+INSERT INTO `regions` VALUES (1,'Мурманская область'),(2,'Московская область'),(3,'Пермская область'),(4,'Новосибирская область'),(6,'Вологодская область');
 /*!40000 ALTER TABLE `regions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1013,7 +1020,7 @@ CREATE TABLE `transport_type` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `transportType` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1022,6 +1029,7 @@ CREATE TABLE `transport_type` (
 
 LOCK TABLES `transport_type` WRITE;
 /*!40000 ALTER TABLE `transport_type` DISABLE KEYS */;
+INSERT INTO `transport_type` VALUES (1,'Ракета');
 /*!40000 ALTER TABLE `transport_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1035,12 +1043,13 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `login` varchar(10) DEFAULT NULL,
-  `password` varchar(8) DEFAULT NULL,
+  `password` varchar(32) DEFAULT NULL,
   `idRole` int DEFAULT NULL,
   PRIMARY KEY (`ID`),
+  UNIQUE KEY `login_UNIQUE` (`login`),
   KEY `fk_roleUsers_idx` (`idRole`),
   CONSTRAINT `fk_roleUsers` FOREIGN KEY (`idRole`) REFERENCES `roles` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1049,7 +1058,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'0','0',1),(3,'cur','0',2),(4,'dir','0',3);
+INSERT INTO `users` VALUES (3,'cur','cfcd208495d565ef66e7dff9f98764da',2),(4,'dir','cfcd208495d565ef66e7dff9f98764da',3),(13,'vol1','7a371de86fe43ecbb1b8c27b0bbd59f7',1),(14,'vol2','7a371de86fe43ecbb1b8c27b0bbd59f7',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1075,7 +1084,7 @@ CREATE TABLE `volunteers` (
   KEY `fk_volunteers_users1_idx` (`idUser`),
   CONSTRAINT `fk_regionVolonteer` FOREIGN KEY (`idRegion`) REFERENCES `regions` (`ID`),
   CONSTRAINT `fk_volunteers_users1` FOREIGN KEY (`idUser`) REFERENCES `users` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1084,7 +1093,7 @@ CREATE TABLE `volunteers` (
 
 LOCK TABLES `volunteers` WRITE;
 /*!40000 ALTER TABLE `volunteers` DISABLE KEYS */;
-INSERT INTO `volunteers` VALUES (1,'Иванов','Иван','Иванович','+79009009090','ivanov@ya.ru',1,1);
+INSERT INTO `volunteers` VALUES (4,'Тест','Тест','Тест','72131221331','f@e.e',1,13),(5,'Тест','Тест','Тест','77999999999','f@e.e',2,14);
 /*!40000 ALTER TABLE `volunteers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1097,4 +1106,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-17  2:13:02
+-- Dump completed on 2025-04-21  8:56:34
