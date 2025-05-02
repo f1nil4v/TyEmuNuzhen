@@ -2,28 +2,37 @@
 using System.IO;
 using System.Windows;
 using wordAppealConsent = Microsoft.Office.Interop.Word;
+using wordAgreementOrphanage = Microsoft.Office.Interop.Word;
 
 namespace TyEmuNuzhen.MyClasses
 {
     internal class CreateDocumentsClass
     {
         private static string _documentSamplesFolderPath = @"../../Documents/Samples/";
-        private static string _documentSaveFolderPath = @"../../Documents/Children/AppealsConsents/";
+        private static string _documentSaveFolderPath = @"../../Documents/";
 
         public static void CreateAppealConsent(string idChildren, string idOrhanage, string fioChild, string birthdayChild, string orphanageName)
         {
-            string fileName = $"Обращение + согласие ДДИ - {fioChild} {orphanageName}";
+            string numLastAppeal = ConsentsClass.GetMaxNumAppealOrphanage() == "" ? "000000" : ConsentsClass.GetMaxNumAppealOrphanage();
+            int numAppealInt = Convert.ToInt32(numLastAppeal) + 1;
+            string numAppeal = String.Format("{0:D6}", numAppealInt);
+            string fileName = $"Обращение + согласие ДДИ №{numAppeal} - {orphanageName}";
             string documentSampleFolderPath = Path.GetFullPath(_documentSamplesFolderPath) + "appeal_consent_sample.docx";
-            string documentSaveFolderPath = Path.GetFullPath(_documentSaveFolderPath) + fileName;
+            string documentSaveFolderPath = Path.GetFullPath(_documentSaveFolderPath) + @"Children/AppealsConsents/" + fileName;
             OrphanageClass.GetOrphanageDataForPrintDocuments(idOrhanage);
-            AgreementOrphanagesClass.GetAgreementOrphanageData(idOrhanage);
-            string FIODirector = OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["directorSurname"].ToString()
-                + " " + OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["directorName"].ToString() 
-                + " " + OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["directorMiddleName"].ToString();
+            AgreementOrphanagesClass.GetAgreementOrphanageDataForPrint(idOrhanage);
+            string directorName = OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["directorName"].ToString();
+            string directorSurname = OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["directorSurname"].ToString();
+            string directorMiddleName = OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["directorMiddleName"].ToString() == ""
+                ? "" : OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["directorMiddleName"].ToString();
+            string middleNameInitials = directorMiddleName == "" ? "" : directorMiddleName[0] + ".";
 
-            string surnameNMDirectror = OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["directorName"].ToString()[0]
-                + ". " + OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["directorMiddleName"].ToString()[0]
-                + ". " + OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["directorSurname"].ToString();
+            string FIODirector = directorSurname + " " + directorName + " " + directorMiddleName;
+            string surnameNMDirectror = directorSurname + ". " + directorName[0] + ". " + middleNameInitials;
+
+            string numAgreement = String.Format("{0:D6}", AgreementOrphanagesClass.dtAgreementOrphanageData.Rows[0]["numAgreement"].ToString());
+
+            string idActualProgram = ActualProgramClass.GetIDLastActualProgramChildren(idChildren);
 
             DateTime dateNow = DateTime.Now;
             string shortDateFormat = dateNow.ToString("dd.MM.yyyy");
@@ -32,7 +41,7 @@ namespace TyEmuNuzhen.MyClasses
             var doc = app.Documents.Open(documentSampleFolderPath);
             doc.Activate();
 
-            doc.Bookmarks["appealNum"].Range.Text = AgreementOrphanagesClass.dtAgreementOrphanageData.Rows[0]["ID"].ToString();
+            doc.Bookmarks["appealNum"].Range.Text = numAppeal;
             doc.Bookmarks["dateNow"].Range.Text = shortDateFormat;
             doc.Bookmarks["orphanageName"].Range.Text = orphanageName;
             doc.Bookmarks["surnameNMDirectror"].Range.Text = surnameNMDirectror;
@@ -49,11 +58,11 @@ namespace TyEmuNuzhen.MyClasses
                     doc.Bookmarks["diagnosesList"].Range.Text += ", ";
                 }
             }
-            doc.Bookmarks["agrementNumOrphanage"].Range.Text = OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["ID"].ToString();
+            doc.Bookmarks["agrementNumOrphanage"].Range.Text = numAgreement;
             doc.Bookmarks["dateAgreementOrphanage"].Range.Text = Convert.ToDateTime(AgreementOrphanagesClass.dtAgreementOrphanageData.Rows[0]["dateConclusion"]).ToString("dd.MM.yyyy");
             doc.Bookmarks["FIODirector1"].Range.Text = FIODirector;
             doc.Bookmarks["dateNow1"].Range.Text = shortDateFormat;
-            doc.Bookmarks["programName"].Range.Text = RolesClass.GetRole();
+            doc.Bookmarks["programName"].Range.Text = ActualProgramClass.GetLastActualProgramChildren(idActualProgram);
             doc.Bookmarks["FIOEmployee"].Range.Text = CuratorClass.fullNameCurator;
             doc.Bookmarks["FIODirector2"].Range.Text = FIODirector;
             doc.Bookmarks["FIOChild1"].Range.Text = fioChild;
@@ -64,7 +73,7 @@ namespace TyEmuNuzhen.MyClasses
             doc.Saved = true;
             try
             {
-                if (!ChildrenDocumentClass.AddChildrenDocument(idChildren, "1", $"{_documentSaveFolderPath}{fileName}.pdf") || !ConsentsClass.AddChildrenAppealConsent(idOrhanage))
+                if (!ChildrenDocumentClass.AddChildrenDocument(idChildren, "1", $"{_documentSaveFolderPath}Children/AppealsConsents/{fileName}.pdf") || !ConsentsClass.AddChildrenAppealConsent(numAppeal, idOrhanage, idActualProgram))
                     throw new Exception("Не удалось добавить информацию о документе в базу данных");
                 doc.SaveAs2($"{documentSaveFolderPath}.pdf", wordAppealConsent.WdSaveFormat.wdFormatPDF);
                 doc.Close();
@@ -75,5 +84,66 @@ namespace TyEmuNuzhen.MyClasses
                 doc.Close();
             }
         }
+        
+        public static bool CreateAgreementOrphanage(string idOrphanage)
+        {
+            try
+            {
+                string dateNow = DateTime.Now.ToString("dd.MM.yyyy");
+                string dateNowFileName = DateTime.Now.ToString("dd_MM_yyyy");
+                string numLastAgreement = AgreementOrphanagesClass.GetMaxNumAgreementOrphanage() == "" ? "000000" : AgreementOrphanagesClass.GetMaxNumAgreementOrphanage();
+                int numAgreementInt = Convert.ToInt32(numLastAgreement) + 1;
+                string numAgreement = String.Format("{0:D6}", numAgreementInt);
+                string fileName = $"Соглашение о социальном партнёрстве № {numAgreement} - {dateNowFileName}";
+                if (!AgreementOrphanagesClass.AddAgreementOrphanage(numAgreement, idOrphanage, $"{_documentSaveFolderPath}Orphanages/Agreements/{fileName}.docx"))
+                    throw new Exception("Не удалось добавить информацию о соглашении в базу данных");
+                string documentSampleFolderPath = Path.GetFullPath(_documentSamplesFolderPath) + "agreementOrphanage.docx";
+                string documentSaveFolderPath = Path.GetFullPath(_documentSaveFolderPath) + "Orphanages/Agreements/" + fileName;
+                OrphanageClass.GetOrphanageDataForPrintDocuments(idOrphanage);
+
+                string directorName = OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["directorName"].ToString();
+                string directorSurname = OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["directorSurname"].ToString();
+                string directorMiddleName = OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["directorMiddleName"].ToString() == "" 
+                    ? "" : OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["directorMiddleName"].ToString();
+                string middleNameInitials = directorMiddleName == "" ? "" : directorMiddleName[0] + ".";
+
+                string FIODirector = directorSurname + " " + directorName + " " + directorMiddleName;
+                string surnameNMDirectror = directorSurname + ". " + directorName[0] + ". " + middleNameInitials;
+
+                string orphanageName = OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["nameOrphanage"].ToString();
+                string address = OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["address"].ToString();
+                string email = OrphanageClass.dtOrphanageDataForPrintDocuments.Rows[0]["email"].ToString();
+                var app = new wordAgreementOrphanage.Application();
+                app.Visible = false;
+                var doc = app.Documents.Open(documentSampleFolderPath);
+                doc.Activate();
+                doc.Bookmarks["agreementNum"].Range.Text = numAgreement;
+                doc.Bookmarks["dateNow"].Range.Text = dateNow;
+                doc.Bookmarks["nameOrphanage"].Range.Text = orphanageName;
+                doc.Bookmarks["directorFIO"].Range.Text = FIODirector;
+                doc.Bookmarks["nameOrphanage1"].Range.Text = orphanageName;
+                doc.Bookmarks["addressOrphanage"].Range.Text = address;
+                doc.Bookmarks["emailOrphanage"].Range.Text = email;
+                doc.Bookmarks["directorFamIO"].Range.Text = surnameNMDirectror;
+                doc.Saved = true;
+                try
+                {
+                    doc.SaveAs2($"{documentSaveFolderPath}.docx");
+                    doc.Close();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    doc.Close();
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+}
     }
 }

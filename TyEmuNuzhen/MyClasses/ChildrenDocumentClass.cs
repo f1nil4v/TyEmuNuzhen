@@ -42,6 +42,28 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        public static string GetCountChildrenDocuments(string idChild)
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $"SELECT COUNT(children_documents.ID) FROM children_documents WHERE children_documents.idChild = '{idChild}' AND children_documents.idDocumentType <> 1";
+                Object resultID = DBConnection.myCommand.ExecuteScalar();
+                if (resultID != null)
+                {
+                    return resultID.ToString();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
         public static bool AddChildrenDocument(string idChild, string idDocumentType, string filePath)
         {
             try

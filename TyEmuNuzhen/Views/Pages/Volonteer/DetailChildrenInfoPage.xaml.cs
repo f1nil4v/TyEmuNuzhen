@@ -140,7 +140,7 @@ namespace TyEmuNuzhen.Views.Pages.Volonteer
                 txtIsAlert.Text = "Нет";
             }
             txtSurname.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["surname"].ToString();
-            txtBirthday.Text = Convert.ToDateTime(ChildrensClass.dtChildrensList.Rows[0]["birthday"]).ToString("dd.MM.yyyy");
+            txtBirthday.Text = Convert.ToDateTime(ChildrensClass.dtChildrensDetailedList.Rows[0]["birthday"]).ToString("dd.MM.yyyy");
             txtName.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["name"].ToString();
             txtAge.Text = CustomFunctionsClass.CalculateAge(Convert.ToDateTime(ChildrensClass.dtChildrensDetailedList.Rows[0]["birthday"])).ToString();
             txtDateAdded.Text = Convert.ToDateTime(ChildrensClass.dtChildrensDetailedList.Rows[0]["dateAdded"]).ToString("dd.MM.yyyy");

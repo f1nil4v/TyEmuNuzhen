@@ -29,6 +29,7 @@ namespace TyEmuNuzhen.Views.Windows
         public AddDoctorWindow()
         {
             InitializeComponent();
+            Title = "Добавление записи";
         }
 
         public AddDoctorWindow(string surname, string name, string middleName, string phoneNumber, string email, string idPost, string idMedicalFacility)
@@ -48,6 +49,7 @@ namespace TyEmuNuzhen.Views.Windows
             tbEmail.Text = email;
             _idPost = idPost;
             _idMedicalFacility = idMedicalFacility;
+            Title = "Редактирование записи";
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

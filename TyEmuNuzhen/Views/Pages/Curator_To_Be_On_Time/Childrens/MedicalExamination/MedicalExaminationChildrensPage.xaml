@@ -1,0 +1,163 @@
+﻿<Page x:Class="TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamination.MedicalExaminationChildrensPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamination"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      Title="MedicalExaminationChildrensPage">
+
+    <Page.Resources>
+        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+                    <Setter Property="materialDesign:HintAssist.Foreground" Value="#A3B92E"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+                    <Setter Property="materialDesign:HintAssist.Foreground" Value="#A3B92E"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}">
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+            <Setter Property="materialDesign:HintAssist.Foreground" Value="#A3B92E"/>
+            <Setter Property="BorderBrush" Value="#A3B92E"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+                    <Setter Property="materialDesign:HintAssist.Foreground" Value="#A3B92E"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Margin="20,20,20,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Блок фильтрации (слева) -->
+            <Border Grid.Column="0" BorderBrush="#FFCF5FD3" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,10,0" HorizontalAlignment="Left">
+                <Grid>
+                    <TextBlock Text="Фильтрация" FontSize="16" Margin="0,0,0,40"></TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox
+                             Margin="0,0,10,0"
+                             Width="200"
+                             VerticalAlignment="Bottom"
+                             x:Name="searchTxt" 
+                             materialDesign:HintAssist.Hint="Поиск" TextChanged="searchTxt_TextChanged"/>
+                        <ComboBox x:Name="regionsCmbBox"
+                             Margin="10,0,10,0"
+                             Width="200" 
+                             VerticalAlignment="Bottom"
+                             materialDesign:HintAssist.Hint="Регион" 
+                             Cursor="Hand" SelectionChanged="regionsCmbBox_SelectionChanged"/>
+                        <ComboBox x:Name="orphanagesCmbBox"
+                             Margin="10,0,10,0"
+                             Width="200" 
+                             VerticalAlignment="Bottom"
+                             materialDesign:HintAssist.Hint="Детский дом" 
+                             Cursor="Hand" SelectionChanged="orphanagesCmbBox_SelectionChanged"/>
+                        <Button x:Name="btnRefreshFiltration"  
+                             Background="#A3B92E" 
+                             BorderBrush="#A3B92E"  
+                             Height="25"
+                             Width="25"
+                             Margin="10,0,0,0" 
+                             VerticalAlignment="Bottom" 
+                             Padding="4,4,4,4" 
+                             UseLayoutRounding="True" Click="btnRefreshFiltration_Click">
+                            <Image Source="/Images/Controls/refresh.png" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" BorderBrush="#FFCF5FD3" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,10,0" HorizontalAlignment="Left">
+                <Grid>
+                    <TextBlock Text="Период добавления в систему" FontSize="16" Margin="0,0,0,40"></TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <DatePicker Grid.Row="1" 
+                             Grid.Column="3" 
+                             Margin="0,0,0,0"
+                             Width="200"
+                             VerticalAlignment="Bottom"        
+                             x:Name="dateAddedBeginPeriodPicker" 
+                             materialDesign:HintAssist.Hint="Дата" 
+                             Cursor="Hand" SelectedDateChanged="dateAddedBeginPeriodPicker_SelectedDateChanged"/>
+                        <TextBlock Text="по" Margin="20,0,20,5" VerticalAlignment="Bottom" FontSize="12"></TextBlock>
+                        <DatePicker Grid.Row="1" 
+                             Grid.Column="3" 
+                             Margin="0,0,10,0"
+                             Width="200"
+                             VerticalAlignment="Bottom"        
+                             x:Name="dateAddedEndPeriodPicker" 
+                             materialDesign:HintAssist.Hint="Дата" 
+                             Cursor="Hand" SelectedDateChanged="dateAddedEndPeriodPicker_SelectedDateChanged"/>
+                        <Button x:Name="btnRefreshFiltrationDate"  
+                             Background="#A3B92E" 
+                             BorderBrush="#A3B92E"  
+                             Height="25"
+                             Width="25"
+                             Margin="10,0,0,0" 
+                             VerticalAlignment="Bottom" 
+                             Padding="4,4,4,4" 
+                             UseLayoutRounding="True" Click="btnRefreshFiltrationDate_Click">
+                            <Image Source="/Images/Controls/refresh.png" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Блок сортировки (справа) -->
+            <Border Grid.Column="2" BorderBrush="#FFCF5FD3" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,0" HorizontalAlignment="Right">
+                <Grid>
+                    <TextBlock Text="Сортировка" FontSize="16" Margin="0,0,0,40"></TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox x:Name="sortCmbBox"
+                             Margin="0,0,0,0"
+                             Width="200" 
+                             VerticalAlignment="Bottom"
+                             materialDesign:HintAssist.Hint="Сортировка" 
+                             Cursor="Hand" Style="{StaticResource MaterialDesignComboBox}" SelectionChanged="sortCmbBox_SelectionChanged">
+                            <ComboBoxItem Content="По дате добавления ↑"/>
+                            <ComboBoxItem Content="По дате добавления ↓"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+
+        <Label Grid.Row="2" x:Name="lbl" HorizontalAlignment="Center" Content="Детей нет." FontSize="24" Margin="10,10,0,0" Visibility="Hidden"/>
+
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="10,0,10,25">
+            <StackPanel x:Name="childrenContainer" Orientation="Vertical">
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10,10,0,0" Background="#A3B92E" Padding="5">
+            <TextBlock x:Name="countRecordsTxt" FontSize="14" Foreground="White"/>
+        </Border>
+    </Grid>
+</Page>

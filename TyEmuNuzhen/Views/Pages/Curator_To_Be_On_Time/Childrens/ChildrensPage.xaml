@@ -16,7 +16,8 @@
         
         <Border Grid.Row="0" BorderBrush="#FFCF5FD3" BorderThickness="0,0,0,1" Margin="20,10,20,0">
             <StackPanel Orientation="Horizontal">
-                <Label x:Name="inWorkLbl" Content="В работе" FontSize="16" Foreground="#FFCF5FD3" Margin="0,0,10,10" Cursor="Hand" MouseLeftButtonDown="inWorkLbl_MouseLeftButtonDown"/>
+                <Label x:Name="medicalExaminationLbl" Content="Медицинское освидетельствование" FontSize="16" Foreground="#FFCF5FD3" Margin="0,0,10,10" Cursor="Hand" MouseLeftButtonDown="medicalExaminationLbl_MouseLeftButtonDown"/>
+                <Label x:Name="toBeOnTimeLbl" Content="Чтобы успеть вовремя" Foreground="#6D6B6E" FontSize="16" Margin="10,0,10,10" Cursor="Hand" MouseLeftButtonDown="toBeOnTimeLbl_MouseLeftButtonDown"/>
                 <Label x:Name="workCompleteLbl" Content="Работа завершена" Foreground="#6D6B6E" FontSize="16" Margin="10,0,10,10" Cursor="Hand" MouseLeftButtonDown="workCompleteLbl_MouseLeftButtonDown"/>
                 <Label x:Name="noProblemLbl" Content="Проблем не выявлено" Foreground="#6D6B6E" FontSize="16" Margin="10,0,10,10" Cursor="Hand" MouseLeftButtonDown="noProblemLbl_MouseLeftButtonDown"/>
             </StackPanel>

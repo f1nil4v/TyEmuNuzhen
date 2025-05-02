@@ -24,7 +24,7 @@
             </Grid>
         </Border>
 
-        <StackPanel Grid.Column="1" Margin="10,10,0,0">
+        <StackPanel Grid.Column="1" Margin="10,5,0,0">
             <TextBlock x:Name="fullNameTextBlock" 
                Margin="0,10,0,0" 
                FontSize="14" 
@@ -56,16 +56,6 @@
                 Background="#A3B92E" 
                 Foreground="#DDFFFFFF" 
                 Padding="16,0,16,0" Click="detailedBtn_Click" />
-            <Button x:Name="consultationBtn"
-                BorderThickness="0" 
-                Height="20" 
-                Width="175"
-                Content="Консультация" 
-                FontSize="12" 
-                Background="#A3B92E" 
-                Foreground="#DDFFFFFF" 
-                Padding="16,0,16,0" 
-                Margin="0,10,0,0" Cursor="Hand" Click="consultationBtn_Click"/>
             <Button x:Name="documentsBtn"
                 BorderThickness="0" 
                 Height="20" 
@@ -76,7 +66,27 @@
                 Foreground="#DDFFFFFF" 
                 Padding="16,0,16,0" 
                 Margin="0,10,0,0" Cursor="Hand" Click="documentsBtn_Click"/>
-            <Button x:Name="transferBtn" IsEnabled="False"
+            <Button x:Name="nanniesBtn"
+                 BorderThickness="0" 
+                 Height="20" 
+                 Width="175"
+                 Content="Няни" 
+                 FontSize="12" 
+                 Background="#A3B92E" 
+                 Foreground="#DDFFFFFF" 
+                 Padding="16,0,16,0" 
+                 Margin="0,10,0,0" Cursor="Hand"/>
+            <Button x:Name="consultationBtn"
+                BorderThickness="0" 
+                Height="20" 
+                Width="175"
+                Content="Консультация" 
+                FontSize="12" 
+                Background="#A3B92E" 
+                Foreground="#DDFFFFFF" 
+                Padding="16,0,16,0" 
+                Margin="0,10,0,0" Cursor="Hand" Click="consultationBtn_Click"/>
+            <Button x:Name="transferBtn"
                 BorderThickness="0" 
                 Height="20" 
                 Width="175"
@@ -86,7 +96,7 @@
                 Foreground="#DDFFFFFF" 
                 Padding="16,0,16,0" 
                 Margin="0,10,0,0"/>
-            <Button x:Name="hospitalizationBtn" IsEnabled="False"
+            <Button x:Name="hospitalizationBtn"
                 BorderThickness="0" 
                 Height="20" 
                 Width="175"
@@ -96,7 +106,7 @@
                 Foreground="#DDFFFFFF" 
                 Padding="16,0,16,0" 
                 Margin="0,10,0,0"/>
-            <Button x:Name="completeWorkBtn" IsEnabled="False"
+            <Button x:Name="completeWorkBtn"
                 BorderThickness="0" 
                 Height="20" 
                 Width="175"

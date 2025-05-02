@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:TyEmuNuzhen.Views.Pages"
       mc:Ignorable="d" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       Title="MonitoringPage" Loaded="Page_Loaded">
@@ -44,6 +43,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" BorderBrush="#FFCF5FD3" BorderThickness="0,0,0,1" Margin="20,10,20,0">
@@ -87,8 +87,7 @@
                 <Grid>
                     <TextBlock Text="Период добавления в систему" FontSize="16" Margin="0,0,0,40"></TextBlock>
                     <StackPanel Orientation="Horizontal">
-                        <DatePicker Grid.Row="1" 
-                         Grid.Column="3" 
+                        <DatePicker
                          Margin="0,0,0,0"
                          Width="200"
                          VerticalAlignment="Bottom"        
@@ -96,8 +95,7 @@
                          materialDesign:HintAssist.Hint="Дата" 
                          Cursor="Hand" SelectedDateChanged="dateAddedBeginPeriodPicker_SelectedDateChanged"/>
                         <TextBlock Text="по" Margin="20,0,20,5" VerticalAlignment="Bottom" FontSize="12"></TextBlock>
-                        <DatePicker Grid.Row="1" 
-                         Grid.Column="3" 
+                        <DatePicker
                          Margin="0,0,10,0"
                          Width="200"
                          VerticalAlignment="Bottom"        
@@ -146,16 +144,23 @@
             </StackPanel>
         </ScrollViewer>
 
-        <Border Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10,10,0,0" Background="#A3B92E" Padding="5">
-            <TextBlock x:Name="countRecordsTxt" Text="200 из 200 записей" FontSize="14" Foreground="White"/>
-        </Border>
-
-        <Border Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" CornerRadius="1000" Background="#A3B92E" Margin="0,0,50,50">
-            <Button x:Name="addChildBtn" Padding="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" Height="50" Width="50" Click="addChildBtn_Click">
-                <StackPanel>
-                    <Image Source="/Images/Controls/add.png" Height="30" Width="30"></Image>
-                </StackPanel>
+        <StackPanel Grid.Row="3" Width="Auto" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10,10,0,0" Margin="10,0,0,0" Background="#A3B92E" Padding="5">
+                <TextBlock x:Name="countRecordsTxt" Text="" FontSize="14" Foreground="White"/>
+            </Border>
+            <Button x:Name="addChildBtn"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Padding="0,0,1.5,0"
+                    Margin="10,0,0,0"
+                    Background="#A3B92E"
+                    BorderBrush="#A3B92E"
+                    Height="29"
+                    Width="29"
+                    materialDesign:ButtonAssist.CornerRadius="25"
+                    Click="addChildBtn_Click">
+                <Image Source="/Images/Controls/add.png" Height="20" Width="20" Margin="0"/>
             </Button>
-        </Border>
+        </StackPanel>
     </Grid>
 </Page>

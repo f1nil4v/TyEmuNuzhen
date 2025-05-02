@@ -10,16 +10,15 @@ namespace TyEmuNuzhen.MyClasses
     {
         public static DataTable dtChildrenDiagnoses;
 
-        public static void GetChildrenDiagnoses(string idChild)
+        public static void GetChildrenDiagnoses(string idConsultation)
         {
             try
             {
-                DBConnection.myCommand.CommandText = $@"SELECT children_diagnosis.ID, diagnoses.diagnosisName,
-                    children_diagnosis.updateDate
-                    FROM children_diagnosis, diagnoses, consultation
-                    WHERE consultation.ID = children_diagnosis.idConsultation AND children_diagnosis.idDiagnosis = diagnoses.ID AND
-                        consultation.idChild = '{idChild}'
-                    ORDER BY children_diagnosis.ID DESC";
+                DBConnection.myCommand.CommandText = $@"SELECT diagnoses.diagnosisName
+                    FROM children_diagnosis, diagnoses
+                    WHERE children_diagnosis.idDiagnosis = diagnoses.ID AND
+                        children_diagnosis.idConsultation = '{idConsultation}'
+                    ORDER BY diagnoses.diagnosisName";
                 dtChildrenDiagnoses = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtChildrenDiagnoses);
             }
@@ -29,7 +28,7 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static bool AddChildrenDiagnosis(string date)
+        public static bool AddChildrenDiagnosis()
         {
             try
             {
@@ -37,7 +36,7 @@ namespace TyEmuNuzhen.MyClasses
                 foreach (string idDiagnosis in DiagnosesClass.selectedIDDiagnoses)
                 {
                     DBConnection.myCommand.CommandText = $@"INSERT INTO children_diagnosis 
-                    VALUES (null, '{idConsultation}','{idDiagnosis}', '{date}')";
+                    VALUES (null, '{idConsultation}','{idDiagnosis}')";
                     if (DBConnection.myCommand.ExecuteNonQuery() < 0)
                         return false;
                 }

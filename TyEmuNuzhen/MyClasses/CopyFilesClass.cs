@@ -110,5 +110,46 @@ namespace TyEmuNuzhen.MyClasses
                 return null;
             }
         }
+        
+        public static bool DownloadFile(string sourceFilePath, string destinationFilePath)
+        {
+            try
+            {
+                if (!File.Exists(sourceFilePath))
+                {
+                    MessageBox.Show("Файл не найден по указанному пути.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                File.Copy(sourceFilePath, destinationFilePath, true);
+                MessageBox.Show("Файл успешно сохранён!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при скачивании файла: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        public static bool DeleteFile(string filePath)
+        {
+            try
+            {
+
+                if (!File.Exists(filePath))
+                {
+                    MessageBox.Show("Файл не найден по указанному пути.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                File.Delete(filePath);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при удалении файла: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+        
     }
 }

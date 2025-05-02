@@ -5,8 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TyEmuNuzhen.Views.UserControls"
              mc:Ignorable="d" >
-    <Border x:Name="photoBorder" BorderBrush="#FFCF5FD3" BorderThickness="1" CornerRadius="10" Margin="5" Padding="5" MouseLeftButtonDown="photoBorder_MouseLeftButtonDown">
+    <Border x:Name="photoBorder" BorderBrush="#FFCF5FD3" BorderThickness="1" CornerRadius="10" Margin="5" Padding="5">
         <StackPanel Width="150">
+            <Button x:Name="btnDownload"
+                 Background="#A3B92E" 
+                 BorderBrush="#A3B92E"
+                 Height="20"
+                 Padding="2"
+                 HorizontalAlignment="Right" Click="btnDownload_Click">
+                <Image Source="/Images/Controls/download.png"/>
+            </Button>
             <Border Width="140" Height="140" CornerRadius="8" Margin="0,0,0,5">
                 <Border.Background>
                     <ImageBrush x:Name="photoImage" Stretch="UniformToFill"/>

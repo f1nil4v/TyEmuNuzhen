@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
@@ -7,6 +8,23 @@ namespace TyEmuNuzhen.MyClasses
     internal class ResultConsultationClass
     {
         public static List<string> oldFilePaths = new List<string>();
+        public static DataTable dtResultConsultationList;
+
+        public static void GetResultConsultation(string idConsultation)
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $@"SELECT filePath
+                    FROM results_consultation
+                    WHERE idConsiltation = '{idConsultation}'";
+                dtResultConsultationList = new DataTable();
+                DBConnection.myDataAdapter.Fill(dtResultConsultationList);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         public static bool AddResaultConsultations(string idChild)
         {
@@ -29,6 +47,6 @@ namespace TyEmuNuzhen.MyClasses
                 MessageBox.Show($"Произошла ошибка при добавлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
-}
+        }
     }
 }

@@ -63,6 +63,7 @@ namespace TyEmuNuzhen
                     case "2":
                         idUser = AuthorizationClass.GetUserId(loginTextBox.Text, passwordBox.Password);
                         idEmployee = CuratorClass.GetCuratorID(idUser);
+                        CuratorClass.idCurator = idEmployee;
                         if (idEmployee != null)
                         {
                             this.Hide();

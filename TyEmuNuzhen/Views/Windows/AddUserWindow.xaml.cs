@@ -42,6 +42,7 @@ namespace TyEmuNuzhen.Views.Windows
                     curatorRoleCmbBox.Visibility = Visibility.Visible;
                     break;
             }
+            Title = "Добавление записи";
         }
 
         public AddUserWindow(string login, string surname, string name, string middleName, string phoneNumber, string email, string regionName, string idRole, int employee)
@@ -76,6 +77,7 @@ namespace TyEmuNuzhen.Views.Windows
                     break;
             }
             isInsert = false;
+            Title = "Редактирование записи";
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

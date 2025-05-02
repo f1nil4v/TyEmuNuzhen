@@ -5,6 +5,8 @@ using System.Windows.Input;
 using System.IO;
 using System.Diagnostics;
 using System.Windows;
+using TyEmuNuzhen.MyClasses;
+using Microsoft.Win32;
 
 namespace TyEmuNuzhen.Views.UserControls
 {
@@ -29,14 +31,16 @@ namespace TyEmuNuzhen.Views.UserControls
             {
                 case 0:
                     LoadImage(isFirst, filePath, dateFile);
+                    btnDownload.Visibility = Visibility.Collapsed;
                     break;
                 case 1:
                     LoadDocument(filePath, documentType);
-                    photoBorder.Cursor = Cursors.Hand;
                     break;
                 case 2:
                     LoadAppealsConsents(filePath, dateFile);
-                    photoBorder.Cursor = Cursors.Hand;
+                    break;
+                case 3:
+                    LoadWordDocument(isFirst, filePath, dateFile);
                     break;
                 default:
                     infoTextBlock.Text = "Неизвестный тип объекта";
@@ -116,27 +120,64 @@ namespace TyEmuNuzhen.Views.UserControls
             infoTextBlock.Text = $"{Path.GetFileNameWithoutExtension(filePath)} от {dateFile}";
         }
 
-        private void photoBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void LoadWordDocument(bool isFirst, string filePath, string dateFile)
         {
-            if (_objectType != 0)
+            try
             {
-                if (e.ClickCount == 2)
-                {
-                    try
-                    {
-                        string fullPath = Path.GetFullPath(_filePath);
-                        Process.Start(new ProcessStartInfo
-                        {
-                            FileName = fullPath,
-                            UseShellExecute = true
-                        });
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Ошибка при открытии файла", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(_wordpng, UriKind.RelativeOrAbsolute);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+                photoImage.ImageSource = bitmap;
+            }
+            catch
+            {
+                BitmapImage errorBitmap = new BitmapImage();
+                errorBitmap.BeginInit();
+                errorBitmap.UriSource = new Uri(_errImagePath, UriKind.RelativeOrAbsolute);
+                errorBitmap.CacheOption = BitmapCacheOption.OnLoad;
+                errorBitmap.EndInit();
+                photoImage.ImageSource = errorBitmap;
+            }
+            if (isFirst)
+                infoTextBlock.Text = $"{Path.GetFileNameWithoutExtension(filePath)} от {dateFile} (последнее)";
+            else
+                infoTextBlock.Text = $"{Path.GetFileNameWithoutExtension(filePath)} от {dateFile}";
+
+        }
+
+        private void btnDownload_Click(object sender, RoutedEventArgs e)
+        {
+            string filter;
+            switch (_objectType)
+            {
+                case 1:
+                    filter = "Изображения (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
+                    break;
+                case 2:
+                    filter = "Документы PDF (*.pdf)|*.pdf";
+                    break;
+                case 3:
+                    filter = "Документы Word (*.docx)|*.docx";
+                    break;
+                default:
+                    filter = "Все файлы (*.*)|*.*";
+                    break;
+            }
+            string originalFileName = Path.GetFileName(_filePath);
+            var saveFileDialog = new SaveFileDialog
+            {
+                FileName = originalFileName,
+                Filter = filter
+            };
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                string selectedPath = saveFileDialog.FileName;
+                CopyFilesClass.DownloadFile(_filePath, selectedPath);
             }
         }
+
+
     }
 }

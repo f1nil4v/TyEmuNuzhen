@@ -22,7 +22,7 @@
 
         <ComboBox Grid.Row="1" 
               x:Name="cbDiagnoses" 
-              materialDesign:HintAssist.Hint="Тип документа" 
+              materialDesign:HintAssist.Hint="Диагноз" 
               IsEditable="False"
               DisplayMemberPath="documentType"
               SelectedValuePath="ID"

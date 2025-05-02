@@ -10,6 +10,7 @@ namespace TyEmuNuzhen.MyClasses
 
         public static DataTable dtCuratorsList;
         public static DataTable dtCuratorDataList;
+        public static string idCurator;
 
         public static string GetCuratorID(string idUser)
         {

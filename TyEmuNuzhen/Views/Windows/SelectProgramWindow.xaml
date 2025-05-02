@@ -1,0 +1,44 @@
+﻿<Window x:Class="TyEmuNuzhen.Views.Windows.SelectProgramWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows"
+        mc:Ignorable="d"
+        Title="Выбор программы" Height="193" Width="691" ResizeMode="NoResize">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Margin="10" TextWrapping="Wrap" TextAlignment="Center"><Run Text="Выявлено больше одного диагноза После подтверждения ребёнку попадёт в программу под ваше кураторство. Хотите продолжить?"/></TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="1" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom">
+            <Button x:Name="btnCancel" 
+                Content="Отмена" 
+                IsCancel="True"
+                Margin="0,0,10,0"  
+                Height="30"
+                Background="#A3B92E" 
+                BorderBrush="#A3B92E" Click="btnCancel_Click"/>
+            <Button x:Name="btnHealthRoute" 
+                Content="Маршрут здоровья сироты" 
+                IsDefault="True"
+                Margin="0,0,10,0" 
+                Height="30"
+                Background="#A3B92E" 
+                BorderBrush="#A3B92E" Click="btnHealthRoute_Click" />
+            <Button x:Name="btnToBeOnTime" 
+                Content="Чтобы успеть вовремя" 
+                IsDefault="True"
+                Height="30"
+                Background="#A3B92E" 
+                BorderBrush="#A3B92E" Click="btnToBeOnTime_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

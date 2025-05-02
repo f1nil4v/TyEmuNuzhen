@@ -21,7 +21,7 @@ namespace TyEmuNuzhen.Views.Windows
         public MainWindow(string idRole, string idEmployee, string post)
         {
             InitializeComponent();
-            menuButtons = new List<Button> { btnVolonteerMonitoring, btnConsultation, btnCuratorMonitoring, btnPreliminary, btnChildrens, btnArchive, btnEmploees, btnRefernceBooks, btnDoctorsOnAgreement, btnProfile };
+            menuButtons = new List<Button> { btnVolonteerMonitoring, btnNannies, btnCuratorMonitoring, btnPreliminary, btnChildrens, btnArchive, btnEmploees, btnRefernceBooks, btnDoctorsOnAgreement, btnOrphanages, btnProfile };
             switch (idRole)
             {
                 case "1":
@@ -94,9 +94,10 @@ namespace TyEmuNuzhen.Views.Windows
             Application.Current.Shutdown();
         }
 
-        private void btnConsultation_Click(object sender, RoutedEventArgs e)
+        private void btnNannies_Click(object sender, RoutedEventArgs e)
         {
-            SetActiveMenuItem(btnConsultation);
+            SetActiveMenuItem(btnNannies);
+            mainFrame.Navigate(new Pages.Curator_To_Be_On_Time.Nannies.NanniesPage());
         }
 
         private void btnCuratorMonitoring_Click(object sender, RoutedEventArgs e)
@@ -155,6 +156,13 @@ namespace TyEmuNuzhen.Views.Windows
         {
             SetActiveMenuItem(btnDoctorsOnAgreement);
             mainFrame.Navigate(new Pages.Director.DoctorsOnAgreement.DoctorsOnAgreementPage());
+            mainFrame.NavigationService.RemoveBackEntry();
+        }
+        
+        private void btnOrphanages_Click(object sender, RoutedEventArgs e)
+        {
+            SetActiveMenuItem(btnOrphanages);
+            mainFrame.Navigate(new Pages.Director.Orphanages.OrphanagesPage());
             mainFrame.NavigationService.RemoveBackEntry();
         }
     }

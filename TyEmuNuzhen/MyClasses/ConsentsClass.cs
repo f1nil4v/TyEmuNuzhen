@@ -9,14 +9,32 @@ namespace TyEmuNuzhen.MyClasses
 {
     internal class ConsentsClass
     {
-        public static bool AddChildrenAppealConsent(string idOrphanage)
+        public static string GetMaxNumAppealOrphanage()
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $@"SELECT MAX(numAppeal) FROM consents";
+                Object result = DBConnection.myCommand.ExecuteScalar();
+                if (result != null)
+                    return result.ToString();
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
+        public static bool AddChildrenAppealConsent(string numAppeal, string idOrphanage, string idActualProgram)
         {
             try
             {
                 string idDocument = ChildrenDocumentClass.GetLastDocumentID();
                 string dateNow = DateTime.Now.ToString("yyyy-MM-dd");
                 DBConnection.myCommand.CommandText = $@"INSERT INTO consents 
-                    VALUES (null, '{dateNow}', '{idDocument}', '{idOrphanage}')";
+                    VALUES (null, '{numAppeal}', '{dateNow}', '{idOrphanage}', '{idDocument}', '{idActualProgram}')";
 
                 if (DBConnection.myCommand.ExecuteNonQuery() > 0)
                     return true;
@@ -29,5 +47,15 @@ namespace TyEmuNuzhen.MyClasses
                 return false;
             }
         }
+
+        //public static bool CheckAppealConsents(string idChild)
+        //{
+        //    try
+        //    {
+        //        string idActualProgram = ActualProgramClass.GetLastActualProgramChildren(idChild);
+        //    }
+        //    catch (E)
+
+        //}
     }
 }

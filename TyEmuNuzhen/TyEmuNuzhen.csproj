@@ -65,6 +65,12 @@
       <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1004\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.135\lib\net462\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
@@ -146,6 +152,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MyClasses\ActualDiagnosesClass.cs" />
+    <Compile Include="MyClasses\ActualProgramClass.cs" />
     <Compile Include="MyClasses\AgreementOrphanagesClass.cs" />
     <Compile Include="MyClasses\AnimationsClass.cs" />
     <Compile Include="MyClasses\AuthorizationClass.cs" />
@@ -169,6 +177,7 @@
     <Compile Include="MyClasses\DocumentTypeClass.cs" />
     <Compile Include="MyClasses\MedicalFacilityClass.cs" />
     <Compile Include="MyClasses\MedicalHelpTypeClass.cs" />
+    <Compile Include="MyClasses\NanniesClass.cs" />
     <Compile Include="MyClasses\OrphanageClass.cs" />
     <Compile Include="MyClasses\RegionsClass.cs" />
     <Compile Include="MyClasses\ResultConsultationClass.cs" />
@@ -179,20 +188,26 @@
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ChildrensPage.xaml.cs">
       <DependentUpon>ChildrensPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\CompletedWorksPage.xaml.cs">
-      <DependentUpon>CompletedWorksPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\InWorkPage.xaml.cs">
-      <DependentUpon>InWorkPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\InWork\ConsultationPage.xaml.cs">
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\MedicalExamination\ConsultationPage.xaml.cs">
       <DependentUpon>ConsultationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\InWork\DetailInfoPage.xaml.cs">
-      <DependentUpon>DetailInfoPage.xaml</DependentUpon>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\MedicalExamination\MedicalExaminationChildrensPage.xaml.cs">
+      <DependentUpon>MedicalExaminationChildrensPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\InWork\DocumentsChildPage.xaml.cs">
-      <DependentUpon>DocumentsChildPage.xaml</DependentUpon>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\MedicalExamination\MedicalExaminationDetailInfoPage.xaml.cs">
+      <DependentUpon>MedicalExaminationDetailInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\DetailedInfoPage.xaml.cs">
+      <DependentUpon>DetailedInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\DocumentsPage.xaml.cs">
+      <DependentUpon>DocumentsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\ToBeOnTimePage.xaml.cs">
+      <DependentUpon>ToBeOnTimePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Nannies\NanniesPage.xaml.cs">
+      <DependentUpon>NanniesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\Director\DoctorsOnAgreement\DoctorsOnAgreementPage.xaml.cs">
       <DependentUpon>DoctorsOnAgreementPage.xaml</DependentUpon>
@@ -208,6 +223,12 @@
     </Compile>
     <Compile Include="Views\Pages\Director\Employees\VolonteersPage.xaml.cs">
       <DependentUpon>VolonteersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\Orphanages\AgreementsPage.xaml.cs">
+      <DependentUpon>AgreementsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\Orphanages\OrphanagesPage.xaml.cs">
+      <DependentUpon>OrphanagesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\Director\Reference_Books\DiagnosesPage.xaml.cs">
       <DependentUpon>DiagnosesPage.xaml</DependentUpon>
@@ -236,6 +257,9 @@
     <Compile Include="Views\UserControls\ConsultationDocumentsUserControl.xaml.cs">
       <DependentUpon>ConsultationDocumentsUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\ConsultationsHistoryUserControl.xaml.cs">
+      <DependentUpon>ConsultationsHistoryUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\DescriptionUserControl.xaml.cs">
       <DependentUpon>DescriptionUserControl.xaml</DependentUpon>
     </Compile>
@@ -245,6 +269,12 @@
     <Compile Include="Views\Windows\AddDoctorWindow.xaml.cs">
       <DependentUpon>AddDoctorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Windows\AddNannyWindow.xaml.cs">
+      <DependentUpon>AddNannyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\AddOrphanage.xaml.cs">
+      <DependentUpon>AddOrphanage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\AddUserWindow.xaml.cs">
       <DependentUpon>AddUserWindow.xaml</DependentUpon>
     </Compile>
@@ -253,12 +283,6 @@
     </Compile>
     <Compile Include="Views\Windows\DocumentTypeWindow.xaml.cs">
       <DependentUpon>DocumentTypeWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\NoProblemPage.xaml.cs">
-      <DependentUpon>NoProblemPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Counsultations\ConsultationPage.xaml.cs">
-      <DependentUpon>ConsultationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Monitoring\AddChildrenInfoCuratorPage.xaml.cs">
       <DependentUpon>AddChildrenInfoCuratorPage.xaml</DependentUpon>
@@ -274,9 +298,6 @@
     </Compile>
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\PreliminaryInWork\PreliminaryInWorkPage.xaml.cs">
       <DependentUpon>PreliminaryInWorkPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Pages\Curator_To_Be_On_Time\ToBeOnTime\ToBeOnTimePage.xaml.cs">
-      <DependentUpon>ToBeOnTimePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\Volonteer\DetailChildrenInfoPage.xaml.cs">
       <DependentUpon>DetailChildrenInfoPage.xaml</DependentUpon>
@@ -302,6 +323,9 @@
     </Compile>
     <Compile Include="Views\Windows\ReferenceBookValuesWindow.xaml.cs">
       <DependentUpon>ReferenceBookValuesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\SelectProgramWindow.xaml.cs">
+      <DependentUpon>SelectProgramWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -337,23 +361,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\CompletedWorksPage.xaml">
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\MedicalExamination\ConsultationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\InWorkPage.xaml">
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\MedicalExamination\MedicalExaminationChildrensPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\InWork\ConsultationPage.xaml">
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\MedicalExamination\MedicalExaminationDetailInfoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\InWork\DetailInfoPage.xaml">
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\DetailedInfoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\InWork\DocumentsChildPage.xaml">
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\DocumentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\ToBeOnTimePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Nannies\NanniesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -377,6 +409,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\Director\Orphanages\AgreementsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Director\Orphanages\OrphanagesPage.xaml" />
     <Page Include="Views\Pages\Director\Reference_Books\DiagnosesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -413,6 +450,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserControls\ConsultationsHistoryUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControls\DescriptionUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -425,6 +466,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Windows\AddNannyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\AddOrphanage.xaml" />
     <Page Include="Views\Windows\AddUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -436,14 +482,6 @@
     <Page Include="Views\Windows\DocumentTypeWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\NoProblemPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Pages\Curator_To_Be_On_Time\Counsultations\ConsultationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\Curator_To_Be_On_Time\Monitoring\AddChildrenInfoCuratorPage.xaml">
       <SubType>Designer</SubType>
@@ -462,10 +500,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\Curator_To_Be_On_Time\PreliminaryInWork\PreliminaryInWorkPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Pages\Curator_To_Be_On_Time\ToBeOnTime\ToBeOnTimePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -498,6 +532,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Windows\ReferenceBookValuesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\SelectProgramWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -535,8 +573,10 @@
     <Folder Include="Documents\Children\Documents\" />
     <Folder Include="Documents\Children\MedicalConclusion\" />
     <Folder Include="Documents\Children\MedicalResults\" />
+    <Folder Include="Documents\Orphanages\Agreements\" />
     <Folder Include="Views\Pages\Curator_Health_Houte\" />
-    <Folder Include="Views\Pages\Curator_To_Be_On_Time\Archive\" />
+    <Folder Include="Views\Pages\Curator_To_Be_On_Time\Childrens\CompletedWorks\" />
+    <Folder Include="Views\Pages\Curator_To_Be_On_Time\Childrens\NoProblem\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Controls\children.png" />
@@ -571,6 +611,15 @@
     <Resource Include="Images\Controls\dictionaries.png" />
     <Resource Include="Images\Controls\doctor.png" />
     <Resource Include="Images\Controls\employees.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Controls\orphanages.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Controls\download.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Controls\nannies.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets')" />

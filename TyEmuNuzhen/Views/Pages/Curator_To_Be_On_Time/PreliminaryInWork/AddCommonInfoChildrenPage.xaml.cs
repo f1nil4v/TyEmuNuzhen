@@ -50,7 +50,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.PreliminaryInWork
             ChildrenPhotoClass.GetMonitoringPhotoChildren(id);
             txtQuestNumber.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["numOfQuestionnaire"].ToString();
             txtSurname.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["surname"].ToString();
-            txtBirthday.Text = Convert.ToDateTime(ChildrensClass.dtChildrensList.Rows[0]["birthday"]).ToString("dd.MM.yyyy");
+            txtBirthday.Text = Convert.ToDateTime(ChildrensClass.dtChildrensDetailedList.Rows[0]["birthday"]).ToString("dd.MM.yyyy");
             txtName.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["name"].ToString();
             txtAge.Text = CustomFunctionsClass.CalculateAge(Convert.ToDateTime(ChildrensClass.dtChildrensDetailedList.Rows[0]["birthday"])).ToString();
             txtDateAdded.Text = Convert.ToDateTime(ChildrensClass.dtChildrensDetailedList.Rows[0]["dateAdded"]).ToString("dd.MM.yyyy");
