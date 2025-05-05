@@ -41,7 +41,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             if (_updated == false)
                 NavigationService.GoBack();
             else
-                NavigationService.Navigate(new ChildrensPage());
+                NavigationService.Navigate(new ChildrensPage(2));
             NavigationService.RemoveBackEntry();
         }
 

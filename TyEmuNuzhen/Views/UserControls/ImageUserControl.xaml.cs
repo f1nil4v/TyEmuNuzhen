@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.Windows.Input;
 using System.IO;
-using System.Diagnostics;
 using System.Windows;
 using TyEmuNuzhen.MyClasses;
 using Microsoft.Win32;
@@ -177,7 +175,5 @@ namespace TyEmuNuzhen.Views.UserControls
                 CopyFilesClass.DownloadFile(_filePath, selectedPath);
             }
         }
-
-
     }
 }

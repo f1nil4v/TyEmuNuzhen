@@ -31,7 +31,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
             if (_updated == false)
                 NavigationService.GoBack();
             else
-                NavigationService.Navigate(new ChildrensPage());
+                NavigationService.Navigate(new ChildrensPage(1));
             NavigationService.RemoveBackEntry();
         }
 

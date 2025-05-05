@@ -11,6 +11,7 @@ namespace TyEmuNuzhen.MyClasses
     internal class NanniesClass
     {
         public static DataTable dtNanniesList;
+        public static DataTable dtNanniesForSelectProgramList;
         public static DataTable dtNanniesDataList;
 
         public static void GetNanniesList(string querySearch, string orderByValue)
@@ -37,6 +38,38 @@ namespace TyEmuNuzhen.MyClasses
                 }
                 dtNanniesList = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtNanniesList);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public static void GetNanniesListForSelectOnProgram(string querySearch, string orderByValue)
+        {
+            try
+            {
+                DBConnection.myCommand.Parameters.Clear();
+                string whereClause = string.IsNullOrEmpty(querySearch) ? null :
+                    $@"AND (nannies.surname LIKE @searchQuery OR nannies.name LIKE @searchQuery OR nannies.middleName LIKE @searchQuery 
+                        OR nannies.phoneNumber LIKE @searchQuery OR nannies.email LIKE @searchQuery
+                        OR CONCAT_WS(' ', nannies.surname, nannies.name, IFNULL(nannies.middleName, '') LIKE @searchQuery)
+                        OR nannies.passSeries LIKE @searchQuery OR nannies.passNum LIKE @searchQuery OR CONCAT_WS(' ', nannies.passSeries, nannies.passNum) LIKE @searchQuery) AND";
+                string orderBy = string.IsNullOrEmpty(orderByValue) ? null : $"ORDER BY {orderByValue}";
+                DBConnection.myCommand.CommandText = $@"SELECT nannies.ID, CONCAT_WS(' ', nannies.surname, nannies.name, IFNULL(nannies.middleName, '')) as 'FIO',
+                                                        CONCAT_WS(' ', nannies.passSeries, nannies.passNum) as 'passSeriesNum', nannies.passDateOfIssue, nannies.passOrganizationOfIssue,
+                                                        nannies.passCode, nannies.addressRegister, nannies.phoneNumber, nannies.email
+                                                        FROM nannies
+                                                        WHERE nannies.status = 0
+                                                        {whereClause}
+                                                        {orderBy}";
+                if (whereClause != null)
+                {
+                    string wildcardSearch = querySearch + "%";
+                    DBConnection.myCommand.Parameters.AddWithValue("@searchQuery", wildcardSearch);
+                }
+                dtNanniesForSelectProgramList = new DataTable();
+                DBConnection.myDataAdapter.Fill(dtNanniesForSelectProgramList);
             }
             catch (Exception ex)
             {
@@ -84,7 +117,7 @@ namespace TyEmuNuzhen.MyClasses
                 string idUser = UserClass.GetLastUserID();
                 DBConnection.myCommand.Parameters.Clear();
                 DBConnection.myCommand.CommandText = $@"INSERT INTO nannies VALUES (null, @surname, @name, @middleName, @passSeries, @passNum, @passDateOfIssue, 
-                                                    @passOrganizationOfIssue, @passCode, @addressRegister, @phoneNumber, @email)";
+                                                    @passOrganizationOfIssue, @passCode, @addressRegister, @phoneNumber, @email, 0)";
                 DBConnection.myCommand.Parameters.AddWithValue("@surname", surname);
                 DBConnection.myCommand.Parameters.AddWithValue("@name", name);
                 DBConnection.myCommand.Parameters.AddWithValue("@middleName", middleName);
@@ -104,6 +137,23 @@ namespace TyEmuNuzhen.MyClasses
             catch (Exception ex)
             {
                 MessageBox.Show($"Произошла ошибка при добавлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        public static bool UpdateNannyOnProgramStatus(string idNanny, string status)
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $@"UPDATE nannies SET status = '{status}' WHERE ID = '{idNanny}'";
+                if (DBConnection.myCommand.ExecuteNonQuery() > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при обновлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }

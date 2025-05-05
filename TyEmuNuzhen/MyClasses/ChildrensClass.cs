@@ -326,7 +326,7 @@ namespace TyEmuNuzhen.MyClasses
                 
                 DBConnection.myCommand.Parameters.Clear();
                 DBConnection.myCommand.CommandText = @"INSERT INTO childrens 
-                    VALUES (null, @numQuest, @urlQuest, @surname, @name, null, @birthday, 1, null, @idRegion, null, @dateNow, @isAlert)";
+                    VALUES (null, @numQuest, @urlQuest, @surname, @name, null, @birthday, 1, null, null, @idRegion, @dateNow, @isAlert)";
                 
                 DBConnection.myCommand.Parameters.AddWithValue("@numQuest", numQuest);
                 DBConnection.myCommand.Parameters.AddWithValue("@urlQuest", urlQuest);

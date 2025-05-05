@@ -165,6 +165,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
                         || !ChildrenDiagnosisClass.AddChildrenDiagnosis()
                         || !ActualDiagnosesClass.AddChildrenDiagnosis(_id)
                         || !ChildrensClass.UpdateStatusChildren(_id, "4")
+                        || !ChildrensClass.UpdateStatusProgramChildren(_id, "1")
                         || !ActualProgramClass.AddChildrenActualProgram(_id, "1", CuratorClass.idCurator))
                         return;
                 }
@@ -192,11 +193,12 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
                         || !ChildrenDiagnosisClass.AddChildrenDiagnosis()
                         || !ActualDiagnosesClass.AddChildrenDiagnosis(_id)
                         || !ChildrensClass.UpdateStatusChildren(_id, "4")
+                        || !ChildrensClass.UpdateStatusProgramChildren(_id, "1")
                         || !ActualProgramClass.AddChildrenActualProgram(_id, "1", CuratorClass.idCurator))
                         return;
                 }
             }
-            NavigationService.Navigate(new MedicalExaminationChildrensPage());
+            NavigationService.Navigate(new ChildrensPage(1));
             NavigationService.RemoveBackEntry();
 
         }

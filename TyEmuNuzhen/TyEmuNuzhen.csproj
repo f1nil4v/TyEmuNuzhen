@@ -152,8 +152,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MyClasses\ActOfCompletedWorksClass.cs" />
     <Compile Include="MyClasses\ActualDiagnosesClass.cs" />
     <Compile Include="MyClasses\ActualProgramClass.cs" />
+    <Compile Include="MyClasses\AgreementNannyOnProgramClass.cs" />
     <Compile Include="MyClasses\AgreementOrphanagesClass.cs" />
     <Compile Include="MyClasses\AnimationsClass.cs" />
     <Compile Include="MyClasses\AuthorizationClass.cs" />
@@ -178,6 +180,7 @@
     <Compile Include="MyClasses\MedicalFacilityClass.cs" />
     <Compile Include="MyClasses\MedicalHelpTypeClass.cs" />
     <Compile Include="MyClasses\NanniesClass.cs" />
+    <Compile Include="MyClasses\NanniesOnProgramClass.cs" />
     <Compile Include="MyClasses\OrphanageClass.cs" />
     <Compile Include="MyClasses\RegionsClass.cs" />
     <Compile Include="MyClasses\ResultConsultationClass.cs" />
@@ -203,8 +206,14 @@
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\DocumentsPage.xaml.cs">
       <DependentUpon>DocumentsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\NanniesChildrenPage.xaml.cs">
+      <DependentUpon>NanniesChildrenPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\ToBeOnTimePage.xaml.cs">
       <DependentUpon>ToBeOnTimePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\TransferPage.xaml.cs">
+      <DependentUpon>TransferPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Nannies\NanniesPage.xaml.cs">
       <DependentUpon>NanniesPage.xaml</DependentUpon>
@@ -269,6 +278,9 @@
     <Compile Include="Views\Windows\AddDoctorWindow.xaml.cs">
       <DependentUpon>AddDoctorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Windows\AddNannyOnProgramWindow.xaml.cs">
+      <DependentUpon>AddNannyOnProgramWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\AddNannyWindow.xaml.cs">
       <DependentUpon>AddNannyWindow.xaml</DependentUpon>
     </Compile>
@@ -277,6 +289,9 @@
     </Compile>
     <Compile Include="Views\Windows\AddUserWindow.xaml.cs">
       <DependentUpon>AddUserWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\CostPerDayNannyWindow.xaml.cs">
+      <DependentUpon>CostPerDayNannyWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\DiagnosisWindow.xaml.cs">
       <DependentUpon>DiagnosisWindow.xaml</DependentUpon>
@@ -381,7 +396,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\NanniesChildrenPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\ToBeOnTimePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\TransferPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -466,12 +489,20 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Windows\AddNannyOnProgramWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Windows\AddNannyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Windows\AddOrphanage.xaml" />
     <Page Include="Views\Windows\AddUserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\CostPerDayNannyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

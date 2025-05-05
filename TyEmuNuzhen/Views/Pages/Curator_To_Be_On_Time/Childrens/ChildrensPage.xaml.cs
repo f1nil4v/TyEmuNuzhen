@@ -21,11 +21,28 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens
     /// </summary>
     public partial class ChildrensPage : Page
     {
-        public ChildrensPage()
+        public ChildrensPage(byte numPage)
         {
             InitializeComponent();
-            childrensFrame.Navigate(new MedicalExamination.MedicalExaminationChildrensPage());
-            childrensFrame.NavigationService.RemoveBackEntry();
+            switch (numPage)
+            {
+                case 1:
+                    medicalExaminationLbl.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFCF5FD3");
+                    toBeOnTimeLbl.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#6D6B6E");
+                    workCompleteLbl.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#6D6B6E");
+                    noProblemLbl.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#6D6B6E");
+                    childrensFrame.Navigate(new MedicalExamination.MedicalExaminationChildrensPage());
+                    childrensFrame.NavigationService.RemoveBackEntry();
+                    break;
+                case 2:
+                    medicalExaminationLbl.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#6D6B6E");
+                    toBeOnTimeLbl.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFCF5FD3");
+                    workCompleteLbl.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#6D6B6E");
+                    noProblemLbl.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#6D6B6E");
+                    childrensFrame.Navigate(new ToBeOnTime.ToBeOnTimePage());
+                    childrensFrame.NavigationService.RemoveBackEntry();
+                    break;
+            }
         }
 
         private void medicalExaminationLbl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

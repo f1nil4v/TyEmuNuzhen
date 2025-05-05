@@ -117,7 +117,7 @@ namespace TyEmuNuzhen.Views.Windows
         private void btnChildrens_Click(object sender, RoutedEventArgs e)
         {
             SetActiveMenuItem(btnChildrens);
-            mainFrame.Navigate(new Pages.Curator_To_Be_On_Time.Childrens.ChildrensPage());
+            mainFrame.Navigate(new Pages.Curator_To_Be_On_Time.Childrens.ChildrensPage(1));
             mainFrame.NavigationService.RemoveBackEntry();
         }
 
