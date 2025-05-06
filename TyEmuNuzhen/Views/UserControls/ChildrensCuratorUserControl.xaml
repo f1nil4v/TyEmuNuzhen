@@ -95,7 +95,7 @@
                 Background="#A3B92E" 
                 Foreground="#DDFFFFFF" 
                 Padding="16,0,16,0" 
-                Margin="0,10,0,0"/>
+                Margin="0,10,0,0" Click="transferBtn_Click"/>
             <Button x:Name="hospitalizationBtn"
                 BorderThickness="0" 
                 Height="20" 

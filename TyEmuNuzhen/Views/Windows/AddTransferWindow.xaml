@@ -1,0 +1,93 @@
+﻿<Window x:Class="TyEmuNuzhen.Views.Windows.AddTransferWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows"
+        mc:Ignorable="d"
+        Title="Добавление трансфера" Height="450" Width="800"
+        ResizeMode="NoResize">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="btnAddTicket" Grid.Row="0"
+           Background="#A3B92E" Foreground="White" BorderThickness="0"
+           Padding="10,5" Margin="0,0,563,10"
+           Content="Добавить билет">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="4"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <DataGrid x:Name="transferSide1Grid" 
+          Grid.Row="1"
+          AutoGenerateColumns="False"
+          IsReadOnly="True"
+          BorderBrush="#FFCF5FD3"
+          BorderThickness="1"
+          Background="White"
+          RowBackground="White"
+          HeadersVisibility="Column"
+          GridLinesVisibility="All"
+          HorizontalGridLinesBrush="#FFDDDDDD"
+          VerticalGridLinesBrush="#FFDDDDDD"
+          CanUserAddRows="False"
+          CanUserDeleteRows="False"
+          CanUserReorderColumns="False"
+          CanUserResizeRows="False"
+          AlternationCount="2"
+          RowHeaderWidth="0"
+          SelectionMode="Single">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#FFCF5FD3"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Visibility="Collapsed"/>
+                <DataGridTextColumn Header="Тип транспорта" Width="*" Binding="{Binding transportType}"/>
+                <DataGridTextColumn Header="Стоимость" Width="*" Binding="{Binding cost}"/>
+                <DataGridTemplateColumn Header="Билет" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="downloadTicketBtn"
+                        Style="{StaticResource MaterialDesignFlatButton}" 
+                        Background="Transparent"
+                        BorderThickness="0" Margin="5,0"
+                        Content="Скачать"
+                        Tag="{Binding filePath}">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="4"
+                    Margin="0,20,0,0"
+            Orientation="Horizontal" 
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom">
+            <Button x:Name="btnCancel" 
+                Content="Отмена" 
+                IsCancel="True"
+                Margin="0,0,10,0"  
+                Height="30"
+                Background="#A3B92E" 
+                BorderBrush="#A3B92E" />
+            <Button x:Name="btnConfirm" 
+                Content="Применить" 
+                IsDefault="True"
+                Height="30"
+                Background="#A3B92E" 
+                BorderBrush="#A3B92E"  />
+        </StackPanel>
+    </Grid>
+</Window>

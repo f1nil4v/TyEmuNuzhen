@@ -20,9 +20,23 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
     /// </summary>
     public partial class TransferPage : Page
     {
-        public TransferPage()
+        private string _idChild;
+        private bool _changedStatus = false;
+
+        public TransferPage(string idChild, string fioChild)
         {
             InitializeComponent();
+            _idChild = idChild;
+            fullNameChild.Text = fioChild;
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (_changedStatus == false)
+                NavigationService.GoBack();
+            else
+                NavigationService.Navigate(new ChildrensPage(2));
+            NavigationService.RemoveBackEntry();
         }
     }
 }

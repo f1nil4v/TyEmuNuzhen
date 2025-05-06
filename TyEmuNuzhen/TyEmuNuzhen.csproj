@@ -287,6 +287,12 @@
     <Compile Include="Views\Windows\AddOrphanage.xaml.cs">
       <DependentUpon>AddOrphanage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Windows\AddTicketWindow.xaml.cs">
+      <DependentUpon>AddTicketWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\AddTransferWindow.xaml.cs">
+      <DependentUpon>AddTransferWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\AddUserWindow.xaml.cs">
       <DependentUpon>AddUserWindow.xaml</DependentUpon>
     </Compile>
@@ -498,6 +504,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Windows\AddOrphanage.xaml" />
+    <Page Include="Views\Windows\AddTicketWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\AddTransferWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Windows\AddUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

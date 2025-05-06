@@ -161,5 +161,15 @@ namespace TyEmuNuzhen.Views.UserControls
             }
             NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime.NanniesChildrenPage(Tag.ToString(), _fullNameChild));
         }
+
+        private void transferBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DependencyObject parent = this;
+            while (parent != null && !(parent is Pages.Curator_To_Be_On_Time.Childrens.ChildrensPage))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime.TransferPage(Tag.ToString(), _fullNameChild));
+        }
     }
 }

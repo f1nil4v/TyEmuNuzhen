@@ -9,6 +9,227 @@
       Title="TransferPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок страницы -->
+        <StackPanel Orientation="Horizontal" Margin="20,20,0,20">
+            <Image Source="/Images/Controls/back.png" Height="35" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+            <TextBlock Margin="10,0,0,2" VerticalAlignment="Center" Text="Трансфер" FontSize="24"/>
+        </StackPanel>
+
+        <TextBlock x:Name="fullNameChild" Margin="10,0,20,2" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Ребёнок: " FontSize="24"/>
+
+        <!-- Основное содержимое -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Трансфер в медучреждение -->
+            <Grid x:Name="grid0" Grid.Column="0" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="Трансфер в медучреждение" 
+                           FontSize="18" FontWeight="Bold" Foreground="#CF5FD3"
+                           Margin="5,5,5,10" VerticalAlignment="Center"/>
+
+                    <!-- Кнопка добавления информации о трансфере -->
+                    <Button x:Name="btnAddTransferToMedical" Grid.Column="1"
+                           Background="#A3B92E" Foreground="White" BorderThickness="0"
+                           Padding="10,5" Margin="0,0,5,10"
+                           Content="Добавить трансфер">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+
+                <!-- Заголовки даты и времени -->
+                <Grid Grid.Row="1" Margin="5,0,5,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Дата и время отправления" FontWeight="SemiBold" Foreground="#666"/>
+                    <TextBlock Grid.Column="1" Text="Дата и время прибытия" FontWeight="SemiBold" Foreground="#666"/>
+                </Grid>
+
+                <!-- DataGrid для отображения данных -->
+                <DataGrid x:Name="transferSide0Grid" 
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  BorderBrush="#FFCF5FD3"
+                  BorderThickness="1"
+                  Background="White"
+                  RowBackground="White"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="All"
+                  HorizontalGridLinesBrush="#FFDDDDDD"
+                  VerticalGridLinesBrush="#FFDDDDDD"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeRows="False"
+                  AlternationCount="2"
+                  RowHeaderWidth="0"
+                  SelectionMode="Single">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#FFCF5FD3"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="Padding" Value="10"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding ID}" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Тип транспорта" Width="*" Binding="{Binding transportType}"/>
+                        <DataGridTextColumn Header="Стоимость" Width="*" Binding="{Binding cost}"/>
+                        <DataGridTemplateColumn Header="Билет" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="downloadTicketBtn"
+                                        Style="{StaticResource MaterialDesignFlatButton}" 
+                                        Background="Transparent"
+                                        BorderThickness="0" Margin="5,0"
+                                        Content="Скачать"
+                                        Tag="{Binding filePath}">
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Итоговая стоимость -->
+                <Border Grid.Row="3" Background="#F5F5F5" CornerRadius="5" Margin="0,10,0,0" Padding="10">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Text="Итоговая стоимость:" FontWeight="Bold" Margin="0,0,10,0"/>
+                        <TextBlock x:Name="ToMedicalFacilityTotalCost" Text="0 ₽" FontWeight="Bold" Foreground="#CF5FD3"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Трансфер обратно -->
+            <Grid x:Name="grid1" Grid.Column="1" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="Трансфер обратно" 
+                           FontSize="18" FontWeight="Bold" Foreground="#CF5FD3"
+                           Margin="5,5,5,10" VerticalAlignment="Center"/>
+
+                    <!-- Кнопка добавления информации о трансфере -->
+                    <Button x:Name="btnAddTransferFromMedical" Grid.Column="1" 
+                           Background="#A3B92E" Foreground="White" BorderThickness="0"
+                           Padding="10,5" Margin="0,0,5,10"
+                           Content="Добавить трансфер">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+
+                <!-- Заголовки даты и времени -->
+                <Grid Grid.Row="1" Margin="5,0,5,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Дата и время отправления" FontWeight="SemiBold" Foreground="#666"/>
+                    <TextBlock Grid.Column="1" Text="Дата и время прибытия" FontWeight="SemiBold" Foreground="#666"/>
+                </Grid>
+
+                <!-- DataGrid для отображения данных -->
+                <DataGrid x:Name="transferSide1Grid" 
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  BorderBrush="#FFCF5FD3"
+                  BorderThickness="1"
+                  Background="White"
+                  RowBackground="White"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="All"
+                  HorizontalGridLinesBrush="#FFDDDDDD"
+                  VerticalGridLinesBrush="#FFDDDDDD"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeRows="False"
+                  AlternationCount="2"
+                  RowHeaderWidth="0"
+                  SelectionMode="Single">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#FFCF5FD3"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="Padding" Value="10"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding ID}" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Тип транспорта" Width="*" Binding="{Binding transportType}"/>
+                        <DataGridTextColumn Header="Стоимость" Width="*" Binding="{Binding cost}"/>
+                        <DataGridTemplateColumn Header="Билет" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="downloadTicketBtn"
+                                        Style="{StaticResource MaterialDesignFlatButton}" 
+                                        Background="Transparent"
+                                        BorderThickness="0" Margin="5,0"
+                                        Content="Скачать"
+                                        Tag="{Binding filePath}">
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Итоговая стоимость -->
+                <Border Grid.Row="3" Background="#F5F5F5" CornerRadius="5" Margin="0,10,0,0" Padding="10">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Text="Итоговая стоимость:" FontWeight="Bold" Margin="0,0,10,0"/>
+                        <TextBlock x:Name="FromMedicalFacilityTotalCost" Text="0 ₽" FontWeight="Bold" Foreground="#CF5FD3"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>
