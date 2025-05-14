@@ -8,7 +8,7 @@ namespace TyEmuNuzhen.MyClasses
     {
         public static DataTable dtMedicalFacilityForComboBoxList;
 
-        public static void GetDoctrosForComboBoxList()
+        public static void GetMedicalFacilityForComboBoxList()
         {
             try
             {

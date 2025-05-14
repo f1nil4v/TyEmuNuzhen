@@ -86,16 +86,6 @@
                 Foreground="#DDFFFFFF" 
                 Padding="16,0,16,0" 
                 Margin="0,10,0,0" Cursor="Hand" Click="consultationBtn_Click"/>
-            <Button x:Name="transferBtn"
-                BorderThickness="0" 
-                Height="20" 
-                Width="175"
-                Content="Трансфер" 
-                FontSize="12" 
-                Background="#A3B92E" 
-                Foreground="#DDFFFFFF" 
-                Padding="16,0,16,0" 
-                Margin="0,10,0,0" Click="transferBtn_Click"/>
             <Button x:Name="hospitalizationBtn"
                 BorderThickness="0" 
                 Height="20" 
@@ -105,7 +95,7 @@
                 Background="#A3B92E" 
                 Foreground="#DDFFFFFF" 
                 Padding="16,0,16,0" 
-                Margin="0,10,0,0"/>
+                Margin="0,10,0,0" Click="hospitalizationBtn_Click"/>
             <Button x:Name="completeWorkBtn"
                 BorderThickness="0" 
                 Height="20" 

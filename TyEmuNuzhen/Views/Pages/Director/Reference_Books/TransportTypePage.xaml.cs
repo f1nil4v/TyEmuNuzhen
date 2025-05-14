@@ -88,7 +88,7 @@ namespace TyEmuNuzhen.Views.Pages.Director.Reference_Books
 
         private void LoadTransportTypes(string querySearch)
         {
-            TransportTypesClass.GetTranposrtTypesList(querySearch);
+            TransportTypesClass.GetTranportTypesList(querySearch);
             transportTypesGrid.ItemsSource = TransportTypesClass.dtTranposrtTypeS.DefaultView;
         }
 

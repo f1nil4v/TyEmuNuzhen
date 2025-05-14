@@ -73,7 +73,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
                             {
                                 if (ChildrensClass.UpdateStatusProgramChildren(_id, "2"))
                                 {
-                                    MessageBox.Show("Все документы добавлены! Теперь необходимо найти няню ребёнку для его дальнейшего сопровождения в рамках программы.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    MessageBox.Show("Статус ребёнка изменён на \"Требуется няня\".", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                                     changedStatus = true;
                                 }
                             }

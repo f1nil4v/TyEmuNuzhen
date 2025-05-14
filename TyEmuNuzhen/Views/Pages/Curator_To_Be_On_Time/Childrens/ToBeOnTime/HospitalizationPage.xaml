@@ -1,0 +1,510 @@
+﻿<Page x:Class="TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime.HospitalizationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="1000" d:DesignWidth="1500"
+      Title="HospitalizationPage" Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Background="#FFCF5FD3" 
+                            BorderThickness="1,1,1,0" BorderBrush="#FFCF5FD3" 
+                            Padding="8,5,8,5">
+                                <TextBlock Text="{TemplateBinding Header}" 
+                                Foreground="White" 
+                                FontSize="{TemplateBinding FontSize}"/>
+                            </Border>
+
+                            <Border Grid.Row="1" Background="White" 
+                            BorderThickness="1,0,1,1" BorderBrush="#FFCF5FD3">
+                                <ContentPresenter Margin="10" 
+                                ContentSource="Content"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок страницы -->
+        <StackPanel Orientation="Horizontal" Margin="20,20,0,20">
+            <Image Source="/Images/Controls/back.png" Height="35" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+            <TextBlock Margin="10,0,0,2" VerticalAlignment="Center" Text="Госпитализация" FontSize="24"/>
+        </StackPanel>
+
+        <TextBlock x:Name="fullNameChild" Margin="10,0,20,2" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Ребёнок: " FontSize="24"/>
+
+        <!-- Основное содержимое -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Grid Margin="20,0,20,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Секция текущей госпитализации -->
+                <GroupBox Grid.Row="0" Header="Информация о госпитализации" FontSize="14" Margin="0,0,0,20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel x:Name="hospitalizationData" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" Visibility="Visible">
+                            <TextBlock x:Name="medicalFacilityTxt" FontSize="14" Margin="0,0,0,10"/>
+                            <TextBlock x:Name="dateHospitalizationTxt" FontSize="14" Margin="0,0,0,10"/>
+                            <TextBlock x:Name="dateDischargeTxt" FontSize="14" Margin="0,0,0,10"/>
+                            <TextBlock x:Name="totalCostTxt" FontSize="14" Margin="0,0,0,10"/>
+                        </StackPanel>
+
+                        <StackPanel x:Name="medicalDirection" Grid.Column="1">
+
+                        </StackPanel>
+                        <TextBlock x:Name="noRecord" Grid.Column="1" Text="Нет активной госпитализации" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
+
+                        <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Bottom">
+
+                            <Button x:Name="btnEndHospitalization"
+                                Content="Завершить госпитализацию" 
+                                HorizontalAlignment="Right"
+                                Margin="0,0,0,10"
+                                Padding="15,5"
+                                Background="#A3B92E"
+                                Foreground="White"
+                                Visibility="Collapsed"
+                                IsEnabled="False"
+                                BorderBrush="#A3B92E" Click="btnEndHospitalization_Click"/>
+
+                            <Button x:Name="btnAddHospitalization"
+                                Content="Добавить госпитализацию" 
+                                HorizontalAlignment="Right"
+                                Padding="15,5"
+                                Background="#A3B92E" 
+                                BorderBrush="#A3B92E" Click="btnAddHospitalization_Click"/>
+                        </StackPanel>
+                        <Button x:Name="btnEditHospitalization"
+                                Content="Редактировать" 
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Padding="15,5"
+                                Background="#A3B92E"
+                                Foreground="White"
+                                BorderBrush="#A3B92E" Grid.Column="2" Margin="0,-1,0,0" Click="btnEditHospitalization_Click"/>
+                    </Grid>
+                </GroupBox>
+
+                <Grid Grid.Row="1" x:Name="hospitalizationDetailedGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="Детали госпитализации" 
+                       FontSize="18" FontWeight="Bold" Foreground="#CF5FD3"
+                       VerticalAlignment="Center"/>
+
+                        <Button x:Name="btnAddDetailHospitalization" Grid.Column="1"
+                           Background="#A3B92E" Foreground="White" BorderThickness="0"
+                           Padding="10,5"
+                           Content="Добавить информацию" Click="btnAddDetailHospitalization_Click">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                    <DataGrid x:Name="hospitalizationDetailed" 
+                          Grid.Row="1"
+                          Margin="0,0,0,20"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          BorderBrush="#FFCF5FD3"
+                          VerticalScrollBarVisibility="Auto"
+                          MaxHeight="400"
+                          BorderThickness="1"
+                          Background="White"
+                          RowBackground="White"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="All"
+                          HorizontalGridLinesBrush="#FFDDDDDD"
+                          VerticalGridLinesBrush="#FFDDDDDD"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserReorderColumns="False"
+                          CanUserResizeRows="False"
+                          AlternationCount="2"
+                          RowHeaderWidth="0"
+                          SelectionMode="Single">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#FFCF5FD3"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="Padding" Value="10"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Resources>
+                            <Style x:Key="ActionButtonsStyle" TargetType="StackPanel">
+                                <Setter Property="IsEnabled" Value="{Binding DataContext.AreActionsEnabled, ElementName=hospitalizationDetailed}"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID}" Visibility="Collapsed"/>
+                            <DataGridTextColumn Header="Медицинская помощь" Width="*" Binding="{Binding medicalCareType}"/>
+                            <DataGridTextColumn Header="Стоимость" Width="*" Binding="{Binding cost}"/>
+                            <DataGridTextColumn Header="Дата проведения" Width="*" Binding="{Binding dateMedicalHelp, StringFormat=dd.MM.yyyy}"/>
+                            <DataGridTemplateColumn Header="Действия" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Style="{StaticResource ActionButtonsStyle}" Orientation="Horizontal" HorizontalAlignment="Center">
+
+                                            <Button x:Name="changeDetailHospitalizationBtn"
+                                                Style="{StaticResource MaterialDesignIconButton}" 
+                                                Width="24" Height="24" Margin="5,0"
+                                                ToolTip="Редактировать" 
+                                                Tag="{Binding ID}"
+                                                Click="changeDetailHospitalizationBtn_Click">
+                                                <materialDesign:PackIcon Kind="Pencil" Width="20" Height="20" Foreground="Black"/>
+                                            </Button>
+
+                                            <Button x:Name="deleteDetailHospitalizationBtn"
+                                                Style="{StaticResource MaterialDesignIconButton}" 
+                                                Width="24" Height="24" Margin="5,0" 
+                                                ToolTip="Удалить" 
+                                                Tag="{Binding ID}" Click="deleteDetailHospitalizationBtn_Click">
+                                                <materialDesign:PackIcon Kind="Delete" Width="20" Height="20" Foreground="Black"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
+                <!-- Секция трансфера -->
+                <Grid x:Name="transferMainGrid" Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Трансфер в медучреждение -->
+                    <Grid x:Name="grid1" Grid.Column="0" Margin="0,0,10,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Трансфер в медучреждение" 
+                               FontSize="18" FontWeight="Bold" Foreground="#CF5FD3"
+                               VerticalAlignment="Center"/>
+
+                            <!-- Кнопка добавления информации о трансфере -->
+                            <Button x:Name="btnAddTransferToMedical" Grid.Column="1"
+                               Background="#A3B92E" Foreground="White" BorderThickness="0"
+                               Padding="10,5" Margin="0,0,10,0"
+                               Content="Добавить трансфер" Click="btnAddTransferToMedical_Click">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="4"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                            <Button x:Name="btnAddTransferToMedicalTicket" Grid.Column="3"
+                               Background="#A3B92E" Foreground="White" BorderThickness="0"
+                               Padding="10,5" Margin="10,0,0,0"
+                               Content="Добавить билет" Click="btnAddTransferToMedicalTicket_Click">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="4"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                        </Grid>
+
+                        <!-- Заголовки даты и времени -->
+                        <Grid Grid.Row="1" Margin="5,0,5,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="dateDepartureSide1" Grid.Column="0" Text="Дата и время отправления" FontWeight="SemiBold" Foreground="#666"/>
+                            <TextBlock x:Name="dateArrivalSide1" Grid.Column="1" Text="Дата и время прибытия" FontWeight="SemiBold" Foreground="#666"/>
+                        </Grid>
+
+                        <!-- DataGrid для отображения данных -->
+                        <DataGrid x:Name="transferSide1Grid" 
+                          Grid.Row="2"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          BorderBrush="#FFCF5FD3"
+                          VerticalScrollBarVisibility="Auto"
+                          MaxHeight="400"
+                          BorderThickness="1"
+                          Background="White"
+                          RowBackground="White"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="All"
+                          HorizontalGridLinesBrush="#FFDDDDDD"
+                          VerticalGridLinesBrush="#FFDDDDDD"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserReorderColumns="False"
+                          CanUserResizeRows="False"
+                          AlternationCount="2"
+                          RowHeaderWidth="0"
+                          SelectionMode="Single">
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="#FFCF5FD3"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="Padding" Value="10"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.Resources>
+                                <Style x:Key="ActionButtonsStyle" TargetType="StackPanel">
+                                    <Setter Property="IsEnabled" Value="{Binding DataContext.AreActionsEnabled, ElementName=hospitalizationDetailed}"/>
+                                </Style>
+                            </DataGrid.Resources>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header="Тип транспорта" Width="*" Binding="{Binding transportType}"/>
+                                <DataGridTextColumn Header="Стоимость" Width="*" Binding="{Binding cost}"/>
+                                <DataGridTemplateColumn Header="Билет" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button x:Name="downloadTicketBtn"
+                                                Style="{StaticResource MaterialDesignFlatButton}" 
+                                                Background="Transparent"
+                                                BorderThickness="0" Margin="5,0"
+                                                Content="Скачать"
+                                                Tag="{Binding filePath}" Click="downloadTicketBtn_Click">
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Действия" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Style="{StaticResource ActionButtonsStyle}" Orientation="Horizontal" HorizontalAlignment="Center">
+
+                                                <Button x:Name="changeTicketSide0Btn"
+                                                    Style="{StaticResource MaterialDesignIconButton}" 
+                                                    Width="24" Height="24" Margin="5,0"
+                                                    ToolTip="Редактировать" 
+                                                    Tag="{Binding ID}" Click="changeTicketSide0Btn_Click">
+                                                    <materialDesign:PackIcon Kind="Pencil" Width="20" Height="20" Foreground="Black"/>
+                                                </Button>
+
+                                                <Button x:Name="deleteTicketSide0Btn"
+                                                    Style="{StaticResource MaterialDesignIconButton}" 
+                                                    Width="24" Height="24" Margin="5,0" 
+                                                    ToolTip="Удалить" 
+                                                    Tag="{Binding ID}" Click="deleteTicketSide0Btn_Click">
+                                                    <materialDesign:PackIcon Kind="Delete" Width="20" Height="20" Foreground="Black"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <!-- Итоговая стоимость -->
+                        <Border Grid.Row="3" Background="#F5F5F5" CornerRadius="5" Margin="0,10,0,0" Padding="10">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="Итоговая стоимость:" FontWeight="Bold" Margin="0,0,10,0"/>
+                                <TextBlock x:Name="ToMedicalFacilityTotalCost" Text="0 ₽" FontWeight="Bold" Foreground="#CF5FD3"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- Трансфер обратно -->
+                    <Grid x:Name="grid0" Grid.Column="1" Margin="10,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Трансфер в ДДИ"
+                                   FontSize="18" FontWeight="Bold" Foreground="#CF5FD3"
+                                   VerticalAlignment="Center"/>
+
+                            <Button x:Name="btnAddTransferFromMedical" Grid.Column="1"
+                                   Background="#A3B92E" Foreground="White" BorderThickness="0"
+                                   Padding="10,5" Margin="0,0,10,0"
+                                   Content="Добавить трансфер" Click="btnAddTransferFromMedical_Click">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="4"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                            <Button x:Name="btnAddTransferFromMedicalTicket" Grid.Column="3"
+                               Background="#A3B92E" Foreground="White" BorderThickness="0"
+                               Padding="10,5" Margin="10,0,0,0"
+                               Content="Добавить билет" Click="btnAddTransferFromMedicalTicket_Click">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="4"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                        </Grid>
+
+                        <!-- Заголовки даты и времени -->
+                        <Grid Grid.Row="1" Margin="5,0,5,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="dateDepartureSide0" Grid.Column="0" Text="Дата и время отправления" FontWeight="SemiBold" Foreground="#666"/>
+                            <TextBlock x:Name="dateArrivalSide0" Grid.Column="1" Text="Дата и время прибытия" FontWeight="SemiBold" Foreground="#666"/>
+                        </Grid>
+
+                        <!-- DataGrid для отображения данных -->
+                        <DataGrid x:Name="transferSide0Grid" 
+                          Grid.Row="2"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          BorderBrush="#FFCF5FD3"
+                          VerticalScrollBarVisibility="Auto"
+                          MaxHeight="400"
+                          BorderThickness="1"
+                          Background="White"
+                          RowBackground="White"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="All"
+                          HorizontalGridLinesBrush="#FFDDDDDD"
+                          VerticalGridLinesBrush="#FFDDDDDD"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserReorderColumns="False"
+                          CanUserResizeRows="False"
+                          AlternationCount="2"
+                          RowHeaderWidth="0"
+                          SelectionMode="Single">
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="#FFCF5FD3"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="Padding" Value="10"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.Resources>
+                                <Style x:Key="ActionButtonsStyle" TargetType="StackPanel">
+                                    <Setter Property="IsEnabled" Value="{Binding DataContext.AreActionsEnabled, ElementName=hospitalizationDetailed}"/>
+                                </Style>
+                            </DataGrid.Resources>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header="Тип транспорта" Width="*" Binding="{Binding transportType}"/>
+                                <DataGridTextColumn Header="Стоимость" Width="*" Binding="{Binding cost}"/>
+                                <DataGridTemplateColumn Header="Билет" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button x:Name="downloadTicketBtn"
+                                                Style="{StaticResource MaterialDesignFlatButton}" 
+                                                Background="Transparent"
+                                                BorderThickness="0" Margin="5,0"
+                                                Content="Скачать"
+                                                Tag="{Binding filePath}">
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Действия" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Style="{StaticResource ActionButtonsStyle}" Orientation="Horizontal" HorizontalAlignment="Center">
+
+                                                <Button x:Name="changeTicketSide1Btn"
+                                                    Style="{StaticResource MaterialDesignIconButton}" 
+                                                    Width="24" Height="24" Margin="5,0"
+                                                    ToolTip="Редактировать" 
+                                                    Tag="{Binding ID}" Click="changeTicketSide1Btn_Click">
+                                                    <materialDesign:PackIcon Kind="Pencil" Width="20" Height="20" Foreground="Black"/>
+                                                </Button>
+
+                                                <Button x:Name="deleteTicketSide1Btn"
+                                                    Style="{StaticResource MaterialDesignIconButton}" 
+                                                    Width="24" Height="24" Margin="5,0" 
+                                                    ToolTip="Удалить" 
+                                                    Tag="{Binding ID}" Click="deleteTicketSide1Btn_Click">
+                                                    <materialDesign:PackIcon Kind="Delete" Width="20" Height="20" Foreground="Black"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <!-- Итоговая стоимость -->
+                        <Border Grid.Row="3" Background="#F5F5F5" CornerRadius="5" Margin="0,10,0,0" Padding="10">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="Итоговая стоимость:" FontWeight="Bold" Margin="0,0,10,0"/>
+                                <TextBlock x:Name="FromMedicalFacilityTotalCost" Text="0 ₽" FontWeight="Bold" Foreground="#CF5FD3"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>
+

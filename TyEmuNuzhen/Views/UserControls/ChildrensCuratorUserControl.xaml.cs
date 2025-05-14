@@ -35,7 +35,6 @@ namespace TyEmuNuzhen.Views.UserControls
                 case 1:
                     nanniesBtn.Visibility = Visibility.Collapsed;
                     documentsBtn.Visibility = Visibility.Collapsed;
-                    transferBtn.Visibility = Visibility.Collapsed;
                     hospitalizationBtn.Visibility = Visibility.Collapsed;
                     completeWorkBtn.Visibility = Visibility.Collapsed;
                     statusTextBlock.Visibility = Visibility.Collapsed;
@@ -81,12 +80,10 @@ namespace TyEmuNuzhen.Views.UserControls
             {
                 case 1:
                     nanniesBtn.IsEnabled = false;
-                    transferBtn.IsEnabled = false;
                     hospitalizationBtn.IsEnabled = false;
                     completeWorkBtn.IsEnabled = false;
                     break;
                 case 2:
-                    transferBtn.IsEnabled = false;
                     hospitalizationBtn.IsEnabled = false;
                     completeWorkBtn.IsEnabled = false;
                     break;
@@ -94,9 +91,6 @@ namespace TyEmuNuzhen.Views.UserControls
                     completeWorkBtn.IsEnabled = false;
                     break;
                 case 4:
-                    completeWorkBtn.IsEnabled = false;
-                    break;
-                case 5:
                     completeWorkBtn.IsEnabled = false;
                     break;
             }
@@ -162,14 +156,14 @@ namespace TyEmuNuzhen.Views.UserControls
             NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime.NanniesChildrenPage(Tag.ToString(), _fullNameChild));
         }
 
-        private void transferBtn_Click(object sender, RoutedEventArgs e)
+        private void hospitalizationBtn_Click(object sender, RoutedEventArgs e)
         {
             DependencyObject parent = this;
             while (parent != null && !(parent is Pages.Curator_To_Be_On_Time.Childrens.ChildrensPage))
             {
                 parent = VisualTreeHelper.GetParent(parent);
             }
-            NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime.TransferPage(Tag.ToString(), _fullNameChild));
+            NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime.HospitalizationPage("" ,Tag.ToString(), _fullNameChild));
         }
     }
 }

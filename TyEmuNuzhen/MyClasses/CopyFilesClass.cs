@@ -110,23 +110,72 @@ namespace TyEmuNuzhen.MyClasses
                 return null;
             }
         }
-        
+
+        public static string CopyHospitalizationMedicalDirection(string documentSourcePath)
+        {
+            try
+            {
+                string medicalDirectionSaveFolderPath = @"../../Documents/Children/Hospitalization/MedicalDirection/";
+                if (!Directory.Exists(medicalDirectionSaveFolderPath))
+                {
+                    Directory.CreateDirectory(medicalDirectionSaveFolderPath);
+                }
+                string fileName = Path.GetFileName(documentSourcePath);
+                string newPath = Path.Combine(medicalDirectionSaveFolderPath, fileName);
+
+                if (File.Exists(newPath))
+                    throw new Exception($"файл уже существует. Прикрепите другой файл.");
+
+                File.Copy(documentSourcePath, newPath, true);
+
+                return newPath;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
+        public static string CopyTicket(string documentSourcePath)
+        {
+            try
+            {
+                string ticketSaveFolderPath = @"../../Documents/Children/Hospitalization/Tickets/";
+                if (!Directory.Exists(ticketSaveFolderPath))
+                {
+                    Directory.CreateDirectory(ticketSaveFolderPath);
+                }
+                string fileName = Path.GetFileName(documentSourcePath);
+                string newPath = Path.Combine(ticketSaveFolderPath, fileName);
+
+                if (File.Exists(newPath))
+                    throw new Exception($"файл уже существует. Прикрепите другой файл.");
+
+                File.Copy(documentSourcePath, newPath, true);
+
+                return newPath;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
         public static bool DownloadFile(string sourceFilePath, string destinationFilePath)
         {
             try
             {
                 if (!File.Exists(sourceFilePath))
-                {
-                    MessageBox.Show("Файл не найден по указанному пути.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
+                    throw new Exception("файл не найден по указанному пути.");
                 File.Copy(sourceFilePath, destinationFilePath, true);
                 MessageBox.Show("Файл успешно сохранён!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при скачивании файла: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка при сохранении файла: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }

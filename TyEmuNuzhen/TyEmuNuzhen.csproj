@@ -177,6 +177,8 @@
     <Compile Include="MyClasses\DoctorPostsClass.cs" />
     <Compile Include="MyClasses\DoctorsOnAgreementClass.cs" />
     <Compile Include="MyClasses\DocumentTypeClass.cs" />
+    <Compile Include="MyClasses\HospitalizationClass.cs" />
+    <Compile Include="MyClasses\HospitalizationDetailClass.cs" />
     <Compile Include="MyClasses\MedicalFacilityClass.cs" />
     <Compile Include="MyClasses\MedicalHelpTypeClass.cs" />
     <Compile Include="MyClasses\NanniesClass.cs" />
@@ -185,6 +187,8 @@
     <Compile Include="MyClasses\RegionsClass.cs" />
     <Compile Include="MyClasses\ResultConsultationClass.cs" />
     <Compile Include="MyClasses\RolesClass.cs" />
+    <Compile Include="MyClasses\TransferClass.cs" />
+    <Compile Include="MyClasses\TransferDetailClass.cs" />
     <Compile Include="MyClasses\TransportTypesClass.cs" />
     <Compile Include="MyClasses\UserClass.cs" />
     <Compile Include="MyClasses\VolonteerClass.cs" />
@@ -205,6 +209,9 @@
     </Compile>
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\DocumentsPage.xaml.cs">
       <DependentUpon>DocumentsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\HospitalizationPage.xaml.cs">
+      <DependentUpon>HospitalizationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\NanniesChildrenPage.xaml.cs">
       <DependentUpon>NanniesChildrenPage.xaml</DependentUpon>
@@ -272,37 +279,46 @@
     <Compile Include="Views\UserControls\DescriptionUserControl.xaml.cs">
       <DependentUpon>DescriptionUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\HospitalizationMedicalDirectionUserControl.xaml.cs">
+      <DependentUpon>HospitalizationMedicalDirectionUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\ImageUserControl.xaml.cs">
       <DependentUpon>ImageUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\AddDoctorWindow.xaml.cs">
+    <Compile Include="Views\Windows\DialogWindows\AddDoctorWindow.xaml.cs">
       <DependentUpon>AddDoctorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\AddNannyOnProgramWindow.xaml.cs">
+    <Compile Include="Views\Windows\DialogWindows\AddHospitalizationDetailWindow.xaml.cs">
+      <DependentUpon>AddHospitalizationDetailWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\DialogWindows\AddHospitalizationWindow.xaml.cs">
+      <DependentUpon>AddHospitalizationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\DialogWindows\AddNannyOnProgramWindow.xaml.cs">
       <DependentUpon>AddNannyOnProgramWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\AddNannyWindow.xaml.cs">
+    <Compile Include="Views\Windows\DialogWindows\AddNannyWindow.xaml.cs">
       <DependentUpon>AddNannyWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\AddOrphanage.xaml.cs">
+    <Compile Include="Views\Windows\DialogWindows\AddOrphanage.xaml.cs">
       <DependentUpon>AddOrphanage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\AddTicketWindow.xaml.cs">
+    <Compile Include="Views\Windows\DialogWindows\AddTicketWindow.xaml.cs">
       <DependentUpon>AddTicketWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\AddTransferWindow.xaml.cs">
+    <Compile Include="Views\Windows\DialogWindows\AddTransferWindow.xaml.cs">
       <DependentUpon>AddTransferWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\AddUserWindow.xaml.cs">
+    <Compile Include="Views\Windows\DialogWindows\AddUserWindow.xaml.cs">
       <DependentUpon>AddUserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\CostPerDayNannyWindow.xaml.cs">
+    <Compile Include="Views\Windows\DialogWindows\CostPerDayNannyWindow.xaml.cs">
       <DependentUpon>CostPerDayNannyWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\DiagnosisWindow.xaml.cs">
+    <Compile Include="Views\Windows\DialogWindows\DiagnosisWindow.xaml.cs">
       <DependentUpon>DiagnosisWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\DocumentTypeWindow.xaml.cs">
+    <Compile Include="Views\Windows\DialogWindows\DocumentTypeWindow.xaml.cs">
       <DependentUpon>DocumentTypeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Monitoring\AddChildrenInfoCuratorPage.xaml.cs">
@@ -335,17 +351,17 @@
     <Compile Include="Views\UserControls\ChildrensUserControl.xaml.cs">
       <DependentUpon>ChildrensUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\AuthorizationWindow.xaml.cs">
+    <Compile Include="Views\Windows\MainWindows\AuthorizationWindow.xaml.cs">
       <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\Windows\MainWindow.xaml.cs">
+    <Compile Include="Views\Windows\MainWindows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\ReferenceBookValuesWindow.xaml.cs">
+    <Compile Include="Views\Windows\DialogWindows\ReferenceBookValuesWindow.xaml.cs">
       <DependentUpon>ReferenceBookValuesWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Windows\SelectProgramWindow.xaml.cs">
+    <Compile Include="Views\Windows\DialogWindows\SelectProgramWindow.xaml.cs">
       <DependentUpon>SelectProgramWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -399,6 +415,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\DocumentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ToBeOnTime\HospitalizationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -487,44 +507,56 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserControls\HospitalizationMedicalDirectionUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControls\ImageUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\AddDoctorWindow.xaml">
+    <Page Include="Views\Windows\DialogWindows\AddDoctorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\AddNannyOnProgramWindow.xaml">
+    <Page Include="Views\Windows\DialogWindows\AddHospitalizationDetailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\AddNannyWindow.xaml">
+    <Page Include="Views\Windows\DialogWindows\AddHospitalizationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\AddOrphanage.xaml" />
-    <Page Include="Views\Windows\AddTicketWindow.xaml">
+    <Page Include="Views\Windows\DialogWindows\AddNannyOnProgramWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\AddTransferWindow.xaml">
+    <Page Include="Views\Windows\DialogWindows\AddNannyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\AddUserWindow.xaml">
+    <Page Include="Views\Windows\DialogWindows\AddOrphanage.xaml" />
+    <Page Include="Views\Windows\DialogWindows\AddTicketWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\CostPerDayNannyWindow.xaml">
+    <Page Include="Views\Windows\DialogWindows\AddTransferWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\DiagnosisWindow.xaml">
+    <Page Include="Views\Windows\DialogWindows\AddUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\DocumentTypeWindow.xaml">
+    <Page Include="Views\Windows\DialogWindows\CostPerDayNannyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\DialogWindows\DiagnosisWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\DialogWindows\DocumentTypeWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -568,19 +600,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\AuthorizationWindow.xaml">
+    <Page Include="Views\Windows\MainWindows\AuthorizationWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Windows\MainWindow.xaml">
+    <Page Include="Views\Windows\MainWindows\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\ReferenceBookValuesWindow.xaml">
+    <Page Include="Views\Windows\DialogWindows\ReferenceBookValuesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\SelectProgramWindow.xaml">
+    <Page Include="Views\Windows\DialogWindows\SelectProgramWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -616,6 +648,8 @@
   <ItemGroup>
     <Folder Include="Documents\Children\AppealsConsents\" />
     <Folder Include="Documents\Children\Documents\" />
+    <Folder Include="Documents\Children\Hospitalization\MedicalDirection\" />
+    <Folder Include="Documents\Children\Hospitalization\Tickets\" />
     <Folder Include="Documents\Children\MedicalConclusion\" />
     <Folder Include="Documents\Children\MedicalResults\" />
     <Folder Include="Documents\Orphanages\Agreements\" />

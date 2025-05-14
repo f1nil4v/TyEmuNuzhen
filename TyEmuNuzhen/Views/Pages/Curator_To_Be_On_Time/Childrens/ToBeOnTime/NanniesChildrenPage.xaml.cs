@@ -60,6 +60,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
                 {
                     if (!ChildrensClass.UpdateStatusProgramChildren(_idChild, "3"))
                         return;
+                    MessageBox.Show("Статус ребёнка изменён на \"Ожидает госпитализации\".", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                     _changedStatus = true;
                 }
             }

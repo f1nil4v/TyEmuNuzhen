@@ -40,6 +40,9 @@ namespace TyEmuNuzhen.Views.UserControls
                 case 3:
                     LoadWordDocument(isFirst, filePath, dateFile);
                     break;
+                case 4:
+                    LoadMedicalDirection(filePath);
+                    break;
                 default:
                     infoTextBlock.Text = "Неизвестный тип объекта";
                     break;
@@ -142,7 +145,29 @@ namespace TyEmuNuzhen.Views.UserControls
                 infoTextBlock.Text = $"{Path.GetFileNameWithoutExtension(filePath)} от {dateFile} (последнее)";
             else
                 infoTextBlock.Text = $"{Path.GetFileNameWithoutExtension(filePath)} от {dateFile}";
+        }
 
+        private void LoadMedicalDirection(string filePath)
+        {
+            try
+            {
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(_pdfpng, UriKind.RelativeOrAbsolute);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+                photoImage.ImageSource = bitmap;
+            }
+            catch
+            {
+                BitmapImage errorBitmap = new BitmapImage();
+                errorBitmap.BeginInit();
+                errorBitmap.UriSource = new Uri(_errImagePath, UriKind.RelativeOrAbsolute);
+                errorBitmap.CacheOption = BitmapCacheOption.OnLoad;
+                errorBitmap.EndInit();
+                photoImage.ImageSource = errorBitmap;
+            }
+            infoTextBlock.Text = $"Медицинское направление";
         }
 
         private void btnDownload_Click(object sender, RoutedEventArgs e)

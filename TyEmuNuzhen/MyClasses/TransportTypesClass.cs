@@ -13,7 +13,7 @@ namespace TyEmuNuzhen.MyClasses
     {
         public static DataTable dtTranposrtTypeS;
 
-        public static void GetTranposrtTypesList(string querySearch)
+        public static void GetTranportTypesList(string querySearch)
         {
             try
             {
