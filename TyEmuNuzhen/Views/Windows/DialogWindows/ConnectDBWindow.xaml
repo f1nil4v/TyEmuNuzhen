@@ -1,0 +1,123 @@
+﻿<Window x:Class="TyEmuNuzhen.Views.Windows.DialogWindows.ConnectDBWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows.DialogWindows"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        Title="Настройки подключения к базе данных" Width="702" Height="667" 
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+                    <Setter Property="materialDesign:HintAssist.Foreground" Value="#A3B92E"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Настройки подключения к базе данных" 
+               Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+               Foreground="#FFCF5FD3"
+               Margin="0,0,0,20"/>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="0,0,0,20">
+                <materialDesign:Card Margin="0,0,0,16" Padding="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" 
+                               Text="База данных" 
+                               Margin="0,0,0,8"/>
+                        <TextBox x:Name="txtDatabase"
+                            materialDesign:HintAssist.Hint="Введите имя базы данных"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            materialDesign:TextFieldAssist.UnderlineBrush="#FFCF5FD3"
+                            materialDesign:HintAssist.Foreground="#FFCF5FD3"/>
+                    </StackPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Margin="0,0,0,16" Padding="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" 
+                               Text="Сервер" 
+                               Margin="0,0,0,8"/>
+                        <TextBox x:Name="txtServer" 
+                            materialDesign:HintAssist.Hint="Введите адрес сервера"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            materialDesign:TextFieldAssist.UnderlineBrush="#FFCF5FD3"
+                            materialDesign:HintAssist.Foreground="#FFCF5FD3"/>
+                    </StackPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Margin="0,0,0,16" Padding="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" 
+                               Text="Имя пользователя" 
+                               Margin="0,0,0,8"/>
+                        <TextBox x:Name="txtUsername"
+                            materialDesign:HintAssist.Hint="Введите имя пользователя"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            materialDesign:TextFieldAssist.UnderlineBrush="#FFCF5FD3"
+                            materialDesign:HintAssist.Foreground="#FFCF5FD3"/>
+                    </StackPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Margin="0,0,0,16" Padding="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" 
+                               Text="Пароль" 
+                               Margin="0,0,0,8"/>
+                        <PasswordBox x:Name="txtPassword"
+                                materialDesign:HintAssist.Hint="Введите пароль"
+                                materialDesign:TextFieldAssist.HasClearButton="True"
+                                materialDesign:TextFieldAssist.UnderlineBrush="#FFCF5FD3"
+                                materialDesign:HintAssist.Foreground="#FFCF5FD3"/>
+                    </StackPanel>
+                </materialDesign:Card>
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="btnTest" 
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                materialDesign:ButtonAssist.CornerRadius="4"
+                Background="#A3B92E" 
+                Foreground="White"
+                Margin="0,0,8,0"
+                Click="btnTest_Click">
+                <materialDesign:PackIcon Kind="DatabaseCheck" />
+            </Button>
+
+            <Button x:Name="btnSave" 
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                materialDesign:ButtonAssist.CornerRadius="4"
+                Content="Сохранить"
+                Background="#CF5FD3" 
+                Foreground="White"
+                Margin="0,0,8,0"
+                Click="btnSave_Click">
+            </Button>
+
+            <Button x:Name="btnCancel" 
+                Style="{StaticResource MaterialDesignOutlinedButton}"
+                materialDesign:ButtonAssist.CornerRadius="4"
+                Content="Отмена"
+                Foreground="#757575"
+                Click="btnCancel_Click">
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

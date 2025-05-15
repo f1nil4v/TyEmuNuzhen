@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using TyEmuNuzhen.MyClasses;
 using TyEmuNuzhen.Views.Windows;
+using TyEmuNuzhen.Views.Windows.DialogWindows;
+using TyEmuNuzhen.Views.Windows.MainWindows;
 
 namespace TyEmuNuzhen
 {
@@ -16,12 +18,22 @@ namespace TyEmuNuzhen
         public AuthorizationWindow()
         {
             InitializeComponent();
+            LoadScreensaver();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (DBConnection.Connect_DB() == false)
-                this.Close();
+            while (!DBConnection.Connect_DB())
+            {
+                ConnectDBWindow connectDBWindow = new ConnectDBWindow();
+                if (connectDBWindow.ShowDialog() != true)
+                {
+                    errorPassLogLabel.Text = "Нет подключения к базе данных!";
+                    AnimationsClass.ShakeElement(errorPassLogLabel);
+                    return;
+                }
+            }
+            errorPassLogLabel.Text = " ";
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -146,6 +158,35 @@ namespace TyEmuNuzhen
             passwordBorder.BorderThickness = new Thickness(1);
             loginBorder.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#A101A6");
             passwordBorder.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#A101A6");
+        }
+
+        private async void LoadScreensaver()
+        {
+            this.Hide();
+            ScreensaverWindow window = new ScreensaverWindow();
+            window.Show();
+            await Task.Delay(5000);
+            window.Close();
+            this.Show();
+        }
+
+        private void connectDBBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectDBWindow connectDBWindow = new ConnectDBWindow();
+            if (connectDBWindow.ShowDialog() == true)
+            {
+                if (DBConnection.Connect_DB())
+                {
+                    MessageBox.Show("Подключение к базе данных успешно установлено!",
+                        "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    errorPassLogLabel.Text = " ";
+                }
+                else
+                {
+                    errorPassLogLabel.Text = "Нет подключения к базе данных!";
+                    AnimationsClass.ShakeElement(errorPassLogLabel);
+                }
+            }
         }
     }
 }

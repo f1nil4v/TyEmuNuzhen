@@ -236,6 +236,22 @@
             <!---->
 
             <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
+                <Button x:Name="btnSettings" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Visibility="Collapsed" Click="btnSettings_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/Controls/settings.png" Height="25"></Image>
+                        <TextBlock Text="Настройки" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Width, ElementName=menuPanel}" Value="60">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
                 <Button x:Name="btnProfile" Height="50" Background="Transparent" BorderBrush="Transparent" HorizontalContentAlignment="Left" Click="btnProfile_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/Controls/profile.png" Height="25"></Image>

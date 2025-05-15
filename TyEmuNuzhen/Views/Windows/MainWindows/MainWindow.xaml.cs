@@ -21,7 +21,7 @@ namespace TyEmuNuzhen.Views.Windows
         public MainWindow(string idRole, string idEmployee, string post)
         {
             InitializeComponent();
-            menuButtons = new List<Button> { btnVolonteerMonitoring, btnNannies, btnCuratorMonitoring, btnPreliminary, btnChildrens, btnArchive, btnEmploees, btnRefernceBooks, btnDoctorsOnAgreement, btnOrphanages, btnProfile };
+            menuButtons = new List<Button> { btnVolonteerMonitoring, btnNannies, btnCuratorMonitoring, btnPreliminary, btnChildrens, btnArchive, btnEmploees, btnRefernceBooks, btnDoctorsOnAgreement, btnOrphanages, btnSettings, btnProfile };
             switch (idRole)
             {
                 case "1":
@@ -40,6 +40,7 @@ namespace TyEmuNuzhen.Views.Windows
                     break;
                 case "3":
                     directorMenu.Visibility = Visibility.Visible;
+                    btnSettings.Visibility = Visibility.Visible;
                     mainFrame.Navigate(new Pages.Director.Employees.EmployeesPage());
                     mainFrame.NavigationService.RemoveBackEntry();
                     this.Title += $" - Директор: {DirectorClass.GetDirectorFullName(idEmployee)}";
@@ -163,6 +164,13 @@ namespace TyEmuNuzhen.Views.Windows
         {
             SetActiveMenuItem(btnOrphanages);
             mainFrame.Navigate(new Pages.Director.Orphanages.OrphanagesPage());
+            mainFrame.NavigationService.RemoveBackEntry();
+        }
+
+        private void btnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            SetActiveMenuItem(btnSettings);
+            mainFrame.Navigate(new Pages.Director.Settings.SettingsPage());
             mainFrame.NavigationService.RemoveBackEntry();
         }
     }

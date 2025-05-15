@@ -53,5 +53,10 @@
                 </Grid>
             </StackPanel>
         </Border>
+        <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="30">
+            <Border CornerRadius="10" BorderThickness="1" Background="#FFE5FB71" BorderBrush="#A101A6" Padding="15,5,15,5" HorizontalAlignment="Right">
+                <Button x:Name="connectDBBtn" Content="Подключение к БД" FontSize="14" Foreground="Black" Background="Transparent" Cursor="Hand" BorderThickness="0" Click="connectDBBtn_Click"/>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
