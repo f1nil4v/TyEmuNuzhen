@@ -36,6 +36,14 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             _id = id;
         }
 
+        public DetailedInfoPage(string id, bool a)
+        {
+            InitializeComponent();
+            LoadChildData(id);
+            _id = id;
+            addDescriptionGrid.Visibility = Visibility.Collapsed;
+        }
+
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (_updated == false)
@@ -163,6 +171,11 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
 
             ActualDiagnosesClass.GetChildrenAcutualDiagnoses(childId);
             DataView view = ActualDiagnosesClass.dtActualChildrenDiagnoses.DefaultView;
+            if (ActualDiagnosesClass.dtActualChildrenDiagnoses.Rows.Count == 0)
+            {
+                notDiagnoses.Visibility = Visibility.Visible;
+                return;
+            }
             foreach (DataRowView row in view)
             {
                 string diagnosisName = row["diagnosisName"].ToString();

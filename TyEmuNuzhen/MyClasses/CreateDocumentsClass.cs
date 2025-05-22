@@ -5,6 +5,8 @@ using wordAppealConsent = Microsoft.Office.Interop.Word;
 using wordAgreementOrphanage = Microsoft.Office.Interop.Word;
 using wordAgreementNanny = Microsoft.Office.Interop.Word;
 using wordActOfCompletedNanny = Microsoft.Office.Interop.Word;
+using Microsoft.Office.Interop.Word;
+using System.Data;
 
 namespace TyEmuNuzhen.MyClasses
 {
@@ -79,11 +81,13 @@ namespace TyEmuNuzhen.MyClasses
                     throw new Exception("Не удалось добавить информацию о документе в базу данных");
                 doc.SaveAs2($"{documentSaveFolderPath}.pdf", wordAppealConsent.WdSaveFormat.wdFormatPDF);
                 doc.Close();
+                app.Quit();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 doc.Close();
+                app.Quit();
             }
         }
         
@@ -131,12 +135,14 @@ namespace TyEmuNuzhen.MyClasses
                 {
                     doc.SaveAs2($"{documentSaveFolderPath}.docx");
                     doc.Close();
+                    app.Quit();
                     return true;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     doc.Close();
+                    app.Quit();
                     return false;
                 }
             }
@@ -218,12 +224,14 @@ namespace TyEmuNuzhen.MyClasses
                 {
                     doc.SaveAs2($"{documentSaveFolderPath}.docx");
                     doc.Close();
+                    app.Quit();
                     return true;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     doc.Close();
+                    app.Quit();
                     return false;
                 }
             }
@@ -325,12 +333,197 @@ namespace TyEmuNuzhen.MyClasses
                 {
                     doc.SaveAs2($"{documentSaveFolderPath}.docx");
                     doc.Close();
+                    app.Quit();
                     return true;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     doc.Close();
+                    app.Quit();
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        public static bool CreateReportToBeOnTimeChild(string idChild, string conclusion)
+        {
+            try
+            {
+                string dateNowQuery = DateTime.Now.ToString("yyyy-MM-dd");
+                string dateNow = DateTime.Now.ToString("dd.MM.yyyy");
+                string dateNowFileName = DateTime.Now.ToString("dd_MM_yyyy");
+                string idActualProgram = ActualProgramClass.GetIDLastActualProgramChildren(idChild);
+
+                string numReport = String.Format("{0:D6}", idActualProgram);
+
+                string fileName = $"Отчёт по программе Чтобы успеть вовремя №{numReport} - {dateNowFileName}";
+                if (!ActualProgramClass.UpdateChildrenActualProgramEndProgram(idActualProgram, dateNowQuery, $"{_documentSaveFolderPath}Children/Reports/ToBeOnTime/{fileName}.docx"))
+                    throw new Exception("Не удалось обновить информацию об актуальной программе в базе данных");
+                string documentSampleFolderPath = Path.GetFullPath(_documentSamplesFolderPath) + "reportToBeOnTimeChild.docx";
+                string documentSaveFolderPath = Path.GetFullPath(_documentSaveFolderPath) + "Children/Reports/ToBeOnTime/" + fileName;
+                
+                ChildrensClass.GetChildrenListByID(idChild);
+
+                string childSurname = ChildrensClass.dtChildrensDetailedList.Rows[0]["surname"].ToString();
+                string childName = ChildrensClass.dtChildrensDetailedList.Rows[0]["name"].ToString();
+                string childMiddleName = ChildrensClass.dtChildrensDetailedList.Rows[0]["middleName"].ToString();
+
+                string childrenFIO = childSurname + " " + childName + " " + childMiddleName;
+                string childrenBirthday = Convert.ToDateTime(ChildrensClass.dtChildrensDetailedList.Rows[0]["birthday"]).ToString("dd.MM.yyyy");
+                string childRegionName = ChildrensClass.dtChildrensDetailedList.Rows[0]["regionName"].ToString();
+                string childOrphanageName = ChildrensClass.dtChildrensDetailedList.Rows[0]["orphanageName"].ToString();
+
+                ActualProgramClass.GetActualProgramDataToBeOnTimeForPrint(idActualProgram);
+
+                string curatorFIO = ActualProgramClass.dtActualProgramDataForPrint.Rows[0]["curatorFullName"].ToString();
+                string curatorPhoneNumber = ActualProgramClass.dtActualProgramDataForPrint.Rows[0]["phoneNumber"].ToString();
+                string curatorEmail = ActualProgramClass.dtActualProgramDataForPrint.Rows[0]["email"].ToString();
+                string dateProgramBegin = Convert.ToDateTime(ActualProgramClass.dtActualProgramDataForPrint.Rows[0]["dateBegin"]).ToString("dd.MM.yyy");
+                string dateProgramEnd = Convert.ToDateTime(ActualProgramClass.dtActualProgramDataForPrint.Rows[0]["dateEnd"]).ToString("dd.MM.yyy");
+                string hospitalName = ActualProgramClass.dtActualProgramDataForPrint.Rows[0]["medicalFacilityName"].ToString();
+                string hospitalAddress = ActualProgramClass.dtActualProgramDataForPrint.Rows[0]["address"].ToString();
+                string dateHospitalization = Convert.ToDateTime(ActualProgramClass.dtActualProgramDataForPrint.Rows[0]["dateHospitalization"]).ToString("dd.MM.yyy");
+                string dateDischarge = Convert.ToDateTime(ActualProgramClass.dtActualProgramDataForPrint.Rows[0]["dateDischarge"]).ToString("dd.MM.yyy");
+                string hospitalizationTotalCost = ActualProgramClass.dtActualProgramDataForPrint.Rows[0]["totalCost"].ToString();
+                string countNanniesOnProgram = ActualProgramClass.dtActualProgramDataForPrint.Rows[0]["countNanniesOnProgram"].ToString();
+                string idHospitalization = ActualProgramClass.dtActualProgramDataForPrint.Rows[0]["hospitalizationID"].ToString();
+
+                TransferClass.GetTransferOnHozpitalizationSide1Data(idHospitalization);
+                string idTransfer0 = TransferClass.dtTransferOnHozpitalizationSide1Data.Rows[0]["ID"].ToString();
+                string dateDeparture0 = Convert.ToDateTime(TransferClass.dtTransferOnHozpitalizationSide1Data.Rows[0]["dateDeparture"]).ToString("dd.MM.yyyy HH:mm");
+                string dateArrival0 = Convert.ToDateTime(TransferClass.dtTransferOnHozpitalizationSide1Data.Rows[0]["dateArrival"]).ToString("dd.MM.yyyy HH:mm");
+                string totalCost0 = TransferClass.dtTransferOnHozpitalizationSide1Data.Rows[0]["totalCost"].ToString();
+
+                TransferClass.GetTransferOnHozpitalizationSide0Data(idHospitalization);
+                string idTransfer1 = TransferClass.dtTransferOnHozpitalizationSide0Data.Rows[0]["ID"].ToString();
+                string dateDeparture1 = Convert.ToDateTime(TransferClass.dtTransferOnHozpitalizationSide0Data.Rows[0]["dateDeparture"]).ToString("dd.MM.yyyy HH:mm");
+                string dateArrival1 = Convert.ToDateTime(TransferClass.dtTransferOnHozpitalizationSide0Data.Rows[0]["dateArrival"]).ToString("dd.MM.yyyy HH:mm");
+                string totalCost1 = TransferClass.dtTransferOnHozpitalizationSide0Data.Rows[0]["totalCost"].ToString();
+
+                HospitalizationDetailClass.GetHospitalizationDetailData(idHospitalization);
+                NanniesOnProgramClass.GetHistoryNannyOnProgramDataForPrint(idActualProgram);
+                TransferDetailClass.GetTransferDetailsData(idTransfer0, true);
+                TransferDetailClass.GetTransferDetailsData(idTransfer1, false);
+
+                var app = new wordActOfCompletedNanny.Application();
+                app.Visible = false;
+                var doc = app.Documents.Open(documentSampleFolderPath);
+                doc.Activate();
+                int indx1 = HospitalizationDetailClass.dtHospitalizationDetailData.Rows.Count - 1;
+                int indx2 = NanniesOnProgramClass.dtHistoryNannyOnProgramDataForPrint.Rows.Count - 1;
+                int indx3 = TransferDetailClass.dtTransferDetailedSide1Data.Rows.Count - 1;
+                int indx4 = TransferDetailClass.dtTransferDetailedSide0Data.Rows.Count - 1;
+                int rowCountTable1 = 2;
+                int rowCountTable2 = 2;
+                int rowCountTable3 = 2;
+                int rowCountTable4 = 2;
+                Object oMissing = System.Reflection.Missing.Value;
+                doc.Bookmarks["reportNum"].Range.Text = numReport;
+                doc.Bookmarks["curatorFIO"].Range.Text = curatorFIO;
+                doc.Bookmarks["curatorPhoneNumber"].Range.Text = curatorPhoneNumber;
+                doc.Bookmarks["curatorEmail"].Range.Text = curatorEmail;
+                doc.Bookmarks["dateReport"].Range.Text = dateNow;
+                doc.Bookmarks["programStart"].Range.Text = dateProgramBegin;
+                doc.Bookmarks["programEnd"].Range.Text = dateProgramEnd;
+                doc.Bookmarks["ChildFullName"].Range.Text = childrenFIO;
+                doc.Bookmarks["ChildBirthdate"].Range.Text = childrenBirthday;
+                doc.Bookmarks["RegionName"].Range.Text = childRegionName;
+                doc.Bookmarks["OrphanageName"].Range.Text = childOrphanageName;
+                doc.Bookmarks["ChildFullName1"].Range.Text = childrenFIO;
+                doc.Bookmarks["ChildBirthdate1"].Range.Text = childrenBirthday;
+                doc.Bookmarks["OrphanageName1"].Range.Text = childOrphanageName;
+                doc.Bookmarks["RegionName1"].Range.Text = childRegionName;
+                doc.Bookmarks["CuratorFullName"].Range.Text = curatorFIO;
+                doc.Bookmarks["HospitalName"].Range.Text = hospitalName;
+                doc.Bookmarks["HospitalAddress"].Range.Text = hospitalAddress;
+                doc.Bookmarks["HospitalizationStartDate"].Range.Text = dateHospitalization;
+                doc.Bookmarks["HospitalizationEndDate"].Range.Text = dateDischarge;
+                doc.Bookmarks["HospitalTotalCost"].Range.Text = hospitalizationTotalCost;
+
+                foreach (DataRow row in HospitalizationDetailClass.dtHospitalizationDetailData.Rows)
+                {
+                    int indRow = HospitalizationDetailClass.dtHospitalizationDetailData.Rows.IndexOf(row);
+                    if (indRow != indx1)
+                        doc.Tables[1].Rows.Add(ref oMissing);
+                    doc.Tables[1].Rows[rowCountTable1].Cells[2].Range.Text = row["medicalCareType"].ToString();
+                    doc.Tables[1].Rows[rowCountTable1].Cells[3].Range.Text = row["cost"].ToString();
+                    rowCountTable1++;
+                }
+
+                doc.Bookmarks["countNanniesOnProgram"].Range.Text = countNanniesOnProgram;
+
+                foreach (DataRow row in NanniesOnProgramClass.dtHistoryNannyOnProgramDataForPrint.Rows)
+                {
+                    int indRow = NanniesOnProgramClass.dtHistoryNannyOnProgramDataForPrint.Rows.IndexOf(row);
+                    if (indRow != indx2)
+                        doc.Tables[2].Rows.Add(ref oMissing);
+                    doc.Tables[2].Rows[rowCountTable2].Cells[2].Range.Text = row["fullName"].ToString();
+                    doc.Tables[2].Rows[rowCountTable2].Cells[3].Range.Text = row["costPerDay"].ToString();
+                    doc.Tables[2].Rows[rowCountTable2].Cells[4].Range.Text = row["countWorkDays"].ToString();
+                    doc.Tables[2].Rows[rowCountTable2].Cells[5].Range.Text = row["payment"].ToString();
+                    rowCountTable2++;
+                }
+
+                doc.Bookmarks["TransferFrom0"].Range.Text = childOrphanageName;
+                doc.Bookmarks["TransferTo0"].Range.Text = hospitalName;
+                doc.Bookmarks["TransferDeparture0"].Range.Text = dateDeparture0;
+                doc.Bookmarks["TransferArrival0"].Range.Text = dateArrival0;
+                doc.Bookmarks["TransferTotalCost0"].Range.Text = totalCost0;
+                doc.Bookmarks["TransferFrom0_1"].Range.Text = childOrphanageName;
+                doc.Bookmarks["TransferTo0_1"].Range.Text = hospitalName;
+                doc.Bookmarks["TransferFrom0_2"].Range.Text = childOrphanageName;
+                doc.Bookmarks["TransferTo0_2"].Range.Text = hospitalName;
+
+                foreach (DataRow row in TransferDetailClass.dtTransferDetailedSide1Data.Rows)
+                {
+                    int indRow = TransferDetailClass.dtTransferDetailedSide1Data.Rows.IndexOf(row);
+                    if (indRow != indx3)
+                        doc.Tables[3].Rows.Add(ref oMissing);
+                    doc.Tables[3].Rows[rowCountTable3].Cells[2].Range.Text = row["transportType"].ToString();
+                    doc.Tables[3].Rows[rowCountTable3].Cells[3].Range.Text = row["cost"].ToString();
+                    rowCountTable3++;
+                }
+
+                doc.Bookmarks["TransferFrom1"].Range.Text = hospitalName;
+                doc.Bookmarks["TransferTo1"].Range.Text = childOrphanageName;
+                doc.Bookmarks["TransferDeparture1"].Range.Text = dateDeparture1;
+                doc.Bookmarks["TransferArrival1"].Range.Text = dateArrival1;
+                doc.Bookmarks["TransferTotalCost1"].Range.Text = totalCost1;
+                doc.Bookmarks["TransferFrom1_1"].Range.Text = hospitalName;
+                doc.Bookmarks["TransferTo1_1"].Range.Text = childOrphanageName;
+                doc.Bookmarks["TransferFrom1_2"].Range.Text = hospitalName;
+                doc.Bookmarks["TransferTo1_2"].Range.Text = childOrphanageName;
+
+                foreach (DataRow row in TransferDetailClass.dtTransferDetailedSide0Data.Rows)
+                {
+                    int indRow = TransferDetailClass.dtTransferDetailedSide0Data.Rows.IndexOf(row);
+                    if (indRow != indx4)
+                        doc.Tables[4].Rows.Add(ref oMissing);
+                    doc.Tables[4].Rows[rowCountTable4].Cells[2].Range.Text = row["transportType"].ToString();
+                    doc.Tables[4].Rows[rowCountTable4].Cells[3].Range.Text = row["cost"].ToString();
+                    rowCountTable4++;
+                }
+
+                doc.Bookmarks["Conclusion"].Range.Text = conclusion;
+                doc.Saved = true;
+                try
+                {
+                    doc.SaveAs2($"{documentSaveFolderPath}.docx");
+                    doc.Close();
+                    app.Quit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    doc.Close();
+                    app.Quit();
                     return false;
                 }
             }

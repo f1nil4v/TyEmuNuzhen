@@ -30,10 +30,12 @@ namespace TyEmuNuzhen
                 {
                     errorPassLogLabel.Text = "Нет подключения к базе данных!";
                     AnimationsClass.ShakeElement(errorPassLogLabel);
+                    EnableControls(false);
                     return;
                 }
             }
             errorPassLogLabel.Text = " ";
+            EnableControls(true);
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -175,17 +177,38 @@ namespace TyEmuNuzhen
             ConnectDBWindow connectDBWindow = new ConnectDBWindow();
             if (connectDBWindow.ShowDialog() == true)
             {
+                DBConnection.Disconnect_DB();
                 if (DBConnection.Connect_DB())
                 {
                     MessageBox.Show("Подключение к базе данных успешно установлено!",
                         "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     errorPassLogLabel.Text = " ";
+                    EnableControls(true);
                 }
                 else
                 {
                     errorPassLogLabel.Text = "Нет подключения к базе данных!";
                     AnimationsClass.ShakeElement(errorPassLogLabel);
+                    EnableControls(false);
                 }
+            }
+        }
+
+        private void EnableControls(bool connectDB)
+        {
+            if (connectDB)
+            {
+                loginTextBox.IsEnabled = true;
+                passwordTextBox.IsEnabled = true;
+                passwordBox.IsEnabled = true;
+                authBtn.IsEnabled = true;
+            }
+            else
+            {
+                loginTextBox.IsEnabled = false;
+                passwordTextBox.IsEnabled = false;
+                passwordBox.IsEnabled = false;
+                authBtn.IsEnabled = false;
             }
         }
     }

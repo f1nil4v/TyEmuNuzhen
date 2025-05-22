@@ -7,6 +7,7 @@ namespace TyEmuNuzhen.MyClasses
     internal class HospitalizationClass
     {
         public static DataTable dtHospitalizationData;
+        public static DataTable dtPeriodsHospitalizationList;
 
         public static void GetHospitalizationData(string idHospitalization, string idActualProgram)
         {
@@ -20,6 +21,23 @@ namespace TyEmuNuzhen.MyClasses
                                                         {whereClause}";
                 dtHospitalizationData = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtHospitalizationData);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public static void GetPeriodsHospitalizationList(string idActualProgram)
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $@"SELECT hospitalization.ID, CONCAT(medical_facility.medicalFacilityName, ' (Адрес: ', medical_facility.address, ') (Период: ', 
+                                                            hospitalization.dateHospitalization, ' - ', hospitalization.dateDischarge, ')') AS periodHospitalization
+                                                        FROM hospitalization, medical_facility
+                                                        WHERE hospitalization.idMedicalFacility = medical_facility.ID AND hospitalization.idActualProgram = '{idActualProgram}'";
+                dtPeriodsHospitalizationList = new DataTable();
+                DBConnection.myDataAdapter.Fill(dtPeriodsHospitalizationList);
             }
             catch (Exception ex)
             {

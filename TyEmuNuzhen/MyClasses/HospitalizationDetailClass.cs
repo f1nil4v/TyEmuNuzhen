@@ -23,7 +23,7 @@ namespace TyEmuNuzhen.MyClasses
             {
                 MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
+}
 
         public static void GetHospitalizationDetailDataChange(string idHospitalizationDetail)
         {

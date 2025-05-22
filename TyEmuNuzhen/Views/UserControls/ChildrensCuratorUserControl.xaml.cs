@@ -5,6 +5,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using TyEmuNuzhen.MyClasses;
+using TyEmuNuzhen.Views.Windows.DialogWindows;
 
 namespace TyEmuNuzhen.Views.UserControls
 {
@@ -164,6 +165,20 @@ namespace TyEmuNuzhen.Views.UserControls
                 parent = VisualTreeHelper.GetParent(parent);
             }
             NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime.HospitalizationPage("" ,Tag.ToString(), _fullNameChild));
+        }
+
+        private void completeWorkBtn_Click(object sender, RoutedEventArgs e)
+        {
+            EndProgramWindow endProgramWindow = new EndProgramWindow(this.Tag.ToString(), _fullNameChild);
+            if (endProgramWindow.ShowDialog() == true)
+            {
+                DependencyObject parent = this;
+                while (parent != null && !(parent is Pages.Curator_To_Be_On_Time.Childrens.ChildrensPage))
+                {
+                    parent = VisualTreeHelper.GetParent(parent);
+                }
+                NavigationService.GetNavigationService(parent).Navigate(new Pages.Curator_To_Be_On_Time.Childrens.ChildrensPage(2));
+            }
         }
     }
 }

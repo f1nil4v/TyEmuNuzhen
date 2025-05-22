@@ -41,6 +41,17 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             LoadNannies();
         }
 
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            ChildrensClass.GetChildrenListByID(_idChild);
+            string idStatusProgram = ChildrensClass.dtChildrensDetailedList.Rows[0]["idStatusProgram"].ToString();
+            if (idStatusProgram == "5")
+            {
+                btnEndAccompaniment.Visibility = Visibility.Visible;
+                btnAddNanny.Visibility = Visibility.Collapsed;
+            }
+        }
+
         private void btnAddNanny_Click(object sender, RoutedEventArgs e)
         {
             AddNannyOnProgramWindow addNannyOnProgramWindow = new AddNannyOnProgramWindow(_idActualProgram, _idChild);
@@ -54,7 +65,6 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
                         return;
                 }
                 LoadNannies();
-                ChildrensClass.GetChildrenListByID(_idChild);
                 string idStatusProgram = ChildrensClass.dtChildrensDetailedList.Rows[0]["idStatusProgram"].ToString();
                 if (idStatusProgram == "2")
                 {
@@ -65,37 +75,13 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
                 }
             }
         }
-
-        private void LoadNannies()
+        private void btnEndAccompaniment_Click(object sender, RoutedEventArgs e)
         {
-            agreementPanel.Children.Clear();
-            _idActualProgram = ActualProgramClass.GetIDLastActualProgramChildren(_idChild);
-            NanniesOnProgramClass.GetActiveNannyOnProgramData(_idActualProgram);
-            if (NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows.Count == 0)
-            {
-                noRecord.Visibility = Visibility.Visible;
-                nannyData.Visibility = Visibility.Collapsed;
-                _haveActiveNannyOnProgram = false;
+            if (!CreateDocumentsClass.CreateActOfCompleetedWorksNanny(_idNannyOnProgram, _idNanny, _idChild))
                 return;
-            }
-            noRecord.Visibility = Visibility.Collapsed;
-            nannyData.Visibility = Visibility.Visible;
-            _haveActiveNannyOnProgram = true;
-            btnAddNanny.Content = "Изменить няню";
-            _idNannyOnProgram = NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["ID"].ToString();
-            _idNanny = NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["idNanny"].ToString();
-            FIOTxt.Text = "ФИО: " + NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["fullName"].ToString();
-            phoneTxt.Text = "Номер телефона: " +  NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["phoneNumber"].ToString();
-            emailTxt.Text = "Email: " + NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["email"].ToString();
-            dateBeginTxt.Text = "Дата заключения договора: " + Convert.ToDateTime(NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["dateConclusion"]).ToString("dd.MM.yyyy");
-            costPerDayTxt.Text = "Стоимость в сутки: " + NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["costPerDay"].ToString();
-            string filePath = NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["filePath"].ToString();
-            string dateBegin = Convert.ToDateTime(NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["dateConclusion"]).ToString("dd.MM.yyyy");
-            ImageUserControl agreementActiveNanny = new ImageUserControl(3, false, filePath, dateBegin, "");
-            agreementPanel.Children.Add(agreementActiveNanny);
-
-            NanniesOnProgramClass.GetHistoryNannyOnProgramData(_idActualProgram);
-            nanniesGrid.ItemsSource = NanniesOnProgramClass.dtHistoryNannyOnProgramData.DefaultView;
+            if (!NanniesOnProgramClass.UpdateStatusNannyOnProgram(_idNannyOnProgram))
+                return;
+            LoadNannies();
         }
 
         private void downloadAgreementBtn_Click(object sender, RoutedEventArgs e)
@@ -137,6 +123,42 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             else
                 NavigationService.Navigate(new ChildrensPage(2));
             NavigationService.RemoveBackEntry();
+        }
+
+
+        private void LoadNannies()
+        {
+            agreementPanel.Children.Clear();
+            _idActualProgram = ActualProgramClass.GetIDLastActualProgramChildren(_idChild);
+            NanniesOnProgramClass.GetActiveNannyOnProgramData(_idActualProgram);
+            if (NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows.Count == 0)
+            {
+                noRecord.Visibility = Visibility.Visible;
+                nannyData.Visibility = Visibility.Collapsed;
+                btnEndAccompaniment.IsEnabled = false;
+                _haveActiveNannyOnProgram = false;
+                NanniesOnProgramClass.GetHistoryNannyOnProgramData(_idActualProgram);
+                nanniesGrid.ItemsSource = NanniesOnProgramClass.dtHistoryNannyOnProgramData.DefaultView;
+                return;
+            }
+            noRecord.Visibility = Visibility.Collapsed;
+            nannyData.Visibility = Visibility.Visible;
+            _haveActiveNannyOnProgram = true;
+            btnAddNanny.Content = "Изменить няню";
+            _idNannyOnProgram = NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["ID"].ToString();
+            _idNanny = NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["idNanny"].ToString();
+            FIOTxt.Text = "ФИО: " + NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["fullName"].ToString();
+            phoneTxt.Text = "Номер телефона: " + NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["phoneNumber"].ToString();
+            emailTxt.Text = "Email: " + NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["email"].ToString();
+            dateBeginTxt.Text = "Дата заключения договора: " + Convert.ToDateTime(NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["dateConclusion"]).ToString("dd.MM.yyyy");
+            costPerDayTxt.Text = "Стоимость в сутки: " + NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["costPerDay"].ToString();
+            string filePath = NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["filePath"].ToString();
+            string dateBegin = Convert.ToDateTime(NanniesOnProgramClass.dtActiveNannyOnProgramData.Rows[0]["dateConclusion"]).ToString("dd.MM.yyyy");
+            ImageUserControl agreementActiveNanny = new ImageUserControl(3, false, filePath, dateBegin, "");
+            agreementPanel.Children.Add(agreementActiveNanny);
+
+            NanniesOnProgramClass.GetHistoryNannyOnProgramData(_idActualProgram);
+            nanniesGrid.ItemsSource = NanniesOnProgramClass.dtHistoryNannyOnProgramData.DefaultView;
         }
     }
 }

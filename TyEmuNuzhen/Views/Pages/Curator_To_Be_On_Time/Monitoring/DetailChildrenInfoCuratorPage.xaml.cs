@@ -289,7 +289,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
         {
             if (MessageBox.Show("Вы уверены, что у данного ребёнка проблем не выявлено?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                if (!ChildrensClass.UpdateStatusChildren(_id, "10"))
+                if (!ChildrensClass.UpdateStatusChildren(_id, "11"))
                     return;
                 MessageBox.Show("Наблюдение за данным ребёнком завершено. Информация о нём перемещена в Архив/Без выявленных проблем", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 NavigationService.Navigate(new MonitoringPage());

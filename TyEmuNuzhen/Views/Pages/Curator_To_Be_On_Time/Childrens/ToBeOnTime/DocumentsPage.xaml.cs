@@ -41,6 +41,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
         private void BtnAddDocument_Click(object sender, RoutedEventArgs e)
         {
             DocumentTypeWindow documentTypeWindow = new DocumentTypeWindow();
+            int countChildDocs = Convert.ToInt32(ChildrenDocumentClass.GetCountChildrenDocuments(_id));
             if (documentTypeWindow.ShowDialog() == true)
             {
                 if (!string.IsNullOrEmpty(DocumentTypeClass.selectedIDTypeDocument))
@@ -68,7 +69,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
                             ChildrensClass.GetChildrenListByID(_id);
                             string idStatusProgram = ChildrensClass.dtChildrensDetailedList.Rows[0]["idStatusProgram"].ToString();
                             int countAllDocs = Convert.ToInt32(DocumentTypeClass.GetCountAllDocumentTypes());
-                            int countChildDocs = Convert.ToInt32(ChildrenDocumentClass.GetCountChildrenDocuments(_id));
+                            countChildDocs = Convert.ToInt32(ChildrenDocumentClass.GetCountChildrenDocuments(_id));
                             if (countChildDocs == countAllDocs && idStatusProgram == "1")
                             {
                                 if (ChildrensClass.UpdateStatusProgramChildren(_id, "2"))
@@ -76,10 +77,16 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
                                     MessageBox.Show("Статус ребёнка изменён на \"Требуется няня\".", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                                     changedStatus = true;
                                 }
+                                else
+                                    return;
                             }
                         }
                         LoadHeaderCount();
                         LoadDocuments(_id);
+                        if (countChildDocs != 0)
+                            hasDocumentsTextBlock.Visibility = Visibility.Collapsed;
+                        else
+                            hasDocumentsTextBlock.Text = "Документов нет";
                     }
                 }
             }
@@ -94,9 +101,25 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             string birthdayChild = Convert.ToDateTime(ChildrensClass.dtChildrensDetailedList.Rows[0]["birthday"]).ToString("dd.MM.yyyy");
             string orphanageName = ChildrensClass.dtChildrensDetailedList.Rows[0]["orphanageName"].ToString();
             CreateDocumentsClass.CreateAppealConsent(_id, idOrphanage, FIOChild, birthdayChild, orphanageName);
+            string idStatusProgram = ChildrensClass.dtChildrensDetailedList.Rows[0]["idStatusProgram"].ToString();
+            int countAllDocs = Convert.ToInt32(DocumentTypeClass.GetCountAllDocumentTypes());
+            int countChildDocs = Convert.ToInt32(ChildrenDocumentClass.GetCountChildrenDocuments(_id));
+            if (countChildDocs == countAllDocs && idStatusProgram == "1")
+            {
+                if (ChildrensClass.UpdateStatusProgramChildren(_id, "2"))
+                {
+                    MessageBox.Show("Статус ребёнка изменён на \"Требуется няня\".", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    changedStatus = true;
+                }
+                else
+                    return;
+            }
             LoadAppealsConsents(_id);
             LoadDocuments(_id);
-
+            if (countChildDocs != 0)
+                hasDocumentsTextBlock.Visibility = Visibility.Collapsed;
+            else
+                hasDocumentsTextBlock.Text = "Документов нет";
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -159,7 +182,6 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
                 hasDocumentsTextBlock.Text = "Необходимо обращение на благотворительную помощь и согласие на обработку персональных данных/на фото- видеосъёмку";
                 hasDocumentsTextBlock.Visibility = Visibility.Visible;
                 btnAddDocument.IsEnabled = false;
-                return;
             }
 
             ChildrenDocumentClass.GetChildrenDocuments(childId, true, "");

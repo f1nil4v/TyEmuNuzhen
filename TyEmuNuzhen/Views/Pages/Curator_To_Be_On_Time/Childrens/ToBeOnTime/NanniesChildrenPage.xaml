@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="NanniesChildrenPage">
+      Title="NanniesChildrenPage" Loaded="Page_Loaded">
     <Page.Resources>
         <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
             <Setter Property="Template">
@@ -100,6 +100,14 @@
                             Background="#A3B92E" 
                             BorderBrush="#A3B92E"  
                             Padding="15,5" Click="btnAddNanny_Click" />
+                        <Button Grid.Column="2" 
+                             x:Name="btnEndAccompaniment" 
+                             Content="Завершить сопровождение" 
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Bottom"
+                             Background="#A3B92E" 
+                             BorderBrush="#A3B92E"  
+                             Padding="15,5" Visibility="Collapsed" Click="btnEndAccompaniment_Click" />
                     </Grid>
                 </GroupBox>
 

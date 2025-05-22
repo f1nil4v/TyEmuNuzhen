@@ -14,9 +14,10 @@ namespace TyEmuNuzhen.MyClasses
         {
             try
             {
+                string idActualProgram = ActualProgramClass.GetIDLastActualProgramChildren(idChild);
                 string selectDateConclusion = isScan ? "" : ", consents.dateСonclusion";
                 string consentsTable = isScan ? "" : ", consents";
-                string isScanWhereClause = isScan ? "AND children_documents.idDocumentType <> 1" : $"AND children_documents.ID = consents.idDocument AND children_documents.idDocumentType = 1 AND consents.idOrphanage = '{idOrphanage}'";
+                string isScanWhereClause = isScan ? "AND children_documents.idDocumentType <> 1" : $"AND children_documents.ID = consents.idDocument AND children_documents.idDocumentType = 1 AND consents.idActualProgram = '{idActualProgram}'";
                 string orderByClause = isScan ? "ORDER BY documents_type.documentType" : "ORDER BY children_documents.ID DESC";
 
                 DBConnection.myCommand.CommandText = $@"SELECT children_documents.ID, children_documents.filePath, documents_type.documentType

@@ -8,6 +8,7 @@ namespace TyEmuNuzhen.MyClasses
     {
         public static DataTable dtActiveNannyOnProgramData;
         public static DataTable dtHistoryNannyOnProgramData;
+        public static DataTable dtHistoryNannyOnProgramDataForPrint;
 
         public static void GetActiveNannyOnProgramData(string idActualProgram)
         {
@@ -48,6 +49,26 @@ namespace TyEmuNuzhen.MyClasses
                 MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        public static void GetHistoryNannyOnProgramDataForPrint(string idActualProgram)
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $@"SELECT CONCAT_WS(' ', nannies.surname, nannies.name, IFNULL(nannies.middleName, '')) as 'fullName', agreement_nanny_on_program.costPerDay, act_of_completed_works.countWorkDays,
+                                                            act_of_completed_works.payment
+                                                        FROM nannies, nannies_on_program, agreement_nanny_on_program, act_of_completed_works
+                                                        WHERE nannies_on_program.idNanny = nannies.ID AND agreement_nanny_on_program.idNannyOnProgram = nannies_on_program.ID 
+                                                            AND act_of_completed_works.idNannyOnProgram = nannies_on_program.ID AND nannies_on_program.idActualProgram = '{idActualProgram}'
+                                                            AND nannies_on_program.status = 0
+                                                        ORDER BY nannies_on_program.ID DESC";
+                dtHistoryNannyOnProgramDataForPrint = new DataTable();
+                DBConnection.myDataAdapter.Fill(dtHistoryNannyOnProgramDataForPrint);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+}
 
         public static string GetLastNannyOnProgramID(string idNanny)
         {

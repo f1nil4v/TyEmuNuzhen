@@ -16,7 +16,7 @@ namespace TyEmuNuzhen.MyClasses
         {
             try
             {
-                DBConnection.myCommand.CommandText = $@"SELECT diagnoses.diagnosisName
+                DBConnection.myCommand.CommandText = $@"SELECT actual_children_diagnosis.ID, diagnoses.diagnosisName
                     FROM actual_children_diagnosis, diagnoses
                     WHERE actual_children_diagnosis.idDiagnosis = diagnoses.ID AND
                         actual_children_diagnosis.idChild = '{idChild}'
@@ -38,7 +38,7 @@ namespace TyEmuNuzhen.MyClasses
                 {
                     DBConnection.myCommand.CommandText = $@"INSERT INTO actual_children_diagnosis 
                     VALUES (null, '{idDiagnosis}', '{idChild}')";
-                    if (DBConnection.myCommand.ExecuteNonQuery() < 0)
+                    if (DBConnection.myCommand.ExecuteNonQuery() <= 0)
                         return false;
                 }
                 return true;
@@ -46,6 +46,26 @@ namespace TyEmuNuzhen.MyClasses
             catch (Exception ex)
             {
                 MessageBox.Show($"Произошла ошибка при добавлении диагноза. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        public static bool DeleteChildrenDiagnosis(List<string> selectedDiagnosisIds)
+        {
+            try
+            {
+                foreach (string idDiagnosis in selectedDiagnosisIds)
+                {
+                    DBConnection.myCommand.CommandText = $@"DELETE FROM actual_children_diagnosis 
+                    WHERE ID = '{idDiagnosis}'";
+                    if (DBConnection.myCommand.ExecuteNonQuery() <= 0)
+                        return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при удалении диагноза(-ов). \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }

@@ -1,0 +1,128 @@
+﻿<Window x:Class="TyEmuNuzhen.Views.Windows.DialogWindows.EndProgramWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows.DialogWindows"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Завершение программы" Height="600" Width="800" 
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
+                <Setter Property="Margin" Value="0,5,0,5"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Завершение программы" 
+                   FontSize="24" FontWeight="Bold" 
+                   Foreground="#CF5FD3"
+                   Margin="0,0,0,15"/>
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,15">
+            <TextBlock x:Name="txtChildName" 
+                      Text="ФИО ребенка: " 
+                      FontSize="16" 
+                      Margin="0,0,0,5"/>
+            <TextBlock x:Name="txtProgramInfo" 
+                      Text="Программа: "
+                      FontSize="16" 
+                      Margin="0,0,0,10"/>
+        </StackPanel>
+        
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Background="#F5F5F5" 
+                    BorderBrush="#CF5FD3" 
+                    BorderThickness="1" 
+                    CornerRadius="5" 
+                    Padding="15">
+                <StackPanel>
+                    <TextBlock Text="Вылеченные диагнозы" 
+                               FontSize="18" 
+                               FontWeight="SemiBold" 
+                               Foreground="#CF5FD3" 
+                               Margin="0,0,0,10"/>
+
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                                 MaxHeight="300">
+                        <StackPanel x:Name="diagnosesPanel">
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+            </Border>
+            
+            <StackPanel Grid.Column="1" Margin="15,0,0,0">
+                <TextBlock Text="Заключение" 
+                           FontSize="18" 
+                           FontWeight="SemiBold" 
+                           Foreground="#CF5FD3" 
+                           Margin="0,0,0,10"/>
+
+                <TextBox x:Name="txtConclusion" 
+                         Height="300" 
+                         TextWrapping="Wrap" 
+                         AcceptsReturn="True" 
+                         VerticalScrollBarVisibility="Auto" 
+                         VerticalContentAlignment="Top"
+                         materialDesign:HintAssist.Hint="Введите текст заключения..."
+                         BorderThickness="1"
+                         BorderBrush="#CF5FD3"
+                         Padding="8"/>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,15,0,0">
+            <TextBlock x:Name="warningNanny" Margin="0,0,10,0" Text="Завершите сопровождение няни!" Foreground="Red" VerticalAlignment="Center" Visibility="Collapsed" />
+            <Button x:Name="btnCancel" 
+                    Content="Отмена" 
+                    BorderThickness="0"
+                    Background="#A3B92E"
+                    Foreground="#DDFFFFFF" 
+                    Width="120" 
+                    Height="35" 
+                    Margin="0,0,15,0" 
+                    Click="btnCancel_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="4"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button x:Name="btnSave" 
+                    Content="Завершить программу" 
+                    BorderThickness="0"
+                    Width="200" 
+                    Height="35" 
+                    Background="#A3B92E" 
+                    Foreground="#DDFFFFFF" 
+                    Click="btnSave_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="4"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

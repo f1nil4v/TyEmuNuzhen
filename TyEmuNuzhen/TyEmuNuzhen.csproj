@@ -185,6 +185,7 @@
     <Compile Include="MyClasses\NanniesClass.cs" />
     <Compile Include="MyClasses\NanniesOnProgramClass.cs" />
     <Compile Include="MyClasses\OrphanageClass.cs" />
+    <Compile Include="MyClasses\ProgramTypeClass.cs" />
     <Compile Include="MyClasses\RegionsClass.cs" />
     <Compile Include="MyClasses\ResultConsultationClass.cs" />
     <Compile Include="MyClasses\RolesClass.cs" />
@@ -195,6 +196,18 @@
     <Compile Include="MyClasses\VolonteerClass.cs" />
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ChildrensPage.xaml.cs">
       <DependentUpon>ChildrensPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\CompletedWorks\CompletedWorksPage.xaml.cs">
+      <DependentUpon>CompletedWorksPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\CompletedWorks\DocumentsPage.xaml.cs">
+      <DependentUpon>DocumentsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\CompletedWorks\HistoryProgram\HospitalizationPage.xaml.cs">
+      <DependentUpon>HospitalizationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\CompletedWorks\HistoryProgram\NanniesPage.xaml.cs">
+      <DependentUpon>NanniesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Childrens\MedicalExamination\ConsultationPage.xaml.cs">
       <DependentUpon>ConsultationPage.xaml</DependentUpon>
@@ -270,6 +283,9 @@
     </Compile>
     <Compile Include="Views\Pages\Director\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ChildrensAfterAnyWorksUserControl.xaml.cs">
+      <DependentUpon>ChildrensAfterAnyWorksUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\ConsultationDiagnosisUserControl.xaml.cs">
       <DependentUpon>ConsultationDiagnosisUserControl.xaml</DependentUpon>
@@ -358,6 +374,18 @@
     <Compile Include="Views\UserControls\ChildrensUserControl.xaml.cs">
       <DependentUpon>ChildrensUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Windows\DialogWindows\EndProgramWindow.xaml.cs">
+      <DependentUpon>EndProgramWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\DialogWindows\ProgramHistoryWindow.xaml.cs">
+      <DependentUpon>ProgramHistoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\DialogWindows\SelectOptionOfEndProgramWindow.xaml.cs">
+      <DependentUpon>SelectOptionOfEndProgramWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\DialogWindows\SelectProgramAndPeriodWindow.xaml.cs">
+      <DependentUpon>SelectProgramAndPeriodWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\MainWindows\AuthorizationWindow.xaml.cs">
       <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -405,6 +433,22 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\ChildrensPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\CompletedWorks\CompletedWorksPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\CompletedWorks\DocumentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\CompletedWorks\HistoryProgram\HospitalizationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Curator_To_Be_On_Time\Childrens\CompletedWorks\HistoryProgram\NanniesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -502,6 +546,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\Director\Settings\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ChildrensAfterAnyWorksUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -618,6 +666,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Windows\DialogWindows\EndProgramWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\DialogWindows\ProgramHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\DialogWindows\SelectOptionOfEndProgramWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\DialogWindows\SelectProgramAndPeriodWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Windows\MainWindows\AuthorizationWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -674,10 +738,10 @@
     <Folder Include="Documents\Children\Hospitalization\Tickets\" />
     <Folder Include="Documents\Children\MedicalConclusion\" />
     <Folder Include="Documents\Children\MedicalResults\" />
+    <Folder Include="Documents\Children\Reports\HealthRoute\" />
+    <Folder Include="Documents\Children\Reports\ToBeOnTime\" />
     <Folder Include="Documents\Orphanages\Agreements\" />
     <Folder Include="Views\Pages\Curator_Health_Houte\" />
-    <Folder Include="Views\Pages\Curator_To_Be_On_Time\Childrens\CompletedWorks\" />
-    <Folder Include="Views\Pages\Curator_To_Be_On_Time\Childrens\NoProblem\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Controls\children.png" />
