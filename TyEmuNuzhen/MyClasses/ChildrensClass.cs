@@ -210,7 +210,7 @@ namespace TyEmuNuzhen.MyClasses
         {
             try
             {
-                string whereClause = $"childrens.ID IN (SELECT idChild FROM actual_program WHERE status = 0)";
+                string whereClause = $@"(childrens.ID IN (SELECT idChild FROM actual_program WHERE status = 0) OR childrens.idStatus = 11)";
                 string orderByClause = isDESC ? "DESC" : "ASC";
                 if (!String.IsNullOrEmpty(idRegion))
                     whereClause += $" AND childrens.idRegion = '{idRegion}'";

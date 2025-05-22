@@ -719,19 +719,6 @@
     <Resource Include="Images\Controls\back.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Childrens\arrow-small-left.png" />
-    <Resource Include="Images\Childrens\гретта.jpg" />
-    <Resource Include="Images\Childrens\кошка.jpg" />
-    <Resource Include="Images\Childrens\кошка2.jpg" />
-    <Resource Include="Images\Childrens\птичка.jpg" />
-    <Resource Include="Images\Childrens\Пушок.jpg" />
-    <Resource Include="Images\Childrens\собака.jpg" />
-    <Resource Include="Images\Childrens\четин.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Childrens\errImage.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Documents\Children\AppealsConsents\" />
     <Folder Include="Documents\Children\Documents\" />
     <Folder Include="Documents\Children\Hospitalization\MedicalDirection\" />
@@ -741,6 +728,7 @@
     <Folder Include="Documents\Children\Reports\HealthRoute\" />
     <Folder Include="Documents\Children\Reports\ToBeOnTime\" />
     <Folder Include="Documents\Orphanages\Agreements\" />
+    <Folder Include="Images\Childrens\" />
     <Folder Include="Views\Pages\Curator_Health_Houte\" />
   </ItemGroup>
   <ItemGroup>

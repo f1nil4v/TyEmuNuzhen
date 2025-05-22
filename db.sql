@@ -38,6 +38,15 @@ CREATE TABLE `act_of_completed_works` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `act_of_completed_works`
+--
+
+LOCK TABLES `act_of_completed_works` WRITE;
+/*!40000 ALTER TABLE `act_of_completed_works` DISABLE KEYS */;
+/*!40000 ALTER TABLE `act_of_completed_works` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `actual_children_diagnosis`
 --
 
@@ -56,6 +65,14 @@ CREATE TABLE `actual_children_diagnosis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `actual_children_diagnosis`
+--
+
+LOCK TABLES `actual_children_diagnosis` WRITE;
+/*!40000 ALTER TABLE `actual_children_diagnosis` DISABLE KEYS */;
+/*!40000 ALTER TABLE `actual_children_diagnosis` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `actual_program`
@@ -82,6 +99,15 @@ CREATE TABLE `actual_program` (
   CONSTRAINT `fk_program` FOREIGN KEY (`idProgramType`) REFERENCES `program_type` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `actual_program`
+--
+
+LOCK TABLES `actual_program` WRITE;
+/*!40000 ALTER TABLE `actual_program` DISABLE KEYS */;
+/*!40000 ALTER TABLE `actual_program` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `agreement_doctors`
@@ -132,6 +158,15 @@ CREATE TABLE `agreement_nanny_on_program` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `agreement_nanny_on_program`
+--
+
+LOCK TABLES `agreement_nanny_on_program` WRITE;
+/*!40000 ALTER TABLE `agreement_nanny_on_program` DISABLE KEYS */;
+/*!40000 ALTER TABLE `agreement_nanny_on_program` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `agreement_orphanage`
 --
 
@@ -152,6 +187,15 @@ CREATE TABLE `agreement_orphanage` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `agreement_orphanage`
+--
+
+LOCK TABLES `agreement_orphanage` WRITE;
+/*!40000 ALTER TABLE `agreement_orphanage` DISABLE KEYS */;
+/*!40000 ALTER TABLE `agreement_orphanage` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `childphoto`
 --
 
@@ -168,6 +212,15 @@ CREATE TABLE `childphoto` (
   CONSTRAINT `fk_childphoto` FOREIGN KEY (`idChild`) REFERENCES `childrens` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `childphoto`
+--
+
+LOCK TABLES `childphoto` WRITE;
+/*!40000 ALTER TABLE `childphoto` DISABLE KEYS */;
+/*!40000 ALTER TABLE `childphoto` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `children_diagnosis`
@@ -189,6 +242,15 @@ CREATE TABLE `children_diagnosis` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `children_diagnosis`
+--
+
+LOCK TABLES `children_diagnosis` WRITE;
+/*!40000 ALTER TABLE `children_diagnosis` DISABLE KEYS */;
+/*!40000 ALTER TABLE `children_diagnosis` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `children_documents`
 --
 
@@ -207,6 +269,15 @@ CREATE TABLE `children_documents` (
   CONSTRAINT `fk_documentsType` FOREIGN KEY (`idDocumentType`) REFERENCES `documents_type` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `children_documents`
+--
+
+LOCK TABLES `children_documents` WRITE;
+/*!40000 ALTER TABLE `children_documents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `children_documents` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `children_status`
@@ -290,6 +361,15 @@ CREATE TABLE `childrens` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `childrens`
+--
+
+LOCK TABLES `childrens` WRITE;
+/*!40000 ALTER TABLE `childrens` DISABLE KEYS */;
+/*!40000 ALTER TABLE `childrens` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `childrens_description`
 --
 
@@ -306,6 +386,15 @@ CREATE TABLE `childrens_description` (
   CONSTRAINT `fk_childDescription` FOREIGN KEY (`idChild`) REFERENCES `childrens` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `childrens_description`
+--
+
+LOCK TABLES `childrens_description` WRITE;
+/*!40000 ALTER TABLE `childrens_description` DISABLE KEYS */;
+/*!40000 ALTER TABLE `childrens_description` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `consents`
@@ -333,6 +422,15 @@ CREATE TABLE `consents` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `consents`
+--
+
+LOCK TABLES `consents` WRITE;
+/*!40000 ALTER TABLE `consents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `consents` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `consultation`
 --
 
@@ -352,6 +450,15 @@ CREATE TABLE `consultation` (
   CONSTRAINT `fk_doctorConsultation` FOREIGN KEY (`idDoctor`) REFERENCES `doctors_on_agreement` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `consultation`
+--
+
+LOCK TABLES `consultation` WRITE;
+/*!40000 ALTER TABLE `consultation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `consultation` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `curators`
@@ -397,6 +504,15 @@ CREATE TABLE `diagnoses` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `diagnoses`
+--
+
+LOCK TABLES `diagnoses` WRITE;
+/*!40000 ALTER TABLE `diagnoses` DISABLE KEYS */;
+/*!40000 ALTER TABLE `diagnoses` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `directors`
@@ -446,6 +562,15 @@ CREATE TABLE `doctor_posts` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `doctor_posts`
+--
+
+LOCK TABLES `doctor_posts` WRITE;
+/*!40000 ALTER TABLE `doctor_posts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `doctor_posts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `doctors_on_agreement`
 --
 
@@ -472,6 +597,15 @@ CREATE TABLE `doctors_on_agreement` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `doctors_on_agreement`
+--
+
+LOCK TABLES `doctors_on_agreement` WRITE;
+/*!40000 ALTER TABLE `doctors_on_agreement` DISABLE KEYS */;
+/*!40000 ALTER TABLE `doctors_on_agreement` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `documents_type`
 --
 
@@ -482,8 +616,18 @@ CREATE TABLE `documents_type` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `documentType` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `documents_type`
+--
+
+LOCK TABLES `documents_type` WRITE;
+/*!40000 ALTER TABLE `documents_type` DISABLE KEYS */;
+INSERT INTO `documents_type` VALUES (1,'Обращение и согласие на обработку персональных данных');
+/*!40000 ALTER TABLE `documents_type` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `hospitalization`
@@ -509,6 +653,15 @@ CREATE TABLE `hospitalization` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `hospitalization`
+--
+
+LOCK TABLES `hospitalization` WRITE;
+/*!40000 ALTER TABLE `hospitalization` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hospitalization` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `hospitalization_detail`
 --
 
@@ -530,6 +683,15 @@ CREATE TABLE `hospitalization_detail` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `hospitalization_detail`
+--
+
+LOCK TABLES `hospitalization_detail` WRITE;
+/*!40000 ALTER TABLE `hospitalization_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hospitalization_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `medical_care_type`
 --
 
@@ -544,6 +706,15 @@ CREATE TABLE `medical_care_type` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `medical_care_type`
+--
+
+LOCK TABLES `medical_care_type` WRITE;
+/*!40000 ALTER TABLE `medical_care_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `medical_care_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `medical_facility`
 --
 
@@ -555,7 +726,7 @@ CREATE TABLE `medical_facility` (
   `medicalFacilityName` varchar(200) DEFAULT NULL,
   `address` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -594,6 +765,15 @@ CREATE TABLE `nannies` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `nannies`
+--
+
+LOCK TABLES `nannies` WRITE;
+/*!40000 ALTER TABLE `nannies` DISABLE KEYS */;
+/*!40000 ALTER TABLE `nannies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `nannies_on_program`
 --
 
@@ -612,6 +792,15 @@ CREATE TABLE `nannies_on_program` (
   CONSTRAINT `fk_nanniesH` FOREIGN KEY (`idNanny`) REFERENCES `nannies` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nannies_on_program`
+--
+
+LOCK TABLES `nannies_on_program` WRITE;
+/*!40000 ALTER TABLE `nannies_on_program` DISABLE KEYS */;
+/*!40000 ALTER TABLE `nannies_on_program` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `orphanages`
@@ -634,6 +823,15 @@ CREATE TABLE `orphanages` (
   CONSTRAINT `fk_regionOrphanage` FOREIGN KEY (`idRegion`) REFERENCES `regions` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orphanages`
+--
+
+LOCK TABLES `orphanages` WRITE;
+/*!40000 ALTER TABLE `orphanages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orphanages` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `program_type`
@@ -674,6 +872,15 @@ CREATE TABLE `regions` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `regions`
+--
+
+LOCK TABLES `regions` WRITE;
+/*!40000 ALTER TABLE `regions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `regions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `results_consultation`
 --
 
@@ -690,6 +897,14 @@ CREATE TABLE `results_consultation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `results_consultation`
+--
+
+LOCK TABLES `results_consultation` WRITE;
+/*!40000 ALTER TABLE `results_consultation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `results_consultation` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `roles`
@@ -736,6 +951,15 @@ CREATE TABLE `transfer` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `transfer`
+--
+
+LOCK TABLES `transfer` WRITE;
+/*!40000 ALTER TABLE `transfer` DISABLE KEYS */;
+/*!40000 ALTER TABLE `transfer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `transfer_detail`
 --
 
@@ -757,6 +981,15 @@ CREATE TABLE `transfer_detail` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `transfer_detail`
+--
+
+LOCK TABLES `transfer_detail` WRITE;
+/*!40000 ALTER TABLE `transfer_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `transfer_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `transport_type`
 --
 
@@ -769,6 +1002,15 @@ CREATE TABLE `transport_type` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `transport_type`
+--
+
+LOCK TABLES `transport_type` WRITE;
+/*!40000 ALTER TABLE `transport_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `transport_type` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `users`
@@ -842,4 +1084,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-22  5:21:31
+-- Dump completed on 2025-05-22  5:52:25

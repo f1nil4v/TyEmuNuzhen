@@ -107,6 +107,23 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        public static bool HaveProgramsChild(string idChild)
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $@"SELECT COUNT(ID) FROM actual_program WHERE idChild = '{idChild}'";
+                if (Convert.ToInt32(DBConnection.myCommand.ExecuteScalar()) > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
         public static bool AddChildrenActualProgram(string idChild, string idProgramType, string idCurator)
         {
             try

@@ -47,6 +47,34 @@ LOCK TABLES `act_of_completed_works` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `actual_children_diagnosis`
+--
+
+DROP TABLE IF EXISTS `actual_children_diagnosis`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `actual_children_diagnosis` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `idDiagnosis` int DEFAULT NULL,
+  `idChild` int DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `fk_diagnosis_idx` (`idDiagnosis`),
+  KEY `fk_childrenActualDiagnosis_idx` (`idChild`),
+  CONSTRAINT `fk_childrenActualDiagnosis` FOREIGN KEY (`idChild`) REFERENCES `childrens` (`ID`),
+  CONSTRAINT `fk_diagnosis0` FOREIGN KEY (`idDiagnosis`) REFERENCES `diagnoses` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `actual_children_diagnosis`
+--
+
+LOCK TABLES `actual_children_diagnosis` WRITE;
+/*!40000 ALTER TABLE `actual_children_diagnosis` DISABLE KEYS */;
+/*!40000 ALTER TABLE `actual_children_diagnosis` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `actual_program`
 --
 
@@ -58,6 +86,10 @@ CREATE TABLE `actual_program` (
   `idChild` int DEFAULT NULL,
   `idCurator` int DEFAULT NULL,
   `idProgramType` int DEFAULT NULL,
+  `dateBegin` date DEFAULT NULL,
+  `dateEnd` date DEFAULT NULL,
+  `filePath` longtext,
+  `status` tinyint DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `fk_childActualProgram_idx` (`idChild`),
   KEY `fk_program_idx` (`idProgramType`),
@@ -103,34 +135,6 @@ CREATE TABLE `agreement_doctors` (
 LOCK TABLES `agreement_doctors` WRITE;
 /*!40000 ALTER TABLE `agreement_doctors` DISABLE KEYS */;
 /*!40000 ALTER TABLE `agreement_doctors` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `agreement_hospitalization`
---
-
-DROP TABLE IF EXISTS `agreement_hospitalization`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `agreement_hospitalization` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `numOfAgreement` bigint DEFAULT NULL,
-  `dateConclusion` date DEFAULT NULL,
-  `idHospitalization` int DEFAULT NULL,
-  `filePath` longtext,
-  PRIMARY KEY (`ID`),
-  KEY `fk_hospitalizationAgreement_idx` (`idHospitalization`),
-  CONSTRAINT `fk_hospitalizationAgreement` FOREIGN KEY (`idHospitalization`) REFERENCES `hospitalization` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `agreement_hospitalization`
---
-
-LOCK TABLES `agreement_hospitalization` WRITE;
-/*!40000 ALTER TABLE `agreement_hospitalization` DISABLE KEYS */;
-/*!40000 ALTER TABLE `agreement_hospitalization` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -295,7 +299,7 @@ CREATE TABLE `children_status` (
 
 LOCK TABLES `children_status` WRITE;
 /*!40000 ALTER TABLE `children_status` DISABLE KEYS */;
-INSERT INTO `children_status` VALUES (1,'Мониторинг'),(2,'Предварительно в работе'),(3,'Медосвидетельствование'),(4,'Программа \"Чтобы успеть вовремя\"'),(5,'Программа \"Маршрут здоровья сироты\"'),(6,'Требуется дополнительная медпомощь'),(11,'Проблем не выявлено');
+INSERT INTO `children_status` VALUES (1,'Мониторинг'),(2,'Предварительно в работе'),(3,'Медосвидетельствование'),(4,'Программа \"Чтобы успеть вовремя\"'),(5,'Программа \"Маршрут здоровья сироты\"'),(6,'Требуется дополнительная медпомощь'),(11,'Работа завершена');
 /*!40000 ALTER TABLE `children_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -310,7 +314,7 @@ CREATE TABLE `children_status_program` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `statusName` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,7 +323,7 @@ CREATE TABLE `children_status_program` (
 
 LOCK TABLES `children_status_program` WRITE;
 /*!40000 ALTER TABLE `children_status_program` DISABLE KEYS */;
-INSERT INTO `children_status_program` VALUES (1,'Требуются документы'),(2,'Требуется няня'),(3,'Ожидает работы'),(4,'Трансфер'),(5,'Госпитализация'),(6,'Программа пройдена');
+INSERT INTO `children_status_program` VALUES (1,'Требуются документы'),(2,'Требуется няня'),(3,'Ожидает госпитализации'),(4,'Госпитализация'),(5,'Программа пройдена');
 /*!40000 ALTER TABLE `children_status_program` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -474,7 +478,7 @@ CREATE TABLE `curators` (
   PRIMARY KEY (`ID`),
   KEY `fk_volunteers_users1_idx` (`idUser`),
   CONSTRAINT `fk_volunteers_users10` FOREIGN KEY (`idUser`) REFERENCES `users` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -483,7 +487,7 @@ CREATE TABLE `curators` (
 
 LOCK TABLES `curators` WRITE;
 /*!40000 ALTER TABLE `curators` DISABLE KEYS */;
-INSERT INTO `curators` VALUES (2,'Иванова','Мария','Ивановна','71232313211','w@w.w',3);
+INSERT INTO `curators` VALUES (2,'Иванова','Мария','Ивановна','71232313211','w@w.w',3),(9,'2','2','2','2','2',4),(10,'adasd','asddsadas','asddasadsads','71231231231','qwe@da.d',17);
 /*!40000 ALTER TABLE `curators` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -554,7 +558,7 @@ CREATE TABLE `doctor_posts` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `postName` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -563,7 +567,6 @@ CREATE TABLE `doctor_posts` (
 
 LOCK TABLES `doctor_posts` WRITE;
 /*!40000 ALTER TABLE `doctor_posts` DISABLE KEYS */;
-INSERT INTO `doctor_posts` VALUES (1,'Нейрохирург'),(2,'Невролог'),(4,'Педиатр-терапевт');
 /*!40000 ALTER TABLE `doctor_posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -590,7 +593,7 @@ CREATE TABLE `doctors_on_agreement` (
   KEY `fk_medicalFacilityDoctor_idx` (`idMedicalFacility`),
   CONSTRAINT `fk_doctorPost` FOREIGN KEY (`idPost`) REFERENCES `doctor_posts` (`ID`),
   CONSTRAINT `fk_medicalFacilityDoctor` FOREIGN KEY (`idMedicalFacility`) REFERENCES `medical_facility` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -599,7 +602,6 @@ CREATE TABLE `doctors_on_agreement` (
 
 LOCK TABLES `doctors_on_agreement` WRITE;
 /*!40000 ALTER TABLE `doctors_on_agreement` DISABLE KEYS */;
-INSERT INTO `doctors_on_agreement` VALUES (8,'Иванова','Анжела','Викторовна','71231231231','asd@asd.ad',1,1),(11,'тест','тест','тест','71212312231','email@asd.v',2,2);
 /*!40000 ALTER TABLE `doctors_on_agreement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -614,7 +616,7 @@ CREATE TABLE `documents_type` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `documentType` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -623,7 +625,7 @@ CREATE TABLE `documents_type` (
 
 LOCK TABLES `documents_type` WRITE;
 /*!40000 ALTER TABLE `documents_type` DISABLE KEYS */;
-INSERT INTO `documents_type` VALUES (1,'обращение на благовтворительную помощь и согласия'),(2,'свидетельство о рождении'),(3,'СНИЛС'),(4,'полис ОМС');
+INSERT INTO `documents_type` VALUES (1,'Обращение и согласие на обработку персональных данных');
 /*!40000 ALTER TABLE `documents_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -641,6 +643,7 @@ CREATE TABLE `hospitalization` (
   `dateHospitalization` date DEFAULT NULL,
   `dateDischarge` date DEFAULT NULL,
   `totalCost` varchar(45) DEFAULT NULL,
+  `filePath` longtext,
   PRIMARY KEY (`ID`),
   KEY `fk_actualProgramHospitalization_idx` (`idActualProgram`),
   KEY `fk_medicalFacilityHosp_idx` (`idMedicalFacility`),
@@ -687,6 +690,60 @@ LOCK TABLES `hospitalization_detail` WRITE;
 /*!40000 ALTER TABLE `hospitalization_detail` DISABLE KEYS */;
 /*!40000 ALTER TABLE `hospitalization_detail` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `hospitalization_detail_AFTER_INSERT` AFTER INSERT ON `hospitalization_detail` FOR EACH ROW BEGIN
+	UPDATE tyemunuzhen_db.hospitalization SET hospitalization.totalCost = hospitalization.totalCost + NEW.cost
+    WHERE hospitalization.ID = NEW.idHospitalization;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `hospitalization_detail_AFTER_UPDATE` AFTER UPDATE ON `hospitalization_detail` FOR EACH ROW BEGIN
+	UPDATE tyemunuzhen_db.hospitalization SET hospitalization.totalCost = hospitalization.totalCost - OLD.cost + NEW.cost
+    WHERE hospitalization.ID = OLD.idHospitalization;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `hospitalization_detail_AFTER_DELETE` AFTER DELETE ON `hospitalization_detail` FOR EACH ROW BEGIN
+	UPDATE tyemunuzhen_db.hospitalization SET hospitalization.totalCost = hospitalization.totalCost - OLD.cost
+    WHERE hospitalization.ID = OLD.idHospitalization;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `medical_care_type`
@@ -699,7 +756,7 @@ CREATE TABLE `medical_care_type` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `medicalCareType` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -708,7 +765,6 @@ CREATE TABLE `medical_care_type` (
 
 LOCK TABLES `medical_care_type` WRITE;
 /*!40000 ALTER TABLE `medical_care_type` DISABLE KEYS */;
-INSERT INTO `medical_care_type` VALUES (1,'Реабилитация');
 /*!40000 ALTER TABLE `medical_care_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -733,7 +789,7 @@ CREATE TABLE `medical_facility` (
 
 LOCK TABLES `medical_facility` WRITE;
 /*!40000 ALTER TABLE `medical_facility` DISABLE KEYS */;
-INSERT INTO `medical_facility` VALUES (1,'Тест1',NULL),(2,'Тест2',NULL);
+INSERT INTO `medical_facility` VALUES (1,'Тест1','ул Пушкина, дом Колотушкина'),(2,'Тест2','ул Набережная, дом Подводный');
 /*!40000 ALTER TABLE `medical_facility` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -757,8 +813,9 @@ CREATE TABLE `nannies` (
   `addressRegister` varchar(200) DEFAULT NULL,
   `phoneNumber` varchar(12) DEFAULT NULL,
   `email` varchar(150) DEFAULT NULL,
+  `status` tinyint DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -767,7 +824,6 @@ CREATE TABLE `nannies` (
 
 LOCK TABLES `nannies` WRITE;
 /*!40000 ALTER TABLE `nannies` DISABLE KEYS */;
-INSERT INTO `nannies` VALUES (3,'Иванова','Мария','Метрова',4832,463828,'2025-04-16','УМВД России по Мурманской области','123-213','г. Мурманск, ул. Хлобыстова, д.5, кв 43','79293674552','Metro@mail.ru');
 /*!40000 ALTER TABLE `nannies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -782,14 +838,12 @@ CREATE TABLE `nannies_on_program` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `idNanny` int DEFAULT NULL,
   `idActualProgram` int DEFAULT NULL,
-  `idStatus` int DEFAULT NULL,
+  `status` tinyint DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `fk_nannyStatusN_idx` (`idStatus`),
   KEY `fk_nanniesH_idx` (`idNanny`),
   KEY `fk_ActualProgramNannyInHosp_idx` (`idActualProgram`),
   CONSTRAINT `fk_actualProgramNannyOnProgram` FOREIGN KEY (`idActualProgram`) REFERENCES `actual_program` (`ID`),
-  CONSTRAINT `fk_nanniesH` FOREIGN KEY (`idNanny`) REFERENCES `nannies` (`ID`),
-  CONSTRAINT `fk_nannyStatusN` FOREIGN KEY (`idStatus`) REFERENCES `nanny_statuses` (`ID`)
+  CONSTRAINT `fk_nanniesH` FOREIGN KEY (`idNanny`) REFERENCES `nannies` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -800,29 +854,6 @@ CREATE TABLE `nannies_on_program` (
 LOCK TABLES `nannies_on_program` WRITE;
 /*!40000 ALTER TABLE `nannies_on_program` DISABLE KEYS */;
 /*!40000 ALTER TABLE `nannies_on_program` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `nanny_statuses`
---
-
-DROP TABLE IF EXISTS `nanny_statuses`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `nanny_statuses` (
-  `ID` int NOT NULL,
-  `statusName` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `nanny_statuses`
---
-
-LOCK TABLES `nanny_statuses` WRITE;
-/*!40000 ALTER TABLE `nanny_statuses` DISABLE KEYS */;
-/*!40000 ALTER TABLE `nanny_statuses` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -891,7 +922,7 @@ CREATE TABLE `regions` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `regionName` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -900,7 +931,6 @@ CREATE TABLE `regions` (
 
 LOCK TABLES `regions` WRITE;
 /*!40000 ALTER TABLE `regions` DISABLE KEYS */;
-INSERT INTO `regions` VALUES (1,'Мурманская область'),(2,'Московская область');
 /*!40000 ALTER TABLE `regions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -963,13 +993,14 @@ DROP TABLE IF EXISTS `transfer`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `transfer` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `idActualProgram` int DEFAULT NULL,
+  `idHospitalization` int DEFAULT NULL,
   `dateDeparture` datetime DEFAULT NULL,
   `dateArrival` datetime DEFAULT NULL,
   `totalCost` decimal(10,2) DEFAULT NULL,
+  `transferSide` tinyint DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `fk_actualProgramTransfer_idx` (`idActualProgram`),
-  CONSTRAINT `fk_actualProgramTransfer` FOREIGN KEY (`idActualProgram`) REFERENCES `actual_program` (`ID`)
+  KEY `fk_hospitalizationTransfer_idx` (`idHospitalization`),
+  CONSTRAINT `fk_hospitalizationTransfer` FOREIGN KEY (`idHospitalization`) REFERENCES `hospitalization` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1011,6 +1042,60 @@ LOCK TABLES `transfer_detail` WRITE;
 /*!40000 ALTER TABLE `transfer_detail` DISABLE KEYS */;
 /*!40000 ALTER TABLE `transfer_detail` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `transfer_detail_AFTER_INSERT` AFTER INSERT ON `transfer_detail` FOR EACH ROW BEGIN
+	UPDATE tyemunuzhen_db.transfer SET transfer.totalCost = transfer.totalCost + NEW.cost
+    WHERE transfer.ID = NEW.idTransfer;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `transfer_detail_AFTER_UPDATE` AFTER UPDATE ON `transfer_detail` FOR EACH ROW BEGIN
+	UPDATE tyemunuzhen_db.transfer SET transfer.totalCost = transfer.totalCost - OLD.cost + NEW.cost
+    WHERE transfer.ID = OLD.idTransfer;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `transfer_detail_AFTER_DELETE` AFTER DELETE ON `transfer_detail` FOR EACH ROW BEGIN
+	UPDATE tyemunuzhen_db.transfer SET transfer.totalCost = transfer.totalCost - OLD.cost
+    WHERE transfer.ID = OLD.idTransfer;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `transport_type`
@@ -1023,7 +1108,7 @@ CREATE TABLE `transport_type` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `transportType` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1032,7 +1117,6 @@ CREATE TABLE `transport_type` (
 
 LOCK TABLES `transport_type` WRITE;
 /*!40000 ALTER TABLE `transport_type` DISABLE KEYS */;
-INSERT INTO `transport_type` VALUES (1,'Ракета');
 /*!40000 ALTER TABLE `transport_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1052,7 +1136,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `login_UNIQUE` (`login`),
   KEY `fk_roleUsers_idx` (`idRole`),
   CONSTRAINT `fk_roleUsers` FOREIGN KEY (`idRole`) REFERENCES `roles` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1061,7 +1145,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'cur','cfcd208495d565ef66e7dff9f98764da',2),(4,'dir','cfcd208495d565ef66e7dff9f98764da',3),(13,'vol1','7a371de86fe43ecbb1b8c27b0bbd59f7',1),(14,'vol2','7a371de86fe43ecbb1b8c27b0bbd59f7',1);
+INSERT INTO `users` VALUES (3,'cur','cfcd208495d565ef66e7dff9f98764da',2),(4,'dir','cfcd208495d565ef66e7dff9f98764da',3),(13,'vol1','7a371de86fe43ecbb1b8c27b0bbd59f7',1),(14,'vol2','7a371de86fe43ecbb1b8c27b0bbd59f7',1),(17,'qwe','7a371de86fe43ecbb1b8c27b0bbd59f7',2);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1108,4 +1192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-01 22:39:38
+-- Dump completed on 2025-05-22  7:42:20
