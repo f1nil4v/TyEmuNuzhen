@@ -102,27 +102,6 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static bool GetSameRegion(string idRegion, string regionName)
-        {
-            try
-            {
-                string whereClause = idRegion == null ? "" : $"AND ID <> '{idRegion}'";
-                DBConnection.myCommand.Parameters.Clear();
-                DBConnection.myCommand.CommandText = $@"SELECT COUNT(ID) FROM regions WHERE regionName = @regionName {whereClause}";
-                DBConnection.myCommand.Parameters.AddWithValue("@regionName", regionName);
-                Object result = DBConnection.myCommand.ExecuteScalar();
-                if (Convert.ToInt32(result) == 0)
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-        }
-
         public static bool AddRegion(string regionName)
         {
             try
@@ -134,6 +113,19 @@ namespace TyEmuNuzhen.MyClasses
                     return true;
                 else
                     return false;
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1062)
+                {
+                    MessageBox.Show($"Запись с таким значением уже есть в системе!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при добавлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -153,6 +145,19 @@ namespace TyEmuNuzhen.MyClasses
                     return true;
                 else
                     return false;
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1062)
+                {
+                    MessageBox.Show($"Запись с таким значением уже есть в системе!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при обновлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             catch (Exception ex)
             {

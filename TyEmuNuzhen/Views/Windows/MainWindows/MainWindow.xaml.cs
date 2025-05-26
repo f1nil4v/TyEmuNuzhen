@@ -21,7 +21,7 @@ namespace TyEmuNuzhen.Views.Windows
         public MainWindow(string idRole, string idEmployee, string post)
         {
             InitializeComponent();
-            menuButtons = new List<Button> { btnVolonteerMonitoring, btnNannies, btnCuratorMonitoring, btnPreliminary, btnChildrens, btnArchive, btnEmploees, btnRefernceBooks, btnDoctorsOnAgreement, btnOrphanages, btnSettings, btnProfile };
+            menuButtons = new List<Button> { btnVolonteerMonitoring, btnNannies, btnCuratorMonitoring, btnPreliminary, btnChildrens, btnEmploees, btnRefernceBooks, btnDoctorsOnAgreement, btnOrphanages, btnSettings, };
             switch (idRole)
             {
                 case "1":
@@ -122,16 +122,6 @@ namespace TyEmuNuzhen.Views.Windows
             mainFrame.NavigationService.RemoveBackEntry();
         }
 
-        private void btnArchive_Click(object sender, RoutedEventArgs e)
-        {
-            SetActiveMenuItem(btnArchive);
-        }
-
-        private void btnProfile_Click(object sender, RoutedEventArgs e)
-        {
-            SetActiveMenuItem(btnProfile);
-        }
-
         private void btnVolonteerMonitoring_Click(object sender, RoutedEventArgs e)
         {
             SetActiveMenuItem(btnVolonteerMonitoring);
@@ -156,7 +146,7 @@ namespace TyEmuNuzhen.Views.Windows
         private void btnDoctorsOnAgreement_Click(object sender, RoutedEventArgs e)
         {
             SetActiveMenuItem(btnDoctorsOnAgreement);
-            mainFrame.Navigate(new Pages.Director.DoctorsOnAgreement.DoctorsOnAgreementPage());
+            mainFrame.Navigate(new Pages.Director.DoctorsOnAgreement.DoctrorsAndMedicalFacilitiesNavPage());
             mainFrame.NavigationService.RemoveBackEntry();
         }
         

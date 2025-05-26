@@ -16,10 +16,10 @@ namespace TyEmuNuzhen.MyClasses
                     Directory.CreateDirectory(imageSaveFolderPath);
                 }
 
-                string fileName = DateTime.Now.ToString("dd_MM_yyyy_HHmm") + "_" + Path.GetFileName(imageSourcePath) + "_" + idChild;
+                string fileName = Path.GetFileName(imageSourcePath);
                 string newPath = Path.Combine(imageSaveFolderPath, fileName);
-                if (File.Exists(newPath) && idChild == null)
-                    newPath += "_";
+                if (File.Exists(newPath))
+                    throw new Exception($"файл уже существует. Прикрепите другой файл.");
                 File.Copy(imageSourcePath, newPath, true);
                 return newPath;
             }
@@ -40,11 +40,11 @@ namespace TyEmuNuzhen.MyClasses
                     Directory.CreateDirectory(documentSaveFolderPath);
                 }
 
-                string fileName = Path.GetFileName(documentSourcePath) + "_" + idChild;
+                string fileName = Path.GetFileName(documentSourcePath);
                 string newPath = Path.Combine(documentSaveFolderPath, fileName);
 
-                if (File.Exists(newPath) && idChild == null)
-                    newPath += "_";
+                if (File.Exists(newPath))
+                    throw new Exception($"файл уже существует. Прикрепите другой файл.");
 
                 File.Copy(documentSourcePath, newPath, true);
 
@@ -67,11 +67,11 @@ namespace TyEmuNuzhen.MyClasses
                     Directory.CreateDirectory(medicalConclusionsSaveFolderPath);
                 }
 
-                string fileName = Path.GetFileName(documentSourcePath) + "_" + idChild;
+                string fileName = Path.GetFileName(documentSourcePath);
                 string newPath = Path.Combine(medicalConclusionsSaveFolderPath, fileName);
 
-                if (File.Exists(newPath) && idChild == null)
-                    newPath += "_";
+                if (File.Exists(newPath))
+                    throw new Exception($"файл уже существует. Прикрепите другой файл.");
 
                 File.Copy(documentSourcePath, newPath, true);
 
@@ -94,11 +94,11 @@ namespace TyEmuNuzhen.MyClasses
                     Directory.CreateDirectory(medicalResultsSaveFolderPath);
                 }
 
-                string fileName = Path.GetFileName(documentSourcePath) + "_" + idChild;
+                string fileName = Path.GetFileName(documentSourcePath);
                 string newPath = Path.Combine(medicalResultsSaveFolderPath, fileName);
 
-                if (File.Exists(newPath) && idChild == null)
-                    newPath += "_";
+                if (File.Exists(newPath))
+                    throw new Exception($"файл уже существует. Прикрепите другой файл.");
 
                 File.Copy(documentSourcePath, newPath, true);
 

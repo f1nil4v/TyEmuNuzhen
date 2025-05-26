@@ -79,6 +79,8 @@ namespace TyEmuNuzhen.Views.Windows
             if (isInsert)
             {
                 string phoneNumber = Regex.Replace(tbPhone.Text, @"[^\d]", "");
+                if (!CustomFunctionsClass.CheckSameEmail(tbEmail.Text) || !CustomFunctionsClass.CheckSamePhoneNumber(phoneNumber))
+                    return;
                 if (!NanniesClass.AddNanny(tbSurname.Text, tbName.Text, tbMiddleName.Text, tbPassSeries.Text, tbPassNum.Text, 
                     dpPassDateOfIssue.SelectedDate.Value.ToString("yyyy-MM-dd"), tbPassOrganizationOfIssue.Text, tbPassCode.Text, tbAddressRegister.Text, phoneNumber, tbEmail.Text))
                     return;
@@ -86,6 +88,8 @@ namespace TyEmuNuzhen.Views.Windows
             else
             {
                 string phoneNumber = Regex.Replace(tbPhone.Text, @"[^\d]", "");
+                if (!CustomFunctionsClass.CheckSameEmail(tbEmail.Text, _id, "nannies") || !CustomFunctionsClass.CheckSamePhoneNumber(phoneNumber, _id, "nannies"))
+                    return;
                 if (!NanniesClass.UpdateNanny(_id, tbSurname.Text, tbName.Text, tbMiddleName.Text, tbPassSeries.Text, tbPassNum.Text,
                     dpPassDateOfIssue.SelectedDate.Value.ToString("yyyy-MM-dd"), tbPassOrganizationOfIssue.Text, tbPassCode.Text, tbAddressRegister.Text, phoneNumber, tbEmail.Text))
                     return;

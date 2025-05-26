@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -72,27 +73,6 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
-        public static bool GetSameTranposrtType(string idTransportType, string transportType)
-        {
-            try
-            {
-                string whereClause = idTransportType == null ? "" : $"AND ID <> '{idTransportType}'";
-                DBConnection.myCommand.Parameters.Clear();
-                DBConnection.myCommand.CommandText = $@"SELECT COUNT(ID) FROM transport_type WHERE transportType = @transportType {whereClause}";
-                DBConnection.myCommand.Parameters.AddWithValue("@transportType", transportType);
-                Object result = DBConnection.myCommand.ExecuteScalar();
-                if (Convert.ToInt32(result) == 0)
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-        }
-
         public static bool AddTranposrtType(string transportType)
         {
             try
@@ -104,6 +84,19 @@ namespace TyEmuNuzhen.MyClasses
                     return true;
                 else
                     return false;
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1062)
+                {
+                    MessageBox.Show($"Запись с таким значением уже есть в системе!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при добавлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -124,6 +117,19 @@ namespace TyEmuNuzhen.MyClasses
                 else
                     return false;
             }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1062)
+                {
+                    MessageBox.Show($"Запись с таким значением уже есть в системе!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при добавлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Произошла ошибка при обновлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -140,6 +146,19 @@ namespace TyEmuNuzhen.MyClasses
                     return true;
                 else
                     return false;
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1451)
+                {
+                    MessageBox.Show($"Запись не может быть удалена, так как она используется в других таблицах.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при удалении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             catch (Exception ex)
             {

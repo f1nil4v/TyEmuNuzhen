@@ -37,10 +37,7 @@ namespace TyEmuNuzhen.Views.Pages.Director.Employees
         {
             string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
             AddUserWindow addUserWindow = new AddUserWindow(1);
-            if (!addUserWindow.ShowDialog() == true)
-                return;
-            if (!UserClass.AddUser(addUserWindow.tbLogin.Text, addUserWindow.tbPassword.Text, "3")
-                || !DirectorClass.AddDirector(addUserWindow.tbSurname.Text, addUserWindow.tbName.Text, addUserWindow.tbMiddleName.Text, addUserWindow.phoneNumber, addUserWindow.tbEmail.Text))
+            if (addUserWindow.ShowDialog() == false)
                 return;
             LoadDirectors(querySearch);
             CountRecords();
@@ -70,11 +67,8 @@ namespace TyEmuNuzhen.Views.Pages.Director.Employees
             string middleName = DirectorClass.dtDirectorDataList.Rows[0]["middleName"].ToString();
             string phoneNumber = DirectorClass.dtDirectorDataList.Rows[0]["phoneNumber"].ToString();
             string email = DirectorClass.dtDirectorDataList.Rows[0]["email"].ToString();
-            AddUserWindow addUserWindow = new AddUserWindow(login, surname, name, middleName, phoneNumber, email, "", "", 1);
-            if (!addUserWindow.ShowDialog() == true)
-                return;
-            if (!UserClass.UpdateUser(idUser, addUserWindow.tbPassword.Text)
-                || !DirectorClass.UpdateDirector(changeBtn.Tag.ToString(), addUserWindow.tbSurname.Text, addUserWindow.tbName.Text, addUserWindow.tbMiddleName.Text, addUserWindow.phoneNumber, addUserWindow.tbEmail.Text))
+            AddUserWindow addUserWindow = new AddUserWindow(changeBtn.Tag.ToString(), login, surname, name, middleName, phoneNumber, email, "", idUser, "", 1);
+            if (addUserWindow.ShowDialog() == false)
                 return;
             LoadDirectors(querySearch);
             CountRecords();

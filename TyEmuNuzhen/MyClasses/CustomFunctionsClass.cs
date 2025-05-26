@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -138,7 +139,10 @@ namespace TyEmuNuzhen.MyClasses
             if (k == 1 && d == 1)
                 return true;
             else
+            {
+                MessageBox.Show("Неккорректно введён email", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
+            }
         }
 
         public static bool IsValidPassword(string password)
@@ -170,6 +174,74 @@ namespace TyEmuNuzhen.MyClasses
                 }
             }
             return true;
+        }
+
+        public static bool CheckSameEmail(string email, string id = null, string table = null)
+        {
+            try
+            {
+                string[] tables = { "curators", "doctors_on_agreement", "orphanages", "directors", "volunteers", "nannies" };
+                foreach (string tableName in tables)
+                {
+                    DBConnection.myCommand.Parameters.Clear();
+                    string whereClause = "email = @email";
+                    if (id != null && table != null && tableName == table)
+                    {
+                        whereClause += " AND ID <> @id";
+                        DBConnection.myCommand.Parameters.AddWithValue("@id", id);
+                    }
+
+                    DBConnection.myCommand.CommandText = $"SELECT COUNT(ID) FROM {tableName} WHERE {whereClause}";
+                    DBConnection.myCommand.Parameters.AddWithValue("@email", email);
+
+                    if (Convert.ToInt32(DBConnection.myCommand.ExecuteScalar()) > 0)
+                    {
+                        MessageBox.Show($"Email '{email}' уже используется в системе. Пожалуйста, используйте другой email.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        public static bool CheckSamePhoneNumber(string phoneNumber, string id = null, string table = null)
+        {
+            try
+            {
+                string[] tables = { "curators", "doctors_on_agreement", "directors", "volunteers", "nannies" };
+                foreach (string tableName in tables)
+                {
+                    DBConnection.myCommand.Parameters.Clear();
+                    string whereClause = "phoneNumber = @phoneNumber";
+                    if (id != null && table != null && tableName == table)
+                    {
+                        whereClause += " AND ID <> @id";
+                        DBConnection.myCommand.Parameters.AddWithValue("@id", id);
+                    }
+
+                    DBConnection.myCommand.CommandText = $"SELECT COUNT(ID) FROM {tableName} WHERE {whereClause}";
+                    DBConnection.myCommand.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+
+                    if (Convert.ToInt32(DBConnection.myCommand.ExecuteScalar()) > 0)
+                    {
+                        MessageBox.Show($"Номер телефона '{phoneNumber}' уже используется в системе. Пожалуйста, используйте другой номер телефона.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
         }
     }
 }

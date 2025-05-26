@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TyEmuNuzhen.MyClasses;
 using TyEmuNuzhen.Views.Windows;
+using TyEmuNuzhen.Views.Windows.DialogWindows.ReferenceBooks;
 
 namespace TyEmuNuzhen.Views.Pages.Director.Reference_Books
 {
@@ -36,15 +37,8 @@ namespace TyEmuNuzhen.Views.Pages.Director.Reference_Books
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
-            ReferenceBookValuesWindow referenceBookValuesWindow = new ReferenceBookValuesWindow();
-            if (!referenceBookValuesWindow.ShowDialog() == true)
-                return;
-            if (!DocumentTypeClass.GetSameDocumentType(null, referenceBookValuesWindow.tbValue.Text))
-            {
-                MessageBox.Show("Данная должность уже есть в системе! Введите другое название должности.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            if (!DocumentTypeClass.AddDocumentType(referenceBookValuesWindow.tbValue.Text))
+            DocumentsTypeWindow documentsTypeWindow = new DocumentsTypeWindow();
+            if (documentsTypeWindow.ShowDialog() == false)
                 return;
             LoadDocumentTypes(querySearch);
             CountRecords();
@@ -64,16 +58,8 @@ namespace TyEmuNuzhen.Views.Pages.Director.Reference_Books
         {
             var changeBtn = sender as Button;
             string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
-            string valueDataRow = DocumentTypeClass.GetDocumentTypeName(changeBtn.Tag.ToString());
-            ReferenceBookValuesWindow referenceBookValuesWindow = new ReferenceBookValuesWindow(valueDataRow);
-            if (!referenceBookValuesWindow.ShowDialog() == true)
-                return;
-            if (!DocumentTypeClass.GetSameDocumentType(changeBtn.Tag.ToString(), referenceBookValuesWindow.tbValue.Text))
-            {
-                MessageBox.Show("Данная должность уже есть в системе! Введите другое название должности.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            if (!DocumentTypeClass.UpdateDocumentType(changeBtn.Tag.ToString(), referenceBookValuesWindow.tbValue.Text))
+            DocumentsTypeWindow documentsTypeWindow = new DocumentsTypeWindow(changeBtn.Tag.ToString());
+            if (documentsTypeWindow.ShowDialog() == false)
                 return;
             LoadDocumentTypes(querySearch);
             CountRecords();

@@ -25,6 +25,7 @@ namespace TyEmuNuzhen.Views.Pages.Director.Employees
         {
             InitializeComponent();
             employeesFrame.Navigate(new DirectorsPage());
+            employeesFrame.NavigationService.RemoveBackEntry();
         }
 
         private void directorsLbl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

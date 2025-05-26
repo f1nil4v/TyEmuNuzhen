@@ -14,6 +14,7 @@ namespace TyEmuNuzhen.MyClasses
         public static DataTable dtDoctorsForComboBoxList;
         public static DataTable dtDoctorsList;
         public static DataTable dtDoctorDataList;
+        public static DataTable dtDoctorDataForPrint;
 
         public static void GetDoctrosForComboBoxList(string idPost)
         {
@@ -70,6 +71,24 @@ namespace TyEmuNuzhen.MyClasses
                                         WHERE doctors_on_agreement.ID = '{idDoctor}'";
                 dtDoctorDataList = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtDoctorDataList);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public static void GetDoctorDataForPrint(string idDoctor)
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $@"SELECT doctors_on_agreement.surname, doctors_on_agreement.name, doctors_on_agreement.middleName,
+                                            doctors_on_agreement.phoneNumber, doctors_on_agreement.email, doctor_posts.postName, medical_facility.medicalFacilityName, medical_facility.address 
+                                        FROM doctors_on_agreement, doctor_posts, medical_facility
+                                        WHERE medical_facility.ID = doctors_on_agreement.idMedicalFacility AND doctor_posts.ID = doctors_on_agreement.idPost
+                                        AND doctors_on_agreement.ID = '{idDoctor}'";
+                dtDoctorDataForPrint = new DataTable();
+                DBConnection.myDataAdapter.Fill(dtDoctorDataForPrint);
             }
             catch (Exception ex)
             {

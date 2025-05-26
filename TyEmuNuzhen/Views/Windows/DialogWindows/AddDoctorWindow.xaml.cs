@@ -22,9 +22,10 @@ namespace TyEmuNuzhen.Views.Windows
     /// </summary>
     public partial class AddDoctorWindow : Window
     {
+        private string _id;
         private string _idPost;
         private string _idMedicalFacility;
-        public string phoneNumber;
+        private bool _isInsert = true;
 
         public AddDoctorWindow()
         {
@@ -32,7 +33,7 @@ namespace TyEmuNuzhen.Views.Windows
             Title = "Добавление записи";
         }
 
-        public AddDoctorWindow(string surname, string name, string middleName, string phoneNumber, string email, string idPost, string idMedicalFacility)
+        public AddDoctorWindow(string id, string surname, string name, string middleName, string phoneNumber, string email, string idPost, string idMedicalFacility)
         {
             InitializeComponent();
             tbSurname.Text = surname;
@@ -50,6 +51,8 @@ namespace TyEmuNuzhen.Views.Windows
             _idPost = idPost;
             _idMedicalFacility = idMedicalFacility;
             Title = "Редактирование записи";
+            _isInsert = false;
+            _id = id;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -74,6 +77,7 @@ namespace TyEmuNuzhen.Views.Windows
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
+            string phoneNumber;
             if (String.IsNullOrWhiteSpace(tbName.Text)
                 || String.IsNullOrWhiteSpace(tbSurname.Text) || String.IsNullOrWhiteSpace(tbMiddleName.Text) || !tbPhone.IsMaskCompleted
                 || String.IsNullOrWhiteSpace(tbEmail.Text))
@@ -87,7 +91,21 @@ namespace TyEmuNuzhen.Views.Windows
                 return;
             }
             phoneNumber = Regex.Replace(tbPhone.Text, @"[^\d]", "");
-            DialogResult = true;
+            if (_isInsert)
+            {
+                if (!CustomFunctionsClass.CheckSameEmail(tbEmail.Text) || !CustomFunctionsClass.CheckSamePhoneNumber(phoneNumber))
+                    return;
+                if (!DoctorsOnAgreementClass.AddDoctor(tbSurname.Text, tbName.Text, tbMiddleName.Text, phoneNumber, tbEmail.Text, postsCmbBox.SelectedValue.ToString(), medicalFacilityCmbBox.SelectedValue.ToString()))
+                    return;
+            }
+            else
+            {
+                if (!CustomFunctionsClass.CheckSameEmail(tbEmail.Text, _id, "doctors_on_agreement") || !CustomFunctionsClass.CheckSamePhoneNumber(phoneNumber, _id, "doctors_on_agreement"))
+                    return;
+                if (!DoctorsOnAgreementClass.UpdateDoctor(_id, tbSurname.Text, tbName.Text, tbMiddleName.Text, phoneNumber, tbEmail.Text, postsCmbBox.SelectedValue.ToString(), medicalFacilityCmbBox.SelectedValue.ToString()))
+                    return;
+            }
+                DialogResult = true;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

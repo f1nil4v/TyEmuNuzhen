@@ -7,7 +7,8 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="AddDoctorWindow" Height="450" Width="800" Loaded="Window_Loaded">
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="Добавление доктора" Height="450" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
         <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
             <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>

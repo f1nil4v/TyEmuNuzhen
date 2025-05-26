@@ -1,13 +1,13 @@
-﻿<Window x:Class="TyEmuNuzhen.Views.Windows.ReferenceBookValuesWindow"
+﻿<Window x:Class="TyEmuNuzhen.Views.Windows.DialogWindows.ReferenceBooks.MedicalTypeWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows"
+        xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows.DialogWindows.ReferenceBooks"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
-        Title="Добавление записи" MaxHeight="200" MaxWidth="400">
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Title="Добавление типа медицинской помощи" Height="200" Width="400">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Введите значение" 
+        <TextBlock Text="Введите название типа медицинской помощи" 
            FontSize="16" 
            FontWeight="SemiBold" 
            Margin="0,0,0,0"/>
@@ -26,23 +26,22 @@
            materialDesign:HintAssist.Hint="Введите значение..." 
            Style="{StaticResource MaterialDesignTextBox}"/>
 
-
         <StackPanel Grid.Row="2" 
-            Orientation="Horizontal" 
+            Orientation="Horizontal"
             HorizontalAlignment="Right">
             <Button x:Name="btnCancel" 
-            Content="Отмена" 
-            IsCancel="True"
-            Margin="0,0,10,0"  
-            Height="30"
-            Background="#A3B92E" 
-            BorderBrush="#A3B92E" Click="btnCancel_Click"/>
+                Content="Отмена" 
+                IsCancel="True"
+                Margin="0,0,10,0"  
+                Height="30"
+                Background="#A3B92E" 
+                BorderBrush="#A3B92E" Click="btnCancel_Click"/>
             <Button x:Name="btnConfirm" 
-            Content="Применить" 
-            IsDefault="True"
-            Height="30"
-            Background="#A3B92E" 
-            BorderBrush="#A3B92E" Click="btnConfirm_Click" />
+                Content="Применить" 
+                IsDefault="True"
+                Height="30"
+                Background="#A3B92E" 
+                BorderBrush="#A3B92E" Click="btnConfirm_Click" />
         </StackPanel>
     </Grid>
 </Window>

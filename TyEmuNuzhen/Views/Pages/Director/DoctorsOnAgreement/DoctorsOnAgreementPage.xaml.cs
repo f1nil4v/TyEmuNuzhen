@@ -1,7 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using TyEmuNuzhen.MyClasses;
 using TyEmuNuzhen.Views.Windows;
+using System.Windows.Navigation;
 
 namespace TyEmuNuzhen.Views.Pages.Director.DoctorsOnAgreement
 {
@@ -25,10 +27,7 @@ namespace TyEmuNuzhen.Views.Pages.Director.DoctorsOnAgreement
         {
             string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
             AddDoctorWindow addDoctorWindow = new AddDoctorWindow();
-            if (!addDoctorWindow.ShowDialog() == true)
-                return;
-            if (!DoctorsOnAgreementClass.AddDoctor(addDoctorWindow.tbSurname.Text, addDoctorWindow.tbName.Text, addDoctorWindow.tbMiddleName.Text, 
-                addDoctorWindow.phoneNumber, addDoctorWindow.tbEmail.Text, addDoctorWindow.postsCmbBox.SelectedValue.ToString(), addDoctorWindow.medicalFacilityCmbBox.SelectedValue.ToString()))
+            if (addDoctorWindow.ShowDialog() == false)
                 return;
             LoadDoctors(querySearch);
             CountRecords();
@@ -57,11 +56,8 @@ namespace TyEmuNuzhen.Views.Pages.Director.DoctorsOnAgreement
             string email = DoctorsOnAgreementClass.dtDoctorDataList.Rows[0]["email"].ToString();
             string idPost = DoctorsOnAgreementClass.dtDoctorDataList.Rows[0]["idPost"].ToString();
             string idMedicalFacility = DoctorsOnAgreementClass.dtDoctorDataList.Rows[0]["idMedicalFacility"].ToString();
-            AddDoctorWindow addDoctorWindow = new AddDoctorWindow(surname, name, middleName, phoneNumber, email, idPost, idMedicalFacility);
-            if (!addDoctorWindow.ShowDialog() == true)
-                return;
-            if (!DoctorsOnAgreementClass.UpdateDoctor(changeBtn.Tag.ToString(), addDoctorWindow.tbSurname.Text, addDoctorWindow.tbName.Text, 
-                addDoctorWindow.tbMiddleName.Text, addDoctorWindow.phoneNumber, addDoctorWindow.tbEmail.Text, addDoctorWindow.postsCmbBox.SelectedValue.ToString(), addDoctorWindow.medicalFacilityCmbBox.SelectedValue.ToString()))
+            AddDoctorWindow addDoctorWindow = new AddDoctorWindow(changeBtn.Tag.ToString(), surname, name, middleName, phoneNumber, email, idPost, idMedicalFacility);
+            if (addDoctorWindow.ShowDialog() == false)
                 return;
             LoadDoctors(querySearch);
             CountRecords();
@@ -79,6 +75,18 @@ namespace TyEmuNuzhen.Views.Pages.Director.DoctorsOnAgreement
             string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
             LoadDoctors(querySearch);
             CountRecords();
+        }
+
+        private void doctorAgreementsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
+            var downloadBtn = sender as Button;
+            DependencyObject parent = this;
+            while (parent != null && !(parent is DoctrorsAndMedicalFacilitiesNavPage))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            NavigationService.GetNavigationService(parent).Navigate(new AgreementsPage(downloadBtn.Tag.ToString()));
         }
 
         private void LoadDoctors(string querySearch)

@@ -10,14 +10,19 @@
       Title="OrphanagesPage"
       Loaded="Page_Loaded">
     
-    <Grid Margin="20,20,20,0">
+    <Grid Margin="20,10,20,0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="0,0,0,20">
+        <Border Grid.Row="0" BorderBrush="#FFCF5FD3" BorderThickness="0,0,0,1">
+            <TextBlock Text="Детские дома" FontSize="24" Margin="0,0,10,10" />
+        </Border>
+
+        <Grid Grid.Row="1" Margin="0,0,0,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -42,7 +47,7 @@
         </Grid>
 
         <DataGrid x:Name="orphanagesGrid" 
-          Grid.Row="1"
+          Grid.Row="2"
           AutoGenerateColumns="False"
           IsReadOnly="True"
           BorderBrush="#FFCF5FD3"

@@ -155,6 +155,7 @@
     <Compile Include="MyClasses\ActOfCompletedWorksClass.cs" />
     <Compile Include="MyClasses\ActualDiagnosesClass.cs" />
     <Compile Include="MyClasses\ActualProgramClass.cs" />
+    <Compile Include="MyClasses\AgreementDoctorsClass.cs" />
     <Compile Include="MyClasses\AgreementNannyOnProgramClass.cs" />
     <Compile Include="MyClasses\AgreementOrphanagesClass.cs" />
     <Compile Include="MyClasses\AnimationsClass.cs" />
@@ -239,8 +240,17 @@
     <Compile Include="Views\Pages\Curator_To_Be_On_Time\Nannies\NanniesPage.xaml.cs">
       <DependentUpon>NanniesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\Director\DoctorsOnAgreement\AgreementsPage.xaml.cs">
+      <DependentUpon>AgreementsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\Director\DoctorsOnAgreement\DoctorsOnAgreementPage.xaml.cs">
       <DependentUpon>DoctorsOnAgreementPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\DoctorsOnAgreement\DoctrorsAndMedicalFacilitiesNavPage.xaml.cs">
+      <DependentUpon>DoctrorsAndMedicalFacilitiesNavPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Director\DoctorsOnAgreement\MedicalFacilitiesPage.xaml.cs">
+      <DependentUpon>MedicalFacilitiesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\Director\Employees\CuratorsPage.xaml.cs">
       <DependentUpon>CuratorsPage.xaml</DependentUpon>
@@ -314,6 +324,9 @@
     <Compile Include="Views\Windows\DialogWindows\AddHospitalizationWindow.xaml.cs">
       <DependentUpon>AddHospitalizationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Windows\DialogWindows\AddMedicalFacilityWindow.xaml.cs">
+      <DependentUpon>AddMedicalFacilityWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\DialogWindows\AddNannyOnProgramWindow.xaml.cs">
       <DependentUpon>AddNannyOnProgramWindow.xaml</DependentUpon>
     </Compile>
@@ -380,6 +393,24 @@
     <Compile Include="Views\Windows\DialogWindows\ProgramHistoryWindow.xaml.cs">
       <DependentUpon>ProgramHistoryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Windows\DialogWindows\ReferenceBooks\DiagnosesWindow.xaml.cs">
+      <DependentUpon>DiagnosesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\DialogWindows\ReferenceBooks\DoctorPostsWindow.xaml.cs">
+      <DependentUpon>DoctorPostsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\DialogWindows\ReferenceBooks\DocumentsTypeWindow.xaml.cs">
+      <DependentUpon>DocumentsTypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\DialogWindows\ReferenceBooks\MedicalTypeWindow.xaml.cs">
+      <DependentUpon>MedicalTypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\DialogWindows\ReferenceBooks\RegionsWindow.xaml.cs">
+      <DependentUpon>RegionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\DialogWindows\ReferenceBooks\TransportTypesWindow.xaml.cs">
+      <DependentUpon>TransportTypesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\DialogWindows\SelectOptionOfEndProgramWindow.xaml.cs">
       <DependentUpon>SelectOptionOfEndProgramWindow.xaml</DependentUpon>
     </Compile>
@@ -392,9 +423,6 @@
     </Compile>
     <Compile Include="Views\Windows\MainWindows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Windows\DialogWindows\ReferenceBookValuesWindow.xaml.cs">
-      <DependentUpon>ReferenceBookValuesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\DialogWindows\SelectProgramWindow.xaml.cs">
       <DependentUpon>SelectProgramWindow.xaml</DependentUpon>
@@ -421,7 +449,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Documents\Samples\appeal_consent_sample.doc" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -492,7 +519,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\Director\DoctorsOnAgreement\AgreementsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\Director\DoctorsOnAgreement\DoctorsOnAgreementPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Director\DoctorsOnAgreement\DoctrorsAndMedicalFacilitiesNavPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Director\DoctorsOnAgreement\MedicalFacilitiesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -589,6 +628,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Windows\DialogWindows\AddMedicalFacilityWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Windows\DialogWindows\AddNannyOnProgramWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -674,6 +717,30 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Windows\DialogWindows\ReferenceBooks\DiagnosesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\DialogWindows\ReferenceBooks\DoctorPostsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\DialogWindows\ReferenceBooks\DocumentsTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\DialogWindows\ReferenceBooks\MedicalTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\DialogWindows\ReferenceBooks\RegionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\DialogWindows\ReferenceBooks\TransportTypesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Windows\DialogWindows\SelectOptionOfEndProgramWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -687,10 +754,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Windows\MainWindows\MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Windows\DialogWindows\ReferenceBookValuesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -727,7 +790,9 @@
     <Folder Include="Documents\Children\MedicalResults\" />
     <Folder Include="Documents\Children\Reports\HealthRoute\" />
     <Folder Include="Documents\Children\Reports\ToBeOnTime\" />
+    <Folder Include="Documents\Doctors\Agreements\" />
     <Folder Include="Documents\Orphanages\Agreements\" />
+    <Folder Include="Documents\Samples\" />
     <Folder Include="Images\Childrens\" />
     <Folder Include="Views\Pages\Curator_Health_Houte\" />
   </ItemGroup>

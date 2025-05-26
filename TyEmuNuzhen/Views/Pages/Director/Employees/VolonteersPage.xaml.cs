@@ -37,11 +37,7 @@ namespace TyEmuNuzhen.Views.Pages.Director.Employees
         {
             string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
             AddUserWindow addUserWindow = new AddUserWindow(2);
-            if (!addUserWindow.ShowDialog() == true)
-                return;
-            if (!UserClass.AddUser(addUserWindow.tbLogin.Text, addUserWindow.tbPassword.Text, "1")
-                || !VolonteerClass.AddVolonteer(addUserWindow.tbSurname.Text, addUserWindow.tbName.Text, addUserWindow.tbMiddleName.Text, 
-                    addUserWindow.phoneNumber, addUserWindow.tbEmail.Text, addUserWindow.regionsCmbBox.SelectedValue.ToString()))
+            if (addUserWindow.ShowDialog() == false)
                 return;
             LoadVolonteers(querySearch);
             CountRecords();
@@ -72,12 +68,8 @@ namespace TyEmuNuzhen.Views.Pages.Director.Employees
             string middleName = VolonteerClass.dtVolonteerDataList.Rows[0]["middleName"].ToString();
             string phoneNumber = VolonteerClass.dtVolonteerDataList.Rows[0]["phoneNumber"].ToString();
             string email = VolonteerClass.dtVolonteerDataList.Rows[0]["email"].ToString();
-            AddUserWindow addUserWindow = new AddUserWindow(login, surname, name, middleName, phoneNumber, email, regionName, "", 2);
-            if (!addUserWindow.ShowDialog() == true)
-                return;
-            if (!UserClass.UpdateUser(idUser, addUserWindow.tbPassword.Text)
-                || !VolonteerClass.UpdateVolonteer(changeBtn.Tag.ToString(), addUserWindow.tbSurname.Text, addUserWindow.tbName.Text, 
-                    addUserWindow.tbMiddleName.Text, addUserWindow.phoneNumber, addUserWindow.tbEmail.Text, addUserWindow.regionsCmbBox.SelectedValue.ToString()))
+            AddUserWindow addUserWindow = new AddUserWindow(changeBtn.Tag.ToString(), login, surname, name, middleName, phoneNumber, email, regionName, idUser, "", 2);
+            if (addUserWindow.ShowDialog() == false)
                 return;
             LoadVolonteers(querySearch);
             CountRecords();

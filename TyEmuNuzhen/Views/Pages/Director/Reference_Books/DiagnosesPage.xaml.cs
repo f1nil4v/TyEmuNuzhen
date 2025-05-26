@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TyEmuNuzhen.MyClasses;
 using TyEmuNuzhen.Views.Windows;
+using TyEmuNuzhen.Views.Windows.DialogWindows.ReferenceBooks;
 
 namespace TyEmuNuzhen.Views.Pages.Director.Reference_Books
 {
@@ -36,15 +37,8 @@ namespace TyEmuNuzhen.Views.Pages.Director.Reference_Books
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
-            ReferenceBookValuesWindow referenceBookValuesWindow = new ReferenceBookValuesWindow();
-            if (!referenceBookValuesWindow.ShowDialog() == true)
-                return;
-            if (!DiagnosesClass.GetSameDiagnosisName(null, referenceBookValuesWindow.tbValue.Text))
-            {
-                MessageBox.Show("Данный диагноз уже есть в системе! Введите другое название диагноза.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            if (!DiagnosesClass.AddDiagnoses(referenceBookValuesWindow.tbValue.Text))
+            DiagnosesWindow diagnosesWindow = new DiagnosesWindow();
+            if (diagnosesWindow.ShowDialog() == false)
                 return;
             LoadDiagnoses(querySearch);
             CountRecords();
@@ -64,16 +58,8 @@ namespace TyEmuNuzhen.Views.Pages.Director.Reference_Books
         {
             var changeBtn = sender as Button;
             string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
-            string valueDataRow = DiagnosesClass.GetDiagnosisName(changeBtn.Tag.ToString());
-            ReferenceBookValuesWindow referenceBookValuesWindow = new ReferenceBookValuesWindow(valueDataRow);
-            if (!referenceBookValuesWindow.ShowDialog() == true)
-                return;
-            if (!DiagnosesClass.GetSameDiagnosisName(changeBtn.Tag.ToString(), referenceBookValuesWindow.tbValue.Text))
-            {
-                MessageBox.Show("Данный диагноз уже есть в системе! Введите другое название диагноза.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            if (!DiagnosesClass.UpdateDiagnoses(changeBtn.Tag.ToString(), referenceBookValuesWindow.tbValue.Text))
+            DiagnosesWindow diagnosesWindow = new DiagnosesWindow(changeBtn.Tag.ToString());
+            if (diagnosesWindow.ShowDialog() == false)
                 return;
             LoadDiagnoses(querySearch);
             CountRecords();

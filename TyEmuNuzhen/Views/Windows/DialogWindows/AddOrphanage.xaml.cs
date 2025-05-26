@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Windows;
 using TyEmuNuzhen.MyClasses;
 
@@ -61,11 +62,15 @@ namespace TyEmuNuzhen.Views.Windows
 
             if (isInsert)
             {
+                if (!CustomFunctionsClass.CheckSameEmail(tbOrphanageEmail.Text))
+                    return;
                 if (!OrphanageClass.AddOrphanage(tbOrphanageName.Text, tbDirectorSurname.Text, tbDirectorName.Text, tbDirectorMiddleName.Text, regionsCmbBox.SelectedValue.ToString(), tbOrphanageAddress.Text, tbOrphanageEmail.Text))
                     return;
             }
             else
             {
+                if (!CustomFunctionsClass.CheckSameEmail(tbOrphanageEmail.Text, _id, "orphanages"))
+                    return;
                 if (!OrphanageClass.UpdateOrphanage(_id, tbOrphanageName.Text, tbDirectorSurname.Text, tbDirectorName.Text, tbDirectorMiddleName.Text, regionsCmbBox.SelectedValue.ToString(), tbOrphanageAddress.Text, tbOrphanageEmail.Text))
                     return;
                 MessageBox.Show("Запись успешно изменена. При необходимости сформируйте новое соглашение о социальном партнёрстве.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);

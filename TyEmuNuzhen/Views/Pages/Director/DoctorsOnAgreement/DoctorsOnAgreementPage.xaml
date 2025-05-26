@@ -75,6 +75,19 @@
                 <DataGridTextColumn Header="Отчество" Width="*" Binding="{Binding middleName}"/>
                 <DataGridTextColumn Header="Номер телефона" Width="*" Binding="{Binding phoneNumber}"/>
                 <DataGridTextColumn Header="Email" Width="*" Binding="{Binding email}"/>
+                <DataGridTemplateColumn Header="Договор на сотрудничество" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="doctorAgreementsBtn"
+                                Style="{StaticResource MaterialDesignFlatButton}" 
+                                Background="Transparent"
+                                BorderThickness="0" Margin="5,0"
+                                Content="Открыть догвора"
+                                Tag="{Binding ID}" Click="doctorAgreementsBtn_Click">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Должность" Width="*" Binding="{Binding postName}"/>
                 <DataGridTextColumn Header="Медучреждение" Width="*" Binding="{Binding medicalFacilityName}"/>
                 <DataGridTemplateColumn Header="Действия" Width="*">

@@ -1,0 +1,77 @@
+﻿<Window x:Class="TyEmuNuzhen.Views.Windows.DialogWindows.AddMedicalFacilityWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows.DialogWindows"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Добавление медицинского учреждения" Height="200" Width="600"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+                    <Setter Property="materialDesign:HintAssist.Foreground" Value="#A3B92E"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>
+                    <Setter Property="materialDesign:HintAssist.Foreground" Value="#A3B92E"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" Margin="0,20,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox
+                   Margin="0,0,40,0"
+                   Grid.Column="0"
+                   x:Name="tbMedicalFacilityName"
+                   materialDesign:HintAssist.Hint="Наименование медучреждения"/>
+                <TextBox
+                   Margin="20,0,20,0"
+                   Grid.Column="1"
+                   x:Name="tbAddress"
+                   materialDesign:HintAssist.Hint="Адрес"/>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4"
+            Orientation="Horizontal" 
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom">
+            <Button x:Name="btnCancel" 
+                Content="Отмена" 
+                IsCancel="True"
+                Margin="0,0,10,0"  
+                Height="30"
+                Background="#A3B92E" 
+                BorderBrush="#A3B92E" Click="btnCancel_Click"/>
+            <Button x:Name="btnConfirm" 
+                Content="Применить" 
+                IsDefault="True"
+                Height="30"
+                Background="#A3B92E" 
+                BorderBrush="#A3B92E" Click="btnConfirm_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

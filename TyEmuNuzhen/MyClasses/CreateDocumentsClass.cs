@@ -22,6 +22,8 @@ namespace TyEmuNuzhen.MyClasses
             string numAppeal = String.Format("{0:D6}", numAppealInt);
             string fileName = $"Обращение + согласие ДДИ №{numAppeal} - {orphanageName}";
             string documentSampleFolderPath = Path.GetFullPath(_documentSamplesFolderPath) + "appeal_consent_sample.docx";
+            if (!Directory.Exists(_documentSaveFolderPath + @"Children/AppealsConsents/"))
+                Directory.CreateDirectory(_documentSaveFolderPath + @"Children/AppealsConsents/");
             string documentSaveFolderPath = Path.GetFullPath(_documentSaveFolderPath) + @"Children/AppealsConsents/" + fileName;
             OrphanageClass.GetOrphanageDataForPrintDocuments(idOrhanage);
             AgreementOrphanagesClass.GetAgreementOrphanageDataForPrint(idOrhanage);
@@ -103,6 +105,8 @@ namespace TyEmuNuzhen.MyClasses
                 if (!AgreementOrphanagesClass.AddAgreementOrphanage(numAgreement, idOrphanage, $"{_documentSaveFolderPath}Orphanages/Agreements/{fileName}.docx"))
                     throw new Exception("Не удалось добавить информацию о соглашении с ДДИ в базу данных");
                 string documentSampleFolderPath = Path.GetFullPath(_documentSamplesFolderPath) + "agreementOrphanage.docx";
+                if (!Directory.Exists(_documentSaveFolderPath + "Orphanages/Agreements/"))
+                    Directory.CreateDirectory(_documentSaveFolderPath + "Orphanages/Agreements/");
                 string documentSaveFolderPath = Path.GetFullPath(_documentSaveFolderPath) + "Orphanages/Agreements/" + fileName;
                 OrphanageClass.GetOrphanageDataForPrintDocuments(idOrphanage);
 
@@ -153,6 +157,76 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        public static bool CreateAgreementDoctor(string idDoctor)
+        {
+            try
+            {
+                string dateNow = DateTime.Now.ToString("dd.MM.yyyy");
+                string numLastAgreement = AgreementDoctorsClass.GetMaxNumAgreementDoctor() == "" ? "000000" : AgreementDoctorsClass.GetMaxNumAgreementDoctor();
+                int numAgreementInt = Convert.ToInt32(numLastAgreement) + 1;
+                string numAgreement = String.Format("{0:D6}", numAgreementInt);
+                string fileName = $"Договор на сотрудничество № {numAgreement}";
+                if (!AgreementDoctorsClass.AddAgreementDoctor(numAgreement, idDoctor, $"{_documentSaveFolderPath}Doctors/Agreements/{fileName}.docx"))
+                    throw new Exception("Не удалось добавить информацию о Договоре на сотруднечество в базу данных");
+                string documentSampleFolderPath = Path.GetFullPath(_documentSamplesFolderPath) + "agreementDoctor.docx";
+                if (!Directory.Exists(_documentSaveFolderPath + "Doctors/Agreements/"))
+                    Directory.CreateDirectory(_documentSaveFolderPath + "Doctors/Agreements/");
+                string documentSaveFolderPath = Path.GetFullPath(_documentSaveFolderPath) + "Doctors/Agreements/" + fileName;
+                DoctorsOnAgreementClass.GetDoctorDataForPrint(idDoctor);
+
+                string doctorName = DoctorsOnAgreementClass.dtDoctorDataForPrint.Rows[0]["name"].ToString();
+                string doctorSurname = DoctorsOnAgreementClass.dtDoctorDataForPrint.Rows[0]["surname"].ToString();
+                string doctorMiddleName = DoctorsOnAgreementClass.dtDoctorDataForPrint.Rows[0]["middleName"].ToString() == ""
+                    ? "" : DoctorsOnAgreementClass.dtDoctorDataForPrint.Rows[0]["middleName"].ToString();
+                string middleNameInitials = doctorMiddleName == "" ? "" : doctorMiddleName[0] + ".";
+
+                string FIODoctor = doctorSurname + " " + doctorName + " " + doctorMiddleName;
+                string surnameNMDoctor = doctorSurname + ". " + doctorName[0] + ". " + middleNameInitials;
+
+                string postName = DoctorsOnAgreementClass.dtDoctorDataForPrint.Rows[0]["postName"].ToString();
+
+                string medicalFacilityName = DoctorsOnAgreementClass.dtDoctorDataForPrint.Rows[0]["medicalFacilityName"].ToString();
+                string medicalFacilityAddress = DoctorsOnAgreementClass.dtDoctorDataForPrint.Rows[0]["address"].ToString();
+
+                string phone = DoctorsOnAgreementClass.dtDoctorDataForPrint.Rows[0]["phoneNumber"].ToString();
+                string email = DoctorsOnAgreementClass.dtDoctorDataForPrint.Rows[0]["email"].ToString();
+                var app = new wordAgreementOrphanage.Application();
+                app.Visible = false;
+                var doc = app.Documents.Open(documentSampleFolderPath);
+                doc.Activate();
+                doc.Bookmarks["agreementNum"].Range.Text = numAgreement;
+                doc.Bookmarks["dateNow"].Range.Text = dateNow;
+                doc.Bookmarks["postName"].Range.Text = postName;
+                doc.Bookmarks["doctorFIO"].Range.Text = FIODoctor;
+                doc.Bookmarks["medicalFacilityName"].Range.Text = medicalFacilityName;
+                doc.Bookmarks["medicalFacilityAddress"].Range.Text = medicalFacilityAddress;
+                doc.Bookmarks["doctorFIO1"].Range.Text = FIODoctor;
+                doc.Bookmarks["phoneNumber"].Range.Text = phone;
+                doc.Bookmarks["email"].Range.Text = email;
+                doc.Bookmarks["doctorFamIO"].Range.Text = surnameNMDoctor;
+                doc.Saved = true;
+                try
+                {
+                    doc.SaveAs2($"{documentSaveFolderPath}.docx");
+                    doc.Close();
+                    app.Quit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    doc.Close();
+                    app.Quit();
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
         public static bool CreateAgreementNanny(string idNanny, string idChild, string costPerDay)
         {
             try
@@ -168,6 +242,8 @@ namespace TyEmuNuzhen.MyClasses
                 if (!NanniesClass.UpdateNannyOnProgramStatus(idNanny, "1"))
                     throw new Exception("Не удалось обновить статус няни в базе данных");
                 string documentSampleFolderPath = Path.GetFullPath(_documentSamplesFolderPath) + "agreementNanny.docx";
+                if (!Directory.Exists(_documentSaveFolderPath + "Nannies/Agreements/"))
+                    Directory.CreateDirectory(_documentSaveFolderPath + "Nannies/Agreements/");
                 string documentSaveFolderPath = Path.GetFullPath(_documentSaveFolderPath) + "Nannies/Agreements/" + fileName;
                 
                 ChildrensClass.GetChildrenListByID(idChild);
@@ -263,6 +339,8 @@ namespace TyEmuNuzhen.MyClasses
                 if (!NanniesClass.UpdateNannyOnProgramStatus(idNanny, "0"))
                     throw new Exception("Не удалось обновить статус няни в базе данных");
                 string documentSampleFolderPath = Path.GetFullPath(_documentSamplesFolderPath) + "actOfCompletedWorksNanny.docx";
+                if (!Directory.Exists(_documentSaveFolderPath + "Nannies/ActOfCompleetedWorks/"))
+                    Directory.CreateDirectory(_documentSaveFolderPath + "Nannies/ActOfCompleetedWorks/");
                 string documentSaveFolderPath = Path.GetFullPath(_documentSaveFolderPath) + "Nannies/ActOfCompleetedWorks/" + fileName;
 
                 string agreementNum = String.Format("{0:D6}", Convert.ToInt32(AgreementNannyOnProgramClass.dtAgreementNannyData.Rows[0]["numOfAgreement"]));
@@ -366,6 +444,8 @@ namespace TyEmuNuzhen.MyClasses
                 if (!ActualProgramClass.UpdateChildrenActualProgramEndProgram(idActualProgram, dateNowQuery, $"{_documentSaveFolderPath}Children/Reports/ToBeOnTime/{fileName}.docx"))
                     throw new Exception("Не удалось обновить информацию об актуальной программе в базе данных");
                 string documentSampleFolderPath = Path.GetFullPath(_documentSamplesFolderPath) + "reportToBeOnTimeChild.docx";
+                if (!Directory.Exists(_documentSaveFolderPath + "Children/Reports/ToBeOnTime/"))
+                    Directory.CreateDirectory(_documentSaveFolderPath + "Children/Reports/ToBeOnTime/");
                 string documentSaveFolderPath = Path.GetFullPath(_documentSaveFolderPath) + "Children/Reports/ToBeOnTime/" + fileName;
                 
                 ChildrensClass.GetChildrenListByID(idChild);

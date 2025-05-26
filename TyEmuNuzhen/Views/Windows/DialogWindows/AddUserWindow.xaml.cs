@@ -22,11 +22,12 @@ namespace TyEmuNuzhen.Views.Windows
     /// </summary>
     public partial class AddUserWindow : Window
     {
+        private string _idEmployee;
+        private string _idUser;
         private int _employee;
         private string _idRole;
         private string _regionName;
         private bool isInsert;
-        public string phoneNumber;
 
         public AddUserWindow(int employee)
         {
@@ -45,7 +46,7 @@ namespace TyEmuNuzhen.Views.Windows
             Title = "Добавление записи";
         }
 
-        public AddUserWindow(string login, string surname, string name, string middleName, string phoneNumber, string email, string regionName, string idRole, int employee)
+        public AddUserWindow(string idEmployee, string login, string surname, string name, string middleName, string phoneNumber, string email, string regionName, string idUser, string idRole, int employee)
         {
             InitializeComponent();
             tbLogin.Text = login;
@@ -55,13 +56,11 @@ namespace TyEmuNuzhen.Views.Windows
             tbMiddleName.Text = middleName;
             if (!string.IsNullOrEmpty(phoneNumber) && phoneNumber.Length >= 11 && phoneNumber.All(char.IsDigit))
             {
-                // Форматируем номер телефона в формате +7 (XXX) XXX-XX-XX
                 tbPhone.Text = $"+{phoneNumber[0]} ({phoneNumber.Substring(1, 3)}) {phoneNumber.Substring(4, 3)}-{phoneNumber.Substring(7, 2)}-{phoneNumber.Substring(9, 2)}";
             }
             else
             {
-                // Если номер телефона некорректный, устанавливаем пустое значение или используем свойство маски
-                tbPhone.Text = phoneNumber; // или просто пустую строку ""
+                tbPhone.Text = phoneNumber;
             }
             tbEmail.Text = email;
             _regionName = regionName;
@@ -78,6 +77,8 @@ namespace TyEmuNuzhen.Views.Windows
             }
             isInsert = false;
             Title = "Редактирование записи";
+            _idEmployee = idEmployee;
+            _idUser = idUser;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -109,6 +110,20 @@ namespace TyEmuNuzhen.Views.Windows
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
+            string phoneNumber;
+            string tableName = null;
+            switch (_employee)
+            {
+                case 1:
+                    tableName = "directors";
+                    break;
+                case 2:
+                    tableName = "volunteers";
+                    break;
+                case 3:
+                    tableName = "curators";
+                    break;
+            }
             if (isInsert)
             {
                 if (String.IsNullOrWhiteSpace(tbLogin.Text) || String.IsNullOrWhiteSpace(tbPassword.Text) || String.IsNullOrWhiteSpace(tbName.Text)
@@ -118,9 +133,30 @@ namespace TyEmuNuzhen.Views.Windows
                     MessageBox.Show("Пожалуйста, заполните все поля", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-
+                phoneNumber = Regex.Replace(tbPhone.Text, @"[^\d]", "");
                 if (!CustomFunctionsClass.IsValidPassword(tbPassword.Text))
                     return;
+                if (!CustomFunctionsClass.CheckSameEmail(tbEmail.Text) || !CustomFunctionsClass.CheckSamePhoneNumber(phoneNumber))
+                    return;
+                if (_employee == 1)
+                {
+                    if (!UserClass.AddUser(tbLogin.Text, tbPassword.Text, "3")
+                    || !DirectorClass.AddDirector(tbSurname.Text, tbName.Text, tbMiddleName.Text, phoneNumber, tbEmail.Text))
+                        return;
+                }
+                if (_employee == 2)
+                {
+                    if (!UserClass.AddUser(tbLogin.Text, tbPassword.Text, "1")
+                    || !VolonteerClass.AddVolonteer(tbSurname.Text, tbName.Text, tbMiddleName.Text,
+                    phoneNumber, tbEmail.Text, regionsCmbBox.SelectedValue.ToString()))
+                        return;
+                }
+                if (_employee == 3)
+                {
+                    if (!UserClass.AddUser(tbLogin.Text, tbPassword.Text, curatorRoleCmbBox.SelectedValue.ToString())
+                    || !CuratorClass.AddCurator(tbSurname.Text, tbName.Text, tbMiddleName.Text, phoneNumber, tbEmail.Text))
+                        return;
+                }
             }
             else
             {
@@ -136,13 +172,29 @@ namespace TyEmuNuzhen.Views.Windows
                     if (!CustomFunctionsClass.IsValidPassword(tbPassword.Text))
                         return;
                 }
+                phoneNumber = Regex.Replace(tbPhone.Text, @"[^\d]", "");
+                if (!CustomFunctionsClass.CheckSameEmail(tbEmail.Text, _idEmployee, tableName) || !CustomFunctionsClass.CheckSamePhoneNumber(phoneNumber, _idEmployee, tableName))
+                    return;
+                if (_employee == 1)
+                {
+                    if (!UserClass.UpdateUser(_idUser, tbPassword.Text)
+                || !DirectorClass.UpdateDirector(_idEmployee, tbSurname.Text, tbName.Text, tbMiddleName.Text, phoneNumber, tbEmail.Text))
+                        return;
+                }
+                if (_employee == 2)
+                {
+                    if (!UserClass.UpdateUser(_idUser, tbPassword.Text)
+                    || !VolonteerClass.UpdateVolonteer(_idEmployee, tbSurname.Text, tbName.Text,
+                    tbMiddleName.Text, phoneNumber, tbEmail.Text, regionsCmbBox.SelectedValue.ToString()))
+                        return;
+                }
+                if (_employee == 3)
+                {
+                    if (!UserClass.UpdateUser(_idUser, tbPassword.Text, curatorRoleCmbBox.SelectedValue.ToString())
+                    || !CuratorClass.UpdateCurator(_idEmployee, tbSurname.Text, tbName.Text, tbMiddleName.Text, phoneNumber, tbEmail.Text))
+                        return;
+                }
             }
-            if (!CustomFunctionsClass.IsValidEmail(tbEmail.Text))
-            {
-                MessageBox.Show("Неккорректно введён email", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            phoneNumber = Regex.Replace(tbPhone.Text, @"[^\d]", "");
             DialogResult = true;
         }
 
