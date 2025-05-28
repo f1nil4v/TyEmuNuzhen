@@ -4,8 +4,17 @@ using System.IO;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с файлами
+    /// </summary>
     internal class CopyFilesClass
     {
+        /// <summary>
+        /// Копироваение изображения ребёнка в директорию проекта
+        /// </summary>
+        /// <param name="imageSourcePath"></param>
+        /// <param name="idChild"></param>
+        /// <returns></returns>
         public static string CopyChildImage(string imageSourcePath, string idChild)
         {
             try
@@ -30,6 +39,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Копирование документа ребёнка в директорию проекта
+        /// </summary>
+        /// <param name="documentSourcePath"></param>
+        /// <param name="idChild"></param>
+        /// <returns></returns>
         public static string CopyChildDocument(string documentSourcePath, string idChild)
         {
             try
@@ -57,6 +72,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Копирование медицинского заключения ребёнка в директорию проекта
+        /// </summary>
+        /// <param name="documentSourcePath"></param>
+        /// <param name="idChild"></param>
+        /// <returns></returns>
         public static string CopyChildMedicalConclusion(string documentSourcePath, string idChild)
         {
             try
@@ -84,6 +105,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Копирование медицинских результатов ребёнка в директорию проекта
+        /// </summary>
+        /// <param name="documentSourcePath"></param>
+        /// <param name="idChild"></param>
+        /// <returns></returns>
         public static string CopyChildMedicalResults(string documentSourcePath, string idChild)
         {
             try
@@ -111,6 +138,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Копирование медицинского направления на госпитализацию в директорию проекта
+        /// </summary>
+        /// <param name="documentSourcePath"></param>
+        /// <returns></returns>
         public static string CopyHospitalizationMedicalDirection(string documentSourcePath)
         {
             try
@@ -137,6 +169,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Копирование билета в директорию проекта
+        /// </summary>
+        /// <param name="documentSourcePath"></param>
+        /// <returns></returns>
         public static string CopyTicket(string documentSourcePath)
         {
             try
@@ -163,6 +200,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Скачивание файла из директории проекта в указанную директорию пользователя
+        /// </summary>
+        /// <param name="sourceFilePath"></param>
+        /// <param name="destinationFilePath"></param>
+        /// <returns></returns>
         public static bool DownloadFile(string sourceFilePath, string destinationFilePath)
         {
             try
@@ -180,6 +223,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление файла из директории проекта
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static bool DeleteFile(string filePath)
         {
             try

@@ -46,7 +46,7 @@
                    Margin="0,0,40,0"
                    Grid.Column="0"
                    x:Name="tbOrphanageName"
-                   materialDesign:HintAssist.Hint="Наименовние детского дома"/>
+                   materialDesign:HintAssist.Hint="Наименовние детского дома" PreviewTextInput="tbOrphanageName_PreviewTextInput"/>
                 <ComboBox x:Name="regionsCmbBox"
                    Grid.Column="1"         
                    Margin="20,0,20,0"
@@ -70,17 +70,20 @@
                     Margin="0,0,40,0"
                     Grid.Column="0"
                     x:Name="tbDirectorSurname"
-                    materialDesign:HintAssist.Hint="Фамилия директора"/>
+                    materialDesign:HintAssist.Hint="Фамилия директора"
+                    PreviewTextInput="tbSurname_PreviewTextInput" PreviewKeyDown="tbSurname_PreviewKeyDown"/>
                 <TextBox
                     Margin="20,0,20,0"
                     Grid.Column="1"
                     x:Name="tbDirectorName"
-                    materialDesign:HintAssist.Hint="Имя директора"/>
+                    materialDesign:HintAssist.Hint="Имя директора"
+                    PreviewTextInput="tbSurname_PreviewTextInput" PreviewKeyDown="tbSurname_PreviewKeyDown"/>
                 <TextBox
                    x:Name="tbDirectorMiddleName"
                    Margin="40,0,0,0" 
                    Grid.Column="2"
-                   materialDesign:HintAssist.Hint="Отчество директора (если есть)"/>
+                   materialDesign:HintAssist.Hint="Отчество директора (если есть)"
+                   PreviewTextInput="tbSurname_PreviewTextInput" PreviewKeyDown="tbSurname_PreviewKeyDown"/>
             </Grid>
         </StackPanel>
 
@@ -89,7 +92,8 @@
                 Margin="0,0,0,0"
                 Grid.Column="0"
                 x:Name="tbOrphanageEmail"
-                materialDesign:HintAssist.Hint="Email"/>
+                materialDesign:HintAssist.Hint="Email"
+                PreviewKeyDown="tbSurname_PreviewKeyDown" PreviewTextInput="tbEmail_PreviewTextInput"/>
         </StackPanel>
 
         <StackPanel Grid.Row="4"

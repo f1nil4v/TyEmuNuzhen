@@ -4,10 +4,17 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с соглашениями о социальном партнёрстве с детскими домами.
+    /// </summary>
     internal class AgreementOrphanagesClass
     {
         public static DataTable dtAgreementOrphanageData;
 
+        /// <summary>
+        /// Получение данных соглашений о социальном партнёрстве с детскими домами.
+        /// </summary>
+        /// <param name="idOrphanage"></param>
         public static void GetAgreementOrphanageData(string idOrphanage)
         {
             try
@@ -23,6 +30,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных соглашения о социальном партнёрстве с детским домом для печати.
+        /// </summary>
+        /// <param name="idOrphanage"></param>
         public static void GetAgreementOrphanageDataForPrint(string idOrphanage)
         {
             try
@@ -38,6 +49,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение максимального номера соглашения о социальном партнёрстве с детским домом.
+        /// </summary>
+        /// <returns></returns>
         public static string GetMaxNumAgreementOrphanage()
         {
             try
@@ -56,6 +71,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление соглашения о социальном партнёрстве с детским домом в базу данных.
+        /// </summary>
+        /// <param name="numAgreement"></param>
+        /// <param name="idOrphanage"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static bool AddAgreementOrphanage(string numAgreement, string idOrphanage, string filePath)
         {
             try

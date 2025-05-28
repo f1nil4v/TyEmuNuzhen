@@ -9,12 +9,18 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с типами документов
+    /// </summary>
     internal class DocumentTypeClass
     {
         public static DataTable dtDocumentTypes;
         public static DataTable dtDocumentTypesS;
         public static string selectedIDTypeDocument;
 
+        /// <summary>
+        /// Получение списка типов документов
+        /// </summary>
         public static void GetDocumentTypes()
         {
             try
@@ -30,6 +36,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка типов документов с возможностью поиска по названию
+        /// </summary>
+        /// <param name="querySearch"></param>
         public static void GetDocumentTypesList(string querySearch)
         {
             try
@@ -51,6 +61,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение названия типа документа по его ID
+        /// </summary>
+        /// <param name="idDocumentType"></param>
+        /// <returns></returns>
         public static string GetDocumentTypeName(string idDocumentType)
         {
             try
@@ -71,6 +86,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества всех типов документов
+        /// </summary>
+        /// <returns></returns>
         public static string GetCountAllDocumentTypes()
         {
             try
@@ -89,6 +108,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление нового типа документа
+        /// </summary>
+        /// <param name="documentType"></param>
+        /// <returns></returns>
         public static bool AddDocumentType(string documentType)
         {
             try
@@ -121,6 +145,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление типа документа
+        /// </summary>
+        /// <param name="idDocumentType"></param>
+        /// <param name="documentType"></param>
+        /// <returns></returns>
         public static bool UpdateDocumentType(string idDocumentType, string documentType)
         {
             try
@@ -153,6 +183,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление типа документа
+        /// </summary>
+        /// <param name="idDocumentType"></param>
+        /// <returns></returns>
         public static bool DeleteDocumentType(string idDocumentType)
         {
             try

@@ -10,11 +10,22 @@ using System.Data;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для формирования выходных документов
+    /// </summary>
     internal class CreateDocumentsClass
     {
         private static string _documentSamplesFolderPath = @"../../Documents/Samples/";
         private static string _documentSaveFolderPath = @"../../Documents/";
 
+        /// <summary>
+        /// Формирование обращения на благотворительную помощь, согласия на обработку персональных данных и фото -видеосъёмку
+        /// </summary>
+        /// <param name="idChildren"></param>
+        /// <param name="idOrhanage"></param>
+        /// <param name="fioChild"></param>
+        /// <param name="birthdayChild"></param>
+        /// <param name="orphanageName"></param>
         public static void CreateAppealConsent(string idChildren, string idOrhanage, string fioChild, string birthdayChild, string orphanageName)
         {
             string numLastAppeal = ConsentsClass.GetMaxNumAppealOrphanage() == "" ? "000000" : ConsentsClass.GetMaxNumAppealOrphanage();
@@ -92,7 +103,12 @@ namespace TyEmuNuzhen.MyClasses
                 app.Quit();
             }
         }
-        
+
+        /// <summary>
+        /// Формирование соглашения о социальном партнёрстве с детским домом
+        /// </summary>
+        /// <param name="idOrphanage"></param>
+        /// <returns></returns>
         public static bool CreateAgreementOrphanage(string idOrphanage)
         {
             try
@@ -157,6 +173,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Формирование договора на сотрудничество с врачом
+        /// </summary>
+        /// <param name="idDoctor"></param>
+        /// <returns></returns>
         public static bool CreateAgreementDoctor(string idDoctor)
         {
             try
@@ -227,6 +248,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Формирование договора с няней на сопровождение ребёнка
+        /// </summary>
+        /// <param name="idNanny"></param>
+        /// <param name="idChild"></param>
+        /// <param name="costPerDay"></param>
+        /// <returns></returns>
         public static bool CreateAgreementNanny(string idNanny, string idChild, string costPerDay)
         {
             try
@@ -318,6 +346,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Формирование акта выполненных работ няни по сопровождению ребёнка
+        /// </summary>
+        /// <param name="idNannyOnProgram"></param>
+        /// <param name="idNanny"></param>
+        /// <param name="idChild"></param>
+        /// <returns></returns>
         public static bool CreateActOfCompleetedWorksNanny(string idNannyOnProgram, string idNanny, string idChild)
         {
             try
@@ -429,6 +464,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Формирование отчёта по программе "Чтобы успеть вовремя" для ребёнка
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <param name="conclusion"></param>
+        /// <returns></returns>
         public static bool CreateReportToBeOnTimeChild(string idChild, string conclusion)
         {
             try

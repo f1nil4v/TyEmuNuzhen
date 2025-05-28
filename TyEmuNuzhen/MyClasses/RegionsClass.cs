@@ -9,12 +9,18 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с регионами
+    /// </summary>
     internal class RegionsClass
     {
         public static DataTable dtRegions;
         public static DataTable dtRegionsForEditInfoChildren;
         public static DataTable dtRegionsS;
 
+        /// <summary>
+        /// Получение списка регионов
+        /// </summary>
         public static void GetRegionsList()
         {
             try
@@ -29,6 +35,9 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка регионов для редактирования информации о детях
+        /// </summary>
         public static void GetRegionsListForEditInfoChildren()
         {
             try
@@ -43,6 +52,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка регионов с возможностью поиска по имени региона
+        /// </summary>
+        /// <param name="querySearch"></param>
         public static void GetRegionsList(string querySearch)
         {
             try
@@ -64,6 +77,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение имени региона по его ID
+        /// </summary>
+        /// <param name="idRegion"></param>
+        /// <returns></returns>
         public static string GetRegionName(string idRegion)
         {
             try
@@ -84,6 +102,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества всех регионов в базе данных
+        /// </summary>
+        /// <returns></returns>
         public static string GetCountAllRegions()
         {
             try
@@ -102,6 +124,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление нового региона в базу данных
+        /// </summary>
+        /// <param name="regionName"></param>
+        /// <returns></returns>
         public static bool AddRegion(string regionName)
         {
             try
@@ -134,6 +161,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление информации о регионе
+        /// </summary>
+        /// <param name="idRegion"></param>
+        /// <param name="regionName"></param>
+        /// <returns></returns>
         public static bool UpdateRegion(string idRegion, string regionName)
         {
             try
@@ -166,6 +199,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление региона
+        /// </summary>
+        /// <param name="idRegion"></param>
+        /// <returns></returns>
         public static bool DeleteRegion(string idRegion)
         {
             try

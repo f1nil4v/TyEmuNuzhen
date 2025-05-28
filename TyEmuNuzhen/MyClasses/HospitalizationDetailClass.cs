@@ -1,14 +1,22 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с деталями госпитализации
+    /// </summary>
     internal class HospitalizationDetailClass
     {
         public static DataTable dtHospitalizationDetailData;
         public static DataTable dtHospitalizationDetailDataChange;
 
+        /// <summary>
+        /// Получение данных по деталям госпитализации
+        /// </summary>
+        /// <param name="idHospitalization"></param>
         public static void GetHospitalizationDetailData(string idHospitalization)
         {
             try
@@ -23,8 +31,12 @@ namespace TyEmuNuzhen.MyClasses
             {
                 MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-}
+        }
 
+        /// <summary>
+        /// Получение данных по деталям госпитализации для изменения
+        /// </summary>
+        /// <param name="idHospitalizationDetail"></param>
         public static void GetHospitalizationDetailDataChange(string idHospitalizationDetail)
         {
             try
@@ -41,6 +53,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Проверка на уникальность детали госпитализации
+        /// </summary>
+        /// <param name="idHospitalization"></param>
+        /// <param name="idTypeMedicalHelp"></param>
+        /// <param name="dateMedicalHelp"></param>
+        /// <returns></returns>
         public static bool GetSameHospitalizationDetail(string idHospitalization, string idTypeMedicalHelp, string dateMedicalHelp)
         {
             try
@@ -59,6 +78,14 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Проверка на уникальность детали госпитализации
+        /// </summary>
+        /// <param name="idHospitalizationDetail"></param>
+        /// <param name="idHospitalization"></param>
+        /// <param name="idTypeMedicalHelp"></param>
+        /// <param name="dateMedicalHelp"></param>
+        /// <returns></returns>
         public static bool GetSameHospitalizationDetail(string idHospitalizationDetail, string idHospitalization, string idTypeMedicalHelp, string dateMedicalHelp)
         {
             try
@@ -77,6 +104,14 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление новой детали госпитализации
+        /// </summary>
+        /// <param name="idHospitalization"></param>
+        /// <param name="idTypeMedicalHelp"></param>
+        /// <param name="cost"></param>
+        /// <param name="dateMedicalHelp"></param>
+        /// <returns></returns>
         public static bool AddHospitalizationDetail(string idHospitalization, string idTypeMedicalHelp, string cost, string dateMedicalHelp)
         {
             try
@@ -94,6 +129,14 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление детали госпитализации
+        /// </summary>
+        /// <param name="idHospitalizationDetail"></param>
+        /// <param name="idTypeMedicalHelp"></param>
+        /// <param name="cost"></param>
+        /// <param name="dateMedicalHelp"></param>
+        /// <returns></returns>
         public static bool UpdateHospitalizationDetail(string idHospitalizationDetail, string idTypeMedicalHelp, string cost, string dateMedicalHelp)
         {
             try
@@ -111,6 +154,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление детали госпитализации
+        /// </summary>
+        /// <param name="idHospitalizationDetail"></param>
+        /// <returns></returns>
         public static bool DeleteHospitalizationDetail(string idHospitalizationDetail)
         {
             try
@@ -120,6 +168,19 @@ namespace TyEmuNuzhen.MyClasses
                     return true;
                 else
                     return false;
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1451)
+                {
+                    MessageBox.Show($"Запись не может быть удалена, так как она используется в других таблицах.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при удалении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             catch (Exception ex)
             {

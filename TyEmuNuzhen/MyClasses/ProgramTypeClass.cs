@@ -9,10 +9,16 @@ using System.Windows.Markup;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с типами программ
+    /// </summary>
     internal class ProgramTypeClass
     {
         public static DataTable dtProgramTypeList;
 
+        /// <summary>
+        /// Получение списка типов программ из базы данных
+        /// </summary>
         public static void GetProgramTypeList()
         {
             try

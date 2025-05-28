@@ -34,6 +34,12 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
 
         private void btnTest_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtServer.Text) || string.IsNullOrWhiteSpace(txtDatabase.Text) ||
+                string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Password))
+            {
+                MessageBox.Show("Пожалуйста, заполните все поля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             DatabaseSettings testSettings = GetSettingsFromFields();
             if (DBConnection.TestConnection(testSettings))
             {
@@ -44,6 +50,12 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtServer.Text) || string.IsNullOrWhiteSpace(txtDatabase.Text) ||
+                string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Password))
+            {
+                MessageBox.Show("Пожалуйста, заполните все поля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             DatabaseSettings newSettings = GetSettingsFromFields();
             if (DBConnection.SaveSettings(newSettings))
             {

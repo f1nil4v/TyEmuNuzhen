@@ -4,10 +4,17 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с описаниями детей
+    /// </summary>
     internal class ChildrenDescriptionClass
     {
         public static DataTable dtMonitoringDescription;
 
+        /// <summary>
+        /// Получение описаний детей по ID ребенка
+        /// </summary>
+        /// <param name="idChild"></param>
         public static void GetMonitoringDescriptionChildren(string idChild)
         {
             try
@@ -23,6 +30,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление описания ребенка в базу данных
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
         public static bool AddMonitoringDescriptionChildren(string idChild, string description)
         {
             try

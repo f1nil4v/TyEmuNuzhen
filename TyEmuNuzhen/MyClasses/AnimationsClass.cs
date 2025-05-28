@@ -9,8 +9,15 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для анимаций.
+    /// </summary>
     internal class AnimationsClass
     {
+        /// <summary>
+        /// Анимация "тряски" элемента.
+        /// </summary>
+        /// <param name="element"></param>
         public static void ShakeElement(UIElement element)
         {
             TranslateTransform trans = new TranslateTransform();

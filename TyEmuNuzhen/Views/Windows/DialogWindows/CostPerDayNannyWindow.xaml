@@ -30,7 +30,7 @@
         <TextBox
            x:Name="tbCostPerDay"
            Width="300"
-           materialDesign:HintAssist.Hint="Стоимость в стуки" PreviewTextInput="tbCostPerDay_PreviewTextInput"/>
+           materialDesign:HintAssist.Hint="Стоимость в стуки" PreviewTextInput="tbCostPerDay_PreviewTextInput" PreviewKeyDown="tbCostPerDay_PreviewKeyDown"/>
         <StackPanel Grid.Row="1"
             Margin="0,20,0,0"
             Orientation="Horizontal" 

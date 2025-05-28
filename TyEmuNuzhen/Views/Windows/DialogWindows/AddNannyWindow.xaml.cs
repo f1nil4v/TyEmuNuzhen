@@ -66,18 +66,29 @@ namespace TyEmuNuzhen.Views.Windows
                 string.IsNullOrWhiteSpace(tbAddressRegister.Text) || dpPassDateOfIssue.SelectedDate == null ||
                 !tbPhone.IsMaskCompleted || string.IsNullOrWhiteSpace(tbEmail.Text))
             {
-                MessageBox.Show("Пожалуйста, заполните все поля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Пожалуйста, заполните все поля.", "Внимение", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (tbPassSeries.Text.Length < 4)
+            {
+                MessageBox.Show("Серия паспорта должна состоять из 4 цифр.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (tbPassNum.Text.Length < 6)
+            {
+                MessageBox.Show("Номер паспорта должен состоять из 6 цифр.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (!CustomFunctionsClass.IsValidEmail(tbEmail.Text))
-            {
-                MessageBox.Show("Неккорректно введён email", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
-            }
 
             if (isInsert)
             {
+                if (!NanniesClass.GetSamePassData(tbPassSeries.Text, tbPassNum.Text))
+                    return;
                 string phoneNumber = Regex.Replace(tbPhone.Text, @"[^\d]", "");
                 if (!CustomFunctionsClass.CheckSameEmail(tbEmail.Text) || !CustomFunctionsClass.CheckSamePhoneNumber(phoneNumber))
                     return;
@@ -87,6 +98,8 @@ namespace TyEmuNuzhen.Views.Windows
             }
             else
             {
+                if (!NanniesClass.GetSamePassData(tbPassSeries.Text, tbPassNum.Text, _id))
+                    return;
                 string phoneNumber = Regex.Replace(tbPhone.Text, @"[^\d]", "");
                 if (!CustomFunctionsClass.CheckSameEmail(tbEmail.Text, _id, "nannies") || !CustomFunctionsClass.CheckSamePhoneNumber(phoneNumber, _id, "nannies"))
                     return;
@@ -130,6 +143,15 @@ namespace TyEmuNuzhen.Views.Windows
         private void tbEmail_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex(@"[^A-z@.]");
+            if (regex.IsMatch(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbAddressRegister_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"[^а-яА-ЯёЁю.]");
             if (regex.IsMatch(e.Text))
             {
                 e.Handled = true;

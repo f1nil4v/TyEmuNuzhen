@@ -4,12 +4,21 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с документами детей
+    /// </summary>
     internal class ChildrenDocumentClass
     {
         public static DataTable dtChildrenDocumentsScan;
         public static DataTable dtChildrenAppealsConsents;
         public static DataTable dtTemporaryDocumentChildrenDocuments;
 
+        /// <summary>
+        /// Получение документов детей
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <param name="isScan"></param>
+        /// <param name="idOrphanage"></param>
         public static void GetChildrenDocuments(string idChild, bool isScan, string idOrphanage)
         {
             try
@@ -43,6 +52,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества документов у ребёнка
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <returns></returns>
         public static string GetCountChildrenDocuments(string idChild)
         {
             try
@@ -65,6 +79,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление документа ребёнка в базу данных
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <param name="idDocumentType"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static bool AddChildrenDocument(string idChild, string idDocumentType, string filePath)
         {
             try
@@ -83,6 +104,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление документа ребёнка в базе данных
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <param name="idDocumentType"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static bool UpdateChildrenDocument(string idChild, string idDocumentType, string filePath)
         {
             try
@@ -100,6 +128,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение ID последнего добавленного документа
+        /// </summary>
+        /// <returns></returns>
         public static string GetLastDocumentID()
         {
             try
@@ -122,6 +154,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение документов по ID документа и типу документа
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <param name="idDocumentType"></param>
         public static void GetSameDocumentScanByDocumentID(string idChild, string idDocumentType)
         {
             try

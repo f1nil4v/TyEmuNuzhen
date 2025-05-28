@@ -6,12 +6,18 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с медицинскими учреждениями
+    /// </summary>
     internal class MedicalFacilityClass
     {
         public static DataTable dtMedicalFacilityForComboBoxList;
         public static DataTable dtMedicalFacilityList;
         public static DataTable dtMedicalFacilityData;
 
+        /// <summary>
+        /// Получение списка медицинских учреждений для выпадающего списка
+        /// </summary>
         public static void GetMedicalFacilityForComboBoxList()
         {
             try
@@ -26,6 +32,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка медицинских учреждений
+        /// </summary>
+        /// <param name="querySearch"></param>
         public static void GetMedicalFacilityList(string querySearch)
         {
             try
@@ -47,6 +57,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных о медицинском учреждении по ID
+        /// </summary>
+        /// <param name="id"></param>
         public static void GetMedicalFacilityData(string id)
         {
             try
@@ -61,6 +75,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Проверка на уникальность медицинского учреждения
+        /// </summary>
+        /// <param name="medicalFacilityName"></param>
+        /// <param name="address"></param>
+        /// <returns></returns>
         public static bool GetSameMedicalFacility(string medicalFacilityName, string address)
         {
             try
@@ -94,6 +114,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Проверка на уникальность медицинского учреждения
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="medicalFacilityName"></param>
+        /// <param name="address"></param>
+        /// <returns></returns>
         public static bool GetSameMedicalFacility(string id, string medicalFacilityName, string address)
         {
             try
@@ -127,6 +154,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества всех медицинских учреждений
+        /// </summary>
+        /// <returns></returns>
         public static string GetCountAllMedicalFacility()
         {
             try
@@ -145,6 +176,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление нового медицинского учреждения
+        /// </summary>
+        /// <param name="medicalFacilityName"></param>
+        /// <param name="address"></param>
+        /// <returns></returns>
         public static bool AddMedicalFacility(string medicalFacilityName, string address)
         {
             try
@@ -165,6 +202,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление данных медицинского учреждения
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="medicalFacilityName"></param>
+        /// <param name="address"></param>
+        /// <returns></returns>
         public static bool UpdateMedicalFacility(string id, string medicalFacilityName, string address)
         {
             try
@@ -185,6 +229,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление медицинского учреждения
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static bool DeleteMedicalFacility(string id)
         {
             try

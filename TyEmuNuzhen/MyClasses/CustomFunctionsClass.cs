@@ -8,8 +8,16 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Проектные методы, вынесенные в отдельный класс
+    /// </summary>
     internal class CustomFunctionsClass
     {
+        /// <summary>
+        /// Метод для вычисления возраста на основе даты рождения.
+        /// </summary>
+        /// <param name="birthDate"></param>
+        /// <returns></returns>
         public static string CalculateAge(DateTime birthDate)
         {
             DateTime today = DateTime.Today;
@@ -41,6 +49,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Метод для получения склонения слова "год" в зависимости от числа.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
         private static string GetYearDeclension(int number)
         {
             int lastDigit = number % 10;
@@ -61,6 +74,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Метод для получения склонения слова "месяц" в зависимости от числа.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
         private static string GetMonthDeclension(int number)
         {
             int lastDigit = number % 10;
@@ -81,6 +99,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Метод для получения склонения слова "день" в зависимости от числа.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
         private static string GetDayDeclension(int number)
         {
             int lastDigit = number % 10;
@@ -101,6 +124,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Проверка корректности введённого email.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public static bool IsValidEmail(string email)
         {
             char[] parseEmail = email.ToCharArray();
@@ -145,6 +173,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Проверка корректности введённого пароля.
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public static bool IsValidPassword(string password)
         {
             char[] parsePassword = password.ToCharArray();
@@ -176,6 +209,13 @@ namespace TyEmuNuzhen.MyClasses
             return true;
         }
 
+        /// <summary>
+        /// Проверка на уникальность email в базе данных.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="id"></param>
+        /// <param name="table"></param>
+        /// <returns></returns>
         public static bool CheckSameEmail(string email, string id = null, string table = null)
         {
             try
@@ -210,6 +250,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Проверка на уникальность номера телефона в базе данных.
+        /// </summary>
+        /// <param name="phoneNumber"></param>
+        /// <param name="id"></param>
+        /// <param name="table"></param>
+        /// <returns></returns>
         public static bool CheckSamePhoneNumber(string phoneNumber, string id = null, string table = null)
         {
             try

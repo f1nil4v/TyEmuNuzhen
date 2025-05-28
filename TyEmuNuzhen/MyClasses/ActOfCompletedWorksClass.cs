@@ -7,8 +7,15 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с актами выполненных работ.
+    /// </summary>
     internal class ActOfCompletedWorksClass
     {
+        /// <summary>
+        /// Получение максимального номера акта выполненных работ.
+        /// </summary>
+        /// <returns></returns>
         public static string GetMaxNumActOfCompletedWorksNanny()
         {
             try
@@ -27,6 +34,15 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление акта выполненных работ в базу данных.
+        /// </summary>
+        /// <param name="numOfAct"></param>
+        /// <param name="idNannyOnProgram"></param>
+        /// <param name="countWorkDays"></param>
+        /// <param name="payment"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static bool AddActOfCompletedWorks(string numOfAct, string idNannyOnProgram, string countWorkDays, string payment, string filePath)
         {
             try

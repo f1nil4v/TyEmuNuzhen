@@ -202,5 +202,38 @@ namespace TyEmuNuzhen.Views.Windows
         {
             DialogResult = false;
         }
+
+        private void tbOrphanageName_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"[^а-яА-ЯёЁ]");
+            if (regex.IsMatch(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbSurname_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"[^а-яА-ЯёЁ]");
+            if (regex.IsMatch(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbSurname_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
+        }
+
+        private void tbEmail_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"[^A-z@.]");
+            if (regex.IsMatch(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

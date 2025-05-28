@@ -9,6 +9,9 @@ using System.Windows.Documents;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с диагнозами
+    /// </summary>
     internal class DiagnosesClass
     {
         public static DataTable dtDiagnosesForChildrenComboBoxList;
@@ -17,6 +20,10 @@ namespace TyEmuNuzhen.MyClasses
         public static List<string> selectedIDDiagnoses = new List<string>();
         public static List<string> selectedDiagnoses = new List<string>();
 
+        /// <summary>
+        /// Получение списка диагнозов для выпадающего списка для выпадающего списка
+        /// </summary>
+        /// <param name="idChild"></param>
         public static void GetDiagnosesForChildrenComboBoxList(string idChild)
         {
             try
@@ -35,6 +42,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка диагнозов
+        /// </summary>
+        /// <param name="querySearch"></param>
         public static void GetDiagnosesList(string querySearch)
         {
             try
@@ -56,6 +67,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение названия диагноза по его ID
+        /// </summary>
+        /// <param name="idDiagnoses"></param>
+        /// <returns></returns>
         public static string GetDiagnosisName(string idDiagnoses)
         {
             try
@@ -74,6 +90,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества всех диагнозов
+        /// </summary>
+        /// <returns></returns>
         public static string GetCountAllDiagnoses()
         {
             try
@@ -92,6 +112,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление диагноза
+        /// </summary>
+        /// <param name="diagnosesName"></param>
+        /// <returns></returns>
         public static bool AddDiagnoses(string diagnosesName)
         {
             try
@@ -124,6 +149,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление диагноза
+        /// </summary>
+        /// <param name="idDiagnoses"></param>
+        /// <param name="diagnosesName"></param>
+        /// <returns></returns>
         public static bool UpdateDiagnoses(string idDiagnoses, string diagnosesName)
         {
             try
@@ -156,6 +187,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление диагноза
+        /// </summary>
+        /// <param name="idDiagnoses"></param>
+        /// <returns></returns>
         public static bool DeleteDiagnoses(string idDiagnoses)
         {
             try

@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Text.RegularExpressions;
 using System.Transactions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using TyEmuNuzhen.MyClasses;
 
@@ -74,6 +76,11 @@ namespace TyEmuNuzhen.Views.Pages.Volonteer
                 isAlert = "1";
             }
 
+            if (!ChildrensClass.GetSameNumOfQuestionnaire(numOfQuestionnaireTextBox.Text))
+                return;
+            if (!ChildrensClass.GetSameNumOfQuestionnaire(urlOfQuestionnaireTextBox.Text))
+                return;
+
             string birthDay = birthdayDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd");
             if (!ChildrensClass.AddMonitoringInfoChildren(numOfQuestionnaireTextBox.Text, urlOfQuestionnaireTextBox.Text, surnameTextBox.Text, nameTextBox.Text, birthDay, VolonteerClass.idRegion, isAlert))
                 return;
@@ -124,6 +131,21 @@ namespace TyEmuNuzhen.Views.Pages.Volonteer
         private void surnameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             errorFields.Text = null;
+        }
+
+        private void tbSurname_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"[^а-яА-ЯёЁ]");
+            if (regex.IsMatch(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbSurname_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
         }
     }
 }

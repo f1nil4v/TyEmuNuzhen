@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,6 +10,9 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с врачами-сотрудниками фонда
+    /// </summary>
     internal class DoctorsOnAgreementClass
     {
         public static DataTable dtDoctorsForComboBoxList;
@@ -16,6 +20,10 @@ namespace TyEmuNuzhen.MyClasses
         public static DataTable dtDoctorDataList;
         public static DataTable dtDoctorDataForPrint;
 
+        /// <summary>
+        /// Получение списка врачей для выпадающего списка по ID должности
+        /// </summary>
+        /// <param name="idPost"></param>
         public static void GetDoctrosForComboBoxList(string idPost)
         {
             try
@@ -32,6 +40,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка врачей
+        /// </summary>
+        /// <param name="querySearch"></param>
+        /// <param name="orderByValue"></param>
         public static void GetDoctorsList(string querySearch, string orderByValue)
         {
             try
@@ -61,6 +74,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных о враче по ID
+        /// </summary>
+        /// <param name="idDoctor"></param>
         public static void GetDoctorData(string idDoctor)
         {
             try
@@ -78,6 +95,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных о враче для печати
+        /// </summary>
+        /// <param name="idDoctor"></param>
         public static void GetDoctorDataForPrint(string idDoctor)
         {
             try
@@ -96,6 +117,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества врачей-сотрудников фонда
+        /// </summary>
+        /// <returns></returns>
         public static string GetCountAllDoctors()
         {
             try
@@ -114,6 +139,17 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление нового врача-сотрудника фонда
+        /// </summary>
+        /// <param name="surname"></param>
+        /// <param name="name"></param>
+        /// <param name="middleName"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="email"></param>
+        /// <param name="idPost"></param>
+        /// <param name="idMedicalFacility"></param>
+        /// <returns></returns>
         public static bool AddDoctor(string surname, string name, string middleName, string phoneNumber, string email, string idPost, string idMedicalFacility)
         {
             try
@@ -137,6 +173,18 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление данных о враче-сотруднике фонда
+        /// </summary>
+        /// <param name="idDoctor"></param>
+        /// <param name="surname"></param>
+        /// <param name="name"></param>
+        /// <param name="middleName"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="email"></param>
+        /// <param name="idPost"></param>
+        /// <param name="idMedicalFacility"></param>
+        /// <returns></returns>
         public static bool UpdateDoctor(string idDoctor, string surname, string name, string middleName, string phoneNumber, string email, string idPost, string idMedicalFacility)
         {
             try
@@ -162,6 +210,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление врача-сотрудника
+        /// </summary>
+        /// <param name="idDoctor"></param>
+        /// <returns></returns>
         public static bool DeleteDoctor(string idDoctor)
         {
             try
@@ -171,6 +224,19 @@ namespace TyEmuNuzhen.MyClasses
                     return true;
                 else
                     return false;
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1451)
+                {
+                    MessageBox.Show($"Запись не может быть удалена, так как она используется в других таблицах.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при удалении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             catch (Exception ex)
             {

@@ -60,12 +60,12 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
             cbPost.ItemsSource = DoctorPostsClass.dtDoctorPostsList?.DefaultView;
             cbPost.DisplayMemberPath = "postName";
             cbPost.SelectedValuePath = "ID";
-            cbPost.Text = "Нейрохирург";
+            cbPost.SelectedIndex = 0;
             DoctorsOnAgreementClass.GetDoctrosForComboBoxList(cbPost.SelectedValue.ToString());
             cbSpecialist.ItemsSource = DoctorsOnAgreementClass.dtDoctorsForComboBoxList?.DefaultView;
             cbSpecialist.DisplayMemberPath = "fullName";
             cbSpecialist.SelectedValuePath = "ID";
-            cbSpecialist.SelectedIndex = 1;
+            cbSpecialist.SelectedIndex = 0;
         }
 
         private void cbPost_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -75,7 +75,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
             cbSpecialist.ItemsSource = DoctorsOnAgreementClass.dtDoctorsForComboBoxList?.DefaultView;
             cbSpecialist.DisplayMemberPath = "fullName";
             cbSpecialist.SelectedValuePath = "ID";
-            cbSpecialist.SelectedIndex = 1;
+            cbSpecialist.SelectedIndex = 0;
         }
 
         private void btnAddResult_Click(object sender, RoutedEventArgs e)

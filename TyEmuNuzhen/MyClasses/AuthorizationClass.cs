@@ -8,10 +8,19 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для авторизации пользователя в системе.
+    /// </summary>
     internal class AuthorizationClass
     {
         public static string idRole;
 
+        /// <summary>
+        /// Метод для получения ID пользователя по логину и паролю.
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public static string GetUserId(string login, string password)
         {
             try
@@ -36,6 +45,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Метод для авторизации пользователя в системе по логину и паролю.
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public static string Authorization(string login, string password)
         {
             try

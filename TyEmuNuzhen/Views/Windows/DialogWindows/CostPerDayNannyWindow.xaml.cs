@@ -44,5 +44,11 @@ namespace TyEmuNuzhen.Views.Windows
         {
             DialogResult = true;
         }
+
+        private void tbCostPerDay_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
+        }
     }
 }

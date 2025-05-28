@@ -74,17 +74,20 @@
                    Margin="0,0,40,0"
                    Grid.Column="0"
                    x:Name="tbSurname"
-                   materialDesign:HintAssist.Hint="Фамилия"/>
+                   materialDesign:HintAssist.Hint="Фамилия"
+                   PreviewTextInput="tbSurname_PreviewTextInput" PreviewKeyDown="tbSurname_PreviewKeyDown"/>
                 <TextBox
                    Margin="20,0,20,0"
                    Grid.Column="1"
                    x:Name="tbName"
-                   materialDesign:HintAssist.Hint="Имя"/>
+                   materialDesign:HintAssist.Hint="Имя"
+                   PreviewTextInput="tbSurname_PreviewTextInput" PreviewKeyDown="tbSurname_PreviewKeyDown"/>
                 <TextBox
                    Margin="40,0,0,0"
                    Grid.Column="2"
                    x:Name="tbMiddleName"
-                   materialDesign:HintAssist.Hint="Отчество"/>
+                   materialDesign:HintAssist.Hint="Отчество"
+                    PreviewTextInput="tbSurname_PreviewTextInput" PreviewKeyDown="tbSurname_PreviewKeyDown"/>
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="0,20,0,0">
@@ -102,7 +105,8 @@
                    x:Name="tbEmail"
                    Margin="20,0,0,0" 
                    Grid.Column="1"
-                   materialDesign:HintAssist.Hint="Email"/>
+                   materialDesign:HintAssist.Hint="Email"
+                   PreviewKeyDown="tbSurname_PreviewKeyDown" PreviewTextInput="tbEmail_PreviewTextInput"/>
             </Grid>
         </StackPanel>
 

@@ -1,14 +1,23 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с директорами
+    /// </summary>
     internal class DirectorClass
     {
         public static DataTable dtDirectorsList;
         public static DataTable dtDirectorDataList;
 
+        /// <summary>
+        /// Получение ID директора по ID пользователя
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <returns></returns>
         public static string GetDirectorID(string idUser)
         {
             try
@@ -31,6 +40,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение полного имени директора по ID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         public static string GetDirectorFullName(string ID)
         {
             try
@@ -51,6 +65,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка всех директоров с возможностью фильтрации и сортировки
+        /// </summary>
+        /// <param name="querySearch"></param>
+        /// <param name="orderByValue"></param>
         public static void GetDirectorsList(string querySearch, string orderByValue)
         {
             try
@@ -80,6 +99,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных о директоре по его ID
+        /// </summary>
+        /// <param name="idDirector"></param>
         public static void GetDirectorData(string idDirector)
         {
             try
@@ -97,6 +120,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества всех директоров
+        /// </summary>
+        /// <returns></returns>
         public static string GetCountAllDirecrors()
         {
             try
@@ -115,6 +142,15 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление нового директора
+        /// </summary>
+        /// <param name="surname"></param>
+        /// <param name="name"></param>
+        /// <param name="middleName"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public static bool AddDirector(string surname, string name, string middleName, string phoneNumber, string email)
         {
             try
@@ -139,6 +175,16 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление данных о директоре
+        /// </summary>
+        /// <param name="idDirector"></param>
+        /// <param name="surname"></param>
+        /// <param name="name"></param>
+        /// <param name="middleName"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public static bool UpdateDirector(string idDirector, string surname, string name, string middleName, string phoneNumber, string email)
         {
             try
@@ -164,6 +210,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление директора
+        /// </summary>
+        /// <param name="idDirector"></param>
+        /// <returns></returns>
         public static bool DeleteDirector(string idDirector)
         {
             try
@@ -173,6 +224,19 @@ namespace TyEmuNuzhen.MyClasses
                     return true;
                 else
                     return false;
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1451)
+                {
+                    MessageBox.Show($"Запись не может быть удалена, так как она используется в других таблицах.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при удалении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             catch (Exception ex)
             {

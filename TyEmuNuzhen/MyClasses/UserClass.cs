@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +8,15 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с пользователями в базе данных.
+    /// </summary>
     internal class UserClass
     {
+        /// <summary>
+        /// Получение списка пользователей из базы данных.
+        /// </summary>
+        /// <returns></returns>
         public static string GetLastUserID()
         {
             try
@@ -31,6 +39,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление нового пользователя в базу данных.
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <param name="idRole"></param>
+        /// <returns></returns>
         public static bool AddUser(string login, string password, string idRole)
         {
             try
@@ -51,6 +66,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление данных пользователя в базе данных.
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public static bool UpdateUser(string idUser, string password)
         {
             try
@@ -73,6 +94,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление данных пользователя в базе данных с указанием роли.
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <param name="password"></param>
+        /// <param name="idRole"></param>
+        /// <returns></returns>
         public static bool UpdateUser(string idUser, string password, string idRole)
         {
             try
@@ -93,6 +121,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление пользователя из базы данных.
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <returns></returns>
         public static bool DeleteUser(string idUser)
         {
             try
@@ -102,6 +135,19 @@ namespace TyEmuNuzhen.MyClasses
                     return true;
                 else
                     return false;
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1451)
+                {
+                    MessageBox.Show($"Запись не может быть удалена, так как она используется в других таблицах.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при удалении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             catch (Exception ex)
             {

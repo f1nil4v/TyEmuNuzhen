@@ -4,11 +4,19 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с данными госпитализации
+    /// </summary>
     internal class HospitalizationClass
     {
         public static DataTable dtHospitalizationData;
         public static DataTable dtPeriodsHospitalizationList;
 
+        /// <summary>
+        /// Получение данных о госпитализации по ID госпитализации и ID актуальной программы
+        /// </summary>
+        /// <param name="idHospitalization"></param>
+        /// <param name="idActualProgram"></param>
         public static void GetHospitalizationData(string idHospitalization, string idActualProgram)
         {
             try
@@ -28,6 +36,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка периодов госпитализации для актуальной программы по ID актуальной программы
+        /// </summary>
+        /// <param name="idActualProgram"></param>
         public static void GetPeriodsHospitalizationList(string idActualProgram)
         {
             try
@@ -45,6 +57,15 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление новой записи о госпитализации в базу данных
+        /// </summary>
+        /// <param name="idMedicalFacility"></param>
+        /// <param name="idActualProgram"></param>
+        /// <param name="dateHospitalization"></param>
+        /// <param name="dateDischarge"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static bool AddHospitalization(string idMedicalFacility, string idActualProgram, string dateHospitalization, string dateDischarge, string filePath)
         {
             try
@@ -63,6 +84,15 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление записи о госпитализации в базе данных
+        /// </summary>
+        /// <param name="idHospitalization"></param>
+        /// <param name="idMedicalFacility"></param>
+        /// <param name="dateHospitalization"></param>
+        /// <param name="dateDischarge"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static bool UpdateHospitalization(string idHospitalization, string idMedicalFacility, string dateHospitalization, string dateDischarge, string filePath)
         {
             try

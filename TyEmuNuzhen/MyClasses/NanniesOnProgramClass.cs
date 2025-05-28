@@ -4,12 +4,19 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с нянями в программе
+    /// </summary>
     internal class NanniesOnProgramClass
     {
         public static DataTable dtActiveNannyOnProgramData;
         public static DataTable dtHistoryNannyOnProgramData;
         public static DataTable dtHistoryNannyOnProgramDataForPrint;
 
+        /// <summary>
+        /// Получение данных активной няни в программе
+        /// </summary>
+        /// <param name="idActualProgram"></param>
         public static void GetActiveNannyOnProgramData(string idActualProgram)
         {
             try
@@ -29,6 +36,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных истории нянь в программе
+        /// </summary>
+        /// <param name="idActualProgram"></param>
         public static void GetHistoryNannyOnProgramData(string idActualProgram)
         {
             try
@@ -50,6 +61,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных истории нянь в программе для печати
+        /// </summary>
+        /// <param name="idActualProgram"></param>
         public static void GetHistoryNannyOnProgramDataForPrint(string idActualProgram)
         {
             try
@@ -68,8 +83,13 @@ namespace TyEmuNuzhen.MyClasses
             {
                 MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-}
+        }
 
+        /// <summary>
+        /// Получение ID последней няни в программе по ID няни
+        /// </summary>
+        /// <param name="idNanny"></param>
+        /// <returns></returns>
         public static string GetLastNannyOnProgramID(string idNanny)
         {
             try
@@ -88,6 +108,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление няни в программу
+        /// </summary>
+        /// <param name="idNanny"></param>
+        /// <param name="idActualProgram"></param>
+        /// <returns></returns>
         public static bool AddNannyOnProgram(string idNanny, string idActualProgram)
         {
             try
@@ -105,6 +131,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление статуса няни в программе
+        /// </summary>
+        /// <param name="idNannyOnProgram"></param>
+        /// <returns></returns>
         public static bool UpdateStatusNannyOnProgram(string idNannyOnProgram)
         {
             try

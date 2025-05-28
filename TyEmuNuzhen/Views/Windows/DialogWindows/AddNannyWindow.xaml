@@ -119,7 +119,7 @@
                x:Name="tbAddressRegister"
                Margin="20,0,0,0" 
                Grid.Column="1"
-               materialDesign:HintAssist.Hint="Адрес регистрации" PreviewTextInput="tbSurname_PreviewTextInput"/>
+               materialDesign:HintAssist.Hint="Адрес регистрации" PreviewTextInput="tbAddressRegister_PreviewTextInput"/>
 
             </Grid>
         </StackPanel>

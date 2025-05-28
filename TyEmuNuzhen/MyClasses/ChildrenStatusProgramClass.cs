@@ -8,10 +8,16 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы со статусами детей в программе
+    /// </summary>
     internal class ChildrenStatusProgramClass
     {
         public static DataTable dtChildrenStatusProgramList;
 
+        /// <summary>
+        /// Получение списка статусов детей в программе
+        /// </summary>
         public static void GetChildrenStatusProgramList()
         {
             try

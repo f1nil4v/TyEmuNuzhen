@@ -98,6 +98,10 @@ namespace TyEmuNuzhen.Views.Pages.Volonteer
                 isAlert = "1";
             }
 
+            if (!ChildrensClass.GetSameNumOfQuestionnaire(edtQuestNumber.Text, _id))
+                return;
+            if (!ChildrensClass.GetSameNumOfQuestionnaire(edtUrl.Text, _id))
+                return;
             if (!ChildrensClass.UpdateMonitoringInfoChildren(_id, edtQuestNumber.Text, edtUrl.Text, edtSurname.Text, edtName.Text, birthDay, isAlert))
                 return;
 

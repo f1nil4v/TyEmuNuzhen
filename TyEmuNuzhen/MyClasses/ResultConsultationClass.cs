@@ -5,11 +5,17 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с результатами консультаций
+    /// </summary>
     internal class ResultConsultationClass
     {
         public static List<string> oldFilePaths = new List<string>();
         public static DataTable dtResultConsultationList;
-
+        /// <summary>
+        /// Получение списка результатов консультаций по ID консультации
+        /// </summary>
+        /// <param name="idConsultation"></param>
         public static void GetResultConsultation(string idConsultation)
         {
             try
@@ -26,6 +32,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление результатов консультации для ребенка
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <returns></returns>
         public static bool AddResaultConsultations(string idChild)
         {
             try

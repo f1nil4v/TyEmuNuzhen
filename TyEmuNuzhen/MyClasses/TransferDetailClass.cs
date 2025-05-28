@@ -1,15 +1,24 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с деталями трансфера
+    /// </summary>
     internal class TransferDetailClass
     {
         public static DataTable dtTransferDetailedSide1Data;
         public static DataTable dtTransferDetailedSide0Data;
         public static DataTable dtTransferDetailData;
 
+        /// <summary>
+        /// Получение данных о деталях трансфера для указанного идентификатора трансфера
+        /// </summary>
+        /// <param name="idTransfer"></param>
+        /// <param name="side"></param>
         public static void GetTransferDetailsData(string idTransfer, bool side)
         {
             try
@@ -32,8 +41,12 @@ namespace TyEmuNuzhen.MyClasses
             {
                 MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-}
+        }
 
+        /// <summary>
+        /// Получение данных о деталях трансфера по идентификатору детали трансфера
+        /// </summary>
+        /// <param name="idTransferDetail"></param>
         public static void GetTransferDetailData(string idTransferDetail)
         {
             try
@@ -50,6 +63,14 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление детали трансфера в базу данных
+        /// </summary>
+        /// <param name="idTransfer"></param>
+        /// <param name="idTransportType"></param>
+        /// <param name="cost"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static bool AddTransferDetail(string idTransfer, string idTransportType, string cost, string filePath)
         {
             try
@@ -67,6 +88,14 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление детали трансфера в базе данных
+        /// </summary>
+        /// <param name="idTransferDetail"></param>
+        /// <param name="idTransportType"></param>
+        /// <param name="cost"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static bool UpdateTransferDetail(string idTransferDetail, string idTransportType, string cost, string filePath)
         {
             try
@@ -84,6 +113,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление детали трансфера из базы данных
+        /// </summary>
+        /// <param name="idTranferDetail"></param>
+        /// <returns></returns>
         public static bool DeleteTransferDetail(string idTranferDetail)
         {
             try
@@ -93,6 +127,19 @@ namespace TyEmuNuzhen.MyClasses
                     return true;
                 else
                     return false;
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1451)
+                {
+                    MessageBox.Show($"Запись не может быть удалена, так как она используется в других таблицах.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при удалении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             catch (Exception ex)
             {

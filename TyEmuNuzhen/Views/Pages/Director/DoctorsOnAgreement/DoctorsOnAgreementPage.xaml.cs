@@ -35,6 +35,8 @@ namespace TyEmuNuzhen.Views.Pages.Director.DoctorsOnAgreement
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (MessageBox.Show("Вы уверены, что хотите удалить запись?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+                return;
             string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
             var deleteBtn = sender as Button;
             DoctorsOnAgreementClass.GetDoctorData(deleteBtn.Tag.ToString());

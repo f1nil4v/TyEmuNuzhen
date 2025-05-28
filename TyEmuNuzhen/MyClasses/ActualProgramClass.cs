@@ -13,11 +13,21 @@ using System.Xml.Linq;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с актуальными программами
+    /// </summary>
     internal class ActualProgramClass
     {
         public static DataTable dtActualProgramDataForPrint;
         public static DataTable dtProgramsHistoryList;
 
+        /// <summary>
+        /// Получение списка пройденных программ по детям
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <param name="idProgramType"></param>
+        /// <param name="dateBegin"></param>
+        /// <param name="dateEnd"></param>
         public static void GetProgramsHistoryList(string idChild, string idProgramType, string dateBegin, string dateEnd)
         {
             try
@@ -42,6 +52,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение ID последней актуальной программы по конкретному ребёнку
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <returns></returns>
         public static string GetIDLastActualProgramChildren(string idChild)
         {
             try
@@ -64,6 +79,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение наименование актуальной программы
+        /// </summary>
+        /// <param name="idActualProgram"></param>
+        /// <returns></returns>
         public static string GetLastActualProgramChildren(string idActualProgram)
         {
             try
@@ -87,6 +107,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных актуальной программы для печати
+        /// </summary>
+        /// <param name="idActualProgram"></param>
         public static void GetActualProgramDataToBeOnTimeForPrint(string idActualProgram)
         {
             try
@@ -107,6 +131,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Проверка наличия программ у ребёнка
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <returns></returns>
         public static bool HaveProgramsChild(string idChild)
         {
             try
@@ -124,6 +153,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление актуальной программы для ребёнка
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <param name="idProgramType"></param>
+        /// <param name="idCurator"></param>
+        /// <returns></returns>
         public static bool AddChildrenActualProgram(string idChild, string idProgramType, string idCurator)
         {
             try
@@ -143,6 +179,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление статуса, добавления даты окончания и добавление пути к файлу сформированного отчёта прохождения программы 
+        /// </summary>
+        /// <param name="idProgram"></param>
+        /// <param name="dateEnd"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static bool UpdateChildrenActualProgramEndProgram(string idProgram, string dateEnd, string filePath)
         {
             try

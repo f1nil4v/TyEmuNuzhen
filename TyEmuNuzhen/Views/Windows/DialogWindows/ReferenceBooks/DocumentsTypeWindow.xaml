@@ -24,7 +24,7 @@
        Margin="0,40,0,20"
        x:Name="tbValue"
        materialDesign:HintAssist.Hint="Введите значение..." 
-       Style="{StaticResource MaterialDesignTextBox}"/>
+       Style="{StaticResource MaterialDesignTextBox}" PreviewTextInput="tbValue_PreviewTextInput"/>
 
         <StackPanel Grid.Row="2" 
         Orientation="Horizontal"

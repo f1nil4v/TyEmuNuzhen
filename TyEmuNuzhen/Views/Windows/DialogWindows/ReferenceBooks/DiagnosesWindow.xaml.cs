@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,7 +32,7 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows.ReferenceBooks
         public DiagnosesWindow(string id)
         {
             InitializeComponent();
-            this.Title = "Редактирование медицинского учреждения";
+            this.Title = "Редактирование диагноза";
             _isInsert = false;
             _id = id;
             tbValue.Text = DiagnosesClass.GetDiagnosisName(id);

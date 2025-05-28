@@ -7,15 +7,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
+using TyEmuNuzhen.Views.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с данными о детях
+    /// </summary>
     internal class ChildrensClass
     {
         public static DataTable dtChildrensList;
         public static DataTable dtChildrensDetailedList;
         public static DataTable dtChildrensCuratorList;
 
+        /// <summary>
+        /// Получение списка детей
+        /// </summary>
+        /// <param name="idStatus"></param>
+        /// <param name="idRegion"></param>
+        /// <param name="dateAddedBeginPeriod"></param>
+        /// <param name="dateAddedEndPeriod"></param>
+        /// <param name="searchQuery"></param>
+        /// <param name="isDESC"></param>
         public static void GetChildrenList(string idStatus, string idRegion, string dateAddedBeginPeriod, string dateAddedEndPeriod, string searchQuery, bool isDESC)
         {
             try
@@ -88,6 +101,15 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка детей для консультаций
+        /// </summary>
+        /// <param name="idRegion"></param>
+        /// <param name="idOrphange"></param>
+        /// <param name="dateAddedBeginPeriod"></param>
+        /// <param name="dateAddedEndPeriod"></param>
+        /// <param name="searchQuery"></param>
+        /// <param name="isDESC"></param>
         public static void GetChildrenMedicalExaminationList(string idRegion, string idOrphange, string dateAddedBeginPeriod, string dateAddedEndPeriod, string searchQuery, bool isDESC)
         {
             try
@@ -143,6 +165,18 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка детей, участвующих в программе
+        /// </summary>
+        /// <param name="idStatus"></param>
+        /// <param name="idRegion"></param>
+        /// <param name="idOrphange"></param>
+        /// <param name="dateAddedBeginPeriod"></param>
+        /// <param name="dateAddedEndPeriod"></param>
+        /// <param name="searchQuery"></param>
+        /// <param name="isDESC"></param>
+        /// <param name="statusProgram"></param>
+        /// <param name="idCurator"></param>
         public static void GetChildrenActualProgramList(string idStatus, string idRegion, string idOrphange, string dateAddedBeginPeriod, string dateAddedEndPeriod, string searchQuery, bool isDESC, string statusProgram, string idCurator)
         {
             try
@@ -206,6 +240,15 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка детей, с которыми проводились работы
+        /// </summary>
+        /// <param name="idRegion"></param>
+        /// <param name="idOrphange"></param>
+        /// <param name="dateAddedBeginPeriod"></param>
+        /// <param name="dateAddedEndPeriod"></param>
+        /// <param name="searchQuery"></param>
+        /// <param name="isDESC"></param>
         public static void GetChildrenHistoryAnyWorks(string idRegion, string idOrphange, string dateAddedBeginPeriod, string dateAddedEndPeriod, string searchQuery, bool isDESC)
         {
             try
@@ -270,6 +313,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение детальной информации о ребенке по его ID
+        /// </summary>
+        /// <param name="idChild"></param>
         public static void GetChildrenListByID(string idChild)
         {
             try
@@ -310,6 +357,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение ID последнего добавленного ребенка
+        /// </summary>
+        /// <returns></returns>
         public static string GetLastChildrensID()
         {
             try
@@ -332,6 +383,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества детей по статусу и региону
+        /// </summary>
+        /// <param name="idRegion"></param>
+        /// <param name="idStatus"></param>
+        /// <returns></returns>
         public static string GetCountChildrensMonitoring(string idRegion, string idStatus)
         {
             try
@@ -357,6 +414,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества детей по статусу, региону и куратору
+        /// </summary>
+        /// <param name="idRegion"></param>
+        /// <param name="idStatus"></param>
+        /// <param name="idCurator"></param>
+        /// <returns></returns>
         public static string GetCountChildrensMonitoring(string idRegion, string idStatus, string idCurator)
         {
             try
@@ -382,6 +446,66 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Проверка на уникальность номера анкеты 
+        /// </summary>
+        /// <param name="numOfQuest"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static bool GetSameNumOfQuestionnaire(string numOfQuest, string id = null)
+        {
+            try
+            {
+                string whereClause = String.IsNullOrEmpty(id) ? "" : $"AND ID <> '{id}'";
+                DBConnection.myCommand.CommandText = $"SELECT COUNT(ID) FROM childrens WHERE numOfQuestionnaire = '{numOfQuest}' {whereClause}";
+                if (Convert.ToInt32(DBConnection.myCommand.ExecuteScalar()) > 0)
+                {
+                    MessageBox.Show("Ребёнок с данным номером анкеты уже есть в системе!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                else
+                    return true;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Проверка на уникальность ссылки анкеты
+        /// </summary>
+        /// <param name="urlOfQuestionnaire"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static bool GetSameURLOfQuestionnaire(string urlOfQuestionnaire, string id = null)
+        {
+            try
+            {
+                string whereClause = String.IsNullOrEmpty(id) ? "" : $"AND ID <> '{id}'";
+                DBConnection.myCommand.CommandText = $"SELECT COUNT(ID) FROM childrens WHERE urlOfQuestionnaire = '{urlOfQuestionnaire}' {whereClause}";
+                if (Convert.ToInt32(DBConnection.myCommand.ExecuteScalar()) > 0)
+                {
+                    MessageBox.Show("Ребёнок с данным номером анкеты уже есть в системе!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                else
+                    return true;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Получение количества детей, с которыми проводились работы
+        /// </summary>
+        /// <returns></returns>
         public static string GetCountChildrensHistoryAnyWorks()
         {
             try
@@ -404,6 +528,17 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление информации о ребенке в мониторинг
+        /// </summary>
+        /// <param name="numQuest"></param>
+        /// <param name="urlQuest"></param>
+        /// <param name="surname"></param>
+        /// <param name="name"></param>
+        /// <param name="birthday"></param>
+        /// <param name="idRegion"></param>
+        /// <param name="isAlert"></param>
+        /// <returns></returns>
         public static bool AddMonitoringInfoChildren(string numQuest, string urlQuest, string surname, string name, string birthday, string idRegion, string isAlert)
         {
             try
@@ -434,6 +569,17 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление информации о ребенке в мониторинге
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <param name="numQuest"></param>
+        /// <param name="urlQuest"></param>
+        /// <param name="surname"></param>
+        /// <param name="name"></param>
+        /// <param name="birthday"></param>
+        /// <param name="isAlert"></param>
+        /// <returns></returns>
         public static bool UpdateMonitoringInfoChildren(string idChild, string numQuest, string urlQuest, string surname, string name, string birthday, string isAlert)
         {
             try
@@ -461,6 +607,17 @@ namespace TyEmuNuzhen.MyClasses
             }   
         }
 
+        /// <summary>
+        /// Обновление информации о ребенке куратором
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <param name="surname"></param>
+        /// <param name="name"></param>
+        /// <param name="middleName"></param>
+        /// <param name="birthday"></param>
+        /// <param name="idRegion"></param>
+        /// <param name="idOrphanage"></param>
+        /// <returns></returns>
         public static bool UpdateCuratorInfoChildren(string idChild, string surname, string name, string middleName, string birthday, string idRegion, string idOrphanage)
         {
             try
@@ -485,6 +642,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление остальной информации о ребёнке
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="middleName"></param>
+        /// <param name="idOrphanage"></param>
+        /// <returns></returns>
         public static bool AddCommonInfoChildren(string id, string middleName, string idOrphanage)
         {
             try
@@ -506,6 +670,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление статуса ребенка
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <param name="idStatus"></param>
+        /// <returns></returns>
         public static bool UpdateStatusChildren(string idChild, string idStatus)
         {
             try
@@ -526,6 +696,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление статуса программы ребенка
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <param name="idStatusProgram"></param>
+        /// <returns></returns>
         public static bool UpdateStatusProgramChildren(string idChild, string idStatusProgram)
         {
             try
@@ -546,6 +722,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление статуса ребенка при завершении программы
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <param name="idStatus"></param>
+        /// <returns></returns>
         public static bool UpdateStatusChildrenEndProgram(string idChild, string idStatus)
         {
             try

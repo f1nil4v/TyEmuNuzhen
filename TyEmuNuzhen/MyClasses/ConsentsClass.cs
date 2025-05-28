@@ -7,8 +7,15 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы обращениями детского дома
+    /// </summary>
     internal class ConsentsClass
     {
+        /// <summary>
+        /// Получение максимального номера обращения детского дома
+        /// </summary>
+        /// <returns></returns>
         public static string GetMaxNumAppealOrphanage()
         {
             try
@@ -27,6 +34,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение пути к файлу обращения детского дома по ID программы
+        /// </summary>
+        /// <param name="idActualProgram"></param>
+        /// <returns></returns>
         public static string GetFilePathAppealConsent(string idActualProgram)
         {
             try
@@ -45,6 +57,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление обращения детского дома
+        /// </summary>
+        /// <param name="numAppeal"></param>
+        /// <param name="idOrphanage"></param>
+        /// <param name="idActualProgram"></param>
+        /// <returns></returns>
         public static bool AddChildrenAppealConsent(string numAppeal, string idOrphanage, string idActualProgram)
         {
             try

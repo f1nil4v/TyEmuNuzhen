@@ -1,7 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using TyEmuNuzhen.MyClasses;
@@ -76,6 +78,10 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                 isAlert = "1";
             }
 
+            if (!ChildrensClass.GetSameNumOfQuestionnaire(numOfQuestionnaireTextBox.Text))
+                return;
+            if (!ChildrensClass.GetSameNumOfQuestionnaire(urlOfQuestionnaireTextBox.Text))
+                return;
             string birthDay = birthdayDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd");
             if (!ChildrensClass.AddMonitoringInfoChildren(numOfQuestionnaireTextBox.Text, urlOfQuestionnaireTextBox.Text, surnameTextBox.Text, nameTextBox.Text, birthDay, regionsCmbBox.SelectedValue.ToString(), isAlert))
                 return;
@@ -138,6 +144,21 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             regionsCmbBox.DisplayMemberPath = "regionName";
             regionsCmbBox.SelectedValuePath = "ID";
             regionsCmbBox.SelectedIndex = 0;
+        }
+
+        private void tbSurname_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"[^а-яА-ЯёЁ]");
+            if (regex.IsMatch(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbSurname_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
         }
     }
 }

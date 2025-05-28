@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -8,12 +9,20 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с нянями
+    /// </summary>
     internal class NanniesClass
     {
         public static DataTable dtNanniesList;
         public static DataTable dtNanniesForSelectProgramList;
         public static DataTable dtNanniesDataList;
 
+        /// <summary>
+        /// Получение списка нянь
+        /// </summary>
+        /// <param name="querySearch"></param>
+        /// <param name="orderByValue"></param>
         public static void GetNanniesList(string querySearch, string orderByValue)
         {
             try
@@ -45,6 +54,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка нянь для выбора в программу
+        /// </summary>
+        /// <param name="querySearch"></param>
+        /// <param name="orderByValue"></param>
         public static void GetNanniesListForSelectOnProgram(string querySearch, string orderByValue)
         {
             try
@@ -77,6 +91,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных няни по ID
+        /// </summary>
+        /// <param name="idNanny"></param>
         public static void GetNannyData(string idNanny)
         {
             try
@@ -92,6 +110,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества нянь
+        /// </summary>
+        /// <returns></returns>
         public static string GetCountAllNannies()
         {
             try
@@ -110,6 +132,50 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Проверка на уникальность паспортных данных няни 
+        /// </summary>
+        /// <param name="passSeries"></param>
+        /// <param name="passNum"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static bool GetSamePassData(string passSeries, string passNum, string id = null)
+        {
+            try
+            {
+                string whereClause = String.IsNullOrEmpty(id) ? "" : $"AND ID <> '{id}'";
+                DBConnection.myCommand.CommandText = $"SELECT COUNT(ID) FROM nannies WHERE passSeries = '{passSeries}' AND passNum = '{passNum}' {whereClause}";
+                if (Convert.ToInt32(DBConnection.myCommand.ExecuteScalar()) > 0)
+                {
+                    MessageBox.Show("Наня с такими паспортными данными уже есть в системе!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                else
+                    return true;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Добавление няни
+        /// </summary>
+        /// <param name="surname"></param>
+        /// <param name="name"></param>
+        /// <param name="middleName"></param>
+        /// <param name="passSeries"></param>
+        /// <param name="passNum"></param>
+        /// <param name="passDateOfIssue"></param>
+        /// <param name="passOrganizationOfIssue"></param>
+        /// <param name="passCode"></param>
+        /// <param name="addressRegister"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public static bool AddNanny(string surname, string name, string middleName, string passSeries, string passNum, string passDateOfIssue, string passOrganizationOfIssue, string passCode, string addressRegister, string phoneNumber, string email)
         {
             try
@@ -141,6 +207,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление статуса няни на программе
+        /// </summary>
+        /// <param name="idNanny"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
         public static bool UpdateNannyOnProgramStatus(string idNanny, string status)
         {
             try
@@ -158,6 +230,22 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление данных няни
+        /// </summary>
+        /// <param name="idNanny"></param>
+        /// <param name="surname"></param>
+        /// <param name="name"></param>
+        /// <param name="middleName"></param>
+        /// <param name="passSeries"></param>
+        /// <param name="passNum"></param>
+        /// <param name="passDateOfIssue"></param>
+        /// <param name="passOrganizationOfIssue"></param>
+        /// <param name="passCode"></param>
+        /// <param name="addressRegister"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public static bool UpdateNanny(string idNanny, string surname, string name, string middleName, string passSeries, string passNum, string passDateOfIssue, string passOrganizationOfIssue, string passCode, string addressRegister, string phoneNumber, string email)
         {
             try
@@ -190,6 +278,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление няни
+        /// </summary>
+        /// <param name="idNanny"></param>
+        /// <returns></returns>
         public static bool DeleteNanny(string idNanny)
         {
             try
@@ -199,6 +292,19 @@ namespace TyEmuNuzhen.MyClasses
                     return true;
                 else
                     return false;
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1451)
+                {
+                    MessageBox.Show($"Запись не может быть удалена, так как она используется в других таблицах.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при удалении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             catch (Exception ex)
             {

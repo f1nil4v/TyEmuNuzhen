@@ -32,9 +32,9 @@
                 Margin="0,0,10,0" 
                 Height="30"
                 Background="#A3B92E" 
-                BorderBrush="#A3B92E" Click="btnHealthRoute_Click" />
+                BorderBrush="#A3B92E" Click="btnHealthRoute_Click" Visibility="Collapsed"/>
             <Button x:Name="btnToBeOnTime" 
-                Content="Чтобы успеть вовремя" 
+                Content="ОК" 
                 IsDefault="True"
                 Height="30"
                 Background="#A3B92E" 

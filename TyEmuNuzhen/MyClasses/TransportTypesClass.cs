@@ -10,10 +10,17 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с типами транспорта в базе данных
+    /// </summary>
     internal class TransportTypesClass
     {
         public static DataTable dtTranposrtTypeS;
 
+        /// <summary>
+        /// Получение списка типов транспорта из базы данных
+        /// </summary>
+        /// <param name="querySearch"></param>
         public static void GetTranportTypesList(string querySearch)
         {
             try
@@ -35,6 +42,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение названия типа транспорта по его ID
+        /// </summary>
+        /// <param name="idTransportType"></param>
+        /// <returns></returns>
         public static string GetTranposrtTypeName(string idTransportType)
         {
             try
@@ -55,6 +67,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества всех типов транспорта в базе данных
+        /// </summary>
+        /// <returns></returns>
         public static string GetCountAllTranposrtTypes()
         {
             try
@@ -73,6 +89,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление нового типа транспорта в базу данных
+        /// </summary>
+        /// <param name="transportType"></param>
+        /// <returns></returns>
         public static bool AddTranposrtType(string transportType)
         {
             try
@@ -105,6 +126,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление типа транспорта в базе данных
+        /// </summary>
+        /// <param name="idTransportType"></param>
+        /// <param name="transportType"></param>
+        /// <returns></returns>
         public static bool UpdateTranposrtType(string idTransportType, string transportType)
         {
             try
@@ -137,6 +164,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление типа транспорта из базы данных
+        /// </summary>
+        /// <param name="idTransportType"></param>
+        /// <returns></returns>
         public static bool DeleteTranposrtType(string idTransportType)
         {
             try

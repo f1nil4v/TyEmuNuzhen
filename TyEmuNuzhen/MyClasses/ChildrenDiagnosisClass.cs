@@ -6,10 +6,17 @@ using System.Windows.Documents;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с диагнозами детей в рамках консультаций.
+    /// </summary>
     internal class ChildrenDiagnosisClass
     {
         public static DataTable dtChildrenDiagnoses;
 
+        /// <summary>
+        /// Получение списка диагнозов в рамках консультаций ребенка по ID ребёнка.
+        /// </summary>
+        /// <param name="idConsultation"></param>
         public static void GetChildrenDiagnoses(string idConsultation)
         {
             try
@@ -28,6 +35,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление диагноза в рамках консультации в таблицу БД.
+        /// </summary>
+        /// <returns></returns>
         public static bool AddChildrenDiagnosis()
         {
             try

@@ -1,6 +1,7 @@
-﻿using Microsoft.Office.Interop.Word;
-using System;
+﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
 using TyEmuNuzhen.MyClasses;
 
 namespace TyEmuNuzhen.Views.Windows
@@ -81,6 +82,39 @@ namespace TyEmuNuzhen.Views.Windows
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
+        }
+
+        private void tbOrphanageName_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"[^а-яА-ЯёЁ]");
+            if (regex.IsMatch(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbSurname_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"[^а-яА-ЯёЁ]");
+            if (regex.IsMatch(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbSurname_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
+        }
+
+        private void tbEmail_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"[^A-z@.]");
+            if (regex.IsMatch(e.Text))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

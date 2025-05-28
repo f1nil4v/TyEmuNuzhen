@@ -5,12 +5,19 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с данными о трансфере
+    /// </summary>
     internal class TransferClass
     {
         public static DataTable dtTransferOnHozpitalizationSide1Data;
         public static DataTable dtTransferOnHozpitalizationSide0Data;
         public static DataTable dtTransferOnHozpitalizationData;
 
+        /// <summary>
+        /// Получение данных о трансфере по ID госпитализации в медучреждение
+        /// </summary>
+        /// <param name="idHospitalization"></param>
         public static void GetTransferOnHozpitalizationSide1Data(string idHospitalization)
         {
             try
@@ -27,6 +34,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных о трансфере по ID госпитализации из медучреждения
+        /// </summary>
+        /// <param name="idHospitalization"></param>
         public static void GetTransferOnHozpitalizationSide0Data(string idHospitalization)
         {
             try
@@ -43,6 +54,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных о трансфере по ID трансфера
+        /// </summary>
+        /// <param name="idTransfer"></param>
         public static void GetTransferOnHozpitalizationData(string idTransfer)
         {
             try
@@ -59,6 +74,14 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление нового трансфера
+        /// </summary>
+        /// <param name="idHospitalization"></param>
+        /// <param name="dateDeparture"></param>
+        /// <param name="dateArrival"></param>
+        /// <param name="transferSide"></param>
+        /// <returns></returns>
         public static bool AddTransfer(string idHospitalization, string dateDeparture, string dateArrival, string transferSide)
         {
             try
@@ -76,6 +99,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление информации о трансфере
+        /// </summary>
+        /// <param name="idTransfer"></param>
+        /// <param name="dateDeparture"></param>
+        /// <param name="dateArrival"></param>
+        /// <returns></returns>
         public static bool UpdateTransfer(string idTransfer, string dateDeparture, string dateArrival)
         {
             try

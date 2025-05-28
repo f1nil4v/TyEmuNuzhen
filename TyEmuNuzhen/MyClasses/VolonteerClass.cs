@@ -1,15 +1,24 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с волонтёрами в базе данных.
+    /// </summary>
     internal class VolonteerClass
     {
         public static string idRegion;
         public static DataTable dtVolonteersList;
         public static DataTable dtVolonteerDataList;
 
+        /// <summary>
+        /// Получение ID волонтёра по ID пользователя.
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <returns></returns>
         public static string GetVolonteerID(string idUser)
         {
             try
@@ -32,6 +41,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение полного имени волонтёра по его ID.
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         public static string GetVolonteerFullName(string ID)
         {
             try
@@ -52,6 +66,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение региона волонтёра по ID пользователя.
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <returns></returns>
         public static string GetVolonteerRegion(string idUser)
         {
             try
@@ -75,6 +94,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка волонтёров из базы данных с возможностью фильтрации и сортировки.
+        /// </summary>
+        /// <param name="querySearch"></param>
+        /// <param name="orderByValue"></param>
         public static void GetVolonteersList(string querySearch, string orderByValue)
         {
             try
@@ -104,6 +128,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных волонтёра по его ID для отображения в форме редактирования или просмотра.
+        /// </summary>
+        /// <param name="idVolonteer"></param>
         public static void GetVolonteerData(string idVolonteer)
         {
             try
@@ -121,6 +149,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение общего количества волонтёров в базе данных.
+        /// </summary>
+        /// <returns></returns>
         public static string GetCountAllVolonteers()
         {
             try
@@ -139,6 +171,16 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление нового волонтёра в базу данных с указанием его данных и региона.
+        /// </summary>
+        /// <param name="surname"></param>
+        /// <param name="name"></param>
+        /// <param name="middleName"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="email"></param>
+        /// <param name="idRegion"></param>
+        /// <returns></returns>
         public static bool AddVolonteer(string surname, string name, string middleName, string phoneNumber, string email, string idRegion)
         {
             try
@@ -163,6 +205,17 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление данных волонтёра в базе данных по его ID с указанием новых данных и региона.
+        /// </summary>
+        /// <param name="idVolonteer"></param>
+        /// <param name="surname"></param>
+        /// <param name="name"></param>
+        /// <param name="middleName"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="email"></param>
+        /// <param name="idRegion"></param>
+        /// <returns></returns>
         public static bool UpdateVolonteer(string idVolonteer, string surname, string name, string middleName, string phoneNumber, string email, string idRegion)
         {
             try
@@ -188,6 +241,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление волонтёра из базы данных
+        /// </summary>
+        /// <param name="idVolonteer"></param>
+        /// <returns></returns>
         public static bool DeleteVolonteer(string idVolonteer)
         {
             try
@@ -197,6 +255,19 @@ namespace TyEmuNuzhen.MyClasses
                     return true;
                 else
                     return false;
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1451)
+                {
+                    MessageBox.Show($"Запись не может быть удалена, так как она используется в других таблицах.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при удалении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             catch (Exception ex)
             {

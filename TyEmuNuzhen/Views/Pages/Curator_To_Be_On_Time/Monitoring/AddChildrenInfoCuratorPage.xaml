@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TyEmuNuzhen.Views.Pages.Curator.ChildrensWork"
       mc:Ignorable="d" 
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:system="clr-namespace:System;assembly=mscorlib"
       Title="AddChildrenInfoCuratorPage" Loaded="Page_Loaded">
     <Page.Resources>
         <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
@@ -68,17 +68,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Заголовок -->
         <StackPanel Orientation="Horizontal" Margin="20,20,0,20">
             <Image Source="/Images/Controls/back.png" Height="35" VerticalAlignment="Center" Cursor="Hand" MouseDown="Image_MouseDown"/>
             <TextBlock Grid.Row="0" Margin="10,0,0,2" VerticalAlignment="Center" Text="Добавление информации о ребёнке" 
                FontSize="24"/>
         </StackPanel>
 
-        <!-- Основная форма -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="20,0,20,0">
-                <!-- Личные данные -->
                 <GroupBox Header="Личные данные" Margin="0,0,0,15" 
                       BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14">
                     <Grid Margin="0,10,0,10">
@@ -93,31 +90,30 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <!-- Фамилия -->
                         <TextBox x:Name="surnameTextBox" Grid.Row="0" Grid.Column="0" 
                          Margin="5,5,10,10" 
-                         materialDesign:HintAssist.Hint="Фамилия" TextChanged="surnameTextBox_TextChanged"/>
+                         materialDesign:HintAssist.Hint="Фамилия" TextChanged="surnameTextBox_TextChanged"
+                         PreviewTextInput="tbSurname_PreviewTextInput" PreviewKeyDown="tbSurname_PreviewKeyDown"/>
 
-                        <!-- Имя -->
                         <TextBox x:Name="nameTextBox" Grid.Row="0" Grid.Column="1" 
                              Margin="10,5,5,10" 
-                             materialDesign:HintAssist.Hint="Имя" TextChanged="surnameTextBox_TextChanged"/>
-                        <!-- Номер анкеты -->
+                             materialDesign:HintAssist.Hint="Имя" TextChanged="surnameTextBox_TextChanged"
+                             PreviewTextInput="tbSurname_PreviewTextInput" PreviewKeyDown="tbSurname_PreviewKeyDown"/>
+
                         <TextBox x:Name="numOfQuestionnaireTextBox" Grid.Row="1" Grid.Column="0" 
                          Margin="5,5,10,10" 
-                         materialDesign:HintAssist.Hint="Номер анкеты" TextChanged="surnameTextBox_TextChanged"/>
+                         materialDesign:HintAssist.Hint="Номер анкеты" TextChanged="surnameTextBox_TextChanged"
+                         MaxLength="12"/>
 
-                        <!-- URL анкеты -->
                         <TextBox x:Name="urlOfQuestionnaireTextBox" Grid.Row="1" Grid.Column="1" 
                          Margin="10,5,5,10" 
                          materialDesign:HintAssist.Hint="URL анкеты" TextChanged="surnameTextBox_TextChanged"/>
 
-                        <!-- Дата рождения -->
                         <DatePicker x:Name="birthdayDatePicker" Grid.Row="2"
                                 Margin="5,5,10,10" 
-                                materialDesign:HintAssist.Hint="Дата рождения"/>
+                                materialDesign:HintAssist.Hint="Дата рождения"
+                                DisplayDateEnd="{x:Static system:DateTime.Today}"/>
 
-                        <!-- Требуется внимание -->
                         <StackPanel Grid.Row="2" Grid.Column="1" Margin="5,10,5,5" Orientation="Horizontal">
                             <ToggleButton x:Name="isAlertToggleButton"
                             VerticalAlignment="Center" Cursor="Hand">
@@ -135,7 +131,6 @@
                             <TextBlock VerticalAlignment="Center" Margin="8,0,0,0">! Тревога</TextBlock>
                         </StackPanel>
 
-                        <!-- Регион -->
                         <ComboBox x:Name="regionsCmbBox"
                              Grid.Row="3" Grid.Column="0"
                              Margin="5,5,10,10"
@@ -155,15 +150,14 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <!-- Примечания -->
-                    <GroupBox Header="Примечания" Margin="0,0,0,15" 
+
+                    <GroupBox Header="Примечание" Margin="0,0,0,15" 
                     BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14" Grid.Row="0" Grid.Column="0">
                         <TextBox x:Name="descriptionTextBox" TextWrapping="Wrap" 
                          Margin="5" AcceptsReturn="True" 
-                         materialDesign:HintAssist.Hint="Введите примечания" TextChanged="surnameTextBox_TextChanged"/>
+                         materialDesign:HintAssist.Hint="Введите примечание" TextChanged="surnameTextBox_TextChanged"/>
                     </GroupBox>
 
-                    <!-- Фотография -->
                     <GroupBox Header="Фотография" Margin="15,0,0,15" 
                     BorderBrush="#FFCF5FD3" BorderThickness="1" FontSize="14" Grid.Row="0" Grid.Column="1">
                         <Grid>
@@ -197,7 +191,6 @@
             </StackPanel>
         </ScrollViewer>
 
-        <!-- Кнопки действий -->
         <Grid Grid.Row="2" Margin="20,10,20,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

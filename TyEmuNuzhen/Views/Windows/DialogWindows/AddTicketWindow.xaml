@@ -60,7 +60,7 @@
                 <TextBox x:Name="tbCost"
                     Margin="10,0,10,0"
                     Grid.Column="1"
-                    materialDesign:HintAssist.Hint="Стоимость" PreviewTextInput="tbCost_PreviewTextInput"/>
+                    materialDesign:HintAssist.Hint="Стоимость" PreviewTextInput="tbCost_PreviewTextInput" PreviewKeyDown="tbCost_PreviewKeyDown"/>
             </Grid>
         </StackPanel>
 

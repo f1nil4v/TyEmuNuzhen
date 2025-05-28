@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -8,10 +9,17 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с актуальными диагнозами детей
+    /// </summary>
     internal class ActualDiagnosesClass
     {
         public static DataTable dtActualChildrenDiagnoses;
 
+        /// <summary>
+        /// Получение списка актуальных диагнозов ребенка из таблицы actual_children_diagnosis
+        /// </summary>
+        /// <param name="idChild"></param>
         public static void GetChildrenAcutualDiagnoses(string idChild)
         {
             try
@@ -30,6 +38,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление актуальных диагнозов в таблицу actual_children_diagnosis для конкретного ребенка
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <returns></returns>
         public static bool AddChildrenDiagnosis(string idChild)
         {
             try
@@ -50,6 +63,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление актуальных диагнозов из таблицы actual_children_diagnosis для конкретного ребенка
+        /// </summary>
+        /// <param name="selectedDiagnosisIds"></param>
+        /// <returns></returns>
         public static bool DeleteChildrenDiagnosis(List<string> selectedDiagnosisIds)
         {
             try
@@ -62,6 +80,19 @@ namespace TyEmuNuzhen.MyClasses
                         return false;
                 }
                 return true;
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1451)
+                {
+                    MessageBox.Show($"Запись не может быть удалена, так как она используется в других таблицах.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при удалении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             catch (Exception ex)
             {

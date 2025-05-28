@@ -9,11 +9,17 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с должностями врачей
+    /// </summary>
     internal class DoctorPostsClass
     {
         public static DataTable dtDoctorPostsList;
         public static DataTable dtDoctorPostsSList;
 
+        /// <summary>
+        /// Получение списка должностей врачей
+        /// </summary>
         public static void GetDoctorPostsList()
         {
             try
@@ -28,6 +34,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка должностей врачей с возможностью поиска по имени должности
+        /// </summary>
+        /// <param name="querySearch"></param>
         public static void GetDoctorPostsList(string querySearch)
         {
             try
@@ -49,6 +59,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение имени должности врача по ID
+        /// </summary>
+        /// <param name="idPost"></param>
+        /// <returns></returns>
         public static string GetDoctorPostName(string idPost)
         {
             try
@@ -67,6 +82,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества всех должностей врачей
+        /// </summary>
+        /// <returns></returns>
         public static string GetCountAllDoctorPosts()
         {
             try
@@ -85,6 +104,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление новой должности врача
+        /// </summary>
+        /// <param name="postName"></param>
+        /// <returns></returns>
         public static bool AddDoctorPost(string postName)
         {
             try
@@ -117,6 +141,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление должности врача
+        /// </summary>
+        /// <param name="idPost"></param>
+        /// <param name="postName"></param>
+        /// <returns></returns>
         public static bool UpdateDoctorPost(string idPost, string postName)
         {
             try
@@ -149,6 +179,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление должности врача
+        /// </summary>
+        /// <param name="idPost"></param>
+        /// <returns></returns>
         public static bool DeleteDoctorPost(string idPost)
         {
             try

@@ -8,6 +8,9 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для управления подключением к базе данных MySQL
+    /// </summary>
     internal class DBConnection
     {
         public static MySqlDataAdapter myDataAdapter;
@@ -21,11 +24,19 @@ namespace TyEmuNuzhen.MyClasses
             LoadSettings();
         }
 
+        /// <summary>
+        /// Загрузка настроек подключения к базе данных из файла
+        /// </summary>
         public static void LoadSettings()
         {
             Settings = DatabaseSettings.LoadSettings();
         }
 
+        /// <summary>
+        /// Сохранение настроек подключения к базе данных в файл
+        /// </summary>
+        /// <param name="newSettings"></param>
+        /// <returns></returns>
         public static bool SaveSettings(DatabaseSettings newSettings)
         {
             if (DatabaseSettings.SaveSettings(newSettings))
@@ -36,6 +47,10 @@ namespace TyEmuNuzhen.MyClasses
             return false;
         }
 
+        /// <summary>
+        /// Попытка подключения к базе данных MySQL
+        /// </summary>
+        /// <returns></returns>
         public static bool Connect_DB()
         {
             try
@@ -60,6 +75,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Проверка подключения к базе данных с использованием заданных настроек
+        /// </summary>
+        /// <param name="testSettings"></param>
+        /// <returns></returns>
         public static bool TestConnection(DatabaseSettings testSettings)
         {
             MySqlConnection testConnection = null;
@@ -89,6 +109,9 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Закрытие подключения к базе данных MySQL
+        /// </summary>
         public static void Disconnect_DB()
         {
             if (myConnection != null && myConnection.State == System.Data.ConnectionState.Open)
@@ -97,6 +120,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Преобразование ошибки MySQL в понятное сообщение для пользователя
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <returns></returns>
         private static string GetUserFriendlyError(MySqlException ex)
         {
             switch (ex.Number)

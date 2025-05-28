@@ -4,10 +4,16 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с ролями пользователей в системе
+    /// </summary>
     internal class RolesClass
     {
         public static DataTable dtCuratoRoles;
 
+        /// <summary>
+        /// Метод для получения ролей кураторов из базы данных
+        /// </summary>
         public static void GetCuratorRoles()
         {
             try
@@ -22,6 +28,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Метод для получения названия роли
+        /// </summary>
+        /// <returns></returns>
         public static string GetRole()
         {
             try

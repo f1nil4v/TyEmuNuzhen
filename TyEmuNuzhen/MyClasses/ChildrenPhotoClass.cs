@@ -8,10 +8,17 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с фотографиями детей
+    /// </summary>
     internal class ChildrenPhotoClass
     {
         public static DataTable dtMonitoringPhoto;
 
+        /// <summary>
+        /// Получение фотографий детей по ID ребенка
+        /// </summary>
+        /// <param name="idChild"></param>
         public static void GetMonitoringPhotoChildren(string idChild)
         {
             try
@@ -28,6 +35,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление фотографии ребенка в базу данных
+        /// </summary>
+        /// <param name="idChild"></param>
+        /// <param name="urlPhoto"></param>
+        /// <returns></returns>
         public static bool AddMonitoringPhotoChildren(string idChild, string urlPhoto)
         {
             try

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -61,6 +62,15 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows.ReferenceBooks
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
+        }
+
+        private void tbValue_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"[^а-яА-ЯёЁ]");
+            if (regex.IsMatch(e.Text))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

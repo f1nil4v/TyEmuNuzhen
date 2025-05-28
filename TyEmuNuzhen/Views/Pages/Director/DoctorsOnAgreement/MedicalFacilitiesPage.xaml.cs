@@ -50,6 +50,8 @@ namespace TyEmuNuzhen.Views.Pages.Director.DoctorsOnAgreement
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (MessageBox.Show("Вы уверены, что хотите удалить запись?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+                return;
             var btn = (Button)sender;
             if (MedicalFacilityClass.DeleteMedicalFacility(btn.Tag.ToString()))
                 LoadMedicalFacilities();

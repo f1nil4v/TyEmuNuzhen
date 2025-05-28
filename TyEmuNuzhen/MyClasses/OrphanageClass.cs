@@ -1,9 +1,13 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с данными детских домов
+    /// </summary>
     internal class OrphanageClass
     {
         public static DataTable dtOrphanagesForComboBoxList;
@@ -11,6 +15,10 @@ namespace TyEmuNuzhen.MyClasses
         public static DataTable dtOrphanagesList;
         public static DataTable dtOrphanageDataList;
 
+        /// <summary>
+        /// Получение списка детских домов для выпадающего списка
+        /// </summary>
+        /// <param name="idRegion"></param>
         public static void GetOrphanagesForComboBoxList(string idRegion)
         {
             try
@@ -28,6 +36,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных детского дома для печати
+        /// </summary>
+        /// <param name="idOrphanage"></param>
         public static void GetOrphanageDataForPrintDocuments(string idOrphanage)
         {
             try
@@ -43,6 +55,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка детских домов с возможностью поиска и сортировки
+        /// </summary>
+        /// <param name="querySearch"></param>
+        /// <param name="orderByValue"></param>
         public static void GetOrphanagesList(string querySearch, string orderByValue)
         {
             try
@@ -72,6 +89,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных детского дома по его ID
+        /// </summary>
+        /// <param name="idOrphanage"></param>
         public static void GetOrphanageData(string idOrphanage)
         {
             try
@@ -88,6 +109,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества всех детских домов
+        /// </summary>
+        /// <returns></returns>
         public static string GetCountAllOrphanages()
         {
             try
@@ -105,7 +130,11 @@ namespace TyEmuNuzhen.MyClasses
                 return null;
             }
         }
-        
+
+        /// <summary>
+        /// Получение максимального ID детского дома
+        /// </summary>
+        /// <returns></returns>
         public static string GetMaxIdOrphanage()
         {
             try
@@ -124,6 +153,17 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление нового детского дома
+        /// </summary>
+        /// <param name="nameOrphanage"></param>
+        /// <param name="directorSurname"></param>
+        /// <param name="directorName"></param>
+        /// <param name="directorMiddleName"></param>
+        /// <param name="idRegion"></param>
+        /// <param name="address"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public static bool AddOrphanage(string nameOrphanage, string directorSurname, string directorName, string directorMiddleName, string idRegion, string address, string email)
         {
             try
@@ -148,6 +188,18 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление данных детского дома
+        /// </summary>
+        /// <param name="idOrphanage"></param>
+        /// <param name="nameOrphanage"></param>
+        /// <param name="directorSurname"></param>
+        /// <param name="directorName"></param>
+        /// <param name="directorMiddleName"></param>
+        /// <param name="idRegion"></param>
+        /// <param name="address"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public static bool UpdateOrphanage(string idOrphanage, string nameOrphanage, string directorSurname, string directorName, string directorMiddleName, string idRegion, string address, string email)
         {
             try
@@ -174,6 +226,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление детского дома
+        /// </summary>
+        /// <param name="idOrphanage"></param>
+        /// <returns></returns>
         public static bool DeleteOrphanage(string idOrphanage)
         {
             try
@@ -183,6 +240,19 @@ namespace TyEmuNuzhen.MyClasses
                     return true;
                 else
                     return false;
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1451)
+                {
+                    MessageBox.Show($"Запись не может быть удалена, так как она используется в других таблицах.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при удалении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             catch (Exception ex)
             {

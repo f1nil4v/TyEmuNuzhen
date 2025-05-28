@@ -4,10 +4,17 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с консультациями
+    /// </summary>
     internal class ConsultationClass
     {
         public static DataTable dtConsultationsChildList;
 
+        /// <summary>
+        /// Получение списка консультаций по ID ребенка
+        /// </summary>
+        /// <param name="idChild"></param>
         public static void GetConsultationsChildList(string idChild)
         {
             try
@@ -26,6 +33,14 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление новой консультации для ребенка
+        /// </summary>
+        /// <param name="idDoctor"></param>
+        /// <param name="idChild"></param>
+        /// <param name="filePath"></param>
+        /// <param name="dateConsiltastion"></param>
+        /// <returns></returns>
         public static bool AddChildrenConsultation(string idDoctor, string idChild, string filePath, string dateConsiltastion)
         {
             try
@@ -44,6 +59,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение последнего ID консультации в базе данных
+        /// </summary>
+        /// <returns></returns>
         public static string GetLastIdConsultation()
         {
             try

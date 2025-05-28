@@ -9,10 +9,17 @@ using TyEmuNuzhen.Views.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с договорами нянь по программе
+    /// </summary>
     internal class AgreementNannyOnProgramClass
     {
         public static DataTable dtAgreementNannyData;
 
+        /// <summary>
+        /// Получение данных договора няни по программе для печати
+        /// </summary>
+        /// <param name="idNannyOnProgram"></param>
         public static void GetAgreementNannyDataForPrint(string idNannyOnProgram)
         {
             try
@@ -28,6 +35,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение максимального номера договора няни по программе
+        /// </summary>
+        /// <returns></returns>
         public static string GetMaxNumAgreementNanny()
         {
             try
@@ -46,6 +57,14 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление договора няни по программе в базу данных
+        /// </summary>
+        /// <param name="numAgreement"></param>
+        /// <param name="idNannyOnProgram"></param>
+        /// <param name="costPerDay"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static bool AddAgreement(string numAgreement, string idNannyOnProgram, string costPerDay, string filePath)
         {
             try

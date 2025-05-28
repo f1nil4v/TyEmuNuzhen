@@ -8,10 +8,16 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с договорамми врачей
+    /// </summary>
     internal class AgreementDoctorsClass
     {
         public static DataTable dtAgreementDoctorData;
-
+        /// <summary>
+        /// Получение списка договоров врачей по ID врача
+        /// </summary>
+        /// <param name="idDoctor"></param>
         public static void GetAgreementDoctorData(string idDoctor)
         {
             try
@@ -27,6 +33,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение максимального номера договора врача
+        /// </summary>
+        /// <returns></returns>
         public static string GetMaxNumAgreementDoctor()
         {
             try
@@ -45,6 +55,13 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление нового договора врача в БД
+        /// </summary>
+        /// <param name="numAgreement"></param>
+        /// <param name="idDoctor"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static bool AddAgreementDoctor(string numAgreement, string idDoctor, string filePath)
         {
             try

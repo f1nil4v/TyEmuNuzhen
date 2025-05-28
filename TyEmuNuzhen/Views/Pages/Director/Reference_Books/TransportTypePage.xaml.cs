@@ -46,6 +46,8 @@ namespace TyEmuNuzhen.Views.Pages.Director.Reference_Books
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (MessageBox.Show("Вы уверены, что хотите удалить запись?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+                return;
             string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
             var deleteBtn = sender as Button;
             if (!TransportTypesClass.DeleteTranposrtType(deleteBtn.Tag.ToString()))

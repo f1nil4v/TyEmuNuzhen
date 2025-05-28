@@ -9,10 +9,17 @@ using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с типами медицинской помощи
+    /// </summary>
     internal class MedicalHelpTypeClass
     {
         public static DataTable dtMedicalHelpTypeS;
 
+        /// <summary>
+        /// Получение списка типов медицинской помощи
+        /// </summary>
+        /// <param name="querySearch"></param>
         public static void GetMedicalHelpTypesList(string querySearch)
         {
             try
@@ -34,6 +41,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение названия типа медицинской помощи по его ID
+        /// </summary>
+        /// <param name="idMedicalHelpType"></param>
+        /// <returns></returns>
         public static string GetMedicalHelpTypeName(string idMedicalHelpType)
         {
             try
@@ -54,6 +66,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества всех типов медицинской помощи
+        /// </summary>
+        /// <returns></returns>
         public static string GetCountAllMedicalHelpTypes()
         {
             try
@@ -72,6 +88,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление нового типа медицинской помощи
+        /// </summary>
+        /// <param name="medicalHelpType"></param>
+        /// <returns></returns>
         public static bool AddMedicalHelpType(string medicalHelpType)
         {
             try
@@ -104,6 +125,12 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление типа медицинской помощи
+        /// </summary>
+        /// <param name="idMedicalHelpType"></param>
+        /// <param name="medicalHelpType"></param>
+        /// <returns></returns>
         public static bool UpdateMedicalHelpType(string idMedicalHelpType, string medicalHelpType)
         {
             try
@@ -136,6 +163,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление типа медицинской помощи
+        /// </summary>
+        /// <param name="idMedicalHelpType"></param>
+        /// <returns></returns>
         public static bool DeleteMedicalHelpType(string idMedicalHelpType)
         {
             try

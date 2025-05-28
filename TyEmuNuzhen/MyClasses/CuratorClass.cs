@@ -1,9 +1,13 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Windows;
 
 namespace TyEmuNuzhen.MyClasses
 {
+    /// <summary>
+    /// Класс для работы с кураторами
+    /// </summary>
     internal class CuratorClass
     {
         public static string fullNameCurator;
@@ -12,6 +16,11 @@ namespace TyEmuNuzhen.MyClasses
         public static DataTable dtCuratorDataList;
         public static string idCurator;
 
+        /// <summary>
+        /// Получение ID куратора по ID пользователя
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <returns></returns>
         public static string GetCuratorID(string idUser)
         {
             try
@@ -34,6 +43,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение полного имени куратора по его ID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         public static string GetCuratorFullName(string ID)
         {
             try
@@ -59,6 +73,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение списка куратора по заданным параметрам поиска и сортировки
+        /// </summary>
+        /// <param name="querySearch"></param>
+        /// <param name="orderByValue"></param>
         public static void GetCuratorsList(string querySearch, string orderByValue)
         {
             try
@@ -88,6 +107,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение данных куратора по его ID
+        /// </summary>
+        /// <param name="idCurator"></param>
         public static void GetCuratorData(string idCurator)
         {
             try
@@ -105,6 +128,10 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Получение количества всех кураторов
+        /// </summary>
+        /// <returns></returns>
         public static string GetCountAllCurators()
         {
             try
@@ -123,6 +150,15 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Добавление нового куратора
+        /// </summary>
+        /// <param name="surname"></param>
+        /// <param name="name"></param>
+        /// <param name="middleName"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public static bool AddCurator(string surname, string name, string middleName, string phoneNumber, string email)
         {
             try
@@ -147,6 +183,16 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Обновление данных куратора
+        /// </summary>
+        /// <param name="idCurator"></param>
+        /// <param name="surname"></param>
+        /// <param name="name"></param>
+        /// <param name="middleName"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public static bool UpdateCurator(string idCurator, string surname, string name, string middleName, string phoneNumber, string email)
         {
             try
@@ -172,6 +218,11 @@ namespace TyEmuNuzhen.MyClasses
             }
         }
 
+        /// <summary>
+        /// Удаление куратора
+        /// </summary>
+        /// <param name="idCurator"></param>
+        /// <returns></returns>
         public static bool DeleteCurator(string idCurator)
         {
             try
@@ -181,6 +232,19 @@ namespace TyEmuNuzhen.MyClasses
                     return true;
                 else
                     return false;
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1451)
+                {
+                    MessageBox.Show($"Запись не может быть удалена, так как она используется в других таблицах.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Произошла ошибка при удалении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             catch (Exception ex)
             {
