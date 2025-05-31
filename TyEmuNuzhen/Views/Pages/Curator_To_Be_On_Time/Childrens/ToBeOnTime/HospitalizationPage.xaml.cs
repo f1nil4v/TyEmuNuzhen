@@ -37,7 +37,15 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
         private string _filePathMedicalDirection;
         private string _idTransferToMedical;
         private string _idTransferFromMedical;
-        private DateTime dateArrivalAtDDI;
+
+        private DateTime _dateDHospitalization;
+        private DateTime? _dateDDischarge;
+
+        private DateTime? _dateDepartureAtHospital;
+        private DateTime? _dateArrivalAtHospital;
+
+        private DateTime? _dateDepartureAtDDI;
+        private DateTime? _dateArrivalAtDDI;
 
         private bool _haveTicketsToMedical = false;
         private bool _haveTicketsFromMedical = false;
@@ -70,7 +78,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
 
         private void btnAddHospitalization_Click(object sender, RoutedEventArgs e)
         {
-            AddHospitalizationWindow addHospitalizationWindow = new AddHospitalizationWindow(_idActualProgram);
+            AddHospitalizationWindow addHospitalizationWindow = new AddHospitalizationWindow(_idActualProgram, _dateDDischarge, _dateArrivalAtHospital, _dateDepartureAtDDI);
             if (addHospitalizationWindow.ShowDialog() == true)
             {
                 LoadHospitalization();
@@ -88,14 +96,15 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
 
         private void btnEditHospitalization_Click(object sender, RoutedEventArgs e)
         {
-            AddHospitalizationWindow addHospitalizationWindow = new AddHospitalizationWindow(_idHospitalization, _dateHospitalization, _dateDischarge, _idMedicalFacility, _filePathMedicalDirection);
+            AddHospitalizationWindow addHospitalizationWindow = new AddHospitalizationWindow(_idActualProgram, _idHospitalization, _dateHospitalization, _dateDischarge, _idMedicalFacility, _filePathMedicalDirection,
+                _dateDDischarge, _dateArrivalAtHospital, _dateDepartureAtDDI);
             if (addHospitalizationWindow.ShowDialog() == true)
                 LoadHospitalization();
         }
 
         private void btnAddDetailHospitalization_Click(object sender, RoutedEventArgs e)
         {
-            AddHospitalizationDetailWindow addHospitalizationDetail = new AddHospitalizationDetailWindow(_idHospitalization);
+            AddHospitalizationDetailWindow addHospitalizationDetail = new AddHospitalizationDetailWindow(_idHospitalization, _dateDHospitalization, _dateDDischarge);
             if (addHospitalizationDetail.ShowDialog() == true)
                 LoadHospitalization();
         }
@@ -104,7 +113,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
         {
             var changeBtn = (Button)sender;
             string id = changeBtn.Tag.ToString();
-            AddHospitalizationDetailWindow addHospitalizationDetail = new AddHospitalizationDetailWindow(id, _idHospitalization);
+            AddHospitalizationDetailWindow addHospitalizationDetail = new AddHospitalizationDetailWindow(id, _idHospitalization, _dateDHospitalization, _dateDDischarge);
             if (addHospitalizationDetail.ShowDialog() == true)
                 LoadHospitalization();
         }
@@ -146,9 +155,11 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
         {
             AddTransferWindow addTransferWindow = null;
             if (btnAddTransferToMedical.Tag == null)
-                addTransferWindow = new AddTransferWindow(_idHospitalization, true);
+                addTransferWindow = new AddTransferWindow(_idActualProgram, _idHospitalization, true, _dateDHospitalization, _dateDDischarge,
+                    _dateDepartureAtHospital, _dateArrivalAtHospital, _dateDepartureAtDDI, _dateArrivalAtDDI);
             else
-                addTransferWindow = new AddTransferWindow(btnAddTransferToMedical.Tag.ToString());
+                addTransferWindow = new AddTransferWindow(_idActualProgram, btnAddTransferToMedical.Tag.ToString(), true, _dateDHospitalization, _dateDDischarge,
+                    _dateDepartureAtHospital, _dateArrivalAtHospital, _dateDepartureAtDDI, _dateArrivalAtDDI, 'c');
             if (addTransferWindow.ShowDialog() == true)
                 LoadTransferToMedical();
         }
@@ -184,9 +195,11 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
         {
             AddTransferWindow addTransferWindow = null;
             if (btnAddTransferFromMedical.Tag == null)
-                addTransferWindow = new AddTransferWindow(_idHospitalization, false);
+                addTransferWindow = new AddTransferWindow(_idActualProgram, _idHospitalization, false, _dateDHospitalization, _dateDDischarge,
+                    _dateDepartureAtHospital, _dateArrivalAtHospital, _dateDepartureAtDDI, _dateArrivalAtDDI);
             else
-                addTransferWindow = new AddTransferWindow(btnAddTransferFromMedical.Tag.ToString());
+                addTransferWindow = new AddTransferWindow(_idActualProgram, btnAddTransferFromMedical.Tag.ToString(), false, _dateDHospitalization, _dateDDischarge,
+                    _dateDepartureAtHospital, _dateArrivalAtHospital, _dateDepartureAtDDI, _dateArrivalAtDDI, 'c');
             if (addTransferWindow.ShowDialog() == true)
                 LoadTransferFromMedical();
         }
@@ -242,7 +255,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             LoadTransferFromMedical();
             if (_haveTicketsFromMedical == false || _haveTicketsToMedical == false || HospitalizationClass.dtHospitalizationData.Rows.Count == 0)
                 return;
-            if (DateTime.Now < dateArrivalAtDDI)
+            if (DateTime.Now < _dateArrivalAtDDI)
                 return;
             ChildrensClass.GetChildrenListByID(_idChild);
             string idStatusProgram = ChildrensClass.dtChildrensDetailedList.Rows[0]["idStatusProgram"].ToString();
@@ -283,8 +296,10 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             if (_idHospitalization == "")
                 _idHospitalization = HospitalizationClass.dtHospitalizationData.Rows[0]["ID"].ToString();
             medicalFacilityTxt.Text = "Медицинское учреждение: " + HospitalizationClass.dtHospitalizationData.Rows[0]["medicalFacility"].ToString();
-            dateHospitalizationTxt.Text = "Дата госпитализации: " + Convert.ToDateTime(HospitalizationClass.dtHospitalizationData.Rows[0]["dateHospitalization"]).ToString("dd.MM.yyyy");
-            string dateDischarge = HospitalizationClass.dtHospitalizationData.Rows[0]["dateDischarge"] == DBNull.Value ? "Неопределено" : Convert.ToDateTime(HospitalizationClass.dtHospitalizationData.Rows[0]["dateDischarge"]).ToString("dd.MM.yyyy");
+            _dateDHospitalization = Convert.ToDateTime(HospitalizationClass.dtHospitalizationData.Rows[0]["dateHospitalization"]);
+            dateHospitalizationTxt.Text = "Дата госпитализации: " + _dateDHospitalization.ToString("dd.MM.yyyy");
+            _dateDDischarge = HospitalizationClass.dtHospitalizationData.Rows[0]["dateDischarge"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(HospitalizationClass.dtHospitalizationData.Rows[0]["dateDischarge"]);
+            string dateDischarge = _dateDDischarge == null ? "Неопределено" : _dateDDischarge.Value.ToString("dd.MM.yyyy");
             dateDischargeTxt.Text = "Дата выписки: " + dateDischarge;
             totalCostTxt.Text = "Стоимость: " + HospitalizationClass.dtHospitalizationData.Rows[0]["totalCost"].ToString() + " ₽";
             string filePathMedicalDirection = HospitalizationClass.dtHospitalizationData.Rows[0]["filePath"].ToString();
@@ -316,8 +331,10 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             btnAddTransferToMedical.Content = "Редиктировать трансфер";
             btnAddTransferToMedical.Tag = TransferClass.dtTransferOnHozpitalizationSide1Data.Rows[0]["ID"].ToString();
             _idTransferToMedical = TransferClass.dtTransferOnHozpitalizationSide1Data.Rows[0]["ID"].ToString();
-            dateDepartureSide1.Text = "Дата и время отправления: " + Convert.ToDateTime(TransferClass.dtTransferOnHozpitalizationSide1Data.Rows[0]["dateDeparture"]).ToString("dd.MM.yyyy HH:mm");
-            dateArrivalSide1.Text = "Дата и время прибытия: " + Convert.ToDateTime(TransferClass.dtTransferOnHozpitalizationSide1Data.Rows[0]["dateArrival"]).ToString("dd.MM.yyyy HH:mm");
+            _dateDepartureAtHospital = Convert.ToDateTime(TransferClass.dtTransferOnHozpitalizationSide1Data.Rows[0]["dateDeparture"]);
+            _dateArrivalAtHospital = Convert.ToDateTime(TransferClass.dtTransferOnHozpitalizationSide1Data.Rows[0]["dateArrival"]);
+            dateDepartureSide1.Text = "Дата и время отправления: " + _dateDepartureAtHospital.Value.ToString("dd.MM.yyyy HH:mm");
+            dateArrivalSide1.Text = "Дата и время прибытия: " + _dateArrivalAtHospital.Value.ToString("dd.MM.yyyy HH:mm");
             ToMedicalFacilityTotalCost.Text = TransferClass.dtTransferOnHozpitalizationSide1Data.Rows[0]["totalCost"].ToString().Replace(",00", "") + " ₽";
             LoadTranserToMedicalDetails();
         }
@@ -342,10 +359,11 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             btnAddTransferFromMedical.Content = "Редиктировать трансфер";
             btnAddTransferFromMedical.Tag = TransferClass.dtTransferOnHozpitalizationSide0Data.Rows[0]["ID"].ToString();
             _idTransferFromMedical = TransferClass.dtTransferOnHozpitalizationSide0Data.Rows[0]["ID"].ToString();
-            dateDepartureSide0.Text = "Дата и время отправления: " + Convert.ToDateTime(TransferClass.dtTransferOnHozpitalizationSide0Data.Rows[0]["dateDeparture"]).ToString("dd.MM.yyyy HH:mm");
-            dateArrivalSide0.Text = "Дата и время прибытия: " + Convert.ToDateTime(TransferClass.dtTransferOnHozpitalizationSide0Data.Rows[0]["dateArrival"]).ToString("dd.MM.yyyy HH:mm");
+            _dateDepartureAtDDI = Convert.ToDateTime(TransferClass.dtTransferOnHozpitalizationSide0Data.Rows[0]["dateDeparture"]);
+            _dateArrivalAtDDI = Convert.ToDateTime(TransferClass.dtTransferOnHozpitalizationSide0Data.Rows[0]["dateArrival"]);
+            dateDepartureSide0.Text = "Дата и время отправления: " + _dateDepartureAtDDI.Value.ToString("dd.MM.yyyy HH:mm");
+            dateArrivalSide0.Text = "Дата и время прибытия: " + _dateArrivalAtDDI.Value.ToString("dd.MM.yyyy HH:mm");
             FromMedicalFacilityTotalCost.Text = TransferClass.dtTransferOnHozpitalizationSide0Data.Rows[0]["totalCost"].ToString().Replace(",00", "") + " ₽";
-            dateArrivalAtDDI = Convert.ToDateTime(TransferClass.dtTransferOnHozpitalizationSide0Data.Rows[0]["dateArrival"]);
             LoadTranserFromMedicalDetails();
         }
 

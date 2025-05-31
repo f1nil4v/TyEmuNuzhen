@@ -44,8 +44,9 @@ namespace TyEmuNuzhen.MyClasses
         /// Получение списка врачей
         /// </summary>
         /// <param name="querySearch"></param>
+        /// <param name="idPost"></param>
         /// <param name="orderByValue"></param>
-        public static void GetDoctorsList(string querySearch, string orderByValue)
+        public static void GetDoctorsList(string querySearch, string idPost, string orderByValue)
         {
             try
             {
@@ -58,7 +59,8 @@ namespace TyEmuNuzhen.MyClasses
                 DBConnection.myCommand.CommandText = $@"SELECT doctors_on_agreement.ID, doctors_on_agreement.surname, doctors_on_agreement.name, IFNULL(doctors_on_agreement.middleName, '-') as 'middleName',
                                             doctors_on_agreement.phoneNumber, doctors_on_agreement.email, doctor_posts.postName, medical_facility.medicalFacilityName 
                                         FROM doctors_on_agreement, medical_facility, doctor_posts
-                                        WHERE medical_facility.ID = doctors_on_agreement.idMedicalFacility AND doctor_posts.ID = doctors_on_agreement.idPost {whereClause}
+                                        WHERE medical_facility.ID = doctors_on_agreement.idMedicalFacility AND doctor_posts.ID = doctors_on_agreement.idPost 
+                                        AND doctors_on_agreement.idPost = '{idPost}' {whereClause}
                                         {orderBy}";
                 if (whereClause != null)
                 {

@@ -29,6 +29,11 @@ namespace TyEmuNuzhen.Views.Pages.Director.Employees
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            RegionsClass.GetRegionsList();
+            regionsCmbBox.ItemsSource = RegionsClass.dtRegions?.DefaultView;
+            regionsCmbBox.DisplayMemberPath = "regionName";
+            regionsCmbBox.SelectedValuePath = "ID";
+            regionsCmbBox.SelectedIndex = 0;
             LoadVolonteers("");
             CountRecords();
         }
@@ -91,9 +96,17 @@ namespace TyEmuNuzhen.Views.Pages.Director.Employees
             CountRecords();
         }
 
+        private void regionsCmbBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
+            LoadVolonteers(querySearch);
+            CountRecords();
+        }
+
         private void LoadVolonteers(string querySearch)
         {
-            VolonteerClass.GetVolonteersList(querySearch, SortValue());
+            string idRegion = regionsCmbBox.SelectedValue == null ? null : regionsCmbBox.SelectedValue.ToString();
+            VolonteerClass.GetVolonteersList(querySearch, idRegion, SortValue());
             volonteersGrid.ItemsSource = VolonteerClass.dtVolonteersList.DefaultView;
         }
 

@@ -57,11 +57,11 @@
                 <DatePicker x:Name="dpDateHospitalization"
                    Grid.Column="0"
                    Margin="0,0,10,0"
-                   materialDesign:HintAssist.Hint="Дата госпитализации"/>
+                   materialDesign:HintAssist.Hint="Дата госпитализации" SelectedDateChanged="dpDateHospitalization_SelectedDateChanged"/>
                 <DatePicker x:Name="dpDateDischarge"
                    Grid.Column="1"
                    Margin="10,0,0,0"
-                   materialDesign:HintAssist.Hint="Дата выписки (*необязательно)"/>
+                   materialDesign:HintAssist.Hint="Дата выписки" SelectedDateChanged="dpDateDischarge_SelectedDateChanged"/>
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="1" Margin="0,20,0,0">

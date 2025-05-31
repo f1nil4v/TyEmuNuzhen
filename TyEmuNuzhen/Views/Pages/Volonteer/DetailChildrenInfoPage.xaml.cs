@@ -36,6 +36,8 @@ namespace TyEmuNuzhen.Views.Pages.Volonteer
             InitializeComponent();
             LoadChildData(id);
             _id = id;
+            edtBirthday.DisplayDateEnd = DateTime.Today.AddMonths(-1);
+            edtBirthday.SelectedDate = DateTime.Today.AddMonths(-1);
         }
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)

@@ -1,4 +1,5 @@
-﻿SET NAMES utf8mb4;
+CREATE DATABASE  IF NOT EXISTS `tyemunuzhen_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `tyemunuzhen_db`;
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
 -- Host: localhost    Database: tyemunuzhen_db
@@ -8,7 +9,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -61,7 +62,7 @@ CREATE TABLE `actual_children_diagnosis` (
   KEY `fk_childrenActualDiagnosis_idx` (`idChild`),
   CONSTRAINT `fk_childrenActualDiagnosis` FOREIGN KEY (`idChild`) REFERENCES `childrens` (`ID`),
   CONSTRAINT `fk_diagnosis0` FOREIGN KEY (`idDiagnosis`) REFERENCES `diagnoses` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,6 +71,7 @@ CREATE TABLE `actual_children_diagnosis` (
 
 LOCK TABLES `actual_children_diagnosis` WRITE;
 /*!40000 ALTER TABLE `actual_children_diagnosis` DISABLE KEYS */;
+INSERT INTO `actual_children_diagnosis` VALUES (1,1,1),(2,4,1);
 /*!40000 ALTER TABLE `actual_children_diagnosis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +98,7 @@ CREATE TABLE `actual_program` (
   CONSTRAINT `fk_childActualProgram` FOREIGN KEY (`idChild`) REFERENCES `childrens` (`ID`),
   CONSTRAINT `fk_curatorActualProgram` FOREIGN KEY (`idCurator`) REFERENCES `curators` (`ID`),
   CONSTRAINT `fk_program` FOREIGN KEY (`idProgramType`) REFERENCES `program_type` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,6 +107,7 @@ CREATE TABLE `actual_program` (
 
 LOCK TABLES `actual_program` WRITE;
 /*!40000 ALTER TABLE `actual_program` DISABLE KEYS */;
+INSERT INTO `actual_program` VALUES (1,1,2,1,'2025-05-30',NULL,NULL,1);
 /*!40000 ALTER TABLE `actual_program` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,7 +157,7 @@ CREATE TABLE `agreement_nanny_on_program` (
   PRIMARY KEY (`ID`),
   KEY `fk_nannyInHospAgreement_idx` (`idNannyOnProgram`),
   CONSTRAINT `fk_nannyOnProgramAgreement` FOREIGN KEY (`idNannyOnProgram`) REFERENCES `nannies_on_program` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,6 +166,7 @@ CREATE TABLE `agreement_nanny_on_program` (
 
 LOCK TABLES `agreement_nanny_on_program` WRITE;
 /*!40000 ALTER TABLE `agreement_nanny_on_program` DISABLE KEYS */;
+INSERT INTO `agreement_nanny_on_program` VALUES (1,1,'2025-05-30',1,3500.00,'../../Documents/Nannies/Agreements/Договор с няней на сопровождение ребёнка № 000001.docx');
 /*!40000 ALTER TABLE `agreement_nanny_on_program` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,7 +187,7 @@ CREATE TABLE `agreement_orphanage` (
   UNIQUE KEY `numAgreement_UNIQUE` (`numAgreement`),
   KEY `fk_orphanageAgreement_idx` (`idOrphanage`),
   CONSTRAINT `fk_orphanageAgreement` FOREIGN KEY (`idOrphanage`) REFERENCES `orphanages` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -192,6 +196,7 @@ CREATE TABLE `agreement_orphanage` (
 
 LOCK TABLES `agreement_orphanage` WRITE;
 /*!40000 ALTER TABLE `agreement_orphanage` DISABLE KEYS */;
+INSERT INTO `agreement_orphanage` VALUES (1,000001,'2025-05-30',1,'../../Documents/Orphanages/Agreements/Соглашение о социальном партнёрстве № 000001.docx');
 /*!40000 ALTER TABLE `agreement_orphanage` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,7 +215,7 @@ CREATE TABLE `childphoto` (
   PRIMARY KEY (`ID`),
   KEY `fk_childphoto_idx` (`idChild`),
   CONSTRAINT `fk_childphoto` FOREIGN KEY (`idChild`) REFERENCES `childrens` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -219,6 +224,7 @@ CREATE TABLE `childphoto` (
 
 LOCK TABLES `childphoto` WRITE;
 /*!40000 ALTER TABLE `childphoto` DISABLE KEYS */;
+INSERT INTO `childphoto` VALUES (1,1,'../../Images/Childrens/четин.jpg','2025-05-30');
 /*!40000 ALTER TABLE `childphoto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,7 +244,7 @@ CREATE TABLE `children_diagnosis` (
   KEY `fk_consultationChildrenDiagnosis_idx` (`idConsultation`),
   CONSTRAINT `fk_consultationChildrenDiagnosis` FOREIGN KEY (`idConsultation`) REFERENCES `consultation` (`ID`),
   CONSTRAINT `fk_diagnosis` FOREIGN KEY (`idDiagnosis`) REFERENCES `diagnoses` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -247,6 +253,7 @@ CREATE TABLE `children_diagnosis` (
 
 LOCK TABLES `children_diagnosis` WRITE;
 /*!40000 ALTER TABLE `children_diagnosis` DISABLE KEYS */;
+INSERT INTO `children_diagnosis` VALUES (1,1,1),(2,1,4);
 /*!40000 ALTER TABLE `children_diagnosis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -267,7 +274,7 @@ CREATE TABLE `children_documents` (
   KEY `fk_documentsType_idx` (`idDocumentType`),
   CONSTRAINT `fk_childDocuments` FOREIGN KEY (`idChild`) REFERENCES `childrens` (`ID`),
   CONSTRAINT `fk_documentsType` FOREIGN KEY (`idDocumentType`) REFERENCES `documents_type` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -276,6 +283,7 @@ CREATE TABLE `children_documents` (
 
 LOCK TABLES `children_documents` WRITE;
 /*!40000 ALTER TABLE `children_documents` DISABLE KEYS */;
+INSERT INTO `children_documents` VALUES (1,1,1,'../../Documents/Children/AppealsConsents/Обращение + согласие ДДИ №000001 - ДТЕТЕ.pdf'),(2,1,5,'../../Documents/Children/Documents/lhtjUcDecfE.jpg');
 /*!40000 ALTER TABLE `children_documents` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,7 +365,7 @@ CREATE TABLE `childrens` (
   CONSTRAINT `fk_regionChildren` FOREIGN KEY (`idRegion`) REFERENCES `regions` (`ID`),
   CONSTRAINT `fk_statusChild` FOREIGN KEY (`idStatus`) REFERENCES `children_status` (`ID`),
   CONSTRAINT `fk_statusProgramChild` FOREIGN KEY (`idStatusProgram`) REFERENCES `children_status_program` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -366,6 +374,7 @@ CREATE TABLE `childrens` (
 
 LOCK TABLES `childrens` WRITE;
 /*!40000 ALTER TABLE `childrens` DISABLE KEYS */;
+INSERT INTO `childrens` VALUES (1,'фывфывфывфыв','фывфывфывфывфывфыв','фывфывфыв','фывфывфывфыв',NULL,'2025-05-01',2,4,1,1,'2025-05-30',1);
 /*!40000 ALTER TABLE `childrens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -384,7 +393,7 @@ CREATE TABLE `childrens_description` (
   PRIMARY KEY (`ID`),
   KEY `fk_childDescription_idx` (`idChild`),
   CONSTRAINT `fk_childDescription` FOREIGN KEY (`idChild`) REFERENCES `childrens` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -393,6 +402,7 @@ CREATE TABLE `childrens_description` (
 
 LOCK TABLES `childrens_description` WRITE;
 /*!40000 ALTER TABLE `childrens_description` DISABLE KEYS */;
+INSERT INTO `childrens_description` VALUES (1,1,'фывфывфывфыв','2025-05-30'),(2,1,'фывфывфвфыв','2025-05-30');
 /*!40000 ALTER TABLE `childrens_description` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -418,7 +428,7 @@ CREATE TABLE `consents` (
   CONSTRAINT `fk_actrualProgramConsent` FOREIGN KEY (`idActualProgram`) REFERENCES `actual_program` (`ID`),
   CONSTRAINT `fk_documentsConcent` FOREIGN KEY (`idDocument`) REFERENCES `children_documents` (`ID`),
   CONSTRAINT `fk_orphanageConcent` FOREIGN KEY (`idOrphanage`) REFERENCES `orphanages` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -427,6 +437,7 @@ CREATE TABLE `consents` (
 
 LOCK TABLES `consents` WRITE;
 /*!40000 ALTER TABLE `consents` DISABLE KEYS */;
+INSERT INTO `consents` VALUES (1,000001,'2025-05-30',1,1,1);
 /*!40000 ALTER TABLE `consents` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -448,7 +459,7 @@ CREATE TABLE `consultation` (
   KEY `fk_childrenConsultation_idx` (`idChild`),
   CONSTRAINT `fk_childrenConsultation` FOREIGN KEY (`idChild`) REFERENCES `childrens` (`ID`),
   CONSTRAINT `fk_doctorConsultation` FOREIGN KEY (`idDoctor`) REFERENCES `doctors_on_agreement` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -457,6 +468,7 @@ CREATE TABLE `consultation` (
 
 LOCK TABLES `consultation` WRITE;
 /*!40000 ALTER TABLE `consultation` DISABLE KEYS */;
+INSERT INTO `consultation` VALUES (1,1,1,'../../Documents/Children/MedicalConclusion/Kolisnichenko_D._Samouchitel_MS_Windows11.Fragment.pdf','2025-05-30');
 /*!40000 ALTER TABLE `consultation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -561,7 +573,7 @@ CREATE TABLE `doctor_posts` (
   `postName` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `postName_UNIQUE` (`postName`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -570,7 +582,7 @@ CREATE TABLE `doctor_posts` (
 
 LOCK TABLES `doctor_posts` WRITE;
 /*!40000 ALTER TABLE `doctor_posts` DISABLE KEYS */;
-INSERT INTO `doctor_posts` VALUES (1,'Нейрохирург');
+INSERT INTO `doctor_posts` VALUES (1,'Нейрохирург'),(4,'Терапевт');
 /*!40000 ALTER TABLE `doctor_posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -622,7 +634,7 @@ CREATE TABLE `documents_type` (
   `documentType` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `documentType_UNIQUE` (`documentType`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -631,7 +643,7 @@ CREATE TABLE `documents_type` (
 
 LOCK TABLES `documents_type` WRITE;
 /*!40000 ALTER TABLE `documents_type` DISABLE KEYS */;
-INSERT INTO `documents_type` VALUES (1,'Обращение и согласие на обработку персональных данных');
+INSERT INTO `documents_type` VALUES (1,'Обращение и согласие на обработку персональных данных'),(5,'СНИЛС');
 /*!40000 ALTER TABLE `documents_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -655,7 +667,7 @@ CREATE TABLE `hospitalization` (
   KEY `fk_medicalFacilityHosp_idx` (`idMedicalFacility`),
   CONSTRAINT `fk_actualProgramHospitalization` FOREIGN KEY (`idActualProgram`) REFERENCES `actual_program` (`ID`),
   CONSTRAINT `fk_medicalFacilityHosp` FOREIGN KEY (`idMedicalFacility`) REFERENCES `medical_facility` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -664,6 +676,7 @@ CREATE TABLE `hospitalization` (
 
 LOCK TABLES `hospitalization` WRITE;
 /*!40000 ALTER TABLE `hospitalization` DISABLE KEYS */;
+INSERT INTO `hospitalization` VALUES (1,3,1,'2025-05-31','2025-06-05',0.00,'../../Documents/Children/Hospitalization/MedicalDirection/erdver2.pdf');
 /*!40000 ALTER TABLE `hospitalization` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -763,7 +776,7 @@ CREATE TABLE `medical_care_type` (
   `medicalCareType` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `medicalCareType_UNIQUE` (`medicalCareType`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -772,6 +785,7 @@ CREATE TABLE `medical_care_type` (
 
 LOCK TABLES `medical_care_type` WRITE;
 /*!40000 ALTER TABLE `medical_care_type` DISABLE KEYS */;
+INSERT INTO `medical_care_type` VALUES (4,'Операция');
 /*!40000 ALTER TABLE `medical_care_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -822,7 +836,7 @@ CREATE TABLE `nannies` (
   `email` varchar(150) DEFAULT NULL,
   `status` tinyint DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -831,6 +845,7 @@ CREATE TABLE `nannies` (
 
 LOCK TABLES `nannies` WRITE;
 /*!40000 ALTER TABLE `nannies` DISABLE KEYS */;
+INSERT INTO `nannies` VALUES (1,'фывфыв','фывфыв','фывфыв',1231,123123,'2025-05-07','фывфывфыв','123-123','фывфывфыв','79012391238','asdacwqd@asdhj.ads',1);
 /*!40000 ALTER TABLE `nannies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -851,7 +866,7 @@ CREATE TABLE `nannies_on_program` (
   KEY `fk_ActualProgramNannyInHosp_idx` (`idActualProgram`),
   CONSTRAINT `fk_actualProgramNannyOnProgram` FOREIGN KEY (`idActualProgram`) REFERENCES `actual_program` (`ID`),
   CONSTRAINT `fk_nanniesH` FOREIGN KEY (`idNanny`) REFERENCES `nannies` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -860,6 +875,7 @@ CREATE TABLE `nannies_on_program` (
 
 LOCK TABLES `nannies_on_program` WRITE;
 /*!40000 ALTER TABLE `nannies_on_program` DISABLE KEYS */;
+INSERT INTO `nannies_on_program` VALUES (1,1,1,1);
 /*!40000 ALTER TABLE `nannies_on_program` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -882,7 +898,7 @@ CREATE TABLE `orphanages` (
   PRIMARY KEY (`ID`),
   KEY `fk_regionOrphanage_idx` (`idRegion`),
   CONSTRAINT `fk_regionOrphanage` FOREIGN KEY (`idRegion`) REFERENCES `regions` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -891,6 +907,7 @@ CREATE TABLE `orphanages` (
 
 LOCK TABLES `orphanages` WRITE;
 /*!40000 ALTER TABLE `orphanages` DISABLE KEYS */;
+INSERT INTO `orphanages` VALUES (1,'ДТЕТЕ','фывфв','фывфыв','фыввфы',1,'ффывфыв 123','saasd@asd.asd');
 /*!40000 ALTER TABLE `orphanages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -930,7 +947,7 @@ CREATE TABLE `regions` (
   `regionName` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `regionName_UNIQUE` (`regionName`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -939,7 +956,7 @@ CREATE TABLE `regions` (
 
 LOCK TABLES `regions` WRITE;
 /*!40000 ALTER TABLE `regions` DISABLE KEYS */;
-INSERT INTO `regions` VALUES (1,'Московская область');
+INSERT INTO `regions` VALUES (1,'Московская область'),(5,'Мурманская область');
 /*!40000 ALTER TABLE `regions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -957,7 +974,7 @@ CREATE TABLE `results_consultation` (
   PRIMARY KEY (`ID`),
   KEY `fk_consultationResults_idx` (`idConsiltation`),
   CONSTRAINT `fk_consultationResults` FOREIGN KEY (`idConsiltation`) REFERENCES `consultation` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -966,6 +983,7 @@ CREATE TABLE `results_consultation` (
 
 LOCK TABLES `results_consultation` WRITE;
 /*!40000 ALTER TABLE `results_consultation` DISABLE KEYS */;
+INSERT INTO `results_consultation` VALUES (1,1,'../../Documents/Children/MedicalResults/excel.png');
 /*!40000 ALTER TABLE `results_consultation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1010,7 +1028,7 @@ CREATE TABLE `transfer` (
   PRIMARY KEY (`ID`),
   KEY `fk_hospitalizationTransfer_idx` (`idHospitalization`),
   CONSTRAINT `fk_hospitalizationTransfer` FOREIGN KEY (`idHospitalization`) REFERENCES `hospitalization` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1019,6 +1037,7 @@ CREATE TABLE `transfer` (
 
 LOCK TABLES `transfer` WRITE;
 /*!40000 ALTER TABLE `transfer` DISABLE KEYS */;
+INSERT INTO `transfer` VALUES (1,1,'2025-05-30 00:01:00','2025-05-31 11:05:00',0.00,1),(2,1,'2025-06-05 00:59:00','2025-06-06 00:04:00',0.00,0);
 /*!40000 ALTER TABLE `transfer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1118,7 +1137,7 @@ CREATE TABLE `transport_type` (
   `transportType` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `transportType_UNIQUE` (`transportType`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1127,6 +1146,7 @@ CREATE TABLE `transport_type` (
 
 LOCK TABLES `transport_type` WRITE;
 /*!40000 ALTER TABLE `transport_type` DISABLE KEYS */;
+INSERT INTO `transport_type` VALUES (2,'Маршрутка');
 /*!40000 ALTER TABLE `transport_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1146,7 +1166,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `login_UNIQUE` (`login`),
   KEY `fk_roleUsers_idx` (`idRole`),
   CONSTRAINT `fk_roleUsers` FOREIGN KEY (`idRole`) REFERENCES `roles` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1155,7 +1175,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'cur','cfcd208495d565ef66e7dff9f98764da',2),(4,'dir','cfcd208495d565ef66e7dff9f98764da',3),(13,'vol1','7a371de86fe43ecbb1b8c27b0bbd59f7',1),(14,'vol2','7a371de86fe43ecbb1b8c27b0bbd59f7',1);
+INSERT INTO `users` VALUES (3,'cur','cfcd208495d565ef66e7dff9f98764da',2),(4,'dir','cfcd208495d565ef66e7dff9f98764da',3),(13,'vol1','7a371de86fe43ecbb1b8c27b0bbd59f7',1),(14,'vol2','7a371de86fe43ecbb1b8c27b0bbd59f7',1),(22,'asd','7747222322a3de4ed7a671a5e9d77feb',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1181,7 +1201,7 @@ CREATE TABLE `volunteers` (
   KEY `fk_volunteers_users1_idx` (`idUser`),
   CONSTRAINT `fk_regionVolonteer` FOREIGN KEY (`idRegion`) REFERENCES `regions` (`ID`),
   CONSTRAINT `fk_volunteers_users1` FOREIGN KEY (`idUser`) REFERENCES `users` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1190,16 +1210,9 @@ CREATE TABLE `volunteers` (
 
 LOCK TABLES `volunteers` WRITE;
 /*!40000 ALTER TABLE `volunteers` DISABLE KEYS */;
+INSERT INTO `volunteers` VALUES (2,'ФЫВФЫВ','ВФЫВЫФФЫВВФЫ','ФЫВФЫВФЫВФЫВ','71231231231','ASD@ADS.ASD',1,22);
 /*!40000 ALTER TABLE `volunteers` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'tyemunuzhen_db'
---
-
---
--- Dumping routines for database 'tyemunuzhen_db'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1210,4 +1223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-28  7:57:38
+-- Dump completed on 2025-05-31 12:11:24

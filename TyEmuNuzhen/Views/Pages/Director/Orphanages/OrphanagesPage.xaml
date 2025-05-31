@@ -24,6 +24,7 @@
 
         <Grid Grid.Row="1" Margin="0,0,0,20">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
@@ -34,7 +35,15 @@
              HorizontalAlignment="Left" 
              materialDesign:HintAssist.Hint="Поиск" 
              Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="searchTextBox_TextChanged"/>
+            <ComboBox x:Name="regionsCmbBox"
+               Grid.Column="1"
+               Width="200"
+               HorizontalAlignment="Center"
+               materialDesign:HintAssist.Hint="Регион" 
+               Cursor="Hand" 
+               Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="regionsCmbBox_SelectionChanged"/>
             <ComboBox x:Name="sortCmbBox"
+                 Grid.Column="2"
                  Width="200" 
                  HorizontalAlignment="Right" 
                  materialDesign:HintAssist.Hint="Сортировка" 

@@ -25,14 +25,18 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
         private string _idHospitalizationDetail;
         private string _idMedicalTypeHelp;
         private bool _isInsert = true;
+        private DateTime _dateDHospitalization;
+        private DateTime? _dateDDischarge;
 
-        public AddHospitalizationDetailWindow(string idHospitalization)
+        public AddHospitalizationDetailWindow(string idHospitalization, DateTime dateDHospitalization, DateTime? dateDDischarge)
         {
             InitializeComponent();
             _idHospitalization = idHospitalization;
+            _dateDHospitalization = dateDHospitalization;
+            _dateDDischarge = dateDDischarge;
         }
 
-        public AddHospitalizationDetailWindow(string idHospitalizationDetail, string idHospitalization)
+        public AddHospitalizationDetailWindow(string idHospitalizationDetail, string idHospitalization, DateTime dateDHospitalization, DateTime? dateDDischarge)
         {
             InitializeComponent();
             _idHospitalizationDetail = idHospitalizationDetail;
@@ -42,6 +46,8 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
             tbCost.Text = HospitalizationDetailClass.dtHospitalizationDetailDataChange.Rows[0]["cost"].ToString().Replace(",00","");
             dpDateMedicalHelp.Text = Convert.ToDateTime(HospitalizationDetailClass.dtHospitalizationDetailDataChange.Rows[0]["dateMedicalHelp"]).ToString("dd.MM.yyyy");
             _isInsert = false;
+            _dateDHospitalization = dateDHospitalization;
+            _dateDDischarge = dateDDischarge;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -60,6 +66,8 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
                 medicalCareTypeCmbBox.SelectedIndex = 0;
             else
                 medicalCareTypeCmbBox.SelectedValue = _idMedicalTypeHelp;
+            dpDateMedicalHelp.DisplayDateStart = _dateDHospitalization;
+            dpDateMedicalHelp.DisplayDateEnd = _dateDDischarge;
         }
 
         private void tbCost_PreviewTextInput(object sender, TextCompositionEventArgs e)

@@ -19,6 +19,11 @@ namespace TyEmuNuzhen.Views.Pages.Director.DoctorsOnAgreement
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            DoctorPostsClass.GetDoctorPostsList();
+            postsCmbBox.ItemsSource = DoctorPostsClass.dtDoctorPostsList.DefaultView;
+            postsCmbBox.DisplayMemberPath = "postName";
+            postsCmbBox.SelectedValuePath = "ID";
+            postsCmbBox.SelectedIndex = 0;
             LoadDoctors("");
             CountRecords();
         }
@@ -91,9 +96,17 @@ namespace TyEmuNuzhen.Views.Pages.Director.DoctorsOnAgreement
             NavigationService.GetNavigationService(parent).Navigate(new AgreementsPage(downloadBtn.Tag.ToString()));
         }
 
+        private void postsCmbBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
+            LoadDoctors(querySearch);
+            CountRecords();
+        }
+
         private void LoadDoctors(string querySearch)
         {
-            DoctorsOnAgreementClass.GetDoctorsList(querySearch, SortValue());
+            string idPost = postsCmbBox.SelectedValue == null ? null : postsCmbBox.SelectedValue.ToString();
+            DoctorsOnAgreementClass.GetDoctorsList(querySearch, idPost, SortValue());
             doctorsGrid.ItemsSource = DoctorsOnAgreementClass.dtDoctorsList.DefaultView;
         }
 
@@ -130,5 +143,6 @@ namespace TyEmuNuzhen.Views.Pages.Director.DoctorsOnAgreement
             }
             return sortValue;
         }
+
     }
 }

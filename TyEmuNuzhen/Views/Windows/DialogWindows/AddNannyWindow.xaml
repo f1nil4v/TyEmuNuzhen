@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="AddNannyWindow" Height="450" Width="800" ResizeMode="NoResize">
     <Window.Resources>
@@ -100,7 +100,8 @@
                 <DatePicker x:Name="dpPassDateOfIssue"
                    Grid.Column="3"
                    Margin="10,0,0,0"
-                   materialDesign:HintAssist.Hint="Дата выдачи"/>
+                   materialDesign:HintAssist.Hint="Дата выдачи"
+                   DisplayDateEnd="{x:Static system:DateTime.Today}"/>
                 
             </Grid>
         </StackPanel>
@@ -111,15 +112,15 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBox
-               x:Name="tbPassOrganizationOfIssue"
-               Margin="0,0,20,0" 
-               Grid.Column="0"
-               materialDesign:HintAssist.Hint="Кем выдан паспорт" PreviewTextInput="tbSurname_PreviewTextInput"/>
+                   x:Name="tbPassOrganizationOfIssue"
+                   Margin="0,0,20,0" 
+                   Grid.Column="0"
+                   materialDesign:HintAssist.Hint="Кем выдан паспорт" PreviewTextInput="tbSurname_PreviewTextInput"/>
                 <TextBox
-               x:Name="tbAddressRegister"
-               Margin="20,0,0,0" 
-               Grid.Column="1"
-               materialDesign:HintAssist.Hint="Адрес регистрации" PreviewTextInput="tbAddressRegister_PreviewTextInput"/>
+                   x:Name="tbAddressRegister"
+                   Margin="20,0,0,0" 
+                   Grid.Column="1"
+                   materialDesign:HintAssist.Hint="Адрес регистрации" PreviewTextInput="tbAddressRegister_PreviewTextInput"/>
 
             </Grid>
         </StackPanel>
@@ -130,15 +131,15 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <xctk:MaskedTextBox 
-                Grid.Column="0"
-                Mask="+7 (000) 000-00-00" 
-                materialDesign:HintAssist.Hint="Телефон" 
-                x:Name="tbPhone"/>
+                    Grid.Column="0"
+                    Mask="+7 (000) 000-00-00" 
+                    materialDesign:HintAssist.Hint="Телефон" 
+                    x:Name="tbPhone"/>
                 <TextBox
-               x:Name="tbEmail"
-               Margin="20,0,0,0" 
-               Grid.Column="1"
-               materialDesign:HintAssist.Hint="Email" PreviewKeyDown="tbSurname_PreviewKeyDown" PreviewTextInput="tbEmail_PreviewTextInput"/>
+                   x:Name="tbEmail"
+                   Margin="20,0,0,0" 
+                   Grid.Column="1"
+                   materialDesign:HintAssist.Hint="Email" PreviewKeyDown="tbSurname_PreviewKeyDown" PreviewTextInput="tbEmail_PreviewTextInput"/>
             </Grid>
         </StackPanel>
 

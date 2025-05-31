@@ -18,6 +18,7 @@
 
         <Grid Grid.Row="0" Margin="0,0,0,20">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
@@ -25,14 +26,25 @@
             <TextBox x:Name="searchTextBox"
                  Grid.Column="0" 
                  Width="300"
-                 HorizontalAlignment="Left" 
+                 Margin="0,0,10,0"
                  materialDesign:HintAssist.Hint="Поиск" 
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="searchTextBox_TextChanged"/>
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 TextChanged="searchTextBox_TextChanged"/>
+            <ComboBox x:Name="regionsCmbBox"
+               Grid.Column="1"
+               Width="200"
+               HorizontalAlignment="Center"
+               materialDesign:HintAssist.Hint="Регион" 
+               Cursor="Hand" 
+               Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="regionsCmbBox_SelectionChanged"/>
             <ComboBox x:Name="sortCmbBox"
-                 Width="200" 
-                 HorizontalAlignment="Right" 
-                 materialDesign:HintAssist.Hint="Сортировка" 
-                 Cursor="Hand" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="sortCmbBox_SelectionChanged">
+              Grid.Column="2"
+              Width="200"
+              Margin="10,0,0,0"
+              materialDesign:HintAssist.Hint="Сортировка" 
+              Cursor="Hand" 
+              Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+              SelectionChanged="sortCmbBox_SelectionChanged">
                 <ComboBoxItem Content="По фамилии"/>
                 <ComboBoxItem Content="По имени"/>
                 <ComboBoxItem Content="По отчеству"/>
@@ -105,15 +117,23 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Border Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10,10,0,0" Background="#A3B92E" Padding="5">
-            <TextBlock x:Name="countRecords" FontSize="14" Foreground="White"/>
-        </Border>
-        <Border Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" CornerRadius="1000" Background="#A3B92E" Margin="0,10,0,20">
-            <Button x:Name="addBtn" Padding="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" Height="50" Width="50" Click="addBtn_Click">
-                <StackPanel>
-                    <Image Source="/Images/Controls/add.png" Height="30" Width="30"></Image>
-                </StackPanel>
+        <StackPanel Grid.Row="3" Width="Auto" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+            <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10,10,0,0" Margin="10,0,0,0" Background="#A3B92E" Padding="5">
+                <TextBlock x:Name="countRecords" Text="" FontSize="14" Foreground="White"/>
+            </Border>
+            <Button x:Name="addChildBtn"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Padding="0,0,1.5,0"
+                Margin="10,0,0,0"
+                Background="#A3B92E"
+                BorderBrush="#A3B92E"
+                Height="29"
+                Width="29"
+                materialDesign:ButtonAssist.CornerRadius="25"
+                Click="addBtn_Click">
+                <Image Source="/Images/Controls/add.png" Height="20" Width="20" Margin="0"/>
             </Button>
-        </Border>
+        </StackPanel>
     </Grid>
 </Page>

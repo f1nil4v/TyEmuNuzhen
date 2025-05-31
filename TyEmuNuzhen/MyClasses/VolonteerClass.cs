@@ -95,11 +95,12 @@ namespace TyEmuNuzhen.MyClasses
         }
 
         /// <summary>
-        /// Получение списка волонтёров из базы данных с возможностью фильтрации и сортировки.
+        /// Получение списка волонтёров из базы данных с возможностью фильтрации и сортировки
         /// </summary>
         /// <param name="querySearch"></param>
+        /// <param name="idRegion"></param>
         /// <param name="orderByValue"></param>
-        public static void GetVolonteersList(string querySearch, string orderByValue)
+        public static void GetVolonteersList(string querySearch, string idRegion, string orderByValue)
         {
             try
             {
@@ -112,7 +113,7 @@ namespace TyEmuNuzhen.MyClasses
                 DBConnection.myCommand.CommandText = $@"SELECT volunteers.ID, users.login, volunteers.surname, volunteers.name, IFNULL(volunteers.middleName, '-') as 'middleName',
                                             volunteers.phoneNumber, volunteers.email, regions.regionName, volunteers.idUser
                                         FROM volunteers, users, regions
-                                        WHERE users.ID = volunteers.idUser AND regions.ID = volunteers.idRegion {whereClause}
+                                        WHERE users.ID = volunteers.idUser AND regions.ID = volunteers.idRegion AND volunteers.idRegion = '{idRegion}' {whereClause}
                                         {orderBy}";
                 if (whereClause != null)
                 {

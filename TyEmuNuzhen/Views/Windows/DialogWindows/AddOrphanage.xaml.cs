@@ -65,12 +65,16 @@ namespace TyEmuNuzhen.Views.Windows
             {
                 if (!CustomFunctionsClass.CheckSameEmail(tbOrphanageEmail.Text))
                     return;
+                if (!OrphanageClass.GetSameDataOrphanage(regionsCmbBox.SelectedValue.ToString(), regionsCmbBox.SelectedValue.ToString()))
+                    return;
                 if (!OrphanageClass.AddOrphanage(tbOrphanageName.Text, tbDirectorSurname.Text, tbDirectorName.Text, tbDirectorMiddleName.Text, regionsCmbBox.SelectedValue.ToString(), tbOrphanageAddress.Text, tbOrphanageEmail.Text))
                     return;
             }
             else
             {
                 if (!CustomFunctionsClass.CheckSameEmail(tbOrphanageEmail.Text, _id, "orphanages"))
+                    return;
+                if (!OrphanageClass.GetSameDataOrphanage(regionsCmbBox.SelectedValue.ToString(), regionsCmbBox.SelectedValue.ToString(), _id))
                     return;
                 if (!OrphanageClass.UpdateOrphanage(_id, tbOrphanageName.Text, tbDirectorSurname.Text, tbDirectorName.Text, tbDirectorMiddleName.Text, regionsCmbBox.SelectedValue.ToString(), tbOrphanageAddress.Text, tbOrphanageEmail.Text))
                     return;

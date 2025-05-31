@@ -20,7 +20,8 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
         public AddChildrenInfoCuratorPage()
         {
             InitializeComponent();
-            birthdayDatePicker.SelectedDate = DateTime.Today;
+            birthdayDatePicker.DisplayDateEnd = DateTime.Today.AddMonths(-1);
+            birthdayDatePicker.SelectedDate = DateTime.Today.AddMonths(-1);
         }
 
         private void selectPhotoButton_Click(object sender, RoutedEventArgs e)

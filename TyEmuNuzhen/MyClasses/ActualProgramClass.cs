@@ -20,6 +20,7 @@ namespace TyEmuNuzhen.MyClasses
     {
         public static DataTable dtActualProgramDataForPrint;
         public static DataTable dtProgramsHistoryList;
+        public static DataTable dtDatesActualProgram;
 
         /// <summary>
         /// Получение списка пройденных программ по детям
@@ -150,6 +151,26 @@ namespace TyEmuNuzhen.MyClasses
             {
                 MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Получение даты начала и окончания прохождения программы
+        /// </summary>
+        /// <param name="idActualProgram"></param>
+        public static void GetDatesActualProgram(string idActualProgram)
+        {
+            try
+            {
+                DBConnection.myCommand.CommandText = $@"SELECT dateBegin, dateEnd
+                                                        FROM actual_program
+                                                        WHERE actual_program.ID = '{idActualProgram}'";
+                dtDatesActualProgram = new DataTable();
+                DBConnection.myDataAdapter.Fill(dtDatesActualProgram);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

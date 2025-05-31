@@ -59,8 +59,9 @@ namespace TyEmuNuzhen.MyClasses
         /// Получение списка детских домов с возможностью поиска и сортировки
         /// </summary>
         /// <param name="querySearch"></param>
+        /// <param name="idRegion"></param>
         /// <param name="orderByValue"></param>
-        public static void GetOrphanagesList(string querySearch, string orderByValue)
+        public static void GetOrphanagesList(string querySearch, string idRegion, string orderByValue)
         {
             try
             {
@@ -73,7 +74,7 @@ namespace TyEmuNuzhen.MyClasses
                 DBConnection.myCommand.CommandText = $@"SELECT orphanages.ID, orphanages.nameOrphanage, CONCAT_WS(' ', orphanages.directorSurname, orphanages.directorName, IFNULL(orphanages.directorMiddleName, '')) as 'directorFullName',
                                             regions.regionName, orphanages.address, orphanages.email
                                         FROM orphanages, regions
-                                        WHERE regions.ID = orphanages.idRegion {whereClause}
+                                        WHERE regions.ID = orphanages.idRegion AND orphanages.idRegion = '{idRegion}' {whereClause}
                                         {orderBy}";
                 if (whereClause != null)
                 {
@@ -150,6 +151,33 @@ namespace TyEmuNuzhen.MyClasses
             {
                 MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Проверка на уникальность адреса детского дома
+        /// </summary>
+        /// <param name="idRegion"></param>
+        /// <param name="address"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static bool GetSameDataOrphanage(string idRegion, string address, string id = null)
+        {
+            try
+            {
+                string whereClause = String.IsNullOrEmpty(id) ? "" : $"AND ID <> '{id}'";
+                DBConnection.myCommand.CommandText = $"SELECT COUNT(ID) FROM orphanages WHERE idRegion = '{idRegion}' AND address = '{address}' {whereClause}";
+                if (Convert.ToInt32(DBConnection.myCommand.ExecuteScalar()) > 0)
+                {
+                    MessageBox.Show("Детский дом по данному адресу уже есть в системе!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при выполнении запроса. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
         }
 

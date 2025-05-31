@@ -16,6 +16,11 @@ namespace TyEmuNuzhen.Views.Pages.Director.Orphanages
         
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            RegionsClass.GetRegionsList();
+            regionsCmbBox.ItemsSource = RegionsClass.dtRegions?.DefaultView;
+            regionsCmbBox.DisplayMemberPath = "regionName";
+            regionsCmbBox.SelectedValuePath = "ID";
+            regionsCmbBox.SelectedIndex = 0;
             LoadOrphanages("");
             CountRecords();
         }
@@ -86,9 +91,17 @@ namespace TyEmuNuzhen.Views.Pages.Director.Orphanages
             CountRecords();
         }
 
+        private void regionsCmbBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
+            LoadOrphanages(querySearch);
+            CountRecords();
+        }
+
         private void LoadOrphanages(string querySearch)
         {
-            OrphanageClass.GetOrphanagesList(querySearch, SortValue());
+            string idRegion = regionsCmbBox.SelectedValue == null ? null : regionsCmbBox.SelectedValue.ToString();
+            OrphanageClass.GetOrphanagesList(querySearch, idRegion, SortValue());
             orphanagesGrid.ItemsSource = OrphanageClass.dtOrphanagesList.DefaultView;
         }
 

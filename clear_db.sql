@@ -478,7 +478,7 @@ CREATE TABLE `curators` (
   PRIMARY KEY (`ID`),
   KEY `fk_volunteers_users1_idx` (`idUser`),
   CONSTRAINT `fk_volunteers_users10` FOREIGN KEY (`idUser`) REFERENCES `users` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -487,7 +487,6 @@ CREATE TABLE `curators` (
 
 LOCK TABLES `curators` WRITE;
 /*!40000 ALTER TABLE `curators` DISABLE KEYS */;
-INSERT INTO `curators` VALUES (2,'Иванова','Мария','Ивановна','71232313211','w@w.w',3),(9,'2','2','2','2','2',4),(10,'adasd','asddsadas','asddasadsads','71231231231','qwe@da.d',17);
 /*!40000 ALTER TABLE `curators` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -501,7 +500,8 @@ DROP TABLE IF EXISTS `diagnoses`;
 CREATE TABLE `diagnoses` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `diagnosisName` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `diagnosisName_UNIQUE` (`diagnosisName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -534,7 +534,7 @@ CREATE TABLE `directors` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_volunteers_users1_idx` (`idUser`),
   CONSTRAINT `fk_volunteers_users100` FOREIGN KEY (`idUser`) REFERENCES `users` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -543,7 +543,7 @@ CREATE TABLE `directors` (
 
 LOCK TABLES `directors` WRITE;
 /*!40000 ALTER TABLE `directors` DISABLE KEYS */;
-INSERT INTO `directors` VALUES (1,'Петрова','Татьяна','Васильевна','71231212311','email@ya.com',4);
+INSERT INTO `directors` VALUES (1,'Васильева','Ирина','Николаевна','79804531280',' gidro_detki@mail.ru',1);
 /*!40000 ALTER TABLE `directors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -557,7 +557,8 @@ DROP TABLE IF EXISTS `doctor_posts`;
 CREATE TABLE `doctor_posts` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `postName` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `postName_UNIQUE` (`postName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -615,7 +616,8 @@ DROP TABLE IF EXISTS `documents_type`;
 CREATE TABLE `documents_type` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `documentType` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `documentType_UNIQUE` (`documentType`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -642,7 +644,7 @@ CREATE TABLE `hospitalization` (
   `idActualProgram` int DEFAULT NULL,
   `dateHospitalization` date DEFAULT NULL,
   `dateDischarge` date DEFAULT NULL,
-  `totalCost` varchar(45) DEFAULT NULL,
+  `totalCost` decimal(10,2) DEFAULT NULL,
   `filePath` longtext,
   PRIMARY KEY (`ID`),
   KEY `fk_actualProgramHospitalization_idx` (`idActualProgram`),
@@ -755,7 +757,8 @@ DROP TABLE IF EXISTS `medical_care_type`;
 CREATE TABLE `medical_care_type` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `medicalCareType` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `medicalCareType_UNIQUE` (`medicalCareType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -780,7 +783,7 @@ CREATE TABLE `medical_facility` (
   `medicalFacilityName` varchar(200) DEFAULT NULL,
   `address` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -789,7 +792,6 @@ CREATE TABLE `medical_facility` (
 
 LOCK TABLES `medical_facility` WRITE;
 /*!40000 ALTER TABLE `medical_facility` DISABLE KEYS */;
-INSERT INTO `medical_facility` VALUES (1,'Тест1','ул Пушкина, дом Колотушкина'),(2,'Тест2','ул Набережная, дом Подводный');
 /*!40000 ALTER TABLE `medical_facility` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -898,7 +900,7 @@ CREATE TABLE `program_type` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `programType` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -907,7 +909,7 @@ CREATE TABLE `program_type` (
 
 LOCK TABLES `program_type` WRITE;
 /*!40000 ALTER TABLE `program_type` DISABLE KEYS */;
-INSERT INTO `program_type` VALUES (1,'Чтобы успеть вовремя'),(2,'Маршрут здоровья сироты');
+INSERT INTO `program_type` VALUES (1,'Чтобы успеть вовремя');
 /*!40000 ALTER TABLE `program_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -921,7 +923,8 @@ DROP TABLE IF EXISTS `regions`;
 CREATE TABLE `regions` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `regionName` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `regionName_UNIQUE` (`regionName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -980,7 +983,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'Волонтёр'),(2,'Куратор'),(3,'Директор');
+INSERT INTO `roles` VALUES (1,'Волонтёр'),(2,'Куратор программы \"Чтобы успеть вовремя\"'),(3,'Директор');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1107,7 +1110,8 @@ DROP TABLE IF EXISTS `transport_type`;
 CREATE TABLE `transport_type` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `transportType` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `transportType_UNIQUE` (`transportType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1136,7 +1140,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `login_UNIQUE` (`login`),
   KEY `fk_roleUsers_idx` (`idRole`),
   CONSTRAINT `fk_roleUsers` FOREIGN KEY (`idRole`) REFERENCES `roles` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1145,7 +1149,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'cur','cfcd208495d565ef66e7dff9f98764da',2),(4,'dir','cfcd208495d565ef66e7dff9f98764da',3),(13,'vol1','7a371de86fe43ecbb1b8c27b0bbd59f7',1),(14,'vol2','7a371de86fe43ecbb1b8c27b0bbd59f7',1),(17,'qwe','7a371de86fe43ecbb1b8c27b0bbd59f7',2);
+INSERT INTO `users` VALUES (1,'dir','cfcd208495d565ef66e7dff9f98764da',3);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1192,4 +1196,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-22  7:42:20
+-- Dump completed on 2025-05-31 12:22:36

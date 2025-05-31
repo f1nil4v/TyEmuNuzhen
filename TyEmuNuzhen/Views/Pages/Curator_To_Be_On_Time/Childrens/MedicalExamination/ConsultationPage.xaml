@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamination"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:system="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       Title="ConsultationPage" Loaded="Page_Loaded" Unloaded="Page_Unloaded">
 
@@ -105,7 +105,8 @@
                         <DatePicker x:Name="dpConsultationDate"
                            Grid.Row="0"
                            Grid.Column="1"
-                           Margin="0,0,0,15"/>
+                           Margin="0,0,0,15"
+                           DisplayDateEnd="{x:Static system:DateTime.Today}"/>
 
                         <TextBlock Text="Специалиьность:"
                            Grid.Row="1"

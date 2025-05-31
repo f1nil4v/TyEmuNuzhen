@@ -111,8 +111,7 @@
 
                         <DatePicker x:Name="birthdayDatePicker" Grid.Row="2"
                                     Margin="5,5,10,10" 
-                                    materialDesign:HintAssist.Hint="Дата рождения"
-                                    DisplayDateEnd="{x:Static system:DateTime.Today}"/>
+                                    materialDesign:HintAssist.Hint="Дата рождения"/>
 
                         <StackPanel Grid.Row="2" Grid.Column="1" Margin="5,10,5,5" Orientation="Horizontal">
                             <ToggleButton x:Name="isAlertToggleButton"

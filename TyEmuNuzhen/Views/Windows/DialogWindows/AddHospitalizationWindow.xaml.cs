@@ -29,16 +29,24 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
         private string _idMedicalFacility;
         private bool _isInsert = true;
 
-        public AddHospitalizationWindow(string idActualProgram)
+        private DateTime? _dateDDischarge;
+        private DateTime? _dateArrivalAtHospital;
+        private DateTime? _dateDepartureAtDDI;
+
+        public AddHospitalizationWindow(string idActualProgram, DateTime? dateDDischarge, DateTime? dateArrivalAtHospital, DateTime? dateDepartureAtDDI)
         {
             InitializeComponent();
-            dpDateHospitalization.SelectedDate = DateTime.Now;
             _idActualProgram = idActualProgram;
+            _dateDDischarge = dateDDischarge;
+            _dateArrivalAtHospital = dateArrivalAtHospital;
+            _dateDepartureAtDDI = dateDepartureAtDDI;
         }
 
-        public AddHospitalizationWindow(string idHospitalization, string dateHospitalization, string dateDischarge, string idMedicalFacility, string filePath)
+        public AddHospitalizationWindow(string idActualProgram, string idHospitalization, string dateHospitalization, string dateDischarge, string idMedicalFacility, string filePath, 
+            DateTime? dateDDischarge, DateTime? dateArrivalAtHospital, DateTime? dateDepartureAtDDI)
         {
             InitializeComponent();
+            _idActualProgram = idActualProgram;
             _idHospitalization = idHospitalization;
             dpDateHospitalization.Text = dateHospitalization;
             dpDateDischarge.Text = dateDischarge;
@@ -49,6 +57,9 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
             medicalDirection.Children.Add(hospitalizationMedicalDirectionUserControl);
             btnMedicalDirection.Content = "Изменить медицинское направление";
             _isInsert = false;
+            _dateDDischarge = dateDDischarge;
+            _dateArrivalAtHospital = dateArrivalAtHospital;
+            _dateDepartureAtDDI = dateDepartureAtDDI;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -67,6 +78,28 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
                 medicalFacilityCmbBox.SelectedIndex = 0;
             else
                 medicalFacilityCmbBox.SelectedValue = _idMedicalFacility;
+
+            if (_dateArrivalAtHospital != null)
+                dpDateHospitalization.DisplayDateStart = _dateArrivalAtHospital;
+            else
+            {
+                ActualProgramClass.GetDatesActualProgram(_idActualProgram);
+                DateTime dateHospitalization = Convert.ToDateTime(ActualProgramClass.dtDatesActualProgram.Rows[0]["dateBegin"]);
+                dpDateHospitalization.DisplayDateStart = dateHospitalization;
+            }
+            if (_dateDDischarge != null)
+                dpDateHospitalization.DisplayDateEnd = _dateDDischarge;
+            else if (_dateDepartureAtDDI != null)
+                dpDateHospitalization.DisplayDateEnd = _dateDepartureAtDDI;
+            if (String.IsNullOrEmpty(dpDateHospitalization.Text))
+            {
+                dpDateDischarge.IsEnabled = false;
+                return;
+            }
+            else
+                dpDateDischarge.DisplayDateStart = dpDateHospitalization.SelectedDate.Value.AddDays(1);
+            if (_dateDepartureAtDDI != null)
+                dpDateDischarge.DisplayDateEnd = _dateDepartureAtDDI;
         }
 
         private void btnMedicalDirection_Click(object sender, RoutedEventArgs e)
@@ -95,15 +128,10 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
             string hospitalizationDate = dpDateHospitalization.SelectedDate.Value.ToString("yyyy-MM-dd");
             string dateDischarge = String.IsNullOrEmpty(dpDateDischarge.SelectedDate.ToString()) ? "" : dpDateDischarge.SelectedDate.Value.ToString("yyyy-MM-dd");
             string idMedicalFacility = medicalFacilityCmbBox.SelectedValue.ToString();
-            if (String.IsNullOrEmpty(hospitalizationDate))
+            if (String.IsNullOrEmpty(hospitalizationDate) || String.IsNullOrEmpty(dateDischarge))
             {
                 MessageBox.Show("Пожалуйста, заполните все поля", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
-            }
-            if (String.IsNullOrEmpty(dateDischarge))
-            {
-                if (MessageBox.Show("Вы не выбрали дату выписки. Дату выписки можно будет поставить позже или она поставится автоматически в день завершения госпитализации. Продолжить?", "Выход", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
-                    return;
             }
             if (_isInsert)
             {
@@ -144,6 +172,29 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
+        }
+
+        private void dpDateHospitalization_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            dpDateDischarge.SelectedDate = null;
+            if (String.IsNullOrEmpty(dpDateHospitalization.Text))
+            {
+                dpDateDischarge.IsEnabled = false;
+                return;
+            }
+            dpDateDischarge.DisplayDateStart = dpDateHospitalization.SelectedDate.Value.AddDays(1);
+            dpDateDischarge.IsEnabled = true;
+            if (_dateDepartureAtDDI != null)
+                dpDateHospitalization.DisplayDateEnd = _dateDepartureAtDDI;
+            else
+                dpDateHospitalization.DisplayDateEnd = null;
+        }
+
+        private void dpDateDischarge_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dpDateDischarge.SelectedDate == null)
+                return;
+            dpDateHospitalization.DisplayDateEnd = dpDateDischarge.SelectedDate.Value.AddDays(-1);
         }
     }
 }

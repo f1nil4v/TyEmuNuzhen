@@ -52,15 +52,19 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.PreliminaryInWork
             txtSurname.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["surname"].ToString();
             txtBirthday.Text = Convert.ToDateTime(ChildrensClass.dtChildrensDetailedList.Rows[0]["birthday"]).ToString("dd.MM.yyyy");
             txtName.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["name"].ToString();
+            txtBoxMiddleName.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["middleName"].ToString();
             txtAge.Text = CustomFunctionsClass.CalculateAge(Convert.ToDateTime(ChildrensClass.dtChildrensDetailedList.Rows[0]["birthday"])).ToString();
             txtDateAdded.Text = Convert.ToDateTime(ChildrensClass.dtChildrensDetailedList.Rows[0]["dateAdded"]).ToString("dd.MM.yyyy");
             btnOpenUrl.Tag = ChildrensClass.dtChildrensDetailedList.Rows[0]["urlOfQuestionnaire"].ToString();
             txtRegion.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["regionName"].ToString();
             string photoPath = ChildrensClass.dtChildrensDetailedList.Rows[0]["latestPhotoPath"].ToString();
+            string idOrphanage = ChildrensClass.dtChildrensDetailedList.Rows[0]["idOrphanage"].ToString();
             OrphanageClass.GetOrphanagesForComboBoxList(ChildrensClass.dtChildrensDetailedList.Rows[0]["idRegion"].ToString());
             orphanageCmbBox.ItemsSource = OrphanageClass.dtOrphanagesForComboBoxList.DefaultView;
             orphanageCmbBox.DisplayMemberPath = "nameOrphanage";
             orphanageCmbBox.SelectedValuePath = "ID";
+            if (!String.IsNullOrEmpty(idOrphanage))
+                orphanageCmbBox.SelectedValue = idOrphanage;
             if (!string.IsNullOrEmpty(photoPath))
             {
                 BitmapImage bitmap = new BitmapImage();
