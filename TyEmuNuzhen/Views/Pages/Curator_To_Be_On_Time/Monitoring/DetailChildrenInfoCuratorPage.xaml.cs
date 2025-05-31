@@ -33,6 +33,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
         public DetailChildrenInfoCuratorPage(string id)
         {
             InitializeComponent();
+            HelpManagerClass.CurrentHelpKey = "CuratorDetailPage";
             LoadChildData(id);
             _id = id;
             edtBirthday.DisplayDateEnd = DateTime.Today.AddMonths(-1);

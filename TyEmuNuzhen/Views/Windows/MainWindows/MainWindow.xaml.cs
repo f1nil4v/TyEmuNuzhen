@@ -166,5 +166,13 @@ namespace TyEmuNuzhen.Views.Windows
             mainFrame.NavigationService.RemoveBackEntry();
         }
 
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.F7)
+            {
+                HelpManagerClass.ShowHelp();
+                e.Handled = true;
+            }
+        }
     }
 }

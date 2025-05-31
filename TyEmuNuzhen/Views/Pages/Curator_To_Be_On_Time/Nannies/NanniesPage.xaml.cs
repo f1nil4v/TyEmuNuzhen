@@ -28,6 +28,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Nannies
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            HelpManagerClass.CurrentHelpKey = "CuratorNanniesPage";
             LoadNannies("");
             CountRecords();
         }

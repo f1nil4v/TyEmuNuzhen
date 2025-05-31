@@ -27,6 +27,7 @@ namespace TyEmuNuzhen.Views.Pages.Director.Settings
         public SettingsPage()
         {
             InitializeComponent();
+            HelpManagerClass.CurrentHelpKey = "DirectorSettingsPage";
         }
 
         private void btnExportDB_Click(object sender, RoutedEventArgs e)

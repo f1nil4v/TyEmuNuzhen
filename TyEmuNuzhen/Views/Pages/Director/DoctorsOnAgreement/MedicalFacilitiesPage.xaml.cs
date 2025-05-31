@@ -25,6 +25,7 @@ namespace TyEmuNuzhen.Views.Pages.Director.DoctorsOnAgreement
         public MedicalFacilitiesPage()
         {
             InitializeComponent();
+            HelpManagerClass.CurrentHelpKey = "DirectorMedicalFacilitiesPage";
             LoadMedicalFacilities();
         }
 

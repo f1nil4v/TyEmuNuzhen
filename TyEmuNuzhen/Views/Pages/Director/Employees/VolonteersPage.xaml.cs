@@ -29,11 +29,11 @@ namespace TyEmuNuzhen.Views.Pages.Director.Employees
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            HelpManagerClass.CurrentHelpKey = "DirectorVolonteersPage";
             RegionsClass.GetRegionsList();
             regionsCmbBox.ItemsSource = RegionsClass.dtRegions?.DefaultView;
             regionsCmbBox.DisplayMemberPath = "regionName";
             regionsCmbBox.SelectedValuePath = "ID";
-            regionsCmbBox.SelectedIndex = 0;
             LoadVolonteers("");
             CountRecords();
         }
@@ -142,6 +142,14 @@ namespace TyEmuNuzhen.Views.Pages.Director.Employees
                     break;
             }
             return sortValue;
+        }
+
+        private void btnRefreshFiltration_Click(object sender, RoutedEventArgs e)
+        {
+            string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
+            regionsCmbBox.SelectedIndex = -1;
+            LoadVolonteers(querySearch);
+            CountRecords();
         }
     }
 }

@@ -30,6 +30,7 @@ namespace TyEmuNuzhen.Views.Pages.Director.Employees
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            HelpManagerClass.CurrentHelpKey = "DirectorDirsPage";
             LoadDirectors("");
             CountRecords();
         }
@@ -129,21 +130,6 @@ namespace TyEmuNuzhen.Views.Pages.Director.Employees
                     break;
             }
             return sortValue;
-        }
-
-        private void Page_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.F7)
-            {
-                ShowHelp();
-                e.Handled = true;
-            }
-        }
-
-        private void ShowHelp()
-        {
-            ReferenceInformationWindow helpWindow = new ReferenceInformationWindow("DirectorDirsPage");
-            helpWindow.ShowDialog();
         }
     }
 }

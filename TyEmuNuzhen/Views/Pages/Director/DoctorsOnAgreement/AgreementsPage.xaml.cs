@@ -28,6 +28,7 @@ namespace TyEmuNuzhen.Views.Pages.Director.DoctorsOnAgreement
         public AgreementsPage(string id)
         {
             InitializeComponent();
+            HelpManagerClass.CurrentHelpKey = "DirectorDoctorAgreementsPage";
             DoctorsOnAgreementClass.GetDoctorDataForPrint(id);
             string doctorName = DoctorsOnAgreementClass.dtDoctorDataForPrint.Rows[0]["name"].ToString();
             string doctorSurname = DoctorsOnAgreementClass.dtDoctorDataForPrint.Rows[0]["surname"].ToString();

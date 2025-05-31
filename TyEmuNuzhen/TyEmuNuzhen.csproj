@@ -180,6 +180,7 @@
     <Compile Include="MyClasses\DoctorPostsClass.cs" />
     <Compile Include="MyClasses\DoctorsOnAgreementClass.cs" />
     <Compile Include="MyClasses\DocumentTypeClass.cs" />
+    <Compile Include="MyClasses\HelpManagerClass.cs" />
     <Compile Include="MyClasses\HospitalizationClass.cs" />
     <Compile Include="MyClasses\HospitalizationDetailClass.cs" />
     <Compile Include="MyClasses\MedicalFacilityClass.cs" />

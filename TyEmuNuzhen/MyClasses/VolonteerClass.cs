@@ -109,11 +109,12 @@ namespace TyEmuNuzhen.MyClasses
                     $@"AND (volunteers.surname LIKE @searchQuery OR volunteers.name LIKE @searchQuery OR volunteers.middleName LIKE @searchQuery 
                         OR volunteers.phoneNumber LIKE @searchQuery OR volunteers.email LIKE @searchQuery OR users.login LIKE @searchQuery
                         OR CONCAT_WS(' ', volunteers.surname, volunteers.name, IFNULL(volunteers.middleName, '') LIKE @searchQuery))";
+                whereClause += string.IsNullOrEmpty(idRegion) ? "" : $" AND volunteers.idRegion = '{idRegion}'";
                 string orderBy = string.IsNullOrEmpty(orderByValue) ? null : $"ORDER BY {orderByValue}";
                 DBConnection.myCommand.CommandText = $@"SELECT volunteers.ID, users.login, volunteers.surname, volunteers.name, IFNULL(volunteers.middleName, '-') as 'middleName',
                                             volunteers.phoneNumber, volunteers.email, regions.regionName, volunteers.idUser
                                         FROM volunteers, users, regions
-                                        WHERE users.ID = volunteers.idUser AND regions.ID = volunteers.idRegion AND volunteers.idRegion = '{idRegion}' {whereClause}
+                                        WHERE users.ID = volunteers.idUser AND regions.ID = volunteers.idRegion {whereClause}
                                         {orderBy}";
                 if (whereClause != null)
                 {

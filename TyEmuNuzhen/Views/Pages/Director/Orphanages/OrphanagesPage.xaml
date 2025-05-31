@@ -35,6 +35,7 @@
              HorizontalAlignment="Left" 
              materialDesign:HintAssist.Hint="Поиск" 
              Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="searchTextBox_TextChanged"/>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <ComboBox x:Name="regionsCmbBox"
                Grid.Column="1"
                Width="200"
@@ -42,6 +43,18 @@
                materialDesign:HintAssist.Hint="Регион" 
                Cursor="Hand" 
                Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="regionsCmbBox_SelectionChanged"/>
+                <Button x:Name="btnRefreshFiltration"  
+                  Background="#A3B92E" 
+                  BorderBrush="#A3B92E"  
+                  Height="25"
+                  Width="25"
+                  Margin="10,0,0,0" 
+                  VerticalAlignment="Bottom" 
+                  Padding="4,4,4,4" 
+                  UseLayoutRounding="True" Click="btnRefreshFiltration_Click">
+                    <Image Source="/Images/Controls/refresh.png" />
+                </Button>
+            </StackPanel>
             <ComboBox x:Name="sortCmbBox"
                  Grid.Column="2"
                  Width="200" 
@@ -53,6 +66,7 @@
                 <ComboBoxItem Content="По имени директора"/>
                 <ComboBoxItem Content="По отчеству директора"/>
             </ComboBox>
+
         </Grid>
 
         <DataGrid x:Name="orphanagesGrid" 

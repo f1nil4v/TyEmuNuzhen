@@ -28,6 +28,7 @@ namespace TyEmuNuzhen.Views.Pages.Director.Orphanages
         public AgreementsPage(string id)
         {
             InitializeComponent();
+            HelpManagerClass.CurrentHelpKey = "DirectorOrphanagesAgreementsPage";
             OrphanageClass.GetOrphanageData(id);
             string orphanageName = OrphanageClass.dtOrphanageDataList.Rows[0]["nameOrphanage"].ToString();
             headerTxt.Text += orphanageName;

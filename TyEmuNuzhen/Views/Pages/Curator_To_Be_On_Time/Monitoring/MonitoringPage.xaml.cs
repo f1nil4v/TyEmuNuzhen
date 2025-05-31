@@ -26,6 +26,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
         public MonitoringPage()
         {
             InitializeComponent();
+            HelpManagerClass.CurrentHelpKey = "CuratorMonitoringPage";
         }
 
         private void LoadChildrenData()

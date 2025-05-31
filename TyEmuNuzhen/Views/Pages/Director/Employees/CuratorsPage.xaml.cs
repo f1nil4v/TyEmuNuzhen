@@ -29,6 +29,7 @@ namespace TyEmuNuzhen.Views.Pages.Director.Employees
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            HelpManagerClass.CurrentHelpKey = "DirectorCuratorsPage";
             LoadCurators("");
             CountRecords();
         }

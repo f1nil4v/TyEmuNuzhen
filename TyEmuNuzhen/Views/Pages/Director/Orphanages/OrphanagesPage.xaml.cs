@@ -17,10 +17,10 @@ namespace TyEmuNuzhen.Views.Pages.Director.Orphanages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             RegionsClass.GetRegionsList();
+            HelpManagerClass.CurrentHelpKey = "DirectorOrphanagesPage";
             regionsCmbBox.ItemsSource = RegionsClass.dtRegions?.DefaultView;
             regionsCmbBox.DisplayMemberPath = "regionName";
             regionsCmbBox.SelectedValuePath = "ID";
-            regionsCmbBox.SelectedIndex = 0;
             LoadOrphanages("");
             CountRecords();
         }
@@ -140,6 +140,14 @@ namespace TyEmuNuzhen.Views.Pages.Director.Orphanages
                     break;
             }
             return sortValue;
+        }
+
+        private void btnRefreshFiltration_Click(object sender, RoutedEventArgs e)
+        {
+            string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
+            regionsCmbBox.SelectedIndex = -1;
+            LoadOrphanages(querySearch);
+            CountRecords();
         }
     }
 }

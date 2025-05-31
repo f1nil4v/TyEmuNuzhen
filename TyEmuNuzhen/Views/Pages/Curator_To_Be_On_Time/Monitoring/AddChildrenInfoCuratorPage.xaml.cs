@@ -20,6 +20,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
         public AddChildrenInfoCuratorPage()
         {
             InitializeComponent();
+            HelpManagerClass.CurrentHelpKey = "CuratorAddChildPage";
             birthdayDatePicker.DisplayDateEnd = DateTime.Today.AddMonths(-1);
             birthdayDatePicker.SelectedDate = DateTime.Today.AddMonths(-1);
         }

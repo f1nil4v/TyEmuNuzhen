@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows"
         mc:Ignorable="d"
-        Title="Ты ему нужен" MinHeight="650" MinWidth="1000" WindowState="Maximized" Closed="Window_Closed">
+        Title="Ты ему нужен" MinHeight="650" MinWidth="1000" WindowState="Maximized" Closed="Window_Closed" KeyDown="Window_KeyDown">
 
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">

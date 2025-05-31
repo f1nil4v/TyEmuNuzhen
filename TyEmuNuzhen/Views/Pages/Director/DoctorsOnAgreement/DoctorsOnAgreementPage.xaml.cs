@@ -19,11 +19,11 @@ namespace TyEmuNuzhen.Views.Pages.Director.DoctorsOnAgreement
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            HelpManagerClass.CurrentHelpKey = "DirectorDoctorsPage";
             DoctorPostsClass.GetDoctorPostsList();
             postsCmbBox.ItemsSource = DoctorPostsClass.dtDoctorPostsList.DefaultView;
             postsCmbBox.DisplayMemberPath = "postName";
             postsCmbBox.SelectedValuePath = "ID";
-            postsCmbBox.SelectedIndex = 0;
             LoadDoctors("");
             CountRecords();
         }
@@ -144,9 +144,13 @@ namespace TyEmuNuzhen.Views.Pages.Director.DoctorsOnAgreement
             return sortValue;
         }
 
-        private void Page_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
 
+        private void btnRefreshFiltration_Click(object sender, RoutedEventArgs e)
+        {
+            string querySearch = string.IsNullOrWhiteSpace(searchTextBox.Text) ? "" : searchTextBox.Text;
+            postsCmbBox.SelectedIndex = -1;
+            LoadDoctors(querySearch);
+            CountRecords();
         }
     }
 }

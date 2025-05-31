@@ -70,11 +70,12 @@ namespace TyEmuNuzhen.MyClasses
                     $@"AND (orphanages.nameOrphanage LIKE @searchQuery OR orphanages.address LIKE @searchQuery OR orphanages.email LIKE @searchQuery 
                         OR orphanages.directorSurname LIKE @searchQuery OR orphanages.directorName LIKE @searchQuery OR orphanages.directorMiddleName LIKE @searchQuery
                         OR CONCAT_WS(' ', orphanages.directorSurname, orphanages.directorName, IFNULL(orphanages.directorMiddleName, '')) LIKE @searchQuery)";
+                whereClause += string.IsNullOrEmpty(idRegion) ? "" : $" AND orphanages.idRegion = '{idRegion}'";
                 string orderBy = string.IsNullOrEmpty(orderByValue) ? null : $"ORDER BY {orderByValue}";
                 DBConnection.myCommand.CommandText = $@"SELECT orphanages.ID, orphanages.nameOrphanage, CONCAT_WS(' ', orphanages.directorSurname, orphanages.directorName, IFNULL(orphanages.directorMiddleName, '')) as 'directorFullName',
                                             regions.regionName, orphanages.address, orphanages.email
                                         FROM orphanages, regions
-                                        WHERE regions.ID = orphanages.idRegion AND orphanages.idRegion = '{idRegion}' {whereClause}
+                                        WHERE regions.ID = orphanages.idRegion {whereClause}
                                         {orderBy}";
                 if (whereClause != null)
                 {

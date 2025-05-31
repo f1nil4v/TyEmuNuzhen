@@ -30,6 +30,7 @@ namespace TyEmuNuzhen.Views.Pages.Director.Reference_Books
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            HelpManagerClass.CurrentHelpKey = "DirectorReferDocumentTypesPage";
             LoadDocumentTypes("");
             CountRecords();
         }
