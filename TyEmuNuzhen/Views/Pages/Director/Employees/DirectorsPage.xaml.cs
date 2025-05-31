@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TyEmuNuzhen.MyClasses;
 using TyEmuNuzhen.Views.Windows;
+using TyEmuNuzhen.Views.Windows.DialogWindows;
 
 namespace TyEmuNuzhen.Views.Pages.Director.Employees
 {
@@ -128,6 +129,21 @@ namespace TyEmuNuzhen.Views.Pages.Director.Employees
                     break;
             }
             return sortValue;
+        }
+
+        private void Page_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.F7)
+            {
+                ShowHelp();
+                e.Handled = true;
+            }
+        }
+
+        private void ShowHelp()
+        {
+            ReferenceInformationWindow helpWindow = new ReferenceInformationWindow("DirectorDirsPage");
+            helpWindow.ShowDialog();
         }
     }
 }

@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="DoctorsOnAgreementPage" Loaded="Page_Loaded">
+      Title="DoctorsOnAgreementPage" Loaded="Page_Loaded" KeyDown="Page_KeyDown">
 
     <Grid Margin="20,20,20,0">
         <Grid.RowDefinitions>

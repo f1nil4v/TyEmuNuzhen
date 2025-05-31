@@ -144,5 +144,9 @@ namespace TyEmuNuzhen.Views.Pages.Director.DoctorsOnAgreement
             return sortValue;
         }
 
+        private void Page_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+
+        }
     }
 }

@@ -214,7 +214,17 @@ namespace TyEmuNuzhen
 
         private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
+            if (e.Key == System.Windows.Input.Key.F7)
+            {
+                ShowHelp();
+                e.Handled = true;
+            }
+        }
 
+        private void ShowHelp()
+        {
+            ReferenceInformationWindow helpWindow = new ReferenceInformationWindow("AuthorizationHelp");
+            helpWindow.ShowDialog();
         }
     }
 }

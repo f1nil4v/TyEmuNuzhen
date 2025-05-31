@@ -6,6 +6,8 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using TyEmuNuzhen.MyClasses;
+using TyEmuNuzhen.Views.Pages.Director.Employees;
+using TyEmuNuzhen.Views.Windows.DialogWindows;
 
 
 namespace TyEmuNuzhen.Views.Windows
@@ -163,5 +165,6 @@ namespace TyEmuNuzhen.Views.Windows
             mainFrame.Navigate(new Pages.Director.Settings.SettingsPage());
             mainFrame.NavigationService.RemoveBackEntry();
         }
+
     }
 }

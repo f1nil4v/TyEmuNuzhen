@@ -151,7 +151,7 @@ namespace TyEmuNuzhen.Views.Windows
 
         private void tbAddressRegister_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex(@"[^а-яА-ЯёЁю.]");
+            Regex regex = new Regex(@"[^0-9а-яА-ЯёЁю.,/]");
             if (regex.IsMatch(e.Text))
             {
                 e.Handled = true;

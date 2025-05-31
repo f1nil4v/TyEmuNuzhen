@@ -5,9 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows.DialogWindows"
         mc:Ignorable="d"
-        Title="Справочная информация" Height="450" Width="800"
+        Title="Справочная информация" Height="500" Width="700"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <TextBlock Grid.Row="0" Text="Государственное автономное профессиональное образовательное учреждение" FontSize="14" HorizontalAlignment="Center" Margin="0,1"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#FFCF5FD3" Padding="15">
+            <TextBlock x:Name="titleTextBlock" 
+                       Text="Справочная информация" 
+                       Foreground="White" 
+                       FontSize="18" 
+                       FontWeight="Medium"/>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20,15">
+                <TextBlock x:Name="helpTextBlock" 
+                           TextWrapping="Wrap"
+                           FontSize="14"
+                           LineHeight="22"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Button Grid.Row="2" 
+                Content="Закрыть" 
+                Width="100" 
+                Height="30" 
+                Margin="0,10,0,15"
+                Background="#A3B92E"
+                Foreground="White"
+                BorderBrush="#A3B92E"
+                HorizontalAlignment="Center"
+                Click="CloseButton_Click"/>
     </Grid>
 </Window>

@@ -1,16 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace TyEmuNuzhen.Views.Windows.DialogWindows
 {
@@ -19,9 +9,110 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
     /// </summary>
     public partial class ReferenceInformationWindow : Window
     {
+        private static Dictionary<string, HelpInfo> helpContent = new Dictionary<string, HelpInfo>();
+
+        private struct HelpInfo
+        {
+            public string Title { get; set; }
+            public string Content { get; set; }
+        }
+
+        static ReferenceInformationWindow()
+        {
+            InitializeHelpContent();
+        }
+
+        private static void InitializeHelpContent()
+        {
+            helpContent["AuthorizationHelp"] = new HelpInfo
+            {
+                Title = "Справка: Авторизация",
+                Content = "Окно авторизации предназначено для входа пользователей в систему.\n\n" +
+                          "Инструкция по использованию:\n\n" +
+                          "1. Введите ваш логин в поле \"Логин\"\n" +
+                          "2. Введите пароль в поле \"Пароль\"\n" +
+                          "3. Нажмите кнопку \"Войти\"\n\n" +
+                          "Если вы забыли пароль или не можете войти в систему, обратитесь к администратору.\n\n" +
+                          "Дополнительные функции:\n" +
+                          "- Кнопка \"Показать пароль\" - позволяет увидеть введенный пароль\n" +
+                          "- Кнопка \"Подключение к БД\" - настройка соединения с базой данных\n" +
+                          "- Кнопка \"Закрыть приложение\" - завершение работы с программой\n\n" +
+                          "Для вызова справки в любом окне приложения нажмите клавишу F7."
+            };
+
+            helpContent["DirectorDirsPage"] = new HelpInfo
+            {
+                Title = "Справка: Список директоров",
+                Content = "Страница «Список директоров» предназначена для управления учетными записями директоров в системе.\n\n" +
+                          "Функциональные возможности:\n\n" +
+                          "1. Просмотр списка директоров в системе\n" +
+                          "2. Поиск директоров – используйте поле «Поиск» для фильтрации по любым полям (ФИО, логин, контакты)\n" +
+                          "3. Сортировка списка – выберите критерий в выпадающем списке «Сортировка» (по фамилии, имени, отчеству)\n" +
+                          "4. Добавление нового директора – нажмите кнопку «+» в нижней части экрана\n" +
+                          "5. Редактирование данных – нажмите на значок карандаша в строке директора\n" +
+                          "6. Удаление директора – нажмите на значок корзины в строке директора\n\n" +
+                          "При добавлении или редактировании записи директора указываются:\n" +
+                          "• Логин для входа в систему\n" +
+                          "• Пароль (при создании нового пользователя)\n" +
+                          "• ФИО директора\n" +
+                          "• Контактный телефон\n" +
+                          "• Электронная почта\n\n" +
+                          "Обратите внимание: Удаление директора возможно только при отсутствии связанных с ним записей в системе. " +
+                          "В нижней части страницы отображается общее количество записей и количество записей, соответствующих критериям поиска."
+            };
+
+            helpContent["VolunteersPageHelp"] = new HelpInfo
+            {
+                Title = "Справка: Управление волонтерами",
+                Content = "Страница управления волонтерами позволяет добавлять, редактировать и удалять информацию о волонтерах в системе.\n\n" +
+                          "Основные функции:\n\n" +
+                          "1. Поиск волонтеров - введите текст в поле 'Поиск'\n" +
+                          "2. Сортировка списка - выберите критерий в выпадающем списке 'Сортировка'\n" +
+                          "3. Добавление нового волонтера - нажмите кнопку '+' внизу страницы\n" +
+                          "4. Редактирование - нажмите на значок карандаша в строке волонтера\n" +
+                          "5. Удаление - нажмите на значок корзины в строке волонтера\n\n" +
+                          "Для фильтрации по региону используйте выпадающий список 'Регион'.\n\n" +
+                          "Примечание: при удалении волонтера, все связанные с ним данные будут сохранены в системе."
+            };
+
+        }
+
         public ReferenceInformationWindow()
         {
             InitializeComponent();
+            ShowDefaultHelp();
+        }
+
+        public ReferenceInformationWindow(string helpKey)
+        {
+            InitializeComponent();
+
+            if (helpContent.ContainsKey(helpKey))
+            {
+                titleTextBlock.Text = helpContent[helpKey].Title;
+                helpTextBlock.Text = helpContent[helpKey].Content;
+            }
+            else
+            {
+                ShowDefaultHelp();
+            }
+        }
+
+        private void ShowDefaultHelp()
+        {
+            titleTextBlock.Text = "Общая справка по системе";
+            helpTextBlock.Text = "Система «ТыЕмуНужен» предназначена для организации помощи детям в детских домах.\n\n" +
+                               "Основные модули системы:\n\n" +
+                               "1. Модуль волонтера - для первичного мониторинга детей\n" +
+                               "2. Модуль куратора - для организации помощи детям\n" +
+                               "3. Модуль директора - для управления системой\n\n" +
+                               "Для вызова справки в любом окне нажмите клавишу F7.\n\n" +
+                               "При возникновении вопросов обращайтесь к администратору системы.";
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
