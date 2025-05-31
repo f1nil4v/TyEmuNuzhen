@@ -211,5 +211,10 @@ namespace TyEmuNuzhen
                 authBtn.IsEnabled = false;
             }
         }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+
+        }
     }
 }

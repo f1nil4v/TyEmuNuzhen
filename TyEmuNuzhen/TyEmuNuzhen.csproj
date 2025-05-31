@@ -412,6 +412,9 @@
     <Compile Include="Views\Windows\DialogWindows\ReferenceBooks\TransportTypesWindow.xaml.cs">
       <DependentUpon>TransportTypesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Windows\DialogWindows\ReferenceInformationWindow.xaml.cs">
+      <DependentUpon>ReferenceInformationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\DialogWindows\SelectOptionOfEndProgramWindow.xaml.cs">
       <DependentUpon>SelectOptionOfEndProgramWindow.xaml</DependentUpon>
     </Compile>
@@ -739,6 +742,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Windows\DialogWindows\ReferenceBooks\TransportTypesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\DialogWindows\ReferenceInformationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

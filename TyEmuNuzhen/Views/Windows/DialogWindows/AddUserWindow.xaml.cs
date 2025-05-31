@@ -229,7 +229,7 @@ namespace TyEmuNuzhen.Views.Windows
 
         private void tbEmail_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex(@"[^A-z@.]");
+            Regex regex = new Regex(@"[^0-9A-z@.]");
             if (regex.IsMatch(e.Text))
             {
                 e.Handled = true;

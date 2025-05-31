@@ -90,7 +90,7 @@ namespace TyEmuNuzhen.Views.Windows
 
         private void tbOrphanageName_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            Regex regex = new Regex(@"[^а-яА-ЯёЁ]");
+            Regex regex = new Regex(@"[^а-яА-ЯёЁ№.]");
             if (regex.IsMatch(e.Text))
             {
                 e.Handled = true;
@@ -114,7 +114,7 @@ namespace TyEmuNuzhen.Views.Windows
 
         private void tbEmail_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex(@"[^A-z@.]");
+            Regex regex = new Regex(@"[^0-9A-z@.]");
             if (regex.IsMatch(e.Text))
             {
                 e.Handled = true;

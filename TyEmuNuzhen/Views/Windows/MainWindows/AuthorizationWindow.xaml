@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TyEmuNuzhen"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Авторизация" Width="1700" Height="900" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="1700" MinHeight="900" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="Авторизация" Width="1700" Height="900" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="1700" MinHeight="900" Loaded="Window_Loaded" Closed="Window_Closed" KeyDown="Window_KeyDown">
     <Window.Background>
         <ImageBrush ImageSource="/Images/background.png" TileMode="FlipXY"/>
     </Window.Background>
