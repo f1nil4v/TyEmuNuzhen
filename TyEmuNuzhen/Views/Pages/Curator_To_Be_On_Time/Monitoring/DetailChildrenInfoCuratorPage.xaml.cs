@@ -258,6 +258,8 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                 bitmap.EndInit();
                 childPhoto.ImageSource = bitmap;
                 string image = CopyFilesClass.CopyChildImage(photoPath, _id);
+                if (String.IsNullOrEmpty(image))
+                    return;
                 if (!ChildrenPhotoClass.AddMonitoringPhotoChildren(_id, image))
                     return;
                 LoadChildData(_id);

@@ -55,9 +55,9 @@ namespace TyEmuNuzhen.Views.Pages.Volonteer
                 string.IsNullOrWhiteSpace(descriptionTextBox.Text) ||
                 birthdayDatePicker.SelectedDate == null)
             {
-                if (image == "Выберете изображение!")
+                if (String.IsNullOrEmpty(_photoPath))
                 {
-                    errorImage.Text = image;
+                    errorImage.Text = "*Выберите изображение";
                     AnimationsClass.ShakeElement(errorImage);
                 }
                 errorFields.Text = "*Заполните все поля!";
@@ -65,9 +65,16 @@ namespace TyEmuNuzhen.Views.Pages.Volonteer
                 return;
             }
 
-            if (image == "Выберете изображение!")
+            if (String.IsNullOrEmpty(_photoPath))
             {
-                errorImage.Text = image;
+                errorImage.Text = "*Выберите изображение";
+                AnimationsClass.ShakeElement(errorImage);
+                return;
+            }
+
+            if (String.IsNullOrEmpty(image))
+            {
+                errorImage.Text = "*Выберите другое изображение";
                 AnimationsClass.ShakeElement(errorImage);
                 return;
             }

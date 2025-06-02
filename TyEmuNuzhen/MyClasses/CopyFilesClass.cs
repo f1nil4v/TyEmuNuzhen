@@ -124,9 +124,6 @@ namespace TyEmuNuzhen.MyClasses
                 string fileName = Path.GetFileName(documentSourcePath);
                 string newPath = Path.Combine(medicalResultsSaveFolderPath, fileName);
 
-                if (File.Exists(newPath))
-                    throw new Exception($"файл уже существует. Прикрепите другой файл.");
-
                 File.Copy(documentSourcePath, newPath, true);
 
                 return newPath;

@@ -144,10 +144,11 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
             string idDoctor = cbSpecialist.SelectedValue.ToString();
             string selectedDate = dpConsultationDate.SelectedDate.Value.ToString("yyyy-MM-dd");
             string newPathMedicalConclusion = CopyFilesClass.CopyChildMedicalConclusion(_oldPathMedicalConclusion, _id);
+            if (String.IsNullOrEmpty(newPathMedicalConclusion))
+                return;
             if (countDiagnoses == 0)
             {
-                if (MessageBox.Show(@"Вы не добавили диагнозов. После подтверждения ребёнку будет присвоен статус Проблем не выявлено. 
-                                      Хотите продолжить?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                if (MessageBox.Show(@"Вы не добавили диагнозов. После подтверждения ребёнку будет присвоен статус Проблем не выявлено. Хотите продолжить?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
                     if (!ConsultationClass.AddChildrenConsultation(idDoctor, _id, newPathMedicalConclusion, selectedDate)
                         || !ResultConsultationClass.AddResaultConsultations(_id)
@@ -159,9 +160,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
             }
             else if (countDiagnoses == 1)
             {
-                if (MessageBox.Show(@"Вы уверены, что добавили всю информацию медицинского освидетельствования? 
-                                      После подтверждения ребёнку попадёт в программу под ваше кураторство. 
-                                      Хотите продолжить?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                if (MessageBox.Show(@"Вы уверены, что добавили всю информацию медицинского освидетельствования? После подтверждения ребёнку попадёт в программу под ваше кураторство. Хотите продолжить?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
                     if (!ConsultationClass.AddChildrenConsultation(idDoctor, _id, newPathMedicalConclusion, selectedDate)
                         || !ResultConsultationClass.AddResaultConsultations(_id)
