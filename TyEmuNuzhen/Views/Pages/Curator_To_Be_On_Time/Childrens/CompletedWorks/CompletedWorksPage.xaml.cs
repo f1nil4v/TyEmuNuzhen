@@ -26,9 +26,9 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.CompletedWorks
         public CompletedWorksPage()
         {
             InitializeComponent();
-            InitializeComponent();
             LoadFiltartions();
             LoadChildrenData();
+            HelpManagerClass.CurrentHelpKey = "CuratorCompletedWorksPage";
         }
 
         private void LoadChildrenData()

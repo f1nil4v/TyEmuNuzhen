@@ -127,5 +127,20 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
                 _countDiagnoses++;
             }
         }
+
+        private void ShowHelp()
+        {
+            ReferenceInformationWindow helpWindow = new ReferenceInformationWindow("HistoryProgramWindow");
+            helpWindow.ShowDialog();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.F1)
+            {
+                ShowHelp();
+                e.Handled = true;
+            }
+        }
     }
 }

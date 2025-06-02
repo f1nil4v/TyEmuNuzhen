@@ -38,6 +38,7 @@ namespace TyEmuNuzhen.Views.Pages.Volonteer
             _id = id;
             edtBirthday.DisplayDateEnd = DateTime.Today.AddMonths(-1);
             edtBirthday.SelectedDate = DateTime.Today.AddMonths(-1);
+            HelpManagerClass.CurrentHelpKey = "VolonteerDetailPage";
         }
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
@@ -46,6 +47,7 @@ namespace TyEmuNuzhen.Views.Pages.Volonteer
                 NavigationService.GoBack();
             else
                 NavigationService.Navigate(new MonitoringPage());
+            HelpManagerClass.CurrentHelpKey = "VolonteerMonitoringPage";
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)

@@ -60,6 +60,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             _idChild = idChild;
             fullNameChild.Text = fioChild;
             _idHospitalization = idHospitalization;
+            HelpManagerClass.CurrentHelpKey = "CuratorHospitalizationPage";
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -74,6 +75,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             else
                 NavigationService.Navigate(new ChildrensPage(2));
             NavigationService.RemoveBackEntry();
+            HelpManagerClass.CurrentHelpKey = "CuratorToBeOnTimePage";
         }
 
         private void btnAddHospitalization_Click(object sender, RoutedEventArgs e)

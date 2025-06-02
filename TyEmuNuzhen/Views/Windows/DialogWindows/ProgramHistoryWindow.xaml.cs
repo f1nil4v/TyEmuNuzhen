@@ -64,5 +64,20 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
                 CopyFilesClass.DownloadFile(downloadConsentLbl.Tag.ToString(), selectedPath);
             }
         }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.F1)
+            {
+                HelpManagerClass.ShowHelp();
+                e.Handled = true;
+            }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            HelpManagerClass.CurrentHelpKey = "CuratorCompletedWorksPage";
+        }
+
     }
 }

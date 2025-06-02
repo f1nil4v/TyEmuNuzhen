@@ -38,6 +38,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.CompletedWorks
         {
             InitializeComponent();
             _idActualProgram = idActualProgram;
+            HelpManagerClass.CurrentHelpKey = "HistoryHospitalizationPage";
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

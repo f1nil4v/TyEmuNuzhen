@@ -19,6 +19,7 @@ namespace TyEmuNuzhen.Views.Pages.Volonteer
             InitializeComponent();
             birthdayDatePicker.DisplayDateEnd = DateTime.Today.AddMonths(-1);
             birthdayDatePicker.SelectedDate = DateTime.Today.AddMonths(-1);
+            HelpManagerClass.CurrentHelpKey = "CuratorAddChildPage";
         }
 
         private void selectPhotoButton_Click(object sender, RoutedEventArgs e)
@@ -90,6 +91,8 @@ namespace TyEmuNuzhen.Views.Pages.Volonteer
             if (!ChildrenDescriptionClass.AddMonitoringDescriptionChildren(idChild, descriptionTextBox.Text))
                 return;
             NavigationService.Navigate(new MonitoringPage());
+            NavigationService.RemoveBackEntry();
+            HelpManagerClass.CurrentHelpKey = "VolonteerMonitoringPage";
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
@@ -108,6 +111,7 @@ namespace TyEmuNuzhen.Views.Pages.Volonteer
                 }
             }
             NavigationService.GoBack();
+            HelpManagerClass.CurrentHelpKey = "VolonteerMonitoringPage";
         }
 
         private void Image_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -126,6 +130,7 @@ namespace TyEmuNuzhen.Views.Pages.Volonteer
                 }
             }
             NavigationService.GoBack();
+            HelpManagerClass.CurrentHelpKey = "VolonteerMonitoringPage";
         }
 
         private void surnameTextBox_TextChanged(object sender, TextChangedEventArgs e)

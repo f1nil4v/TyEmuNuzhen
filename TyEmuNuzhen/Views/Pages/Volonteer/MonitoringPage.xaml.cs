@@ -18,6 +18,7 @@ namespace TyEmuNuzhen.Views.Pages
         public MonitoringPage()
         {
             InitializeComponent();
+            HelpManagerClass.CurrentHelpKey = "VolonteerMonitoringPage";
         }
 
         private void LoadChildrenData()

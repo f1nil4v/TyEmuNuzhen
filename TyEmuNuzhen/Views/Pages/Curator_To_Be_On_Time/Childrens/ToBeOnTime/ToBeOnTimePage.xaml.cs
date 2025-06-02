@@ -26,6 +26,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
         public ToBeOnTimePage()
         {
             InitializeComponent();
+            HelpManagerClass.CurrentHelpKey = "CuratorToBeOnTimePage";
             LoadFiltartions();
             LoadChildrenData();
         }

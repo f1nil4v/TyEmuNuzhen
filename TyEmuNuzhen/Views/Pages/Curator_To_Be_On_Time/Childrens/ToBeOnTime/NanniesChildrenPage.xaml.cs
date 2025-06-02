@@ -39,6 +39,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             fullNameChild.Text = fioChild;
             _idChild = idChild;
             LoadNannies();
+            HelpManagerClass.CurrentHelpKey = "CuratorNanniesChildrenPage";
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -123,6 +124,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             else
                 NavigationService.Navigate(new ChildrensPage(2));
             NavigationService.RemoveBackEntry();
+            HelpManagerClass.CurrentHelpKey = "CuratorToBeOnTimePage";
         }
 
 

@@ -94,6 +94,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                 return;
             NavigationService.Navigate(new MonitoringPage());
             NavigationService.RemoveBackEntry();
+            HelpManagerClass.CurrentHelpKey = "CuratorMonitoringPage";
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
@@ -113,6 +114,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             }
             NavigationService.GoBack();
             NavigationService.RemoveBackEntry();
+            HelpManagerClass.CurrentHelpKey = "CuratorMonitoringPage";
         }
 
         private void Image_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -132,6 +134,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             }
             NavigationService.GoBack();
             NavigationService.RemoveBackEntry();
+            HelpManagerClass.CurrentHelpKey = "CuratorMonitoringPage";
         }
 
         private void surnameTextBox_TextChanged(object sender, TextChangedEventArgs e)

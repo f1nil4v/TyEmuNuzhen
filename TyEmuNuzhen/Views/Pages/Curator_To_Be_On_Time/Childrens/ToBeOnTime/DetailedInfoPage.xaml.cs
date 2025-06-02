@@ -28,12 +28,14 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
         private string _id;
         private bool _updated = false;
         private string _errImagePath = "../../Images/Childrens/errImage.png";
+        private bool compl = true;
 
         public DetailedInfoPage(string id)
         {
             InitializeComponent();
             LoadChildData(id);
             _id = id;
+            HelpManagerClass.CurrentHelpKey = "CuratorDetailedInfoPage";
         }
 
         public DetailedInfoPage(string id, bool a)
@@ -42,6 +44,8 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             LoadChildData(id);
             _id = id;
             addDescriptionGrid.Visibility = Visibility.Collapsed;
+            HelpManagerClass.CurrentHelpKey = "CuratorDetailedInfoPage";
+            compl = false;
         }
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
@@ -51,6 +55,10 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             else
                 NavigationService.Navigate(new ChildrensPage(2));
             NavigationService.RemoveBackEntry();
+            if (compl)
+                HelpManagerClass.CurrentHelpKey = "CuratorToBeOnTimePage";
+            else
+                HelpManagerClass.CurrentHelpKey = "CuratorCompletedWorksPage";
         }
 
         private void btnAddDescription_Click(object sender, RoutedEventArgs e)

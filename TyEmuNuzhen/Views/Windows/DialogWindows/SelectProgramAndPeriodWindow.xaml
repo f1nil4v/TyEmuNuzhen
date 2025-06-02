@@ -9,7 +9,7 @@
         Width="1200"
         Height="600"
         Title="Выбор программы и периода" Loaded="Window_Loaded"
-        ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" KeyDown="Window_KeyDown">
     <Window.Resources>
         <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}">
             <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#A3B92E"/>

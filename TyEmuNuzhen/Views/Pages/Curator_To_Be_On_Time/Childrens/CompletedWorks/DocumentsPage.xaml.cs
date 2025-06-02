@@ -20,6 +20,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.CompletedWorks
             InitializeComponent();
             _id = id;
             fullNameChild.Text += FIOChild;
+            HelpManagerClass.CurrentHelpKey = "CuratorDocumentsCPage";
 
         }
 
@@ -27,6 +28,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.CompletedWorks
         {
             NavigationService.GoBack();
             NavigationService.RemoveBackEntry();
+            HelpManagerClass.CurrentHelpKey = "CuratorCompletedWorksPage";
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

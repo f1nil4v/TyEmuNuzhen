@@ -32,6 +32,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
         public ConsultationPage(string id, string FIOchild)
         {
             InitializeComponent();
+            HelpManagerClass.CurrentHelpKey = "CuratorConsultationPage";
             dpConsultationDate.SelectedDate = DateTime.Now;
             _id = id;
             fullNameChild.Text += FIOchild;
@@ -52,6 +53,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
                 NavigationService.GoBack();
                 NavigationService.RemoveBackEntry();
             }
+            HelpManagerClass.CurrentHelpKey = "CuratorMedicalExaminationChildrensPage";
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -128,6 +130,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
                 NavigationService.GoBack();
                 NavigationService.RemoveBackEntry();
             }
+            HelpManagerClass.CurrentHelpKey = "CuratorMedicalExaminationChildrensPage";
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -200,6 +203,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
             }
             NavigationService.Navigate(new ChildrensPage(1));
             NavigationService.RemoveBackEntry();
+            HelpManagerClass.CurrentHelpKey = "CuratorMedicalExaminationChildrensPage";
 
         }
 

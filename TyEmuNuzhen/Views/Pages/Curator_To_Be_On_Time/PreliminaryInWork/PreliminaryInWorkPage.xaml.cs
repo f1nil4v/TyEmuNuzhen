@@ -26,6 +26,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.PreliminaryInWork
     {
         public PreliminaryInWorkPage()
         {
+            HelpManagerClass.CurrentHelpKey = "CuratorPreliminaryInWorkPage";
             InitializeComponent();
         }
 

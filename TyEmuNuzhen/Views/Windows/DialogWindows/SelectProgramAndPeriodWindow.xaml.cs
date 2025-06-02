@@ -97,5 +97,20 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
             ActualProgramClass.GetProgramsHistoryList(_idChild, idProgramType, dateBeginPeriod, dateEndPeriod);
             programsHistoryGrid.ItemsSource = ActualProgramClass.dtProgramsHistoryList?.DefaultView;
         }
+
+        private void ShowHelp()
+        {
+            ReferenceInformationWindow helpWindow = new ReferenceInformationWindow("HistoryProgramWindow");
+            helpWindow.ShowDialog();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.F1)
+            {
+                ShowHelp();
+                e.Handled = true;
+            }
+        }
     }
 }

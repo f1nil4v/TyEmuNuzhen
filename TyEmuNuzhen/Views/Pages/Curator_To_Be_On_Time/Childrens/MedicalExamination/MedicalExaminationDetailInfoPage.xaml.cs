@@ -22,6 +22,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
         public MedicalExaminationDetailInfoPage(string id)
         {
             InitializeComponent();
+            HelpManagerClass.CurrentHelpKey = "CuratorMedicalExaminationDetailInfoPage";
             LoadChildData(id);
             _id = id;
         }
@@ -33,6 +34,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
             else
                 NavigationService.Navigate(new ChildrensPage(1));
             NavigationService.RemoveBackEntry();
+            HelpManagerClass.CurrentHelpKey = "CuratorMedicalExaminationChildrensPage";
         }
 
         private void btnAddDescription_Click(object sender, RoutedEventArgs e)

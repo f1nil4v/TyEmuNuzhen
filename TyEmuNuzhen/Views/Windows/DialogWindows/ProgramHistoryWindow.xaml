@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows.DialogWindows"
         mc:Ignorable="d"
         Title="История прохождения программы" MinHeight="450" MinWidth="800"
-        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        WindowStartupLocation="CenterScreen" WindowState="Maximized" Closed="Window_Closed" KeyDown="Window_KeyDown">
 
     <Grid>
         <Grid.RowDefinitions>

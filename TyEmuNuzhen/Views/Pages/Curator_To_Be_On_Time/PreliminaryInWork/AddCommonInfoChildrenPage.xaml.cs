@@ -31,6 +31,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.PreliminaryInWork
         public AddCommonInfoChildrenPage(string id)
         {
             InitializeComponent();
+            HelpManagerClass.CurrentHelpKey = "CuratorAddCommonChildrenInfoPage";
             LoadChildData(id);
             _id = id;
         }
@@ -41,6 +42,8 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.PreliminaryInWork
                 NavigationService.GoBack();
             else
                 NavigationService.Navigate(new MonitoringPage());
+            NavigationService.RemoveBackEntry();
+            HelpManagerClass.CurrentHelpKey = "CuratorPreliminaryInWorkPage";
         }
 
         private void LoadChildData(string id)
@@ -166,28 +169,6 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.PreliminaryInWork
             }
         }
 
-        private void btnAddNotProblem_Click(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Вы уверены, что у данного ребёнка проблем не выявлено?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
-            {
-                if (!ChildrensClass.UpdateStatusChildren(_id, "9"))
-                    return;
-                MessageBox.Show("Наблюдение за данным ребёнком завершено. Информация о нём перемещена в Архив/Без выявленных проблем", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                NavigationService.Navigate(new MonitoringPage());
-            }
-        }
-
-        private void btnAddHaveProblems_Click(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Вы уверены, что у данного ребёнка выявленны проблемы?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
-            {
-                if (!ChildrensClass.UpdateStatusChildren(_id, "2"))
-                    return;
-                MessageBox.Show("Данный ребёнок предварительно запущен в процесс работы. Для того что-бы провести консультацию, заполните остальную информацию на странице Предварительно в работе", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                NavigationService.Navigate(new MonitoringPage());
-            }
-        }
-
         private void btnCompleeteAddInformation_Click(object sender, RoutedEventArgs e)
         {
             if (orphanageCmbBox.SelectedIndex == -1)
@@ -201,6 +182,8 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.PreliminaryInWork
 
             MessageBox.Show("Информация успешно добавлена. Для дальнейшей работы с данным ребёнком перейдите на страницу Дети.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
             NavigationService.Navigate(new PreliminaryInWorkPage());
+            NavigationService.RemoveBackEntry();
+            HelpManagerClass.CurrentHelpKey = "CuratorPreliminaryInWorkPage";
         }
     }
 }

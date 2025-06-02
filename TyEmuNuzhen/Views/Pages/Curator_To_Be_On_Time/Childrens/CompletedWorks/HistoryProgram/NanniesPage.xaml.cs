@@ -31,6 +31,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.CompletedWorks
             InitializeComponent();
             _idActualProgram = idActualProgram;
             LoadNannies();
+            HelpManagerClass.CurrentHelpKey = "HistoryNanniesChildrenPage";
         }
 
         private void downloadAgreementBtn_Click(object sender, RoutedEventArgs e)

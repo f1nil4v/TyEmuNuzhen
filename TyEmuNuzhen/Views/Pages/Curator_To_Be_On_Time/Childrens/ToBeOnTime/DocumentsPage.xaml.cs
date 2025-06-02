@@ -26,7 +26,8 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             InitializeComponent();
             _id = id;
             fullNameChild.Text += FIOChild;
-            
+            HelpManagerClass.CurrentHelpKey = "CuratorDocumentsPage";
+
         }
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
@@ -36,6 +37,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
             else
                 NavigationService.Navigate(new ChildrensPage(2));
             NavigationService.RemoveBackEntry();
+            HelpManagerClass.CurrentHelpKey = "CuratorToBeOnTimePage";
         }
 
         private void BtnAddDocument_Click(object sender, RoutedEventArgs e)

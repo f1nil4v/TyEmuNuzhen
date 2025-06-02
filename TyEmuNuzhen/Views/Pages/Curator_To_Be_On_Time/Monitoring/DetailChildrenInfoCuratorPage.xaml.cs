@@ -47,6 +47,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             else
                 NavigationService.Navigate(new MonitoringPage());
             NavigationService.RemoveBackEntry();
+            HelpManagerClass.CurrentHelpKey = "CuratorMonitoringPage";
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -68,7 +69,6 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             photoHistoryGrid.IsEnabled = false;
             descriptionHistoryGrid.IsEnabled = false;
             addDescriptionGrid.IsEnabled = false;
-
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -301,6 +301,8 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                     return;
                 MessageBox.Show("Наблюдение за данным ребёнком завершено. Информация о нём перемещена в Архив/Без выявленных проблем", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 NavigationService.Navigate(new MonitoringPage());
+                NavigationService.RemoveBackEntry();
+                HelpManagerClass.CurrentHelpKey = "CuratorMonitoringPage";
             }
         }
 
@@ -312,6 +314,8 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                     return;
                 MessageBox.Show("Данный ребёнок предварительно запущен в процесс работы. Для того что-бы провести консультацию, заполните остальную информацию на странице Предварительно в работе", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 NavigationService.Navigate(new MonitoringPage());
+                NavigationService.RemoveBackEntry();
+                HelpManagerClass.CurrentHelpKey = "CuratorMonitoringPage";
             }
         }
     }

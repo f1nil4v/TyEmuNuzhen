@@ -26,6 +26,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
         public MedicalExaminationChildrensPage()
         {
             InitializeComponent();
+            HelpManagerClass.CurrentHelpKey = "CuratorMedicalExaminationChildrensPage";
             LoadFiltartions();
             LoadChildrenData();
         }
