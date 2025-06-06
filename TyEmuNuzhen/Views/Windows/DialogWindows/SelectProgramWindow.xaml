@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows"
         mc:Ignorable="d"
-        Title="Выбор программы" Height="193" Width="691" ResizeMode="NoResize">
+        Icon="/Images/Logo/icon.ico"
+        Title="Выбор программы" Height="193" Width="691" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

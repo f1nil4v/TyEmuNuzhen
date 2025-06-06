@@ -488,7 +488,7 @@ namespace TyEmuNuzhen.MyClasses
                 DBConnection.myCommand.CommandText = $"SELECT COUNT(ID) FROM childrens WHERE urlOfQuestionnaire = '{urlOfQuestionnaire}' {whereClause}";
                 if (Convert.ToInt32(DBConnection.myCommand.ExecuteScalar()) > 0)
                 {
-                    MessageBox.Show("Ребёнок с данным номером анкеты уже есть в системе!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Ребёнок с данной анкетой уже есть в системе!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
                 else
@@ -510,7 +510,7 @@ namespace TyEmuNuzhen.MyClasses
         {
             try
             {
-                DBConnection.myCommand.CommandText = $"SELECT DISTINCT COUNT(ID) FROM childrens WHERE childrens.ID IN (SELECT idChild FROM actual_program WHERE status = 0)";
+                DBConnection.myCommand.CommandText = $"SELECT DISTINCT COUNT(ID) FROM childrens WHERE childrens.ID IN (SELECT idChild FROM actual_program WHERE status = 0) OR childrens.idStatus = 11";
                 Object resultID = DBConnection.myCommand.ExecuteScalar();
                 if (resultID != null)
                 {

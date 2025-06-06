@@ -56,6 +56,8 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.ToBeOnTime
                     {
                         string filePath = openFileDialog.FileName;
                         string newFilePath = CopyFilesClass.CopyChildDocument(filePath, _id);
+                        if (String.IsNullOrEmpty(newFilePath))
+                            return;
                         ChildrenDocumentClass.GetSameDocumentScanByDocumentID(_id, DocumentTypeClass.selectedIDTypeDocument);
                         if (ChildrenDocumentClass.dtTemporaryDocumentChildrenDocuments.Rows.Count > 0)
                         {

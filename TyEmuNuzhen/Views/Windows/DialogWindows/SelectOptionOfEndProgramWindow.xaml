@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows.DialogWindows"
         mc:Ignorable="d"
+        Icon="/Images/Logo/icon.ico"
         Title="Выбор варианта завершения программы" Height="193" Width="720"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Margin="20">

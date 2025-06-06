@@ -27,6 +27,7 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
             InitializeComponent();
             currentSettings = DBConnection.Settings ?? new DatabaseSettings();
             txtServer.Text = currentSettings.Server;
+            txtPort.Text = currentSettings.Port;
             txtDatabase.Text = currentSettings.Database;
             txtUsername.Text = currentSettings.Username;
             txtPassword.Password = currentSettings.Password;
@@ -34,7 +35,7 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
 
         private void btnTest_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtServer.Text) || string.IsNullOrWhiteSpace(txtDatabase.Text) ||
+            if (string.IsNullOrWhiteSpace(txtServer.Text) || string.IsNullOrWhiteSpace(txtPort.Text) || string.IsNullOrWhiteSpace(txtDatabase.Text) ||
                 string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Password))
             {
                 MessageBox.Show("Пожалуйста, заполните все поля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -50,7 +51,7 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtServer.Text) || string.IsNullOrWhiteSpace(txtDatabase.Text) ||
+            if (string.IsNullOrWhiteSpace(txtServer.Text) || string.IsNullOrWhiteSpace(txtPort.Text) || string.IsNullOrWhiteSpace(txtDatabase.Text) ||
                 string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Password))
             {
                 MessageBox.Show("Пожалуйста, заполните все поля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -72,10 +73,10 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
 
         private DatabaseSettings GetSettingsFromFields()
         {
-
             return new DatabaseSettings
             {
                 Server = txtServer.Text,
+                Port = txtPort.Text,
                 Database = txtDatabase.Text,
                 Username = txtUsername.Text,
                 Password = txtPassword.Password

@@ -46,6 +46,7 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
             tbCost.Text = HospitalizationDetailClass.dtHospitalizationDetailDataChange.Rows[0]["cost"].ToString().Replace(",00","");
             dpDateMedicalHelp.Text = Convert.ToDateTime(HospitalizationDetailClass.dtHospitalizationDetailDataChange.Rows[0]["dateMedicalHelp"]).ToString("dd.MM.yyyy");
             _isInsert = false;
+            this.Title = "Редактирование медицинской услуги";   
             _dateDHospitalization = dateDHospitalization;
             _dateDDischarge = dateDDischarge;
         }

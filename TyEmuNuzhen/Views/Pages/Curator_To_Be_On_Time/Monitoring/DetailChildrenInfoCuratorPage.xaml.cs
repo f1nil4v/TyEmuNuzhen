@@ -246,7 +246,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "Image Files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png"
+                Filter = "Image Files (*.jpg;*.jpeg;*.png;*.webp)|*.jpg;*.jpeg;*.png;*.webp"
             };
             if (openFileDialog.ShowDialog() == true)
             {
@@ -301,7 +301,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             {
                 if (!ChildrensClass.UpdateStatusChildren(_id, "11"))
                     return;
-                MessageBox.Show("Наблюдение за данным ребёнком завершено. Информация о нём перемещена в Архив/Без выявленных проблем", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Статус ребёнка изменён на \"Работа завершена\".", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 NavigationService.Navigate(new MonitoringPage());
                 NavigationService.RemoveBackEntry();
                 HelpManagerClass.CurrentHelpKey = "CuratorMonitoringPage";
@@ -310,11 +310,11 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
 
         private void btnAddHaveProblems_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Вы уверены, что у данного ребёнка выявленны проблемы?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (MessageBox.Show("Вы уверены, что у данного ребёнка выявлены проблемы?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
                 if (!ChildrensClass.UpdateStatusChildren(_id, "2"))
                     return;
-                MessageBox.Show("Данный ребёнок предварительно запущен в процесс работы. Для того что-бы провести консультацию, заполните остальную информацию на странице Предварительно в работе", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Статус ребёнка изменён на \"Медицинское освидетельствование\".", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 NavigationService.Navigate(new MonitoringPage());
                 NavigationService.RemoveBackEntry();
                 HelpManagerClass.CurrentHelpKey = "CuratorMonitoringPage";

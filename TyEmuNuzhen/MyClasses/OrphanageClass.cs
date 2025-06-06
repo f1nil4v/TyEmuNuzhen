@@ -101,7 +101,8 @@ namespace TyEmuNuzhen.MyClasses
             {
                 DBConnection.myCommand.CommandText = $@"SELECT orphanages.ID, orphanages.nameOrphanage, orphanages.directorSurname, orphanages.directorName, IFNULL(orphanages.directorMiddleName, '-') as 'middleName',
                                             orphanages.idRegion, orphanages.email, orphanages.address
-                                        FROM orphanages";
+                                        FROM orphanages 
+                                        WHERE ID = '{idOrphanage}'";
                 dtOrphanageDataList = new DataTable();
                 DBConnection.myDataAdapter.Fill(dtOrphanageDataList);
             }

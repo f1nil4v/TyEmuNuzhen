@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows.DialogWindows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        Icon="/Images/Logo/icon.ico"
         Title="Добавление медицинского учреждения" Height="200" Width="600"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows.DialogWindows"
         mc:Ignorable="d"
+        Icon="/Images/Logo/interrogation.ico"
         Title="Справочная информация" Height="500" Width="700"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>

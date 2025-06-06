@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows.DialogWindows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        Icon="/Images/Logo/icon.ico"
         Width="1200"
         Height="600"
         Title="Выбор программы и периода" Loaded="Window_Loaded"

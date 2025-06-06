@@ -168,7 +168,7 @@ namespace TyEmuNuzhen.MyClasses
                 return true;
             else
             {
-                MessageBox.Show("Неккорректно введён email", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Некорректно введён email", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
         }

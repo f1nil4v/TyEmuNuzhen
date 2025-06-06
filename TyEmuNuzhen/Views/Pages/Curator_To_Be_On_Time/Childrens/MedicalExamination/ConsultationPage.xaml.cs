@@ -176,19 +176,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.MedicalExamina
             }
             else if (countDiagnoses > 1)
             {
-                SelectProgramWindow selectProgramWindow = new SelectProgramWindow();
-                if (selectProgramWindow.ShowDialog() == false)
-                    return;
-                if (selectProgramWindow.program == 1)
-                {
-                    if (!ConsultationClass.AddChildrenConsultation(idDoctor, _id, newPathMedicalConclusion, selectedDate)
-                        || !ResultConsultationClass.AddResaultConsultations(_id)
-                        || !ChildrenDiagnosisClass.AddChildrenDiagnosis()
-                        || !ActualDiagnosesClass.AddChildrenDiagnosis(_id)
-                        || !ChildrensClass.UpdateStatusChildren(_id, "6"))
-                        return;
-                }
-                else if (selectProgramWindow.program == 2)
+                if (MessageBox.Show(@"Вы уверены, что добавили всю информацию медицинского освидетельствования? После подтверждения ребёнку попадёт в программу под ваше кураторство. Хотите продолжить?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
                     if (!ConsultationClass.AddChildrenConsultation(idDoctor, _id, newPathMedicalConclusion, selectedDate)
                         || !ResultConsultationClass.AddResaultConsultations(_id)

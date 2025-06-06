@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows.DialogWindows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        Icon="/Images/Logo/icon.ico"
         FontFamily="{materialDesign:MaterialDesignFont}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -42,49 +43,61 @@
                 <materialDesign:Card Margin="0,0,0,16" Padding="8">
                     <StackPanel>
                         <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" 
-                               Text="База данных" 
-                               Margin="0,0,0,8"/>
+                       Text="База данных" 
+                       Margin="0,0,0,8"/>
                         <TextBox x:Name="txtDatabase"
-                            materialDesign:HintAssist.Hint="Введите имя базы данных"
-                            materialDesign:TextFieldAssist.HasClearButton="True"
-                            materialDesign:TextFieldAssist.UnderlineBrush="#FFCF5FD3"
-                            materialDesign:HintAssist.Foreground="#FFCF5FD3"/>
+                    materialDesign:HintAssist.Hint="Введите имя базы данных"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    materialDesign:TextFieldAssist.UnderlineBrush="#FFCF5FD3"
+                    materialDesign:HintAssist.Foreground="#FFCF5FD3"/>
                     </StackPanel>
                 </materialDesign:Card>
                 <materialDesign:Card Margin="0,0,0,16" Padding="8">
                     <StackPanel>
                         <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" 
-                               Text="Сервер" 
-                               Margin="0,0,0,8"/>
+                       Text="Сервер" 
+                       Margin="0,0,0,8"/>
                         <TextBox x:Name="txtServer" 
-                            materialDesign:HintAssist.Hint="Введите адрес сервера"
-                            materialDesign:TextFieldAssist.HasClearButton="True"
-                            materialDesign:TextFieldAssist.UnderlineBrush="#FFCF5FD3"
-                            materialDesign:HintAssist.Foreground="#FFCF5FD3"/>
+                    materialDesign:HintAssist.Hint="Введите адрес сервера"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    materialDesign:TextFieldAssist.UnderlineBrush="#FFCF5FD3"
+                    materialDesign:HintAssist.Foreground="#FFCF5FD3"/>
                     </StackPanel>
                 </materialDesign:Card>
                 <materialDesign:Card Margin="0,0,0,16" Padding="8">
                     <StackPanel>
                         <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" 
-                               Text="Имя пользователя" 
-                               Margin="0,0,0,8"/>
+                       Text="Порт" 
+                       Margin="0,0,0,8"/>
+                        <TextBox x:Name="txtPort" 
+                    materialDesign:HintAssist.Hint="Введите порт сервера"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    materialDesign:TextFieldAssist.UnderlineBrush="#FFCF5FD3"
+                    materialDesign:HintAssist.Foreground="#FFCF5FD3"/>
+                    </StackPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Margin="0,0,0,16" Padding="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" 
+                       Text="Имя пользователя" 
+                       Margin="0,0,0,8"/>
                         <TextBox x:Name="txtUsername"
-                            materialDesign:HintAssist.Hint="Введите имя пользователя"
-                            materialDesign:TextFieldAssist.HasClearButton="True"
-                            materialDesign:TextFieldAssist.UnderlineBrush="#FFCF5FD3"
-                            materialDesign:HintAssist.Foreground="#FFCF5FD3"/>
+                    materialDesign:HintAssist.Hint="Введите имя пользователя"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    materialDesign:TextFieldAssist.UnderlineBrush="#FFCF5FD3"
+                    materialDesign:HintAssist.Foreground="#FFCF5FD3"/>
                     </StackPanel>
                 </materialDesign:Card>
                 <materialDesign:Card Margin="0,0,0,16" Padding="8">
                     <StackPanel>
                         <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" 
-                               Text="Пароль" 
-                               Margin="0,0,0,8"/>
+                       Text="Пароль" 
+                       Margin="0,0,0,8"/>
                         <PasswordBox x:Name="txtPassword"
-                                materialDesign:HintAssist.Hint="Введите пароль"
-                                materialDesign:TextFieldAssist.HasClearButton="True"
-                                materialDesign:TextFieldAssist.UnderlineBrush="#FFCF5FD3"
-                                materialDesign:HintAssist.Foreground="#FFCF5FD3"/>
+                        materialDesign:HintAssist.Hint="Введите пароль"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:TextFieldAssist.UnderlineBrush="#FFCF5FD3"
+                        materialDesign:HintAssist.Foreground="#FFCF5FD3"/>
                     </StackPanel>
                 </materialDesign:Card>
             </StackPanel>

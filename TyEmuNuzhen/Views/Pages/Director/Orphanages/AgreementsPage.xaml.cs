@@ -31,7 +31,7 @@ namespace TyEmuNuzhen.Views.Pages.Director.Orphanages
             HelpManagerClass.CurrentHelpKey = "DirectorOrphanagesAgreementsPage";
             OrphanageClass.GetOrphanageData(id);
             string orphanageName = OrphanageClass.dtOrphanageDataList.Rows[0]["nameOrphanage"].ToString();
-            headerTxt.Text += orphanageName;
+            headerTxt.Text = orphanageName;
             LoadAgreements(id);
             _id = id;
         }
@@ -71,6 +71,11 @@ namespace TyEmuNuzhen.Views.Pages.Director.Orphanages
         {
             NavigationService.GoBack();
             NavigationService.RemoveBackEntry();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

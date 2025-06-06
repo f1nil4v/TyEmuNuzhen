@@ -55,6 +55,7 @@ namespace TyEmuNuzhen.Views.Windows.DialogWindows
             medicalDirection.Children.Clear();
             HospitalizationMedicalDirectionUserControl hospitalizationMedicalDirectionUserControl = new HospitalizationMedicalDirectionUserControl(filePath, 1);
             medicalDirection.Children.Add(hospitalizationMedicalDirectionUserControl);
+            this.Title = "Редактирование госпитализации";
             btnMedicalDirection.Content = "Изменить медицинское направление";
             _isInsert = false;
             _dateDDischarge = dateDDischarge;

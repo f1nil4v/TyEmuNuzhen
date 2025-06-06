@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows.DialogWindows"
         mc:Ignorable="d"
+        Icon="/Images/Logo/icon.ico"
         Title="История прохождения программы" MinHeight="450" MinWidth="800"
         WindowStartupLocation="CenterScreen" WindowState="Maximized" Closed="Window_Closed" KeyDown="Window_KeyDown">
 

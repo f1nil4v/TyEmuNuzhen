@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        Icon="/Images/Logo/icon.ico"
         Title="Стоимость в сутки"
         Width="350"
         Height="180"

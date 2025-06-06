@@ -39,7 +39,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             bool _isDESC = true;
             if (sortCmbBox.SelectedIndex == 0)
                 _isDESC = false;
-            string countAllRecords = ChildrensClass.GetCountChildrensMonitoring(_idRegion, "1");
+            string countAllRecords = ChildrensClass.GetCountChildrensMonitoring("", "1");
             ChildrensClass.GetChildrenList("1", _idRegion, _dateAddedBeginPeriod, _dateAddedEndPeriod, _searchQuery, _isDESC);
             childrenContainer.Children.Clear();
             if (ChildrensClass.dtChildrensList.Rows.Count > 0)

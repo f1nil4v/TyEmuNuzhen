@@ -17,6 +17,8 @@ namespace TyEmuNuzhen.Views.UserControls
         private string _fullNameChild;
         private byte _status;
 
+        private string _errImagePath = "../../Images/Childrens/errImage.png";
+
         public ChildrensCuratorUserControl(string id, string fullName, DateTime birthDate,
             string age, string regionName, string orphanage, string photoPath, DateTime dateChildAdded, byte status)
         {
@@ -57,7 +59,14 @@ namespace TyEmuNuzhen.Views.UserControls
                 childPhoto.ImageSource = bitmap;
             }
             else
-                MessageBox.Show("Фотография не найдена", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            {
+                BitmapImage errorBitmap = new BitmapImage();
+                errorBitmap.BeginInit();
+                errorBitmap.UriSource = new Uri(_errImagePath, UriKind.RelativeOrAbsolute);
+                errorBitmap.CacheOption = BitmapCacheOption.OnLoad;
+                errorBitmap.EndInit();
+                childPhoto.ImageSource = errorBitmap;
+            }
         }
 
         public ChildrensCuratorUserControl(string id, string fullName, DateTime birthDate,
@@ -106,7 +115,14 @@ namespace TyEmuNuzhen.Views.UserControls
                 childPhoto.ImageSource = bitmap;
             }
             else
-                MessageBox.Show("Фотография не найдена", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            {
+                BitmapImage errorBitmap = new BitmapImage();
+                errorBitmap.BeginInit();
+                errorBitmap.UriSource = new Uri(_errImagePath, UriKind.RelativeOrAbsolute);
+                errorBitmap.CacheOption = BitmapCacheOption.OnLoad;
+                errorBitmap.EndInit();
+                childPhoto.ImageSource = errorBitmap;
+            }
         }
 
         private void detailedBtn_Click(object sender, RoutedEventArgs e)

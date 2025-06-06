@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Windows.MainWindows"
         mc:Ignorable="d"
+        Icon="/Images/Logo/icon.ico"
         Title="ScreensaverWindow" Height="311" Width="652" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Grid VerticalAlignment="Center">
         <Grid.RowDefinitions>
@@ -26,7 +27,7 @@
         <TextBlock Grid.Row="4" Text="«Учёт деятельности благотворительного фонда" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,1"/>
         <TextBlock Grid.Row="5" Text="МБОО Ты ему нужен»" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" Margin="0,1"/>
         <Image Grid.Row="6" Source="/Images/Logo/logo.png" Width="200" Margin="0,1"/>
-        <TextBlock Grid.Row="7" Text="Разработчик: студент 4 курса, группы П1 Кутин Руслан" FontSize="14" HorizontalAlignment="Center" Margin="0,1"/>
+        <TextBlock Grid.Row="7" Text="Разработчик: студент 4 курса, группы П1 Кутин Р. И." FontSize="14" HorizontalAlignment="Center" Margin="0,1"/>
         <TextBlock Grid.Row="8" Text="г.Мурманск" HorizontalAlignment="Center" FontSize="14" Margin="0,1"/>
         <TextBlock Grid.Row="9" Text="2025" HorizontalAlignment="Center" FontSize="14" Margin="0,1"/>
     </Grid>

@@ -29,6 +29,8 @@ namespace TyEmuNuzhen.Views.UserControls
         private string _questUrl;
         private string _fullNameChild;
 
+        private string _errImagePath = "../../Images/Childrens/errImage.png";
+
         public ChildrensAfterAnyWorksUserControl(string id, string questNumber, string questURL, string fullName, DateTime birthDate,
             string age, string regionName, string orphanageName, string photoPath, DateTime dateChildAdded, string idStatus, string statusName, string lastProgram)
         {
@@ -67,7 +69,14 @@ namespace TyEmuNuzhen.Views.UserControls
                 childPhoto.ImageSource = bitmap;
             }
             else
-                MessageBox.Show("Фотография не найдена", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            {
+                BitmapImage errorBitmap = new BitmapImage();
+                errorBitmap.BeginInit();
+                errorBitmap.UriSource = new Uri(_errImagePath, UriKind.RelativeOrAbsolute);
+                errorBitmap.CacheOption = BitmapCacheOption.OnLoad;
+                errorBitmap.EndInit();
+                childPhoto.ImageSource = errorBitmap;
+            }
         }
 
         private void questURLBtn_Click(object sender, RoutedEventArgs e)

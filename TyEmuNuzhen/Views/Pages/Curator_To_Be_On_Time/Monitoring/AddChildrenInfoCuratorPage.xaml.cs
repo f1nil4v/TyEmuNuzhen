@@ -29,7 +29,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "Image Files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png"
+                Filter = "Image Files (*.jpg;*.jpeg;*.png;*.webp)|*.jpg;*.jpeg;*.png;*.webp"
             };
             if (openFileDialog.ShowDialog() == true)
             {

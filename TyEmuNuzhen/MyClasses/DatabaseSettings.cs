@@ -16,6 +16,10 @@ namespace TyEmuNuzhen.MyClasses
         /// </summary>
         public string Server { get; set; } = "localhost";
         /// <summary>
+        /// Порт базы данных
+        /// </summary>
+        public string Port { get; set; } = "3306";
+        /// <summary>
         /// Имя базы данных
         /// </summary>
         public string Database { get; set; } = "tyemunuzhen_db";
@@ -38,7 +42,7 @@ namespace TyEmuNuzhen.MyClasses
         /// <returns></returns>
         public string GetConnectionString()
         {
-            return $"Database={Database};Data Source={Server};user={Username};Password={Password};charset={Charset};";
+            return $"Database={Database};Data Source={Server};Port={Port};user={Username};Password={Password};charset={Charset};";
         }
 
         /// <summary>

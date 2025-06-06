@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TyEmuNuzhen.Views.Pages.Curator_To_Be_On_Time.Childrens.InWork"
         mc:Ignorable="d"
+        Icon="/Images/Logo/icon.ico"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
         Title="Выбор типа документа" MaxHeight="200" MaxWidth="400">
     <Grid Margin="20">
         <Grid.RowDefinitions>
