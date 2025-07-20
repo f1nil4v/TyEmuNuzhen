@@ -205,14 +205,18 @@
                             <TextBlock Grid.Row="2" Grid.Column="2" Text="Возраст:" FontWeight="SemiBold" Margin="0,0,0,8" Visibility="Hidden"/>
                             <TextBlock Grid.Row="2" Grid.Column="3" Text="" Margin="0,0,0,8" Visibility="Hidden"/>
 
-                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Регион:" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                            <TextBlock Grid.Row="3" Grid.Column="1" x:Name="txtRegion1" Text="Москва" Margin="0,0,0,8"/>
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Регион:" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="regionsCmbBox"
+                                 Width="400" 
+                                 materialDesign:HintAssist.Hint="Регион" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left"
+                                 Cursor="Hand">
+                            </ComboBox>
 
                             <TextBlock Grid.Row="3" Grid.Column="2" Text="Добавлен:" FontWeight="SemiBold" Margin="0,0,0,8" Visibility="Hidden"/>
                             <TextBlock Grid.Row="3" Grid.Column="3" Text="" Margin="0,0,0,8" Visibility="Hidden"/>
 
-                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Ссылка на анкету:" FontWeight="SemiBold" Margin="0,6,0,20" VerticalAlignment="Top"/>
-                            <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" x:Name="edtUrl" VerticalAlignment="Top"
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Ссылка на анкету:" FontWeight="SemiBold" Margin="0,20,0,0" VerticalAlignment="Bottom"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" x:Name="edtUrl" VerticalAlignment="Bottom"
                             materialDesign:HintAssist.Hint="URL анкеты"/>
 
                             <StackPanel Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,-55">

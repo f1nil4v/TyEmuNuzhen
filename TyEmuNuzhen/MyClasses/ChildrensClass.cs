@@ -607,6 +607,33 @@ namespace TyEmuNuzhen.MyClasses
             }   
         }
 
+        public static bool UpdateMonitoringInfoChildren(string idChild, string numQuest, string urlQuest, string idRegion, string surname, string name, string birthday, string isAlert)
+        {
+            try
+            {
+                DBConnection.myCommand.Parameters.Clear();
+                DBConnection.myCommand.CommandText = $@"UPDATE childrens 
+                    SET numOfQuestionnaire = @numQuest, urlOfQuestionnaire = @urlQuest, idRegion = '{idRegion}',
+                        surname = @surname, name = @name, birthday = @birthday, isAlert = @isAlert WHERE ID = '{idChild}'";
+                DBConnection.myCommand.Parameters.AddWithValue("@numQuest", numQuest);
+                DBConnection.myCommand.Parameters.AddWithValue("@urlQuest", urlQuest);
+                DBConnection.myCommand.Parameters.AddWithValue("@surname", surname);
+                DBConnection.myCommand.Parameters.AddWithValue("@name", name);
+                DBConnection.myCommand.Parameters.AddWithValue("@birthday", birthday);
+                DBConnection.myCommand.Parameters.AddWithValue("@isAlert", isAlert);
+                if (DBConnection.myCommand.ExecuteNonQuery() > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при обновлении записи. \r\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
         /// <summary>
         /// Обновление информации о ребенке куратором
         /// </summary>

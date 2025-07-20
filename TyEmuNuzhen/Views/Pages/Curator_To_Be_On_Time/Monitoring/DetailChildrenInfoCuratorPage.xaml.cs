@@ -94,6 +94,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                 return;
             }
 
+            string idRegion = regionsCmbBox.SelectedValue.ToString();
             string birthDay = edtBirthday.SelectedDate.Value.ToString("yyyy-MM-dd");
 
             if (edtIsAlert.IsChecked == true)
@@ -106,7 +107,7 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             if (!ChildrensClass.GetSameNumOfQuestionnaire(edtUrl.Text, _id))
                 return;
 
-            if (!ChildrensClass.UpdateMonitoringInfoChildren(_id, edtQuestNumber.Text, edtUrl.Text, edtSurname.Text, edtName.Text, birthDay, isAlert))
+            if (!ChildrensClass.UpdateMonitoringInfoChildren(_id, edtQuestNumber.Text, edtUrl.Text, idRegion, edtSurname.Text, edtName.Text, birthDay, isAlert))
                 return;
 
             LoadChildData(_id);
@@ -154,7 +155,8 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
             txtDateAdded.Text = Convert.ToDateTime(ChildrensClass.dtChildrensDetailedList.Rows[0]["dateAdded"]).ToString("dd.MM.yyyy");
             btnOpenUrl.Tag = ChildrensClass.dtChildrensDetailedList.Rows[0]["urlOfQuestionnaire"].ToString();
             txtRegion.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["regionName"].ToString();
-            txtRegion1.Text = ChildrensClass.dtChildrensDetailedList.Rows[0]["regionName"].ToString();
+            string idRegion = ChildrensClass.dtChildrensDetailedList.Rows[0]["idRegion"].ToString();
+            loadRegionsCmbBx(idRegion);
             string photoPath = ChildrensClass.dtChildrensDetailedList.Rows[0]["latestPhotoPath"].ToString();
 
             if (!string.IsNullOrEmpty(photoPath))
@@ -240,6 +242,15 @@ namespace TyEmuNuzhen.Views.Pages.Curator.ChildrensWork
                     photoHistoryGrid.Visibility = Visibility.Collapsed;
                 }
             }
+        }
+
+        private void loadRegionsCmbBx(string id)
+        {
+            RegionsClass.GetRegionsList();
+            regionsCmbBox.ItemsSource = RegionsClass.dtRegions.DefaultView;
+            regionsCmbBox.DisplayMemberPath = "regionName";
+            regionsCmbBox.SelectedValuePath = "ID";
+            regionsCmbBox.SelectedValue = id;
         }
 
         private void changePhotoBtn_Click(object sender, RoutedEventArgs e)
